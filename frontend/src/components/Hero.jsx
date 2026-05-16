@@ -85,7 +85,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={{}}
-          className="font-display font-black text-white text-4xl sm:text-6xl lg:text-[6.5rem] leading-[1.05] tracking-tighter max-w-5xl"
+          className="font-display font-black text-white text-4xl sm:text-6xl lg:text-[6.5rem] leading-[1.15] tracking-tighter max-w-5xl"
           data-testid="hero-headline"
         >
           {[
@@ -105,7 +105,7 @@ export default function Hero() {
               <span
                 key={i}
                 className="inline-block overflow-hidden align-bottom mr-[0.22em]"
-                style={{ paddingBottom: "0.18em", lineHeight: 1.05 }}
+                style={{ paddingTop: "0.12em", paddingBottom: "0.22em", lineHeight: 1.15 }}
               >
                 <motion.span
                   initial={{ y: "115%" }}
