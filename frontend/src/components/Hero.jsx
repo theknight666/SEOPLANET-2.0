@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Activity } from "lucide-react";
 import Hero3D from "./Hero3D";
 
-const HERO_BG =
-  "https://static.prod-images.emergentagent.com/jobs/9a69301a-0163-454a-b4be-9f02618d74b2/images/2d3b9f4684478718d52c6dd57cfaecba5f748497fbb534cf0aebb4c45ebc8f07.png";
+const HERO_BG = process.env.REACT_APP_HERO_BG_IMAGE;
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },

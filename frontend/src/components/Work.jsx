@@ -2,10 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
-const CS1 =
-  "https://static.prod-images.emergentagent.com/jobs/9a69301a-0163-454a-b4be-9f02618d74b2/images/414983bf171539df79dd2130d9e3d506260608a0093d175964a2175b47d6ab41.png";
-const CS2 =
-  "https://static.prod-images.emergentagent.com/jobs/9a69301a-0163-454a-b4be-9f02618d74b2/images/1bcae0c3950518824428caaf9f91492964be733fd80d597ee14b624539d139dd.png";
+const CS1 = process.env.REACT_APP_CS1_IMAGE;
+const CS2 = process.env.REACT_APP_CS2_IMAGE;
 
 const reveal = {
   initial: { opacity: 0, y: 40 },

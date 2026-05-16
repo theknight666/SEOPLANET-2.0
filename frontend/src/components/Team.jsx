@@ -1,10 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const T1 =
-  "https://static.prod-images.emergentagent.com/jobs/9a69301a-0163-454a-b4be-9f02618d74b2/images/ea145fd917978da7cd780ef1bf8b68cdc772a704bbe879594a0862e9e4566020.png";
-const T2 =
-  "https://static.prod-images.emergentagent.com/jobs/9a69301a-0163-454a-b4be-9f02618d74b2/images/c45f58bfbb9ed00d74c487b9b66d138af885c5170146e26b998d6f335a8d3991.png";
+const T1 = process.env.REACT_APP_TEAM1_IMAGE;
+const T2 = process.env.REACT_APP_TEAM2_IMAGE;
 
 const team = [
   {
