@@ -24,7 +24,7 @@ body {
     margin: 0;
     background: var(--bg);
     color: #fff;
-    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     overflow-x: hidden;
 }
 
@@ -86,6 +86,11 @@ body {
         letter-spacing: -0.02em;
     }
     .font-mono-pro {
+        font-family: "Manrope", system-ui, -apple-system, sans-serif;
+        font-weight: 400;
+        letter-spacing: -0.005em;
+    }
+    .font-code {
         font-family: "JetBrains Mono", ui-monospace, monospace;
     }
     .overline {
