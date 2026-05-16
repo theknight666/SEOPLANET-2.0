@@ -105,7 +105,13 @@ export default function Hero() {
               <span
                 key={i}
                 className="inline-block overflow-hidden align-bottom mr-[0.22em]"
-                style={{ paddingTop: "0.12em", paddingBottom: "0.22em", lineHeight: 1.15 }}
+                style={{
+                  paddingTop: "0.12em",
+                  paddingBottom: "0.22em",
+                  paddingLeft: "0.06em",
+                  paddingRight: "0.12em",
+                  lineHeight: 1.15,
+                }}
               >
                 <motion.span
                   initial={{ y: "115%" }}
