@@ -46,7 +46,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative py-28 sm:py-40 px-6 sm:px-12 overflow-hidden"
+      className="relative py-24 sm:py-40 px-4 sm:px-12 overflow-hidden"
       data-testid="contact-section"
     >
       <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
@@ -80,7 +80,7 @@ export default function Contact() {
           {/* Form */}
           <form
             onSubmit={onSubmit}
-            className="md:col-span-8 relative rounded-2xl glass p-7 sm:p-10"
+            className="md:col-span-8 relative rounded-2xl glass p-5 sm:p-10"
             data-testid="contact-form"
           >
             <div className="grid sm:grid-cols-2 gap-5 mb-5">
@@ -156,22 +156,22 @@ export default function Contact() {
 
           {/* Side details */}
           <div className="md:col-span-4 flex flex-col gap-5">
-            <div className="rounded-2xl glass p-7" data-testid="contact-details-launch">
+            <div className="rounded-2xl glass p-5 sm:p-7" data-testid="contact-details-launch">
               <p className="overline mb-3">Email</p>
               <a
                 href="mailto:founder@seoplanet.com"
-                className="font-display text-xl text-white font-bold hover:text-[#00FF94] transition-colors inline-flex items-center gap-2"
+                className="font-display text-base sm:text-xl text-white font-bold hover:text-[#00FF94] transition-colors inline-flex items-center gap-2 break-all"
                 data-testid="contact-email-link"
               >
                 founder@seoplanet.com
-                <ArrowUpRight className="w-4 h-4" />
+                <ArrowUpRight className="w-4 h-4 shrink-0" />
               </a>
               <p className="mt-4 text-xs font-mono-pro text-white/50 leading-relaxed">
                 Direct line for partnerships, press, and new projects.
               </p>
             </div>
 
-            <div className="rounded-2xl glass p-7" data-testid="contact-details-hq">
+            <div className="rounded-2xl glass p-5 sm:p-7" data-testid="contact-details-hq">
               <p className="overline mb-3">Office</p>
               <p className="font-mono-pro text-sm text-white/80 leading-relaxed">
                 Pier 17 · Floor 06 <br />
@@ -180,7 +180,7 @@ export default function Contact() {
               </p>
             </div>
 
-            <div className="rounded-2xl neon-border p-7 bg-[#0A0F0C]" data-testid="contact-details-availability">
+            <div className="rounded-2xl neon-border p-5 sm:p-7 bg-[#0A0F0C]" data-testid="contact-details-availability">
               <p className="overline mb-3">Availability</p>
               <p className="font-mono-pro text-sm text-white/80">
                 Q1 2026 — <span className="neon-text">2 spots open</span>
