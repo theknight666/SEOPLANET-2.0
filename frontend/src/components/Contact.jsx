@@ -159,11 +159,11 @@ export default function Contact() {
             <div className="rounded-2xl glass p-5 sm:p-7" data-testid="contact-details-launch">
               <p className="overline mb-3">Email</p>
               <a
-                href="mailto:founder@seoplanet.com"
+                href="mailto:enquiry@seoplanet.in"
                 className="font-display text-base sm:text-xl text-white font-bold hover:text-[#00FF94] transition-colors inline-flex items-center gap-2 break-all"
                 data-testid="contact-email-link"
               >
-                founder@seoplanet.com
+                enquiry@seoplanet.in
                 <ArrowUpRight className="w-4 h-4 shrink-0" />
               </a>
               <p className="mt-4 text-xs font-mono-pro text-white/50 leading-relaxed">
@@ -174,9 +174,9 @@ export default function Contact() {
             <div className="rounded-2xl glass p-5 sm:p-7" data-testid="contact-details-hq">
               <p className="overline mb-3">Office</p>
               <p className="font-mono-pro text-sm text-white/80 leading-relaxed">
-                Pier 17 · Floor 06 <br />
-                Brooklyn, NY 11201 <br />
-                United States
+                482, Dwarka Sector 15 <br />
+                New Delhi — 110075 <br />
+                India
               </p>
             </div>
 
