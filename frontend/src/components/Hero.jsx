@@ -85,7 +85,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={{}}
-          className="font-display font-black text-white text-4xl sm:text-6xl lg:text-[6.5rem] leading-[1.15] tracking-tighter max-w-5xl"
+          className="font-display font-black text-white text-4xl sm:text-6xl lg:text-[6.5rem] leading-[0.92] tracking-tighter max-w-5xl"
           data-testid="hero-headline"
         >
           {[
@@ -106,11 +106,11 @@ export default function Hero() {
                 key={i}
                 className="inline-block overflow-hidden align-bottom mr-[0.22em]"
                 style={{
-                  paddingTop: "0.12em",
-                  paddingBottom: "0.22em",
+                  paddingTop: "0.06em",
+                  paddingBottom: "0.12em",
                   paddingLeft: "0.06em",
                   paddingRight: "0.12em",
-                  lineHeight: 1.15,
+                  lineHeight: 1.0,
                 }}
               >
                 <motion.span
