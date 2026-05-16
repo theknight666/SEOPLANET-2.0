@@ -31,13 +31,13 @@ export default function Contact() {
       const res = await axios.post(`${API}/contact`, form);
       if (res.data?.status === "success") {
         setSuccess(true);
-        toast.success("Transmission received. Re-entry in <24h.");
+        toast.success("Message received. We'll reply within 24 hours.");
         setForm({ name: "", email: "", company: "", message: "" });
       } else {
-        toast.error("Channel error. Try again.");
+        toast.error("Something went wrong. Please try again.");
       }
     } catch (err) {
-      toast.error(err?.response?.data?.detail?.[0]?.msg || "Channel error. Try again.");
+      toast.error(err?.response?.data?.detail?.[0]?.msg || "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }

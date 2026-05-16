@@ -59,15 +59,15 @@ export default function Services() {
       <div className="max-w-7xl mx-auto relative">
         <motion.div {...reveal} className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
           <div>
-            <p className="overline mb-4">[02] · Service Stack</p>
+            <p className="overline mb-4">[02] · What We Do</p>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter max-w-2xl leading-[1.02]">
-              Six instruments. <br />
-              <span className="text-white/40">One orbital system</span> for growth.
+              Six services. <br />
+              <span className="text-white/40">One growth system.</span>
             </h2>
           </div>
           <p className="font-mono-pro text-sm text-white/55 max-w-sm">
-            Every engagement is engineered around measurable lift. We pick the
-            instruments. You collect the trajectory.
+            Every engagement is built around measurable lift. We choose the
+            right mix — you get a predictable trajectory.
           </p>
         </motion.div>
 
@@ -124,7 +124,7 @@ export default function Services() {
               <Search className="w-5 h-5 text-[#00FF94] group-hover:scale-110 transition-transform" />
             </div>
             <h3 className="font-display text-2xl text-white font-bold tracking-tight">
-              Conversion Engineering
+              Conversion Design
             </h3>
             <p className="mt-3 text-xs text-white/55 font-mono-pro leading-relaxed">
               Funnel teardown, experimentation, and revenue calibration.

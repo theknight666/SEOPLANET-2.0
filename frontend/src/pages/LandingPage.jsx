@@ -1,4 +1,6 @@
 import React from "react";
+import Preloader from "../components/Preloader";
+import ScrollProgress from "../components/ScrollProgress";
 import Navigation from "../components/Navigation";
 import Hero from "../components/Hero";
 import Services from "../components/Services";
@@ -11,6 +13,8 @@ import Footer from "../components/Footer";
 export default function LandingPage() {
   return (
     <main className="bg-[#05050A] text-white" data-testid="landing-page">
+      <Preloader />
+      <ScrollProgress />
       <Navigation />
       <Hero />
       <Services />
