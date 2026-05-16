@@ -1,0 +1,115 @@
+{
+  "theme": "dark",
+  "archetype": "7_electric_and_neon_crossed_with_5_jewel",
+  "mood": "Cinematic, futuristic, authoritative, high-end tech, space-themed",
+  "typography": {
+    "heading_font": "Unbounded",
+    "body_font": "JetBrains Mono",
+    "hierarchy": {
+      "h1": "text-4xl sm:text-6xl lg:text-7xl font-black tracking-tighter leading-none text-white",
+      "h2": "text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white",
+      "h3": "text-xl sm:text-2xl font-semibold text-gray-200",
+      "body": "text-base leading-relaxed text-gray-400",
+      "overline": "text-xs font-bold uppercase tracking-[0.2em] text-[#00FF94]"
+    }
+  },
+  "colors": {
+    "background": "#05050A",
+    "surface": "rgba(255, 255, 255, 0.03)",
+    "surface_hover": "rgba(255, 255, 255, 0.08)",
+    "border": "rgba(255, 255, 255, 0.1)",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#9CA3AF",
+    "accent_primary": "#00FF94",
+    "accent_secondary": "#00E5FF",
+    "glow": "drop-shadow-[0_0_15px_rgba(0,255,148,0.5)]"
+  },
+  "layout_spacing": {
+    "section_padding": "py-24 sm:py-32 lg:py-40",
+    "container": "max-w-7xl mx-auto px-6 sm:px-12",
+    "grid_gap": "gap-6 sm:gap-8 lg:gap-12",
+    "bento_grid": "grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8"
+  },
+  "surfaces": {
+    "glass_card": "bg-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-2xl p-8",
+    "neon_border_card": "bg-[#0A0A0F] border border-[#00FF94]/50 shadow-[0_0_20px_rgba(0,255,148,0.15)] rounded-2xl p-8"
+  },
+  "motion": {
+    "hover_card": "transition-all duration-300 ease-out hover:-translate-y-2 hover:border-[#00FF94]/50 hover:shadow-[0_8px_30px_rgba(0,255,148,0.15)]",
+    "button_press": "active:scale-95 transition-transform",
+    "scroll_reveal": "opacity-0 translate-y-12"
+  },
+  "media": {
+    "images": [
+      {
+        "category": "hero_background",
+        "url": "https://static.prod-images.emergentagent.com/jobs/9a69301a-0163-454a-b4be-9f02618d74b2/images/2d3b9f4684478718d52c6dd57cfaecba5f748497fbb534cf0aebb4c45ebc8f07.png",
+        "description": "Dark cinematic deep space texture with subtle cyan and green light bleed. Used as background for hero with bg-black/70 overlay to ensure text contrast."
+      },
+      {
+        "category": "case_study_1",
+        "url": "https://static.prod-images.emergentagent.com/jobs/9a69301a-0163-454a-b4be-9f02618d74b2/images/414983bf171539df79dd2130d9e3d506260608a0093d175964a2175b47d6ab41.png",
+        "description": "Futuristic digital dashboard glowing. High end UI, cinematic dark mode."
+      },
+      {
+        "category": "case_study_2",
+        "url": "https://static.prod-images.emergentagent.com/jobs/9a69301a-0163-454a-b4be-9f02618d74b2/images/1bcae0c3950518824428caaf9f91492964be733fd80d597ee14b624539d139dd.png",
+        "description": "Abstract 3D neon geometric shapes floating in void. Green and cyan."
+      },
+      {
+        "category": "team_1",
+        "url": "https://static.prod-images.emergentagent.com/jobs/9a69301a-0163-454a-b4be-9f02618d74b2/images/ea145fd917978da7cd780ef1bf8b68cdc772a704bbe879594a0862e9e4566020.png",
+        "description": "Cinematic portrait of a modern creative director in a dark studio with subtle neon rim lighting."
+      },
+      {
+        "category": "team_2",
+        "url": "https://static.prod-images.emergentagent.com/jobs/9a69301a-0163-454a-b4be-9f02618d74b2/images/c45f58bfbb9ed00d74c487b9b66d138af885c5170146e26b998d6f335a8d3991.png",
+        "description": "Cinematic portrait of a tech lead in a dark studio with subtle neon cyan rim lighting."
+      }
+    ]
+  },
+  "sections": [
+    {
+      "name": "Navigation",
+      "instructions": "Sticky header (fixed top-0 w-full z-50). Uses glassmorphism (backdrop-blur-xl bg-[#05050A]/70) and border-b border-white/10. Logo: 'SEO Planet' in Unbounded font, heavy weight. Links (Services, Work, Process, Team) visible on desktop. CTA Button: 'Initiate Launch'."
+    },
+    {
+      "name": "Hero Section",
+      "instructions": "Min-h-screen relative section. Background image: 'hero_background' with absolute inset-0 and a heavy 'bg-black/70' overlay. Centerpiece: Use @react-three/fiber and @react-three/drei to create a glowing 3D wireframe sphere or planet representing 'SEO Planet' that auto-rotates and reacts to mouse movement. The 3D canvas sits behind the text. Typography: Absolute center or large left-aligned. Headline 'We Engineer The New Era of Search', Subhead 'Data-driven marketing algorithms for the next generation of the web.' Add a glowing neon primary CTA."
+    },
+    {
+      "name": "Services Section",
+      "instructions": "ID: #services. Bento Grid (grid-cols-1 md:grid-cols-12 gap-6). Use generous padding (py-32). Highlight card: 'Algorithmic SEO' (col-span-full md:col-span-8 row-span-2) with the 'neon_border_card' surface. Sub-cards (col-span-4): 'Paid Ads', 'Content Matrices', 'Analytics', 'Branding'. Use Lucide icons (cyan or green colored) for visual interest."
+    },
+    {
+      "name": "Case Studies (Work)",
+      "instructions": "ID: #work. Use images case_study_1 and case_study_2 as backgrounds for massive, full-width or wide grid items (col-span-full or md:col-span-6). Overlay dark gradients (bg-gradient-to-t from-[#05050A] to-transparent) on the images so the text stands out. Typography: Large mono font metrics like '+340% Traffic' or '1.2M Leads'."
+    },
+    {
+      "name": "Process Timeline",
+      "instructions": "ID: #process. A vertical connecting timeline structure. Left border (border-l-2 border-white/10). Steps are relative items with absolute dots on the left. Steps: '1. Deep Space Discovery', '2. Strategic Architecture', '3. Campaign Acceleration', '4. Orbital Dominance'. Each dot should glow on hover."
+    },
+    {
+      "name": "Team",
+      "instructions": "ID: #team. Grid of 2-4 team members using team_1 and team_2 images. Aspect ratio square or tall portrait. Use grayscale filter that reverts to color on hover. Minimalist presentation: name and title under the image."
+    },
+    {
+      "name": "Contact",
+      "instructions": "ID: #contact. Glassmorphic form container centered on screen. Fields: 'Name', 'Transmission (Email)', 'Coordinates (Company)', 'Message'. Use custom dark inputs (bg-white/5, border-white/10). Form MUST send email notifications (implement basic fetch/handler or simulate it). Submit button 'Send Transmission' spanning full width."
+    },
+    {
+      "name": "Footer",
+      "instructions": "Massive py-24 padding. Large 'SEO PLANET' text (text-[10vw] font-black opacity-5). Social links, legal links, minimal layout."
+    }
+  ],
+  "technical_instructions": {
+    "file_extensions": "Use .js and .jsx files exclusively. Do not use .tsx or .ts.",
+    "testing": "All interactive and key informational elements MUST include a data-testid attribute (e.g., data-testid='hero-cta-button', data-testid='contact-form-submit').",
+    "libraries": [
+      "framer-motion (for scroll reveals and micro-interactions)",
+      "lucide-react (for icons)",
+      "three, @react-three/fiber, @react-three/drei (for the 3D hero planet)"
+    ],
+    "components": "Use custom HTML/Tailwind for artistic, asymmetrical layouts like the Hero and Services grids. Avoid generic Shadcn cards unless heavily customized. Use Shadcn ONLY for interactive logic (forms, inputs)."
+  }
+}
