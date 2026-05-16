@@ -60,9 +60,9 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: BASE_DELAY - 0.2 }}
-        className="absolute top-24 left-0 right-0 z-[3] px-6 sm:px-12"
+        className="absolute top-20 sm:top-24 left-0 right-0 z-[3]"
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between text-[10px] sm:text-xs font-mono-pro uppercase tracking-[0.25em] text-white/40">
+        <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between text-[10px] sm:text-xs font-mono-pro uppercase tracking-[0.25em] text-white/40">
           <div className="flex items-center gap-2">
             <Activity className="w-3 h-3 text-[#00FF94]" />
             <span>Status · Online</span>
@@ -76,7 +76,7 @@ export default function Hero() {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-[3] max-w-7xl mx-auto px-6 sm:px-12 pt-40 sm:pt-44 pb-32 min-h-screen flex flex-col justify-center">
+      <div className="relative z-[3] max-w-7xl mx-auto px-6 sm:px-12 pt-32 sm:pt-44 pb-28 sm:pb-32 min-h-screen flex flex-col justify-center">
         <motion.p {...fade(0)} className="overline mb-6">
           <span className="text-[#00FF94]">[001]</span> &nbsp;Next-Gen Marketing Agency
         </motion.p>
@@ -85,7 +85,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={{}}
-          className="font-display font-black text-white text-4xl sm:text-6xl lg:text-[6.5rem] leading-[0.92] tracking-tighter max-w-5xl"
+          className="font-display font-black text-white text-[2.5rem] sm:text-6xl lg:text-[6.5rem] leading-[0.92] tracking-tighter max-w-5xl"
           data-testid="hero-headline"
         >
           {[
@@ -220,3 +220,4 @@ export default function Hero() {
     </section>
   );
 }
+
