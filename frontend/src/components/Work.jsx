@@ -14,7 +14,7 @@ const reveal = {
 
 const cases = [
   {
-    code: "MISSION 014",
+    code: "CASE 014",
     client: "NOVA Commerce",
     industry: "DTC · Lifestyle",
     title: "From obscurity to category leader in 9 months.",
@@ -26,10 +26,10 @@ const cases = [
     testid: "case-card-nova",
   },
   {
-    code: "MISSION 021",
+    code: "CASE 021",
     client: "ORBIT Saas",
     industry: "B2B · DevTools",
-    title: "Owning every AI-search query in the category.",
+    title: "Winning every AI-search query in the category.",
     metric: "1.2M",
     metricLabel: "Qualified Leads",
     img: CS2,
@@ -38,10 +38,10 @@ const cases = [
     testid: "case-card-orbit",
   },
   {
-    code: "MISSION 027",
+    code: "CASE 027",
     client: "Helios Fintech",
     industry: "FinTech · Series B",
-    title: "Re-architected SEO + content ops post-rebrand.",
+    title: "Rebuilt SEO + content operations post-rebrand.",
     metric: "+340%",
     metricLabel: "Traffic YoY",
     img: CS2,
@@ -50,10 +50,10 @@ const cases = [
     testid: "case-card-helios",
   },
   {
-    code: "MISSION 033",
+    code: "CASE 033",
     client: "Lumen Health",
     industry: "Healthcare · Multi-state",
-    title: "Local SEO + paid ads engineered for 41 locations.",
+    title: "Local SEO + paid media tuned for 41 locations.",
     metric: "8.4×",
     metricLabel: "ROAS",
     img: CS1,
@@ -73,14 +73,14 @@ export default function Work() {
       <div className="max-w-7xl mx-auto">
         <motion.div {...reveal} className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
           <div>
-            <p className="overline mb-4">[03] · Mission Logs</p>
+            <p className="overline mb-4">[03] · Selected Work</p>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter max-w-3xl leading-[1.02]">
-              Receipts from the <br />
-              <span className="text-white/40">outer rim of growth.</span>
+              Real results, <br />
+              <span className="text-white/40">measured in revenue.</span>
             </h2>
           </div>
           <p className="font-mono-pro text-sm text-white/55 max-w-sm">
-            Verified results from ventures we&apos;ve pushed into orbit. No fluff. Only telemetry.
+            Verified case studies from brands we&apos;ve helped scale. No vanity metrics — just outcomes.
           </p>
         </motion.div>
 

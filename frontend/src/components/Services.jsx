@@ -20,29 +20,29 @@ const reveal = {
 const services = [
   {
     code: "S04",
-    title: "Paid Ad Orbits",
-    desc: "Cross-channel performance ads, optimized in real-time.",
+    title: "Paid Media",
+    desc: "Cross-channel performance ads optimized in real time.",
     icon: Zap,
     accent: "#00E5FF",
   },
   {
     code: "S05",
-    title: "Content Matrices",
-    desc: "Topical authority engineered at scale.",
+    title: "Content Strategy",
+    desc: "Topical authority built at scale.",
     icon: FileCode2,
     accent: "#00FF94",
   },
   {
     code: "S06",
-    title: "Predictive Analytics",
+    title: "Analytics",
     desc: "Forecast revenue with attribution-grade models.",
     icon: BarChart3,
     accent: "#00E5FF",
   },
   {
     code: "S07",
-    title: "Generative Branding",
-    desc: "Visual systems built for the post-AI internet.",
+    title: "Brand Identity",
+    desc: "Visual systems built for the modern web.",
     icon: Sparkles,
     accent: "#00FF94",
   },
@@ -89,8 +89,8 @@ export default function Services() {
                 Algorithmic <span className="neon-text">SEO</span>
               </h3>
               <p className="mt-5 text-white/65 max-w-md leading-relaxed font-mono-pro text-sm">
-                Programmatic content systems, technical audits, and entity graphs
-                engineered for both classical and AI-driven search.
+                Programmatic content systems, technical audits, and entity
+                graphs built for both classical and AI-driven search.
               </p>
 
               <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -107,7 +107,7 @@ export default function Services() {
               </div>
 
               <div className="mt-10 inline-flex items-center gap-2 text-[#00FF94] font-mono-pro text-xs uppercase tracking-[0.25em] cursor-pointer group/cta">
-                Engage Module
+                Learn More
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover/cta:rotate-45" />
               </div>
             </div>

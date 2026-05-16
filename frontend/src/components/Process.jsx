@@ -6,29 +6,29 @@ const steps = [
   {
     code: "PHASE 01",
     icon: Telescope,
-    title: "Deep Space Discovery",
-    desc: "We audit the entire orbit — competitive gravity, search intent constellations, and current trajectory. You get a real map, not a slide deck.",
+    title: "Discovery & Audit",
+    desc: "We audit the full picture — competitors, search intent, technical debt, and current trajectory. You get a real map, not a slide deck.",
     duration: "Week 1–2",
   },
   {
     code: "PHASE 02",
     icon: Radar,
-    title: "Strategic Architecture",
-    desc: "Channel mix, topic clusters, technical scaffolding and a 90-day acceleration plan with measurable mission objectives.",
+    title: "Strategy & Planning",
+    desc: "Channel mix, topic clusters, technical scaffolding, and a 90-day plan with measurable, contractual milestones.",
     duration: "Week 2–4",
   },
   {
     code: "PHASE 03",
     icon: Rocket,
-    title: "Campaign Acceleration",
+    title: "Execution & Launch",
     desc: "Production at velocity — content shipped weekly, ads live in 5 days, technical fixes deployed in sprints. You feel the lift fast.",
     duration: "Month 2–5",
   },
   {
     code: "PHASE 04",
     icon: Crown,
-    title: "Orbital Dominance",
-    desc: "Lock category leadership. Compound rankings, defensible moats, and a content engine that prints revenue while you sleep.",
+    title: "Growth & Optimization",
+    desc: "Lock in category leadership. Compound rankings, defensible moats, and a content engine that drives revenue while you sleep.",
     duration: "Month 6+",
   },
 ];
@@ -56,14 +56,14 @@ export default function Process() {
           className="grid md:grid-cols-12 gap-8 mb-20"
         >
           <div className="md:col-span-5">
-            <p className="overline mb-4">[04] · Mission Protocol</p>
+            <p className="overline mb-4">[04] · How We Work</p>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.02]">
               From kickoff <br />
-              to <span className="neon-text italic font-light">category orbit</span>.
+              to <span className="neon-text italic font-light">category leader</span>.
             </h2>
           </div>
           <p className="md:col-span-6 md:col-start-7 md:pt-3 font-mono-pro text-sm text-white/60 leading-relaxed">
-            A four-phase protocol refined across 60+ engagements. Predictable
+            A four-phase process refined across 60+ engagements. Predictable
             inputs, exponential outputs. Every milestone is contractual.
           </p>
         </motion.div>

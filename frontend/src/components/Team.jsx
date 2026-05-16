@@ -54,15 +54,15 @@ export default function Team() {
           className="grid md:grid-cols-12 gap-8 mb-16"
         >
           <div className="md:col-span-7">
-            <p className="overline mb-4">[05] · Crew Manifest</p>
+            <p className="overline mb-4">[05] · The Team</p>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.02]">
               Operators, not <br />
               <span className="text-white/40">a service desk.</span>
             </h2>
           </div>
           <p className="md:col-span-4 md:col-start-9 md:pt-3 font-mono-pro text-sm text-white/60 leading-relaxed">
-            A small crew of senior practitioners. No juniors learning on
-            your launch sequence.
+            A small group of senior practitioners. No juniors learning on
+            your account.
           </p>
         </motion.div>
 

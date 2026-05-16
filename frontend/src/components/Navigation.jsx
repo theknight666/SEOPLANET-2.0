@@ -68,7 +68,7 @@ export default function Navigation() {
           className="hidden md:inline-flex items-center gap-2 group rounded-full bg-[#00FF94] text-black px-5 py-2.5 font-mono-pro text-xs uppercase tracking-[0.2em] font-bold hover:bg-white transition-colors active:scale-95"
           data-testid="nav-cta-initiate-launch"
         >
-          Initiate Launch
+          Start a Project
           <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:rotate-45" />
         </a>
 
@@ -106,7 +106,7 @@ export default function Navigation() {
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#00FF94] text-black px-5 py-3 font-mono-pro text-xs uppercase tracking-[0.2em] font-bold"
             >
-              Initiate Launch <ArrowUpRight className="w-3.5 h-3.5" />
+              Start a Project <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </motion.div>
         )}

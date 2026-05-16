@@ -8,9 +8,9 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const fields = [
-  { name: "name", label: "Identifier (Name)", type: "text", placeholder: "Your full name", required: true },
-  { name: "email", label: "Transmission (Email)", type: "email", placeholder: "you@galaxy.com", required: true },
-  { name: "company", label: "Coordinates (Company)", type: "text", placeholder: "Optional", required: false },
+  { name: "name", label: "Your Name", type: "text", placeholder: "Full name", required: true },
+  { name: "email", label: "Email", type: "email", placeholder: "you@company.com", required: true },
+  { name: "company", label: "Company", type: "text", placeholder: "Optional", required: false },
 ];
 
 export default function Contact() {
@@ -60,13 +60,13 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <p className="overline mb-4">[06] · Open Channel</p>
+          <p className="overline mb-4">[06] · Get in Touch</p>
           <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl font-black tracking-tighter leading-[0.98]">
-            Send us a <span className="neon-text italic font-light">transmission</span>.
+            Let&apos;s <span className="neon-text italic font-light">talk</span>.
           </h2>
           <p className="mt-6 font-mono-pro text-sm text-white/55 max-w-xl mx-auto">
-            Tell us about your orbit. We&apos;ll respond in under 24 hours with a
-            mission brief — no sales script attached.
+            Tell us about your goals. We&apos;ll respond within 24 hours with a
+            short brief — no sales script.
           </p>
         </motion.div>
 
@@ -115,14 +115,14 @@ export default function Contact() {
             </div>
 
             <div className="mb-7">
-              <label className="overline block mb-2 text-white/50">Mission Brief</label>
+              <label className="overline block mb-2 text-white/50">Your Message</label>
               <textarea
                 name="message"
                 value={form.message}
                 onChange={onChange}
                 required
                 rows={5}
-                placeholder="What does the next era of growth look like for you?"
+                placeholder="What does growth look like for your business?"
                 className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00FF94] focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(0,255,148,0.12)] transition-all resize-none"
                 data-testid="contact-input-message"
               />
@@ -136,28 +136,28 @@ export default function Contact() {
             >
               {loading ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" /> Transmitting…
+                  <Loader2 className="w-4 h-4 animate-spin" /> Sending…
                 </>
               ) : success ? (
                 <>
-                  <CheckCircle2 className="w-4 h-4" /> Transmission Received
+                  <CheckCircle2 className="w-4 h-4" /> Message Sent
                 </>
               ) : (
                 <>
-                  Send Transmission <Send className="w-4 h-4" />
+                  Send Message <Send className="w-4 h-4" />
                 </>
               )}
             </button>
 
             <p className="mt-4 text-[10px] font-mono-pro text-white/35 text-center tracking-wider">
-              Channel encrypted · Avg. response 6h 14m
+              Secure submission · Avg. response 6h 14m
             </p>
           </form>
 
           {/* Side details */}
           <div className="md:col-span-4 flex flex-col gap-5">
             <div className="rounded-2xl glass p-7" data-testid="contact-details-launch">
-              <p className="overline mb-3">Ground Control</p>
+              <p className="overline mb-3">Email</p>
               <a
                 href="mailto:founder@seoplanet.com"
                 className="font-display text-xl text-white font-bold hover:text-[#00FF94] transition-colors inline-flex items-center gap-2"
@@ -167,26 +167,26 @@ export default function Contact() {
                 <ArrowUpRight className="w-4 h-4" />
               </a>
               <p className="mt-4 text-xs font-mono-pro text-white/50 leading-relaxed">
-                Direct line for partnerships, press, and new missions.
+                Direct line for partnerships, press, and new projects.
               </p>
             </div>
 
             <div className="rounded-2xl glass p-7" data-testid="contact-details-hq">
-              <p className="overline mb-3">Orbital HQ</p>
+              <p className="overline mb-3">Office</p>
               <p className="font-mono-pro text-sm text-white/80 leading-relaxed">
                 Pier 17 · Floor 06 <br />
                 Brooklyn, NY 11201 <br />
-                Earth, Sol-3
+                United States
               </p>
             </div>
 
             <div className="rounded-2xl neon-border p-7 bg-[#0A0F0C]" data-testid="contact-details-availability">
               <p className="overline mb-3">Availability</p>
               <p className="font-mono-pro text-sm text-white/80">
-                Q1 2026 — <span className="neon-text">2 slots open</span>
+                Q1 2026 — <span className="neon-text">2 spots open</span>
               </p>
               <p className="mt-2 text-[11px] font-mono-pro text-white/45">
-                We onboard 6 partners per year. Mission-fit first.
+                We onboard 6 partners per year. Fit first.
               </p>
             </div>
           </div>

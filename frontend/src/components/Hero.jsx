@@ -37,12 +37,12 @@ export default function Hero() {
         <div className="max-w-7xl mx-auto flex items-center justify-between text-[10px] sm:text-xs font-mono-pro uppercase tracking-[0.25em] text-white/40">
           <div className="flex items-center gap-2">
             <Activity className="w-3 h-3 text-[#00FF94]" />
-            <span>SIGNAL · LIVE</span>
+            <span>Status · Online</span>
           </div>
           <div className="hidden sm:flex gap-6">
-            <span>LAT 34.07°</span>
-            <span>LON -118.24°</span>
-            <span className="text-[#00FF94]">ORBIT STABLE</span>
+            <span>Est. 2019</span>
+            <span>68 Clients</span>
+            <span className="text-[#00FF94]">Now booking Q1 ’26</span>
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-[3] max-w-7xl mx-auto px-6 sm:px-12 pt-40 sm:pt-44 pb-32 min-h-screen flex flex-col justify-center">
         <motion.p {...fade(0)} className="overline mb-6">
-          <span className="text-[#00FF94]">[001]</span> &nbsp;Next-Gen Marketing Telemetry
+          <span className="text-[#00FF94]">[001]</span> &nbsp;Next-Gen Marketing Agency
         </motion.p>
 
         <motion.h1
@@ -58,18 +58,18 @@ export default function Hero() {
           className="font-display font-black text-white text-5xl sm:text-7xl lg:text-[7.5rem] leading-[0.95] tracking-tighter max-w-5xl"
           data-testid="hero-headline"
         >
-          We Engineer <br />
+          We Build <br />
           The <span className="neon-text italic font-light">New Era</span> <br />
-          Of Search<span className="caret" />
+          Of Marketing<span className="caret" />
         </motion.h1>
 
         <motion.p
           {...fade(0.25)}
           className="mt-8 max-w-xl text-sm sm:text-base text-white/60 leading-relaxed font-mono-pro"
         >
-          SEO Planet is a next-generation marketing intelligence agency. We build
-          algorithmic SEO systems, performance ad orbits, and content matrices that
-          dominate the post-search internet.
+          SEO Planet is a digital marketing agency built for the AI era. We pair
+          algorithmic SEO with performance ads, content systems, and analytics
+          to help ambitious brands win their category.
         </motion.p>
 
         <motion.div {...fade(0.4)} className="mt-10 flex flex-wrap items-center gap-4">
@@ -79,7 +79,7 @@ export default function Hero() {
             data-testid="hero-cta-launch"
             style={{ animation: "pulse-ring 2.6s infinite" }}
           >
-            Initiate Launch
+            Start a Project
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />
           </a>
           <a
@@ -87,7 +87,7 @@ export default function Hero() {
             className="group inline-flex items-center gap-3 rounded-full border border-white/15 text-white px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] hover:border-[#00FF94] hover:text-[#00FF94] transition-colors"
             data-testid="hero-cta-work"
           >
-            View Mission Logs
+            See Our Work
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />
           </a>
         </motion.div>
@@ -99,9 +99,9 @@ export default function Hero() {
           data-testid="hero-metric-strip"
         >
           {[
-            ["+842%", "Avg. Organic Lift"],
-            ["3.4B", "Impressions Engineered"],
-            ["68", "Galaxies Served"],
+            ["+842%", "Avg. Organic Growth"],
+            ["3.4B", "Impressions Delivered"],
+            ["68", "Brands Scaled"],
             ["00:00:03", "Avg. Page Speed"],
           ].map(([num, label]) => (
             <div key={label} className="bg-[#05050A] p-5">
@@ -120,17 +120,17 @@ export default function Hero() {
           {Array.from({ length: 2 }).map((_, k) => (
             <div key={k} className="flex shrink-0">
               {[
-                "Algorithmic SEO",
+                "SEO",
                 "★",
                 "Performance Ads",
                 "★",
-                "Content Matrices",
+                "Content Strategy",
                 "★",
-                "Predictive Analytics",
+                "Analytics",
                 "★",
-                "Generative Branding",
+                "Brand Identity",
                 "★",
-                "Conversion Engineering",
+                "Conversion Design",
                 "★",
               ].map((w, i) => (
                 <span key={`${k}-${i}`} className="px-6">
