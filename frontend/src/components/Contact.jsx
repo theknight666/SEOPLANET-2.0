@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Send, Loader2, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, Send, Loader2, CheckCircle2, Phone } from "lucide-react";
 import axios from "axios";
 import { toast } from "sonner";
 
@@ -168,6 +168,23 @@ export default function Contact() {
               </a>
               <p className="mt-4 text-xs font-mono-pro text-white/50 leading-relaxed">
                 Direct line for partnerships, press, and new projects.
+              </p>
+            </div>
+
+            <div className="rounded-2xl glass p-5 sm:p-7" data-testid="contact-details-phone">
+              <p className="overline mb-3 flex items-center gap-2">
+                <Phone className="w-3 h-3 text-[#00FF94]" /> Phone
+              </p>
+              <a
+                href="tel:+918796422715"
+                className="font-display text-base sm:text-xl text-white font-bold hover:text-[#00FF94] transition-colors inline-flex items-center gap-2 tabular-nums"
+                data-testid="contact-phone-link"
+              >
+                +91 87964 22715
+                <ArrowUpRight className="w-4 h-4 shrink-0" />
+              </a>
+              <p className="mt-4 text-xs font-mono-pro text-white/50 leading-relaxed">
+                Mon–Fri · 10:00 – 19:00 IST
               </p>
             </div>
 
