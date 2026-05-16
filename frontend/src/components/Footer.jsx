@@ -85,10 +85,11 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 1.2 }}
           aria-hidden
-          className="select-none pointer-events-none mt-10 -mb-6 -mx-6 sm:-mx-12 flex justify-center"
+          className="select-none pointer-events-none mt-10 -mb-6 -mx-6 sm:-mx-12 pl-2 sm:pl-6"
         >
-          <div className="font-display font-black text-white/[0.04] leading-[0.85] tracking-tight whitespace-nowrap" style={{ fontSize: "min(11.5vw, 175px)" }}>
-            SEO&nbsp;PLANET
+          <div className="font-display font-black text-white/[0.04] leading-[0.82] tracking-tight whitespace-nowrap" style={{ fontSize: "min(17vw, 240px)" }}>
+            <div>SEO</div>
+            <div>PLANET</div>
           </div>
         </motion.div>
       </div>
