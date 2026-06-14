@@ -53,10 +53,15 @@ export default function Preloader() {
             {/* The Heartbeat Logo */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: [1, 1.15, 1] }}
+              animate={{ opacity: 1, scale: [1, 1.15, 1, 1.15, 1, 1] }}
               transition={{ 
                 opacity: { duration: 0.8, ease: "easeOut" },
-                scale: { duration: 0.8, repeat: Infinity, ease: "easeInOut" }
+                scale: { 
+                  duration: 1.0, 
+                  repeat: Infinity, 
+                  times: [0, 0.1, 0.2, 0.3, 0.4, 1],
+                  ease: "easeInOut" 
+                }
               }}
               className="flex items-center gap-3 sm:gap-4 relative z-10 origin-center"
             >
@@ -71,12 +76,20 @@ export default function Preloader() {
 
             {/* Faded After-Image (Ripple) */}
             <motion.div 
-              animate={{ scale: [1, 1.5], opacity: [0.4, 0] }}
-              transition={{ duration: 0.8, repeat: Infinity, ease: "easeOut" }}
+              animate={{ 
+                scale: [1, 1.4, 1, 1.4, 1, 1], 
+                opacity: [0.4, 0, 0, 0.4, 0, 0] 
+              }}
+              transition={{ 
+                duration: 1.0, 
+                repeat: Infinity, 
+                times: [0, 0.1, 0.2, 0.3, 0.4, 1],
+                ease: "easeOut" 
+              }}
               className="absolute flex items-center gap-3 sm:gap-4 z-0 pointer-events-none origin-center"
             >
               <span className="relative inline-block w-3 h-3 sm:w-4 sm:h-4 opacity-0" />
-              <span className="font-display font-black tracking-tight text-[#00FF94] text-3xl sm:text-4xl blur-[2px]">
+              <span className="font-display font-black tracking-tight text-white text-3xl sm:text-4xl blur-[2px]">
                 SEO PLANET
               </span>
             </motion.div>
