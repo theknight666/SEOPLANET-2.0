@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Send, Loader2, CheckCircle2, Phone } from "lucide-react";
 import axios from "axios";
 import { toast } from "sonner";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
 
 const fields = [
   { name: "name", label: "Your Name", type: "text", placeholder: "Full name", required: true },
@@ -20,6 +18,18 @@ export default function Contact() {
 
   const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
+  useEffect(() => {
+    const handleSelectPackage = (e) => {
+      const pkg = e.detail;
+      setForm((f) => ({
+        ...f,
+        message: `I am interested in the ${pkg} package. Let's discuss how we can scale our brand.`,
+      }));
+    };
+    window.addEventListener("select-package", handleSelectPackage);
+    return () => window.removeEventListener("select-package", handleSelectPackage);
+  }, []);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) {
@@ -28,16 +38,27 @@ export default function Contact() {
     }
     setLoading(true);
     try {
-      const res = await axios.post(`${API}/contact`, form);
-      if (res.data?.status === "success") {
+      const res = await axios.post(`https://api.web3forms.com/submit`, {
+        access_key: "a2cc5258-81af-442b-b3fa-69064a5c56ae",
+        ...form,
+        subject: `New Website Enquiry from ${form.name}`,
+        from_name: form.name
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      });
+      if (res.data?.success) {
         setSuccess(true);
         toast.success("Message received. We'll reply within 24 hours.");
         setForm({ name: "", email: "", company: "", message: "" });
       } else {
-        toast.error("Something went wrong. Please try again.");
+        toast.error(res.data?.message || "Something went wrong. Please try again.");
       }
     } catch (err) {
-      toast.error(err?.response?.data?.detail?.[0]?.msg || "Something went wrong. Please try again.");
+      console.error("Form error:", err);
+      toast.error(err?.response?.data?.message || err?.message || "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }

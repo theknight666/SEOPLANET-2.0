@@ -4,6 +4,7 @@ import ScrollProgress from "../components/ScrollProgress";
 import Navigation from "../components/Navigation";
 import Hero from "../components/Hero";
 import Services from "../components/Services";
+import Packages from "../components/Packages";
 import Work from "../components/Work";
 import Process from "../components/Process";
 import Team from "../components/Team";
@@ -20,6 +21,7 @@ export default function LandingPage() {
       <Services />
       <Work />
       <Process />
+      <Packages />
       <Team />
       <Contact />
       <Footer />

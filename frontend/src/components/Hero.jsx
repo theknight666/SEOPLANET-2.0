@@ -90,7 +90,7 @@ export default function Hero() {
         >
           {[
             { text: "We", color: "text-white" },
-            { text: "Build", color: "text-white" },
+            { text: "Built", color: "text-white" },
             { text: "br" },
             { text: "The", color: "text-white" },
             { text: "New", color: "neon-text italic font-light" },
@@ -128,7 +128,6 @@ export default function Hero() {
               </span>
             )
           )}
-          <span className="caret" />
         </motion.h1>
 
         <motion.p

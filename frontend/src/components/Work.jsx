@@ -2,8 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
-const CS1 = process.env.REACT_APP_CS1_IMAGE;
-const CS2 = process.env.REACT_APP_CS2_IMAGE;
+import CS1 from "../assets/team/work1.jpg";
+import CS2 from "../assets/team/work2.jpg";
+import CS3 from "../assets/team/work3.jpg";
+import CS4 from "../assets/team/work4.jpg";
 
 const reveal = {
   initial: { opacity: 0, y: 40 },
@@ -27,8 +29,8 @@ const cases = [
   },
   {
     code: "CASE 021",
-    client: "ORBIT Saas",
-    industry: "B2B · DevTools",
+    client: "Pandora's Kart UK",
+    industry: "DTC · Algorithmic SEO",
     title: "Winning every AI-search query in the category.",
     metric: "1.2M",
     metricLabel: "Qualified Leads",
@@ -39,27 +41,27 @@ const cases = [
   },
   {
     code: "CASE 027",
-    client: "Helios Fintech",
-    industry: "FinTech · Series B",
+    client: "Pandora's Kart USA",
+    industry: "Ecommerce · Series B",
     title: "Rebuilt SEO + content operations post-rebrand.",
     metric: "+340%",
     metricLabel: "Traffic YoY",
-    img: CS2,
+    img: CS3,
     span: "md:col-span-5",
     height: "h-[420px]",
     testid: "case-card-helios",
   },
   {
     code: "CASE 033",
-    client: "Lumen Health",
-    industry: "Healthcare · Multi-state",
+    client: "MidHeaven",
+    industry: "Investments · Real Estate",
     title: "Local SEO + paid media tuned for 41 locations.",
     metric: "8.4×",
     metricLabel: "ROAS",
-    img: CS1,
+    img: CS4,
     span: "md:col-span-7",
     height: "h-[420px]",
-    testid: "case-card-lumen",
+    testid: "case-card-midheaven",
   },
 ];
 

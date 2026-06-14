@@ -6,6 +6,7 @@ const links = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
   { label: "Process", href: "#process" },
+  { label: "Packages", href: "#packages" },
   { label: "Team", href: "#team" },
 ];
 
@@ -24,17 +25,15 @@ export default function Navigation() {
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, delay: 2.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-        scrolled ? "py-3" : "py-5"
-      }`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${scrolled ? "py-3" : "py-5"
+        }`}
       data-testid="site-navigation"
     >
       <div
-        className={`mx-auto max-w-7xl px-6 sm:px-10 flex items-center justify-between transition-all duration-500 ${
-          scrolled
-            ? "bg-[#05050A]/80 backdrop-blur-xl border border-white/10 rounded-full py-2 pl-5 pr-2"
-            : ""
-        }`}
+        className={`mx-auto max-w-7xl px-6 sm:px-10 flex items-center justify-between transition-all duration-500 ${scrolled
+          ? "bg-[#05050A]/80 backdrop-blur-xl border border-white/10 rounded-full py-2 pl-5 pr-2"
+          : ""
+          }`}
       >
         <a href="#top" className="flex items-center gap-2 group" data-testid="nav-logo">
           <span className="relative inline-block w-2.5 h-2.5">

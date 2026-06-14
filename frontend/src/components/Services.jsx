@@ -67,7 +67,7 @@ export default function Services() {
           </div>
           <p className="font-mono-pro text-sm text-white/55 max-w-sm">
             Every engagement is built around measurable lift. We choose the
-            right mix — you get a predictable trajectory.
+            right mix and you get a predictable trajectory.
           </p>
         </motion.div>
 
@@ -166,6 +166,8 @@ export default function Services() {
                 {s.desc}
               </p>
             </motion.div>
+
+            
           ))}
         </div>
       </div>

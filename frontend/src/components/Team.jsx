@@ -1,33 +1,35 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const T1 = process.env.REACT_APP_TEAM1_IMAGE;
-const T2 = process.env.REACT_APP_TEAM2_IMAGE;
+import T1 from "../assets/team/team1.jpg";
+import T2 from "../assets/team/team2.jpg";
+import T3 from "../assets/team/team3.jpg";
+import T4 from "../assets/team/team4.jpg";
 
 const team = [
   {
-    name: "Aria Vance",
-    role: "Founder · Creative Director",
+    name: "Mukul Bhardwaj",
+    role: "Founder · CEO",
     img: T1,
-    bio: "12 yrs scaling DTC + SaaS brands. Ex–Wieden, ex–Hims.",
+    bio: "Data Scientist, Process Expert, SEO & GEO Expert, Ex-Web Dev & Business Analyst with 7+ years of scaling experience.",
   },
   {
-    name: "Kai Nakamura",
-    role: "Head of Technical SEO",
+    name: "Dinesh Kumar",
+    role: "Co-Founder · Managing Director",
+    img: T4,
+    bio: "Exceptional in identifying new business opportunities, building relationships, and driving growth with 20+ years in Process Excellence and Data Analysis.",
+  },
+  {
+    name: "Aditya Kumar",
+    role: "Tech Lead · Full Stack Engineer",
     img: T2,
-    bio: "Built ranking systems for 3 publicly-traded companies.",
+    bio: "4+ yrs building scalable SaaS products from scratch.",
   },
   {
-    name: "Mira Solis",
-    role: "VP of Performance Media",
-    img: T1,
-    bio: "Manages $42M/yr ad spend across paid social & search.",
-  },
-  {
-    name: "Dax Holloway",
-    role: "Director of AI Strategy",
-    img: T2,
-    bio: "LLM systems lead. Author of three GEO playbooks.",
+    name: "Shanmukha",
+    role: "Sales Director",
+    img: T3,
+    bio: "Expert in sales strategy, client acquisition, and revenue growth with a proven track record of success.",
   },
 ];
 
