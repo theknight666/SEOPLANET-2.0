@@ -44,17 +44,21 @@ export default function Preloader() {
           className="fixed inset-0 z-[100] bg-[#05050A] flex flex-col items-center justify-center overflow-hidden"
           data-testid="preloader"
         >
-          {/* Central Logo */}
-          <div className="relative flex flex-col items-center justify-center z-10">
+          {/* Central Logo Container (Handles the cinematic fast zoom exit) */}
+          <motion.div 
+            className="relative flex items-center justify-center z-10"
+            exit={{ scale: 60, opacity: 0 }}
+            transition={{ duration: 0.45, ease: [0.8, 0, 0.2, 1] }}
+          >
+            {/* The Heartbeat Logo */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ scale: 40, opacity: 0 }}
+              animate={{ opacity: 1, scale: [1, 1.15, 1] }}
               transition={{ 
-                duration: 0.8, ease: "easeOut",
-                exit: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } 
+                opacity: { duration: 0.8, ease: "easeOut" },
+                scale: { duration: 0.8, repeat: Infinity, ease: "easeInOut" }
               }}
-              className="flex items-center gap-3 sm:gap-4 origin-center"
+              className="flex items-center gap-3 sm:gap-4 relative z-10 origin-center"
             >
               <span className="relative inline-block w-3 h-3 sm:w-4 sm:h-4">
                 <span className="absolute inset-0 rounded-full bg-[#00FF94]" />
@@ -64,7 +68,19 @@ export default function Preloader() {
                 SEO PLANET
               </span>
             </motion.div>
-          </div>
+
+            {/* Faded After-Image (Ripple) */}
+            <motion.div 
+              animate={{ scale: [1, 1.5], opacity: [0.4, 0] }}
+              transition={{ duration: 0.8, repeat: Infinity, ease: "easeOut" }}
+              className="absolute flex items-center gap-3 sm:gap-4 z-0 pointer-events-none origin-center"
+            >
+              <span className="relative inline-block w-3 h-3 sm:w-4 sm:h-4 opacity-0" />
+              <span className="font-display font-black tracking-tight text-[#00FF94] text-3xl sm:text-4xl blur-[2px]">
+                SEO PLANET
+              </span>
+            </motion.div>
+          </motion.div>
 
           {/* Premium Loading Bar at bottom */}
           <motion.div 
