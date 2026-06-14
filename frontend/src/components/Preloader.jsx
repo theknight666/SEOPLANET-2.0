@@ -64,18 +64,19 @@ export default function Preloader() {
           </div>
 
           {/* Premium Loading Bar at bottom */}
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 w-48 sm:w-64">
-            <div className="flex justify-between items-end mb-2">
+          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 w-[280px] sm:w-[480px]">
+            <div className="flex justify-between items-end mb-3">
               <span className="font-mono-pro text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-white/40">
-                Loading
+                Systems Loading
               </span>
               <span className="font-mono-pro text-[9px] sm:text-[10px] tabular-nums text-white/40">
                 {String(progress).padStart(3, "0")}%
               </span>
             </div>
-            <div className="w-full h-[1px] bg-white/10 overflow-hidden relative">
+            {/* Neon Tube Container */}
+            <div className="w-full h-[2px] bg-white/5 rounded-full relative overflow-visible">
               <motion.div
-                className="absolute inset-y-0 left-0 bg-[#00FF94] shadow-[0_0_10px_rgba(0,255,148,0.5)]"
+                className="absolute inset-y-0 left-0 bg-[#00FF94] rounded-full shadow-[0_0_12px_#00FF94,0_0_24px_rgba(0,255,148,0.6)]"
                 style={{ width: `${progress}%` }}
               />
             </div>
