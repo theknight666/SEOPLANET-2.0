@@ -98,7 +98,7 @@ export default function Packages() {
   return (
     <section
       id="packages"
-      className="relative py-28 sm:py-40 px-6 sm:px-12 overflow-hidden bg-[#05050A]"
+      className="relative py-28 sm:py-40 px-6 sm:px-12 overflow-hidden bg-transparent"
       data-testid="packages-section"
     >
       <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />

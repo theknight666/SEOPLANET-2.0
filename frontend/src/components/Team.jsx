@@ -44,7 +44,7 @@ export default function Team() {
   return (
     <section
       id="team"
-      className="relative py-28 sm:py-40 px-6 sm:px-12 bg-[#05050A]"
+      className="relative py-28 sm:py-40 px-6 sm:px-12 bg-transparent"
       data-testid="team-section"
     >
       <div className="max-w-7xl mx-auto">

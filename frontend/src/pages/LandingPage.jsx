@@ -13,7 +13,7 @@ import Footer from "../components/Footer";
 
 export default function LandingPage() {
   return (
-    <main className="bg-[#05050A] text-white" data-testid="landing-page">
+    <main className="bg-transparent text-white" data-testid="landing-page">
       <Preloader />
       <ScrollProgress />
       <Navigation />
