@@ -1,4 +1,7 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Query
+from fastapi import FastAPI, APIRouter, HTTPException, Query, Depends, status
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from passlib.context import CryptContext
+from jose import JWTError, jwt
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -7,9 +10,9 @@ import asyncio
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
-from typing import List, Optional
+from typing import List, Optional, Any
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 import resend
 
@@ -30,6 +33,46 @@ if RESEND_API_KEY:
 
 app = FastAPI(title="SEO Planet API")
 api_router = APIRouter(prefix="/api")
+
+# ===== Auth Configuration =====
+SECRET_KEY = os.environ.get("JWT_SECRET", "super-secret-key-for-seoplanet-onboarding-change-in-prod")
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 7 days
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
+
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.now(timezone.utc) + expires_delta
+    else:
+        expire = datetime.now(timezone.utc) + timedelta(minutes=15)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
+
+async def get_current_client(token: str = Depends(oauth2_scheme)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+    
+    client_doc = await db.clients.find_one({"username": username}, {"_id": 0, "password_hash": 0})
+    if client_doc is None:
+        raise credentials_exception
+    return client_doc
 
 # ===== Models =====
 class StatusCheck(BaseModel):
@@ -106,6 +149,33 @@ async def _send_contact_email(payload: ContactCreate) -> tuple[bool, Optional[st
 @api_router.get("/")
 async def root():
     return {"message": "SEO Planet API online"}
+
+# --- Auth & Onboarding Routes ---
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+@api_router.post("/auth/login")
+async def login(req: LoginRequest):
+    client_doc = await db.clients.find_one({"username": req.username})
+    if not client_doc or not verify_password(req.password, client_doc["password_hash"]):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+        )
+    
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": client_doc["username"]}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
+
+@api_router.get("/onboarding/dashboard")
+async def get_onboarding_dashboard(current_client: dict = Depends(get_current_client)):
+    return {
+        "status": "success",
+        "data": current_client
+    }
 
 
 @api_router.post("/status", response_model=StatusCheck)
