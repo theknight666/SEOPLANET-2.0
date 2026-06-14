@@ -4,5 +4,18 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.seoplanet.in"
+        }
+      ],
+      "destination": "https://seoplanet.in/$1",
+      "permanent": true
+    }
   ]
 }

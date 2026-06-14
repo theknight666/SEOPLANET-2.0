@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 import LandingPage from "./pages/LandingPage";
+import Blog from "./pages/Blog";
 import OnboardingApp from "./pages/onboarding/OnboardingApp";
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/blog" element={<Blog />} />
         </Routes>
       </BrowserRouter>
       <Toaster

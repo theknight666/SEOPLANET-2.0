@@ -35,7 +35,31 @@ function HeroMetric({ value, label, format }) {
   );
 }
 
+function ClientLogos() {
+  return (
+    <motion.div {...fade(0.9)} className="mt-12 pt-8 border-t border-white/5 opacity-60">
+      <p className="text-[10px] uppercase tracking-[0.2em] mb-5 font-mono-pro text-white/40">Trusted by fast-growing brands</p>
+      <div className="flex flex-wrap gap-8 sm:gap-12 items-center grayscale">
+        <span className="font-display font-bold text-lg sm:text-xl text-white">Acme Corp</span>
+        <span className="font-display font-bold text-lg sm:text-xl text-white italic">Globex</span>
+        <span className="font-display font-bold text-lg sm:text-xl text-white tracking-tighter">Soylent</span>
+        <span className="font-display font-bold text-lg sm:text-xl text-white">Initech</span>
+        <span className="font-display font-bold text-lg sm:text-xl text-white uppercase">Umbrella</span>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Hero() {
+  const [isDesktop, setIsDesktop] = React.useState(true);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth > 768);
+    handleResize(); // Init
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <section
       id="top"
@@ -53,9 +77,11 @@ export default function Hero() {
 
       {/* 3D scene (Lazy Loaded for Performance) */}
       <div className="absolute inset-0 z-[2]">
-        <Suspense fallback={<div className="absolute inset-0" />}>
-          <Hero3D />
-        </Suspense>
+        {isDesktop && (
+          <Suspense fallback={<div className="absolute inset-0" />}>
+            <Hero3D />
+          </Suspense>
+        )}
       </div>
 
       {/* Top status bar */}
@@ -167,6 +193,9 @@ export default function Hero() {
             </a>
           </MagneticWrap>
         </motion.div>
+
+        {/* Client Logos */}
+        <ClientLogos />
 
         {/* Metric strip */}
         <motion.div

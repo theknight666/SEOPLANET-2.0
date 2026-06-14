@@ -15,6 +15,7 @@ export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [contactMethod, setContactMethod] = useState("form"); // "form" or "calendly"
 
   const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
@@ -38,15 +39,29 @@ export default function Contact() {
     }
     setLoading(true);
     try {
-      const res = await axios.post(`https://seoplanet-2-0.onrender.com/api/contact`, {
-        ...form
+      // EMAILJS INTEGRATION (Replace placeholders with your actual keys)
+      const serviceId = "YOUR_SERVICE_ID";
+      const templateId = "YOUR_TEMPLATE_ID";
+      const publicKey = "YOUR_PUBLIC_KEY";
+
+      const res = await axios.post(`https://api.emailjs.com/api/v1.0/email/send`, {
+        service_id: serviceId,
+        template_id: templateId,
+        user_id: publicKey,
+        template_params: {
+          from_name: form.name,
+          from_email: form.email,
+          company: form.company,
+          message: form.message,
+        }
       }, {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         }
       });
-      if (res.data?.status === "success") {
+      // EmailJS returns "OK" on success
+      if (res.data === "OK") {
         setSuccess(true);
         toast.success("Message received. We'll reply within 24 hours.");
         setForm({ name: "", email: "", company: "", message: "" });
@@ -95,12 +110,36 @@ export default function Contact() {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="grid md:grid-cols-12 gap-6 lg:gap-8"
         >
-          {/* Form */}
-          <form
-            onSubmit={onSubmit}
-            className="md:col-span-8 relative rounded-2xl glass p-5 sm:p-10"
-            data-testid="contact-form"
-          >
+          {/* Contact Method Toggle */}
+          <div className="md:col-span-8 flex flex-col gap-6">
+            <div className="flex bg-white/[0.04] p-1 rounded-full border border-white/10 w-fit mx-auto md:mx-0">
+              <button
+                type="button"
+                onClick={() => setContactMethod("form")}
+                className={`px-6 py-2 rounded-full text-xs font-mono-pro font-bold uppercase tracking-widest transition-all ${
+                  contactMethod === "form" ? "bg-[#00FF94] text-black" : "text-white/50 hover:text-white"
+                }`}
+              >
+                Send Message
+              </button>
+              <button
+                type="button"
+                onClick={() => setContactMethod("calendly")}
+                className={`px-6 py-2 rounded-full text-xs font-mono-pro font-bold uppercase tracking-widest transition-all ${
+                  contactMethod === "calendly" ? "bg-[#00FF94] text-black" : "text-white/50 hover:text-white"
+                }`}
+              >
+                Book a Call
+              </button>
+            </div>
+
+            {/* Form */}
+            {contactMethod === "form" ? (
+              <form
+                onSubmit={onSubmit}
+                className="relative rounded-2xl glass p-5 sm:p-10"
+                data-testid="contact-form"
+              >
             <div className="grid sm:grid-cols-2 gap-5 mb-5">
               {fields.slice(0, 2).map((f) => (
                 <div key={f.name}>
@@ -171,6 +210,19 @@ export default function Contact() {
               Secure submission · Avg. response 6h 14m
             </p>
           </form>
+            ) : (
+              <div className="relative rounded-2xl glass p-1 overflow-hidden" style={{ minHeight: "650px" }}>
+                <iframe
+                  src="https://calendly.com/your-calendly-link?hide_gdpr_banner=1&background_color=05050A&text_color=ffffff&primary_color=00FF94"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  title="Calendly Scheduling"
+                  className="absolute inset-0"
+                />
+              </div>
+            )}
+          </div>
 
           {/* Side details */}
           <div className="md:col-span-4 flex flex-col gap-5">
