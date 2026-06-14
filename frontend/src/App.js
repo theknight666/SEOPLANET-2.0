@@ -1,6 +1,5 @@
 import "./App.css";
 import React from 'react';
-import CustomCursor from "./components/ui/CustomCursor";
 import BackgroundReveal from "./components/ui/BackgroundReveal";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
@@ -33,7 +32,6 @@ function App() {
 
   return (
     <div className="App">
-      <CustomCursor />
       <BackgroundReveal />
       <BrowserRouter>
         <Routes>

@@ -183,9 +183,6 @@ body {
     animation: blink-caret 1s steps(1) infinite;
 }
 
-@media (pointer: fine) {
-  body { cursor: none; }
-  a, button { cursor: none !important; }
-}
 
-@media (pointer: fine) { body { cursor: none; } a, button { cursor: none !important; } }
+
+
