@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/react";
 import LandingPage from "./pages/LandingPage";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           },
         }}
       />
+      <Analytics />
     </div>
   );
 }
