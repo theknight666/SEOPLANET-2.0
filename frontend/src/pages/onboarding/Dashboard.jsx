@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
-import { LogOut, Loader2, FileText, CheckCircle2, Clock, PlayCircle } from "lucide-react";
+import { LogOut, Loader2, FileText, CheckCircle2, Clock, PlayCircle, PlusCircle, UserPlus } from "lucide-react";
 import axios from "axios";
+import { toast } from "sonner";
 
 export default function Dashboard() {
   const { logout } = useAuth();
@@ -23,7 +24,27 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
-  if (loading) {
+  const handleAdminSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await axios.post("https://seoplanet-2-0.onrender.com/api/onboarding/clients", {
+        username: adminForm.username,
+        company_name: adminForm.company,
+        password: adminForm.password
+      });
+      toast.success("Client account created successfully!");
+      setAdminForm({ username: "", company: "", password: "" });
+    } catch (err) {
+      toast.error(err.response?.data?.detail || "Failed to create client");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const [adminForm, setAdminForm] = useState({ username: "", company: "", password: "" });
+
+  if (loading && !data) {
     return (
       <div className="min-h-screen w-full flex items-center justify-center bg-[#05050A]">
         <Loader2 className="w-8 h-8 text-[#00FF94] animate-spin" />
@@ -32,6 +53,8 @@ export default function Dashboard() {
   }
 
   if (!data) return null;
+
+  const isAdmin = data.username === "admin";
 
   return (
     <div className="min-h-screen w-full bg-[#05050A] text-white overflow-hidden grain selection:bg-[#00FF94] selection:text-black">
@@ -45,7 +68,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-[#00FF94] animate-pulse" />
             <span className="font-display font-bold tracking-wider text-sm">
-              SEO PLANET <span className="text-white/30 ml-2">|</span> <span className="ml-2 font-light italic">Portal</span>
+              SEO PLANET <span className="text-white/30 ml-2">|</span> <span className="ml-2 font-light italic">{isAdmin ? "Admin Console" : "Portal"}</span>
             </span>
           </div>
           <button
@@ -59,30 +82,58 @@ export default function Dashboard() {
 
       <main className="relative z-10 max-w-6xl mx-auto px-6 py-16 sm:py-24 grid lg:grid-cols-12 gap-12 lg:gap-16">
         
-        {/* Left Column: Welcome & Timeline */}
+        {/* Left Column */}
         <div className="lg:col-span-7 space-y-16">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <p className="overline mb-4 text-[#00FF94]">Client Dashboard</p>
+            <p className="overline mb-4 text-[#00FF94]">{isAdmin ? "Administrator" : "Client Dashboard"}</p>
             <h1 className="font-display text-4xl sm:text-5xl font-black tracking-tighter leading-tight mb-4">
               Welcome back, <br/>
-              <span className="text-white/50">{data.company_name}</span>
+              <span className="text-white/50">{isAdmin ? "Founder" : data.company_name}</span>
             </h1>
             <p className="font-mono-pro text-sm text-white/50 leading-relaxed max-w-lg">
-              This is your secure control center. Track your campaign progress in real-time and access all your strategy documentation below.
+              {isAdmin 
+                ? "This is your hidden admin console. You can generate secure access credentials for new clients here."
+                : "This is your secure control center. Track your campaign progress in real-time and access all your strategy documentation below."}
             </p>
           </motion.div>
 
-          {/* Timeline */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-6"
-          >
+          {isAdmin ? (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="rounded-2xl glass p-8 border border-[#00FF94]/20"
+            >
+              <h3 className="overline text-[#00FF94] mb-6 flex items-center gap-2"><UserPlus className="w-4 h-4" /> Issue New Credentials</h3>
+              <form onSubmit={handleAdminSubmit} className="space-y-4">
+                <div>
+                  <label className="overline block mb-2 text-white/50 text-[10px]">Client Username (No spaces)</label>
+                  <input required type="text" value={adminForm.username} onChange={e => setAdminForm({...adminForm, username: e.target.value})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00FF94] focus:outline-none" placeholder="e.g. acme_corp" />
+                </div>
+                <div>
+                  <label className="overline block mb-2 text-white/50 text-[10px]">Company Name</label>
+                  <input required type="text" value={adminForm.company} onChange={e => setAdminForm({...adminForm, company: e.target.value})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00FF94] focus:outline-none" placeholder="e.g. Acme Corporation" />
+                </div>
+                <div>
+                  <label className="overline block mb-2 text-white/50 text-[10px]">Secure Password</label>
+                  <input required type="text" value={adminForm.password} onChange={e => setAdminForm({...adminForm, password: e.target.value})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00FF94] focus:outline-none" placeholder="Generate a secure password..." />
+                </div>
+                <button type="submit" disabled={loading} className="mt-4 w-full flex items-center justify-center gap-2 rounded-xl bg-[#00FF94] text-black px-6 py-4 font-mono-pro text-xs uppercase tracking-[0.2em] font-bold hover:bg-white transition-colors disabled:opacity-50">
+                  {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <><PlusCircle className="w-4 h-4" /> Provision Client Access</>}
+                </button>
+              </form>
+            </motion.div>
+          ) : (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="space-y-6"
+            >
             <h3 className="overline text-white/40 mb-8">Campaign Roadmap</h3>
             
             <div className="relative border-l border-white/10 ml-3 space-y-12">
@@ -112,9 +163,11 @@ export default function Dashboard() {
               ))}
             </div>
           </motion.div>
+          )}
         </div>
 
         {/* Right Column: Resources & Metrics */}
+        {!isAdmin && (
         <div className="lg:col-span-5 space-y-8">
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
@@ -172,6 +225,7 @@ export default function Dashboard() {
             </a>
           </motion.div>
         </div>
+        )}
 
       </main>
     </div>

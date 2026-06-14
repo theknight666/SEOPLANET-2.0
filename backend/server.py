@@ -177,6 +177,39 @@ async def get_onboarding_dashboard(current_client: dict = Depends(get_current_cl
         "data": current_client
     }
 
+class ClientCreate(BaseModel):
+    username: str
+    company_name: str
+    password: str
+
+@api_router.post("/onboarding/clients")
+async def create_new_client(payload: ClientCreate, current_client: dict = Depends(get_current_client)):
+    if current_client.get("username") != "admin":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
+    
+    existing = await db.clients.find_one({"username": payload.username})
+    if existing:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Client already exists")
+        
+    hashed_password = pwd_context.hash(payload.password)
+    client_doc = {
+        "username": payload.username,
+        "company_name": payload.company_name,
+        "password_hash": hashed_password,
+        "status": "active",
+        "timeline": [
+            {"step": 1, "title": "Onboarding & Access", "status": "completed"},
+            {"step": 2, "title": "Technical SEO Audit", "status": "in_progress"},
+            {"step": 3, "title": "Keyword Strategy", "status": "pending"},
+            {"step": 4, "title": "Content Execution", "status": "pending"},
+        ],
+        "documents": [
+            {"title": "Welcome Guide & Roadmap", "url": "#"}
+        ]
+    }
+    await db.clients.insert_one(client_doc)
+    return {"status": "success", "message": "Client created"}
+
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
