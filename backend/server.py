@@ -220,6 +220,16 @@ async def create_new_client(payload: ClientCreate, current_client: dict = Depend
         "company_name": payload.company_name,
         "password_hash": hashed_password,
         "status": "active",
+        "metrics": {
+            "traffic": "0",
+            "rankings": "0",
+            "da": "0",
+            "backlinks": "0"
+        },
+        "current_focus": "Phase 1: Technical Foundation & Access",
+        "recent_activity": [
+            {"date": datetime.now(timezone.utc).isoformat(), "title": "Portal access provisioned"}
+        ],
         "timeline": [
             {"step": 1, "title": "Onboarding & Access", "status": "completed"},
             {"step": 2, "title": "Technical SEO Audit", "status": "in_progress"},
@@ -232,6 +242,38 @@ async def create_new_client(payload: ClientCreate, current_client: dict = Depend
     }
     await db.clients.insert_one(client_doc)
     return {"status": "success", "message": "Client created"}
+
+@api_router.get("/onboarding/clients")
+async def get_all_clients(current_client: dict = Depends(get_current_client)):
+    if current_client.get("username") != "admin":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
+    
+    clients = await db.clients.find({"username": {"$ne": "admin"}}, {"_id": 0, "password_hash": 0}).to_list(100)
+    return {"status": "success", "data": clients}
+
+class ClientUpdate(BaseModel):
+    metrics: dict
+    current_focus: str
+    timeline: list
+    recent_activity: list
+    documents: list
+
+@api_router.put("/onboarding/clients/{username}")
+async def update_client(username: str, payload: ClientUpdate, current_client: dict = Depends(get_current_client)):
+    if current_client.get("username") != "admin":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
+    
+    update_data = {
+        "metrics": payload.metrics,
+        "current_focus": payload.current_focus,
+        "timeline": payload.timeline,
+        "recent_activity": payload.recent_activity,
+        "documents": payload.documents
+    }
+    result = await db.clients.update_one({"username": username}, {"$set": update_data})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Client not found")
+    return {"status": "success", "message": "Client updated"}
 
 
 @api_router.post("/status", response_model=StatusCheck)
