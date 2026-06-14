@@ -42,14 +42,11 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 7 days
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
 def verify_password(plain_password, hashed_password):
-    try:
-        if isinstance(hashed_password, str):
-            hashed_password = hashed_password.encode('utf-8')
-        if isinstance(plain_password, str):
-            plain_password = plain_password.encode('utf-8')
-        return bcrypt.checkpw(plain_password, hashed_password)
-    except Exception:
-        return False
+    if isinstance(hashed_password, str):
+        hashed_password = hashed_password.encode('utf-8')
+    if isinstance(plain_password, str):
+        plain_password = plain_password.encode('utf-8')
+    return bcrypt.checkpw(plain_password, hashed_password)
 
 def hash_password(password: str) -> str:
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
