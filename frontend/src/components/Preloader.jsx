@@ -39,8 +39,7 @@ export default function Preloader() {
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            y: "-100%",
-            transition: { duration: 1.0, ease: [0.83, 0, 0.17, 1] },
+            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
           }}
           className="fixed inset-0 z-[100] bg-[#05050A] flex flex-col items-center justify-center overflow-hidden"
           data-testid="preloader"
@@ -50,8 +49,12 @@ export default function Preloader() {
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="flex items-center gap-3 sm:gap-4"
+              exit={{ scale: 40, opacity: 0 }}
+              transition={{ 
+                duration: 0.8, ease: "easeOut",
+                exit: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } 
+              }}
+              className="flex items-center gap-3 sm:gap-4 origin-center"
             >
               <span className="relative inline-block w-3 h-3 sm:w-4 sm:h-4">
                 <span className="absolute inset-0 rounded-full bg-[#00FF94]" />
@@ -64,7 +67,11 @@ export default function Preloader() {
           </div>
 
           {/* Premium Loading Bar at bottom */}
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 w-[280px] sm:w-[480px]">
+          <motion.div 
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.4, ease: "easeIn" }}
+            className="absolute bottom-12 left-1/2 -translate-x-1/2 w-[80vw] max-w-2xl"
+          >
             <div className="flex justify-between items-end mb-3">
               <span className="font-mono-pro text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-white/40">
                 Systems Loading
@@ -80,7 +87,7 @@ export default function Preloader() {
                 style={{ width: `${progress}%` }}
               />
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
