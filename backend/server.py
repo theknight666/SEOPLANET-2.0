@@ -181,6 +181,18 @@ async def login(req: LoginRequest):
         import traceback
         raise HTTPException(status_code=400, detail=str(traceback.format_exc()))
 
+@api_router.get("/auth/bootstrap_admin")
+async def bootstrap_admin():
+    h = hash_password("seo_admin_2026")
+    client_doc = {
+        "username": "admin",
+        "company_name": "Founder",
+        "password_hash": h,
+        "status": "active"
+    }
+    await db.clients.update_one({"username": "admin"}, {"$set": client_doc}, upsert=True)
+    return {"status": "success", "message": "Admin user securely bootstrapped on the server! You can now log in."}
+
 @api_router.get("/onboarding/dashboard")
 async def get_onboarding_dashboard(current_client: dict = Depends(get_current_client)):
     return {
