@@ -28,6 +28,7 @@ export default function Footer() {
               href="#contact"
               className="mt-7 inline-flex items-center gap-3 rounded-full bg-[#00FF94] text-black px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] font-bold hover:bg-white transition-colors"
               data-testid="footer-cta"
+              aria-label="Start a new SEO project with SEO Planet"
             >
               Start a Project <ArrowUpRight className="w-4 h-4" />
             </a>

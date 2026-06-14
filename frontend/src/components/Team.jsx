@@ -80,6 +80,7 @@ export default function Team() {
                 <img
                   src={m.img}
                   alt={`${m.name} - ${m.role} at SEO Planet`}
+                  loading="lazy"
                   className="w-full h-full object-cover grayscale-[0.9] group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#05050A] via-transparent to-transparent" />

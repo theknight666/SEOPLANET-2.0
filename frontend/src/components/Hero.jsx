@@ -146,6 +146,7 @@ export default function Hero() {
               className="group inline-flex items-center gap-3 rounded-full bg-[#00FF94] text-black px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] font-bold hover:bg-white transition-colors active:scale-95"
               data-testid="hero-cta-launch"
               style={{ animation: "pulse-ring 2.6s infinite" }}
+              aria-label="Start a new SEO project with SEO Planet"
             >
               Start a Project
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />
@@ -156,6 +157,7 @@ export default function Hero() {
               href="#work"
               className="group inline-flex items-center gap-3 rounded-full border border-white/15 text-white px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] hover:border-[#00FF94] hover:text-[#00FF94] transition-colors"
               data-testid="hero-cta-work"
+              aria-label="View SEO Planet case studies"
             >
               See Our Work
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />

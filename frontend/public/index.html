@@ -24,27 +24,71 @@
     <meta property="twitter:description" content="SEO Planet is a premier digital marketing agency built for the AI era. We pair algorithmic SEO with performance ads, content systems, and analytics to help ambitious brands win their category." />
     <meta property="twitter:image" content="https://seoplanet.in/og-image.jpg" />
 
-    <!-- Schema.org JSON-LD -->
+    <!-- Schema.org JSON-LD Graph -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "SEO Planet",
-      "url": "https://seoplanet.in/",
-      "logo": "https://seoplanet.in/favicon.svg",
-      "description": "SEO Planet is a premier digital marketing agency built for the AI era. We pair algorithmic SEO with performance ads, content systems, and analytics.",
-      "telephone": "+1-800-000-0000",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Digital First",
-        "addressLocality": "Global",
-        "addressCountry": "US"
-      },
-      "priceRange": "$$$"
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://seoplanet.in/#website",
+          "url": "https://seoplanet.in/",
+          "name": "SEO Planet",
+          "description": "Premier digital marketing agency built for the AI era.",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://seoplanet.in/?s={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://seoplanet.in/#organization",
+          "name": "SEO Planet",
+          "url": "https://seoplanet.in/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://seoplanet.in/favicon.svg"
+          },
+          "founder": [
+            {
+              "@type": "Person",
+              "name": "Mukul Bhardwaj"
+            },
+            {
+              "@type": "Person",
+              "name": "Dinesh Kumar"
+            }
+          ],
+          "sameAs": [
+            "https://twitter.com/seoplanet",
+            "https://linkedin.com/company/seoplanet"
+          ]
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://seoplanet.in/#service",
+          "name": "SEO Planet Services",
+          "url": "https://seoplanet.in/",
+          "parentOrganization": {
+            "@id": "https://seoplanet.in/#organization"
+          },
+          "description": "SEO Planet is a premier digital marketing agency. We pair algorithmic SEO with performance ads, content systems, and analytics.",
+          "telephone": "+1-800-000-0000",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Digital First",
+            "addressLocality": "Global",
+            "addressCountry": "US"
+          },
+          "priceRange": "$$$"
+        }
+      ]
     }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700;800;900&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" as="style" />
     <link
         href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700;800;900&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet" />
