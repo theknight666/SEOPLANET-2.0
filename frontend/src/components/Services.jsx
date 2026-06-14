@@ -59,7 +59,7 @@ export default function Services() {
       <div className="max-w-7xl mx-auto relative">
         <motion.div {...reveal} className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
           <div>
-            <p className="overline-premium mb-4">[02] · What We Do</p>
+            <p className="overline mb-4">[02] · What We Do</p>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter max-w-2xl leading-[1.02]">
               Six services. <br />
               <span className="text-white/40">One growth system.</span>
@@ -78,12 +78,12 @@ export default function Services() {
             className="md:col-span-8 md:row-span-2 relative neon-border rounded-2xl bg-gradient-to-br from-[#0A0F0C] to-[#05050A] p-8 sm:p-12 overflow-hidden group"
             data-testid="service-card-highlight"
           >
-            <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-[#00D67D]/15 blur-3xl" />
+            <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-[#00FF94]/15 blur-3xl" />
             <div className="absolute inset-0 grid-bg opacity-25" />
             <div className="relative">
               <div className="flex items-center justify-between mb-10">
-                <span className="overline-premium">[S01] · Flagship</span>
-                <CircuitBoard className="w-6 h-6 text-[#00D67D]" />
+                <span className="overline">[S01] · Flagship</span>
+                <CircuitBoard className="w-6 h-6 text-[#00FF94]" />
               </div>
               <h3 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter text-white">
                 Algorithmic <span className="neon-text">SEO</span>
@@ -99,14 +99,14 @@ export default function Services() {
                   ["Top 3", "SERP Targeting"],
                   ["AI-ready", "Schema Stack"],
                 ].map(([n, l]) => (
-                  <div key={l} className="border-l border-[#00D67D]/40 pl-4">
+                  <div key={l} className="border-l border-[#00FF94]/40 pl-4">
                     <div className="font-display text-xl text-white font-bold">{n}</div>
-                    <div className="overline-premium text-[9px] mt-1 text-white/40">{l}</div>
+                    <div className="overline text-[9px] mt-1 text-white/40">{l}</div>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-10 inline-flex items-center gap-2 text-[#00D67D] font-mono-pro text-xs uppercase tracking-[0.25em] cursor-pointer group/cta">
+              <div className="mt-10 inline-flex items-center gap-2 text-[#00FF94] font-mono-pro text-xs uppercase tracking-[0.25em] cursor-pointer group/cta">
                 Learn More
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover/cta:rotate-45" />
               </div>
@@ -116,12 +116,12 @@ export default function Services() {
           {/* Side small */}
           <motion.div
             {...reveal}
-            className="md:col-span-4 relative rounded-2xl bg-white/[0.03] border border-white/10 p-7 hover:border-[#00D67D]/40 hover:-translate-y-1 transition-all duration-300 group"
+            className="md:col-span-4 relative rounded-2xl bg-white/[0.03] border border-white/10 p-7 hover:border-[#00FF94]/40 hover:-translate-y-1 transition-all duration-300 group"
             data-testid="service-card-s02"
           >
             <div className="flex items-center justify-between mb-8">
-              <span className="overline-premium">[S02]</span>
-              <Search className="w-5 h-5 text-[#00D67D] group-hover:scale-110 transition-transform" />
+              <span className="overline">[S02]</span>
+              <Search className="w-5 h-5 text-[#00FF94] group-hover:scale-110 transition-transform" />
             </div>
             <h3 className="font-display text-2xl text-white font-bold tracking-tight">
               Conversion Design
@@ -137,7 +137,7 @@ export default function Services() {
             data-testid="service-card-s03"
           >
             <div className="flex items-center justify-between mb-8">
-              <span className="overline-premium">[S03]</span>
+              <span className="overline">[S03]</span>
               <Sparkles className="w-5 h-5 text-[#00E5FF] group-hover:scale-110 transition-transform" />
             </div>
             <h3 className="font-display text-2xl text-white font-bold tracking-tight">
@@ -156,7 +156,7 @@ export default function Services() {
               data-testid={`service-card-${s.code.toLowerCase()}`}
             >
               <div className="flex items-center justify-between mb-6">
-                <span className="overline-premium">[{s.code}]</span>
+                <span className="overline">[{s.code}]</span>
                 <s.icon className="w-5 h-5" style={{ color: s.accent }} />
               </div>
               <h3 className="font-display text-lg text-white font-bold tracking-tight">

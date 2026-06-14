@@ -56,7 +56,7 @@ export default function Process() {
           className="grid md:grid-cols-12 gap-8 mb-20"
         >
           <div className="md:col-span-5">
-            <p className="overline-premium mb-4">[04] · How We Work</p>
+            <p className="overline mb-4">[04] · How We Work</p>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.02]">
               From kickoff <br />
               to <span className="neon-text italic font-light">category leader</span>.
@@ -77,21 +77,21 @@ export default function Process() {
               data-testid={`process-step-${i + 1}`}
             >
               {/* dot */}
-              <div className="absolute -left-[37px] sm:-left-[57px] top-2 w-5 h-5 rounded-full bg-[#05050A] border-2 border-[#00D67D] shadow-[0_0_20px_rgba(0,255,148,0.6)] flex items-center justify-center">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00D67D]" />
+              <div className="absolute -left-[37px] sm:-left-[57px] top-2 w-5 h-5 rounded-full bg-[#05050A] border-2 border-[#00FF94] shadow-[0_0_20px_rgba(0,255,148,0.6)] flex items-center justify-center">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00FF94]" />
               </div>
 
               <div className="grid md:grid-cols-12 gap-6 items-start">
                 <div className="md:col-span-3">
-                  <span className="overline-premium">{s.code}</span>
+                  <span className="overline">{s.code}</span>
                   <div className="mt-2 font-mono-pro text-xs text-white/40">
                     {s.duration}
                   </div>
                 </div>
                 <div className="md:col-span-9 md:pl-4">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-xl border border-white/10 bg-white/[0.04] flex items-center justify-center group-hover:border-[#00D67D] group-hover:shadow-[0_0_24px_rgba(0,255,148,0.25)] transition-all">
-                      <s.icon className="w-5 h-5 text-[#00D67D]" />
+                    <div className="w-12 h-12 rounded-xl border border-white/10 bg-white/[0.04] flex items-center justify-center group-hover:border-[#00FF94] group-hover:shadow-[0_0_24px_rgba(0,255,148,0.25)] transition-all">
+                      <s.icon className="w-5 h-5 text-[#00FF94]" />
                     </div>
                     <h3 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-white">
                       {s.title}

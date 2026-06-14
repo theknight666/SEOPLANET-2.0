@@ -68,7 +68,7 @@ export default function Contact() {
       data-testid="contact-section"
     >
       <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
-      <div className="absolute left-1/2 -top-40 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-[#00D67D]/8 blur-3xl pointer-events-none" />
+      <div className="absolute left-1/2 -top-40 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-[#00FF94]/8 blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
         <motion.div
@@ -78,7 +78,7 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <p className="overline-premium mb-4">[06] · Get in Touch</p>
+          <p className="overline mb-4">[06] · Get in Touch</p>
           <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl font-black tracking-tighter leading-[0.98]">
             Let&apos;s <span className="neon-text italic font-light">talk</span>.
           </h2>
@@ -104,7 +104,7 @@ export default function Contact() {
             <div className="grid sm:grid-cols-2 gap-5 mb-5">
               {fields.slice(0, 2).map((f) => (
                 <div key={f.name}>
-                  <label className="overline-premium block mb-2 text-white/50">{f.label}</label>
+                  <label className="overline block mb-2 text-white/50">{f.label}</label>
                   <input
                     type={f.type}
                     name={f.name}
@@ -112,7 +112,7 @@ export default function Contact() {
                     onChange={onChange}
                     required={f.required}
                     placeholder={f.placeholder}
-                    className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00D67D] focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(0,255,148,0.12)] transition-all"
+                    className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00FF94] focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(0,255,148,0.12)] transition-all"
                     data-testid={`contact-input-${f.name}`}
                   />
                 </div>
@@ -120,20 +120,20 @@ export default function Contact() {
             </div>
 
             <div className="mb-5">
-              <label className="overline-premium block mb-2 text-white/50">{fields[2].label}</label>
+              <label className="overline block mb-2 text-white/50">{fields[2].label}</label>
               <input
                 type="text"
                 name="company"
                 value={form.company}
                 onChange={onChange}
                 placeholder={fields[2].placeholder}
-                className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00D67D] focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(0,255,148,0.12)] transition-all"
+                className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00FF94] focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(0,255,148,0.12)] transition-all"
                 data-testid="contact-input-company"
               />
             </div>
 
             <div className="mb-7">
-              <label className="overline-premium block mb-2 text-white/50">Your Message</label>
+              <label className="overline block mb-2 text-white/50">Your Message</label>
               <textarea
                 name="message"
                 value={form.message}
@@ -141,7 +141,7 @@ export default function Contact() {
                 required
                 rows={5}
                 placeholder="What does growth look like for your business?"
-                className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00D67D] focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(0,255,148,0.12)] transition-all resize-none"
+                className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00FF94] focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(0,255,148,0.12)] transition-all resize-none"
                 data-testid="contact-input-message"
               />
             </div>
@@ -149,7 +149,7 @@ export default function Contact() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full inline-flex items-center justify-center gap-3 rounded-full bg-[#00D67D] text-black px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] font-bold hover:bg-white transition-colors active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full inline-flex items-center justify-center gap-3 rounded-full bg-[#00FF94] text-black px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] font-bold hover:bg-white transition-colors active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
               data-testid="contact-form-submit"
             >
               {loading ? (
@@ -175,10 +175,10 @@ export default function Contact() {
           {/* Side details */}
           <div className="md:col-span-4 flex flex-col gap-5">
             <div className="rounded-2xl glass p-5 sm:p-7" data-testid="contact-details-launch">
-              <p className="overline-premium mb-3">Email</p>
+              <p className="overline mb-3">Email</p>
               <a
                 href="mailto:enquiry@seoplanet.in"
-                className="font-display text-base sm:text-xl text-white font-bold hover:text-[#00D67D] transition-colors inline-flex items-center gap-2 break-all"
+                className="font-display text-base sm:text-xl text-white font-bold hover:text-[#00FF94] transition-colors inline-flex items-center gap-2 break-all"
                 data-testid="contact-email-link"
               >
                 enquiry@seoplanet.in
@@ -190,12 +190,12 @@ export default function Contact() {
             </div>
 
             <div className="rounded-2xl glass p-5 sm:p-7" data-testid="contact-details-phone">
-              <p className="overline-premium mb-3 flex items-center gap-2">
-                <Phone className="w-3 h-3 text-[#00D67D]" /> Phone
+              <p className="overline mb-3 flex items-center gap-2">
+                <Phone className="w-3 h-3 text-[#00FF94]" /> Phone
               </p>
               <a
                 href="tel:+918796422715"
-                className="font-display text-base sm:text-xl text-white font-bold hover:text-[#00D67D] transition-colors inline-flex items-center gap-2 tabular-nums"
+                className="font-display text-base sm:text-xl text-white font-bold hover:text-[#00FF94] transition-colors inline-flex items-center gap-2 tabular-nums"
                 data-testid="contact-phone-link"
               >
                 +91 87964 22715
@@ -207,7 +207,7 @@ export default function Contact() {
             </div>
 
             <div className="rounded-2xl glass p-5 sm:p-7" data-testid="contact-details-hq">
-              <p className="overline-premium mb-3">Office</p>
+              <p className="overline mb-3">Office</p>
               <p className="font-mono-pro text-sm text-white/80 leading-relaxed">
                 482, Dwarka Sector 15 <br />
                 New Delhi — 110075 <br />
@@ -216,7 +216,7 @@ export default function Contact() {
             </div>
 
             <div className="rounded-2xl neon-border p-5 sm:p-7 bg-[#0A0F0C]" data-testid="contact-details-availability">
-              <p className="overline-premium mb-3">Availability</p>
+              <p className="overline mb-3">Availability</p>
               <p className="font-mono-pro text-sm text-white/80">
                 Q1 2026 — <span className="neon-text">2 spots open</span>
               </p>

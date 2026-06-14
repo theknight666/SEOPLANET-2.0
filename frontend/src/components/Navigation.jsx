@@ -37,8 +37,8 @@ export default function Navigation() {
       >
         <a href="#top" className="flex items-center gap-2 group" data-testid="nav-logo">
           <span className="relative inline-block w-2.5 h-2.5">
-            <span className="absolute inset-0 rounded-full bg-[#00D67D]" />
-            <span className="absolute inset-0 rounded-full bg-[#00D67D] animate-ping opacity-60" />
+            <span className="absolute inset-0 rounded-full bg-[#00FF94]" />
+            <span className="absolute inset-0 rounded-full bg-[#00FF94] animate-ping opacity-60" />
           </span>
           <span className="font-display font-black tracking-tight text-white text-lg">
             SEO PLANET
@@ -57,14 +57,14 @@ export default function Navigation() {
               data-testid={`nav-link-${l.label.toLowerCase()}`}
             >
               {l.label}
-              <span className="absolute left-4 right-4 -bottom-0.5 h-px bg-[#00D67D] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+              <span className="absolute left-4 right-4 -bottom-0.5 h-px bg-[#00FF94] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
             </a>
           ))}
         </nav>
 
         <a
           href="#contact"
-          className="hidden md:inline-flex items-center gap-2 group rounded-full bg-[#00D67D] text-black px-5 py-2.5 font-mono-pro text-xs uppercase tracking-[0.2em] font-bold hover:bg-white transition-colors active:scale-95"
+          className="hidden md:inline-flex items-center gap-2 group rounded-full bg-[#00FF94] text-black px-5 py-2.5 font-mono-pro text-xs uppercase tracking-[0.2em] font-bold hover:bg-white transition-colors active:scale-95"
           data-testid="nav-cta-initiate-launch"
         >
           Start a Project
@@ -103,7 +103,7 @@ export default function Navigation() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#00D67D] text-black px-5 py-3 font-mono-pro text-xs uppercase tracking-[0.2em] font-bold"
+              className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#00FF94] text-black px-5 py-3 font-mono-pro text-xs uppercase tracking-[0.2em] font-bold"
             >
               Start a Project <ArrowUpRight className="w-3.5 h-3.5" />
             </a>

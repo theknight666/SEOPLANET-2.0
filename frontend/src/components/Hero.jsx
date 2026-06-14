@@ -1,81 +1,222 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, BarChart2, Zap, Shield } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Activity } from "lucide-react";
+import Hero3D from "./Hero3D";
+import MagneticWrap from "./MagneticWrap";
+import useCountUp from "../hooks/useCountUp";
 
-export default function Hero() {
+const HERO_BG = process.env.REACT_APP_HERO_BG_IMAGE;
+
+/** Base offset so hero entrance plays after the preloader exit (~2.8s). */
+const BASE_DELAY = 2.7;
+
+const fade = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.9, delay: BASE_DELAY + delay, ease: [0.22, 1, 0.36, 1] },
+});
+
+function HeroMetric({ value, label, format }) {
+  const [text, ref] = useCountUp(value.number, {
+    duration: 2.0,
+    delay: 0.2,
+    decimals: value.decimals || 0,
+    prefix: value.prefix || "",
+    suffix: value.suffix || "",
+  });
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0A0A0C] text-[#FAFAFA] pt-20">
-      <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
-      
-      {/* Refined Ambient Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#00D67D]/10 blur-[120px] pointer-events-none" />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 text-center">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 mb-8"
-        >
-          <div className="w-2 h-2 rounded-full bg-[#00D67D]" />
-          <span className="font-mono-pro text-xs uppercase tracking-[0.2em] text-[#FAFAFA]">Boutique SEO Agency</span>
-        </motion.div>
-
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter leading-[1.1] mb-8"
-        >
-          Dominate Search.<br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">Elevate Your Brand.</span>
-        </motion.h1>
-
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="font-mono-pro text-lg sm:text-xl text-white/60 max-w-2xl mx-auto mb-12 leading-relaxed"
-        >
-          We architect high-performance organic growth strategies for ambitious brands. Data-driven, technically flawless, and completely transparent.
-        </motion.p>
-
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <a href="#contact" className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#FAFAFA] text-[#0A0A0C] rounded-full font-mono-pro text-sm font-bold uppercase tracking-widest overflow-hidden transition-transform hover:scale-105">
-            <span className="relative z-10 flex items-center gap-2">Partner With Us <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
-          </a>
-          <a href="/login" className="inline-flex items-center justify-center px-8 py-4 bg-white/5 border border-white/10 text-white rounded-full font-mono-pro text-sm font-bold uppercase tracking-widest hover:bg-white/10 transition-colors">
-            Client Portal
-          </a>
-        </motion.div>
-
-        {/* Premium Value Props */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24"
-        >
-          {[
-            { icon: BarChart2, title: "Data-Led Strategy", desc: "No guesswork. Just precision engineering." },
-            { icon: Zap, title: "Technical Excellence", desc: "Flawless site architecture and speed." },
-            { icon: Shield, title: "Complete Transparency", desc: "Real-time portal access to every metric." }
-          ].map((feature, i) => (
-            <div key={i} className="glass rounded-2xl p-6 border border-white/5 flex flex-col items-center text-center group">
-              <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-4 group-hover:bg-[#00D67D]/10 transition-colors">
-                <feature.icon className="w-5 h-5 text-white/50 group-hover:text-[#00D67D] transition-colors" />
-              </div>
-              <h3 className="font-display font-bold text-lg mb-2">{feature.title}</h3>
-              <p className="font-mono-pro text-sm text-white/40 leading-relaxed">{feature.desc}</p>
-            </div>
-          ))}
-        </motion.div>
+    <div ref={ref} className="bg-[#05050A] p-5">
+      <div className="font-display text-2xl sm:text-3xl text-white font-bold tracking-tight tabular-nums">
+        {format ? format(text) : text}
       </div>
+      <div className="overline mt-2 text-white/40 text-[9px]">{label}</div>
     </div>
   );
 }
+
+export default function Hero() {
+  return (
+    <section
+      id="top"
+      className="relative min-h-screen w-full overflow-hidden grain"
+      data-testid="hero-section"
+    >
+      {/* Background image + overlays */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${HERO_BG})` }}
+      />
+      <div className="absolute inset-0 bg-[#05050A]/80" />
+      <div className="absolute inset-0 grid-bg opacity-60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#05050A]" />
+
+      {/* 3D scene */}
+      <div className="absolute inset-0 z-[2]">
+        <Hero3D />
+      </div>
+
+      {/* Top status bar */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: BASE_DELAY - 0.2 }}
+        className="absolute top-20 sm:top-24 left-0 right-0 z-[3]"
+      >
+        <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between text-[10px] sm:text-xs font-mono-pro uppercase tracking-[0.25em] text-white/40">
+          <div className="flex items-center gap-2">
+            <Activity className="w-3 h-3 text-[#00FF94]" />
+            <span>Status · Online</span>
+          </div>
+          <div className="hidden sm:flex gap-6">
+            <span>Est. 2019</span>
+            <span>68 Clients</span>
+            <span className="text-[#00FF94]">Now booking Q1 ’26</span>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Content */}
+      <div className="relative z-[3] max-w-7xl mx-auto px-6 sm:px-12 pt-32 sm:pt-40 pb-24 sm:pb-28 min-h-screen flex flex-col justify-center">
+        <motion.p {...fade(0)} className="overline mb-6">
+          <span className="text-[#00FF94]">[001]</span> &nbsp;Next-Gen Marketing Agency
+        </motion.p>
+
+        <motion.h1
+          initial="hidden"
+          animate="visible"
+          variants={{}}
+          className="font-display font-black text-white text-4xl sm:text-5xl lg:text-[5rem] leading-[0.95] tracking-tighter max-w-5xl"
+          data-testid="hero-headline"
+        >
+          {[
+            { text: "We", color: "text-white" },
+            { text: "Built", color: "text-white" },
+            { text: "br" },
+            { text: "The", color: "text-white" },
+            { text: "New", color: "neon-text italic font-light" },
+            { text: "Era", color: "neon-text italic font-light" },
+            { text: "br" },
+            { text: "Of", color: "text-white" },
+            { text: "Marketing", color: "text-white" },
+          ].map((w, i) =>
+            w.text === "br" ? (
+              <br key={`br-${i}`} />
+            ) : (
+              <span
+                key={i}
+                className="inline-block overflow-hidden align-bottom mr-[0.22em]"
+                style={{
+                  paddingTop: "0.06em",
+                  paddingBottom: "0.12em",
+                  paddingLeft: "0.06em",
+                  paddingRight: "0.12em",
+                  lineHeight: 1.0,
+                }}
+              >
+                <motion.span
+                  initial={{ y: "115%" }}
+                  animate={{ y: 0 }}
+                  transition={{
+                    duration: 0.9,
+                    delay: BASE_DELAY + 0.1 + i * 0.07,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className={`inline-block ${w.color}`}
+                >
+                  {w.text}
+                </motion.span>
+              </span>
+            )
+          )}
+        </motion.h1>
+
+        <motion.p
+          {...fade(0.55)}
+          className="mt-8 max-w-xl text-sm sm:text-base text-white/60 leading-relaxed font-mono-pro"
+        >
+          SEO Planet is a digital marketing agency built for the AI era. We pair
+          algorithmic SEO with performance ads, content systems, and analytics
+          to help ambitious brands win their category.
+        </motion.p>
+
+        <motion.div {...fade(0.8)} className="mt-10 flex flex-wrap items-center gap-4">
+          <MagneticWrap strength={24}>
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-3 rounded-full bg-[#00FF94] text-black px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] font-bold hover:bg-white transition-colors active:scale-95"
+              data-testid="hero-cta-launch"
+              style={{ animation: "pulse-ring 2.6s infinite" }}
+            >
+              Start a Project
+              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />
+            </a>
+          </MagneticWrap>
+          <MagneticWrap strength={20}>
+            <a
+              href="#work"
+              className="group inline-flex items-center gap-3 rounded-full border border-white/15 text-white px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] hover:border-[#00FF94] hover:text-[#00FF94] transition-colors"
+              data-testid="hero-cta-work"
+            >
+              See Our Work
+              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />
+            </a>
+          </MagneticWrap>
+        </motion.div>
+
+        {/* Metric strip */}
+        <motion.div
+          {...fade(1.0)}
+          className="mt-16 sm:mt-20 grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 border border-white/5 max-w-3xl"
+          data-testid="hero-metric-strip"
+        >
+          <HeroMetric
+            value={{ number: 842, prefix: "+", suffix: "%" }}
+            label="Avg. Organic Growth"
+          />
+          <HeroMetric
+            value={{ number: 3.4, suffix: "B", decimals: 1 }}
+            label="Impressions Delivered"
+          />
+          <HeroMetric value={{ number: 68 }} label="Brands Scaled" />
+          <div className="bg-[#05050A] p-5">
+            <div className="font-display text-2xl sm:text-3xl text-white font-bold tracking-tight tabular-nums">
+              00:00:03
+            </div>
+            <div className="overline mt-2 text-white/40 text-[9px]">
+              Avg. Page Speed
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Bottom marquee */}
+      <div className="absolute bottom-0 left-0 right-0 z-[3] border-t border-white/5 bg-black/40 backdrop-blur-sm py-3 overflow-hidden">
+        <div className="marquee flex whitespace-nowrap text-[10px] font-mono-pro uppercase tracking-[0.4em] text-white/35">
+          {Array.from({ length: 2 }).map((_, k) => (
+            <div key={k} className="flex shrink-0">
+              {[
+                "SEO",
+                "★",
+                "Performance Ads",
+                "★",
+                "Content Strategy",
+                "★",
+                "Analytics",
+                "★",
+                "Brand Identity",
+                "★",
+                "Conversion Design",
+                "★",
+              ].map((w, i) => (
+                <span key={`${k}-${i}`} className="px-6">
+                  {w}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
