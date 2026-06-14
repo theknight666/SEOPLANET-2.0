@@ -85,7 +85,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={{}}
-          className="font-display font-black text-white text-[2.5rem] sm:text-6xl lg:text-[6.5rem] leading-[0.92] tracking-tighter max-w-5xl"
+          className="font-display font-black text-white text-4xl sm:text-5xl lg:text-[5.5rem] leading-[0.92] tracking-tighter max-w-5xl"
           data-testid="hero-headline"
         >
           {[
