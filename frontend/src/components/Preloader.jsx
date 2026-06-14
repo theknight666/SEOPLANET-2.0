@@ -50,71 +50,75 @@ export default function Preloader() {
             exit={{ scale: 60, opacity: 0 }}
             transition={{ duration: 0.45, ease: [0.8, 0, 0.2, 1] }}
           >
-            {/* The Heartbeat Logo */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: [1, 1.05, 1, 1.05, 1] }}
-              transition={{ 
-                opacity: { duration: 0.8, ease: "easeOut" },
-                scale: { 
+            {/* Smooth Fade In Wrapper to prevent initial stutter */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.0, ease: "easeOut" }}
+              className="flex items-center justify-center relative origin-center"
+            >
+              {/* The Heartbeat Logo */}
+              <motion.div 
+                animate={{ scale: [1, 1.05, 1, 1.05, 1] }}
+                transition={{ 
                   duration: 1.4, 
                   repeat: Infinity, 
                   times: [0, 0.1, 0.2, 0.3, 1],
                   ease: ["easeOut", "easeInOut", "easeOut", "easeInOut"] 
-                }
-              }}
-              style={{ willChange: "transform" }}
-              className="flex items-center gap-3 sm:gap-4 relative z-10 origin-center"
-            >
-              <span className="relative inline-block w-3 h-3 sm:w-4 sm:h-4">
-                <span className="absolute inset-0 rounded-full bg-[#00FF94]" />
-                <span className="absolute inset-0 rounded-full bg-[#00FF94] animate-ping opacity-60" />
-              </span>
-              <span className="font-display font-black tracking-tight text-white text-3xl sm:text-4xl">
-                SEO PLANET
-              </span>
-            </motion.div>
+                }}
+                style={{ willChange: "transform" }}
+                className="flex items-center gap-3 sm:gap-4 relative z-10 origin-center"
+              >
+                <span className="relative inline-block w-3 h-3 sm:w-4 sm:h-4">
+                  <span className="absolute inset-0 rounded-full bg-[#00FF94]" />
+                  <span className="absolute inset-0 rounded-full bg-[#00FF94] animate-ping opacity-60" />
+                </span>
+                <span className="font-display font-black tracking-tight text-white text-3xl sm:text-4xl">
+                  SEO PLANET
+                </span>
+              </motion.div>
 
-            {/* Ripple 1 (First Beat) */}
-            <motion.div 
-              animate={{ 
-                scale: [1, 1.8, 1.8], 
-                opacity: [0.35, 0, 0] 
-              }}
-              transition={{ 
-                duration: 1.4, 
-                repeat: Infinity, 
-                times: [0, 0.4, 1],
-                ease: ["easeOut", "linear"] 
-              }}
-              style={{ willChange: "transform, opacity" }}
-              className="absolute flex items-center gap-3 sm:gap-4 z-0 pointer-events-none origin-center"
-            >
-              <span className="relative inline-block w-3 h-3 sm:w-4 sm:h-4 opacity-0" />
-              <span className="font-display font-black tracking-tight text-white text-3xl sm:text-4xl blur-[1px]">
-                SEO PLANET
-              </span>
-            </motion.div>
+              {/* Ripple 1 (First Beat) */}
+              <motion.div 
+                animate={{ 
+                  scale: [1, 1.8, 1.8], 
+                  opacity: [0.35, 0, 0] 
+                }}
+                transition={{ 
+                  duration: 1.4, 
+                  repeat: Infinity, 
+                  times: [0, 0.4, 1],
+                  ease: ["easeOut", "linear"] 
+                }}
+                style={{ willChange: "transform, opacity" }}
+                className="absolute flex items-center gap-3 sm:gap-4 z-0 pointer-events-none origin-center"
+              >
+                <span className="relative inline-block w-3 h-3 sm:w-4 sm:h-4 opacity-0" />
+                <span className="font-display font-black tracking-tight text-white text-3xl sm:text-4xl blur-[1px]">
+                  SEO PLANET
+                </span>
+              </motion.div>
 
-            {/* Ripple 2 (Second Beat) */}
-            <motion.div 
-              animate={{ 
-                scale: [1, 1, 1.8, 1.8], 
-                opacity: [0, 0.35, 0, 0] 
-              }}
-              transition={{ 
-                duration: 1.4, 
-                repeat: Infinity, 
-                times: [0, 0.2, 0.6, 1],
-                ease: ["linear", "easeOut", "linear"] 
-              }}
-              style={{ willChange: "transform, opacity" }}
-              className="absolute flex items-center gap-3 sm:gap-4 z-0 pointer-events-none origin-center"
-            >
-              <span className="relative inline-block w-3 h-3 sm:w-4 sm:h-4 opacity-0" />
-              <span className="font-display font-black tracking-tight text-white text-3xl sm:text-4xl blur-[1px]">
-                SEO PLANET
-              </span>
+              {/* Ripple 2 (Second Beat) */}
+              <motion.div 
+                animate={{ 
+                  scale: [1, 1, 1.8, 1.8], 
+                  opacity: [0, 0.35, 0, 0] 
+                }}
+                transition={{ 
+                  duration: 1.4, 
+                  repeat: Infinity, 
+                  times: [0, 0.2, 0.6, 1],
+                  ease: ["linear", "easeOut", "linear"] 
+                }}
+                style={{ willChange: "transform, opacity" }}
+                className="absolute flex items-center gap-3 sm:gap-4 z-0 pointer-events-none origin-center"
+              >
+                <span className="relative inline-block w-3 h-3 sm:w-4 sm:h-4 opacity-0" />
+                <span className="font-display font-black tracking-tight text-white text-3xl sm:text-4xl blur-[1px]">
+                  SEO PLANET
+                </span>
+              </motion.div>
             </motion.div>
           </motion.div>
 
