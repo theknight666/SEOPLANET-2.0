@@ -56,7 +56,7 @@ export default function Team() {
           className="grid md:grid-cols-12 gap-8 mb-16"
         >
           <div className="md:col-span-7">
-            <p className="overline mb-4">[05] · The Team</p>
+            <p className="overline-premium mb-4">[05] · The Team</p>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.02]">
               Operators, not <br />
               <span className="text-white/40">a service desk.</span>
@@ -83,7 +83,7 @@ export default function Team() {
                   className="w-full h-full object-cover grayscale-[0.9] group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#05050A] via-transparent to-transparent" />
-                <div className="absolute top-3 left-3 overline text-[9px] text-[#00FF94] bg-black/40 backdrop-blur px-2 py-1 rounded-full border border-[#00FF94]/30">
+                <div className="absolute top-3 left-3 overline text-[9px] text-[#00D67D] bg-black/40 backdrop-blur px-2 py-1 rounded-full border border-[#00D67D]/30">
                   ID · 0{i + 1}
                 </div>
               </div>
@@ -91,7 +91,7 @@ export default function Team() {
                 <h3 className="font-display text-base sm:text-lg font-bold text-white tracking-tight">
                   {m.name}
                 </h3>
-                <p className="overline mt-1 text-white/40">{m.role}</p>
+                <p className="overline-premium mt-1 text-white/40">{m.role}</p>
                 <p className="mt-3 text-xs font-mono-pro text-white/50 leading-relaxed">
                   {m.bio}
                 </p>

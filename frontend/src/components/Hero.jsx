@@ -29,7 +29,7 @@ function HeroMetric({ value, label, format }) {
       <div className="font-display text-2xl sm:text-3xl text-white font-bold tracking-tight tabular-nums">
         {format ? format(text) : text}
       </div>
-      <div className="overline mt-2 text-white/40 text-[9px]">{label}</div>
+      <div className="overline-premium mt-2 text-white/40 text-[9px]">{label}</div>
     </div>
   );
 }
@@ -64,21 +64,21 @@ export default function Hero() {
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between text-[10px] sm:text-xs font-mono-pro uppercase tracking-[0.25em] text-white/40">
           <div className="flex items-center gap-2">
-            <Activity className="w-3 h-3 text-[#00FF94]" />
+            <Activity className="w-3 h-3 text-[#00D67D]" />
             <span>Status · Online</span>
           </div>
           <div className="hidden sm:flex gap-6">
             <span>Est. 2019</span>
             <span>68 Clients</span>
-            <span className="text-[#00FF94]">Now booking Q1 ’26</span>
+            <span className="text-[#00D67D]">Now booking Q1 ’26</span>
           </div>
         </div>
       </motion.div>
 
       {/* Content */}
       <div className="relative z-[3] max-w-7xl mx-auto px-6 sm:px-12 pt-32 sm:pt-40 pb-24 sm:pb-28 min-h-screen flex flex-col justify-center">
-        <motion.p {...fade(0)} className="overline mb-6">
-          <span className="text-[#00FF94]">[001]</span> &nbsp;Next-Gen Marketing Agency
+        <motion.p {...fade(0)} className="overline-premium mb-6">
+          <span className="text-[#00D67D]">[001]</span> &nbsp;Next-Gen Marketing Agency
         </motion.p>
 
         <motion.h1
@@ -143,7 +143,7 @@ export default function Hero() {
           <MagneticWrap strength={24}>
             <a
               href="#contact"
-              className="group inline-flex items-center gap-3 rounded-full bg-[#00FF94] text-black px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] font-bold hover:bg-white transition-colors active:scale-95"
+              className="group inline-flex items-center gap-3 rounded-full bg-[#00D67D] text-black px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] font-bold hover:bg-white transition-colors active:scale-95"
               data-testid="hero-cta-launch"
               style={{ animation: "pulse-ring 2.6s infinite" }}
             >
@@ -154,7 +154,7 @@ export default function Hero() {
           <MagneticWrap strength={20}>
             <a
               href="#work"
-              className="group inline-flex items-center gap-3 rounded-full border border-white/15 text-white px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] hover:border-[#00FF94] hover:text-[#00FF94] transition-colors"
+              className="group inline-flex items-center gap-3 rounded-full border border-white/15 text-white px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] hover:border-[#00D67D] hover:text-[#00D67D] transition-colors"
               data-testid="hero-cta-work"
             >
               See Our Work
@@ -182,7 +182,7 @@ export default function Hero() {
             <div className="font-display text-2xl sm:text-3xl text-white font-bold tracking-tight tabular-nums">
               00:00:03
             </div>
-            <div className="overline mt-2 text-white/40 text-[9px]">
+            <div className="overline-premium mt-2 text-white/40 text-[9px]">
               Avg. Page Speed
             </div>
           </div>

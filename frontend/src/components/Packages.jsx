@@ -109,7 +109,7 @@ export default function Packages() {
           className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-20"
         >
           <div>
-            <p className="overline mb-4">[04.5] · Packages &amp; Pricing</p>
+            <p className="overline-premium mb-4">[04.5] · Packages &amp; Pricing</p>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter max-w-2xl leading-[1.02] text-white">
               Systems built <br />
               <span className="text-white/40">to match your speed.</span>
@@ -131,14 +131,14 @@ export default function Packages() {
                 {...reveal}
                 className={`relative rounded-2xl p-8 sm:p-10 transition-all duration-300 group flex flex-col justify-between min-h-[720px] ${
                   pkg.recommended
-                    ? "bg-[#0A0A0F] border border-[#00FF94] shadow-[0_0_30px_rgba(0,255,148,0.12)] hover:shadow-[0_0_40px_rgba(0,255,148,0.2)]"
+                    ? "bg-[#0A0A0F] border border-[#00D67D] shadow-[0_0_30px_rgba(0,255,148,0.12)] hover:shadow-[0_0_40px_rgba(0,255,148,0.2)]"
                     : "bg-white/[0.03] border border-white/10 hover:border-white/20 hover:bg-white/[0.05]"
                 }`}
                 data-testid={pkg.testid}
               >
                 {/* Visual Glow for Highlighted Card */}
                 {pkg.recommended && (
-                  <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-[#00FF94]/10 blur-2xl pointer-events-none" />
+                  <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-[#00D67D]/10 blur-2xl pointer-events-none" />
                 )}
 
                 <div>
@@ -146,7 +146,7 @@ export default function Packages() {
                   <div className="flex items-center justify-between mb-8">
                     <span
                       className={`overline text-[10px] font-bold tracking-[0.2em] ${
-                        pkg.recommended ? "text-[#00FF94]" : "text-white/40"
+                        pkg.recommended ? "text-[#00D67D]" : "text-white/40"
                       }`}
                     >
                       {pkg.tag}
@@ -189,7 +189,7 @@ export default function Packages() {
 
                   {/* Features List */}
                   <div className="space-y-4">
-                    <p className="overline text-[9px] text-white/30 tracking-widest">
+                    <p className="overline-premium text-[9px] text-white/30 tracking-widest">
                       What&apos;s Included:
                     </p>
                     <ul className="space-y-3">
@@ -214,7 +214,7 @@ export default function Packages() {
                     onClick={() => handleSelectPackage(pkg.title)}
                     className={`w-full inline-flex items-center justify-center gap-3 rounded-full py-4 font-mono-pro text-xs uppercase tracking-[0.25em] font-bold transition-all active:scale-[0.98] ${
                       pkg.recommended
-                        ? "bg-[#00FF94] text-black hover:bg-white"
+                        ? "bg-[#00D67D] text-black hover:bg-white"
                         : "bg-white/5 text-white border border-white/10 hover:border-white/30 hover:bg-white/10"
                     }`}
                   >

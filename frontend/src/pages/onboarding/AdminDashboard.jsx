@@ -91,18 +91,18 @@ export default function AdminDashboard({ adminData }) {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#05050A] text-white flex overflow-hidden grain selection:bg-[#00FF94] selection:text-black">
+    <div className="min-h-screen w-full bg-[#05050A] text-white flex overflow-hidden grain selection:bg-[#00D67D] selection:text-black">
       {/* Sidebar */}
       <aside className="w-64 border-r border-white/5 bg-[#0A0A0F] flex flex-col z-20">
         <div className="h-20 flex items-center px-6 border-b border-white/5">
-          <div className="w-2 h-2 rounded-full bg-[#00FF94] animate-pulse mr-3" />
+          <div className="w-2 h-2 rounded-full bg-[#00D67D] animate-pulse mr-3" />
           <span className="font-display font-bold tracking-wider text-sm">ADMIN COMMAND</span>
         </div>
         <nav className="flex-1 p-4 space-y-2">
-          <button onClick={() => setActiveTab("clients")} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-wider transition-all ${activeTab === 'clients' ? 'bg-[#00FF94]/10 text-[#00FF94]' : 'text-white/50 hover:bg-white/[0.02] hover:text-white'}`}>
+          <button onClick={() => setActiveTab("clients")} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-wider transition-all ${activeTab === 'clients' ? 'bg-[#00D67D]/10 text-[#00D67D]' : 'text-white/50 hover:bg-white/[0.02] hover:text-white'}`}>
             <Users className="w-4 h-4" /> Client Roster
           </button>
-          <button onClick={() => setActiveTab("provision")} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-wider transition-all ${activeTab === 'provision' ? 'bg-[#00FF94]/10 text-[#00FF94]' : 'text-white/50 hover:bg-white/[0.02] hover:text-white'}`}>
+          <button onClick={() => setActiveTab("provision")} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-wider transition-all ${activeTab === 'provision' ? 'bg-[#00D67D]/10 text-[#00D67D]' : 'text-white/50 hover:bg-white/[0.02] hover:text-white'}`}>
             <PlusCircle className="w-4 h-4" /> Provision New
           </button>
         </nav>
@@ -116,7 +116,7 @@ export default function AdminDashboard({ adminData }) {
       {/* Main Content */}
       <main className="flex-1 relative overflow-y-auto custom-scrollbar">
         <div className="fixed inset-0 grid-bg opacity-10 pointer-events-none" />
-        <div className="absolute top-0 right-0 w-[800px] h-[500px] rounded-full bg-[#00FF94]/5 blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[800px] h-[500px] rounded-full bg-[#00D67D]/5 blur-[120px] pointer-events-none" />
         
         <div className="relative z-10 max-w-5xl mx-auto p-8 sm:p-12">
           
@@ -130,7 +130,7 @@ export default function AdminDashboard({ adminData }) {
               </div>
 
               {loading ? (
-                <div className="flex items-center justify-center py-20"><Loader2 className="w-8 h-8 text-[#00FF94] animate-spin" /></div>
+                <div className="flex items-center justify-center py-20"><Loader2 className="w-8 h-8 text-[#00D67D] animate-spin" /></div>
               ) : (
                 <div className="glass rounded-2xl border border-white/5 overflow-hidden">
                   <table className="w-full text-left border-collapse">
@@ -151,15 +151,15 @@ export default function AdminDashboard({ adminData }) {
                             <span className="font-display font-bold text-white">{c.company_name}</span>
                           </td>
                           <td className="px-6 py-4">
-                            <span className="font-mono-pro text-xs text-[#00FF94]">@{c.username}</span>
+                            <span className="font-mono-pro text-xs text-[#00D67D]">@{c.username}</span>
                           </td>
                           <td className="px-6 py-4">
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#00FF94]/10 text-[#00FF94] font-mono-pro text-[10px] uppercase tracking-wider">
-                              <div className="w-1.5 h-1.5 rounded-full bg-[#00FF94]" /> Active
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#00D67D]/10 text-[#00D67D] font-mono-pro text-[10px] uppercase tracking-wider">
+                              <div className="w-1.5 h-1.5 rounded-full bg-[#00D67D]" /> Active
                             </span>
                           </td>
                           <td className="px-6 py-4 text-right">
-                            <button onClick={() => openEditor(c)} className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-[#00FF94] hover:text-black rounded-lg font-mono-pro text-xs uppercase tracking-wider transition-colors">
+                            <button onClick={() => openEditor(c)} className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-[#00D67D] hover:text-black rounded-lg font-mono-pro text-xs uppercase tracking-wider transition-colors">
                               <Edit2 className="w-3.5 h-3.5" /> Edit Data
                             </button>
                           </td>
@@ -179,18 +179,18 @@ export default function AdminDashboard({ adminData }) {
               
               <form onSubmit={handleAdminSubmit} className="glass rounded-2xl border border-white/5 p-8 space-y-6">
                 <div>
-                  <label className="overline block mb-2 text-white/50 text-[10px]">Client Username (No spaces)</label>
-                  <input required type="text" value={adminForm.username} onChange={e => setAdminForm({...adminForm, username: e.target.value})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00FF94] focus:outline-none" placeholder="e.g. acme_corp" />
+                  <label className="overline-premium block mb-2 text-white/50 text-[10px]">Client Username (No spaces)</label>
+                  <input required type="text" value={adminForm.username} onChange={e => setAdminForm({...adminForm, username: e.target.value})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00D67D] focus:outline-none" placeholder="e.g. acme_corp" />
                 </div>
                 <div>
-                  <label className="overline block mb-2 text-white/50 text-[10px]">Company Name</label>
-                  <input required type="text" value={adminForm.company} onChange={e => setAdminForm({...adminForm, company: e.target.value})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00FF94] focus:outline-none" placeholder="e.g. Acme Corporation" />
+                  <label className="overline-premium block mb-2 text-white/50 text-[10px]">Company Name</label>
+                  <input required type="text" value={adminForm.company} onChange={e => setAdminForm({...adminForm, company: e.target.value})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00D67D] focus:outline-none" placeholder="e.g. Acme Corporation" />
                 </div>
                 <div>
-                  <label className="overline block mb-2 text-white/50 text-[10px]">Secure Password</label>
-                  <input required type="text" value={adminForm.password} onChange={e => setAdminForm({...adminForm, password: e.target.value})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00FF94] focus:outline-none" placeholder="Generate a secure password..." />
+                  <label className="overline-premium block mb-2 text-white/50 text-[10px]">Secure Password</label>
+                  <input required type="text" value={adminForm.password} onChange={e => setAdminForm({...adminForm, password: e.target.value})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00D67D] focus:outline-none" placeholder="Generate a secure password..." />
                 </div>
-                <button type="submit" disabled={provisionLoading} className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#00FF94] text-black px-6 py-4 font-mono-pro text-xs uppercase tracking-[0.2em] font-bold hover:bg-white transition-colors disabled:opacity-50">
+                <button type="submit" disabled={provisionLoading} className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#00D67D] text-black px-6 py-4 font-mono-pro text-xs uppercase tracking-[0.2em] font-bold hover:bg-white transition-colors disabled:opacity-50">
                   {provisionLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <><PlusCircle className="w-4 h-4" /> Provision Access</>}
                 </button>
               </form>
@@ -209,7 +209,7 @@ export default function AdminDashboard({ adminData }) {
               {/* Modal Header */}
               <div className="flex items-center justify-between px-8 py-6 border-b border-white/5 bg-white/[0.02]">
                 <div>
-                  <h2 className="font-display text-2xl font-bold">Editing <span className="text-[#00FF94]">{editingClient.company_name}</span></h2>
+                  <h2 className="font-display text-2xl font-bold">Editing <span className="text-[#00D67D]">{editingClient.company_name}</span></h2>
                   <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mt-1">Live Dashboard Editor</p>
                 </div>
                 <button onClick={() => setEditingClient(null)} className="p-2 rounded-full hover:bg-white/10 transition-colors">
@@ -222,7 +222,7 @@ export default function AdminDashboard({ adminData }) {
                 {/* Editor Tabs */}
                 <div className="w-48 border-r border-white/5 bg-black/20 p-4 space-y-2">
                   {["metrics", "timeline", "activity", "documents"].map(tab => (
-                    <button key={tab} onClick={() => setEditTab(tab)} className={`w-full text-left px-4 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-wider transition-all ${editTab === tab ? 'bg-[#00FF94]/10 text-[#00FF94]' : 'text-white/50 hover:bg-white/[0.02] hover:text-white'}`}>
+                    <button key={tab} onClick={() => setEditTab(tab)} className={`w-full text-left px-4 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-wider transition-all ${editTab === tab ? 'bg-[#00D67D]/10 text-[#00D67D]' : 'text-white/50 hover:bg-white/[0.02] hover:text-white'}`}>
                       {tab}
                     </button>
                   ))}
@@ -235,14 +235,14 @@ export default function AdminDashboard({ adminData }) {
                     <div className="space-y-6">
                       <h3 className="font-display text-lg font-bold mb-4 border-b border-white/10 pb-2">Core Metrics & Focus</h3>
                       <div className="grid grid-cols-2 gap-6">
-                        <div><label className="overline block mb-2 text-white/50 text-[10px]">Organic Traffic</label><input value={editForm.metrics.traffic} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, traffic: e.target.value}})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00FF94] outline-none" /></div>
-                        <div><label className="overline block mb-2 text-white/50 text-[10px]">Top 3 Rankings</label><input value={editForm.metrics.rankings} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, rankings: e.target.value}})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00FF94] outline-none" /></div>
-                        <div><label className="overline block mb-2 text-white/50 text-[10px]">Domain Authority</label><input value={editForm.metrics.da} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, da: e.target.value}})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00FF94] outline-none" /></div>
-                        <div><label className="overline block mb-2 text-white/50 text-[10px]">New Backlinks</label><input value={editForm.metrics.backlinks} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, backlinks: e.target.value}})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00FF94] outline-none" /></div>
+                        <div><label className="overline-premium block mb-2 text-white/50 text-[10px]">Organic Traffic</label><input value={editForm.metrics.traffic} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, traffic: e.target.value}})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none" /></div>
+                        <div><label className="overline-premium block mb-2 text-white/50 text-[10px]">Top 3 Rankings</label><input value={editForm.metrics.rankings} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, rankings: e.target.value}})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none" /></div>
+                        <div><label className="overline-premium block mb-2 text-white/50 text-[10px]">Domain Authority</label><input value={editForm.metrics.da} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, da: e.target.value}})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none" /></div>
+                        <div><label className="overline-premium block mb-2 text-white/50 text-[10px]">New Backlinks</label><input value={editForm.metrics.backlinks} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, backlinks: e.target.value}})} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none" /></div>
                       </div>
                       <div className="pt-4">
-                        <label className="overline block mb-2 text-[#00FF94] text-[10px]">Current Sprint Focus (Highlighted Card)</label>
-                        <input value={editForm.current_focus} onChange={e => setEditForm({...editForm, current_focus: e.target.value})} className="w-full bg-[#00FF94]/5 border border-[#00FF94]/20 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00FF94] outline-none" placeholder="e.g. Phase 2: Technical Content Expansion" />
+                        <label className="overline-premium block mb-2 text-[#00D67D] text-[10px]">Current Sprint Focus (Highlighted Card)</label>
+                        <input value={editForm.current_focus} onChange={e => setEditForm({...editForm, current_focus: e.target.value})} className="w-full bg-[#00D67D]/5 border border-[#00D67D]/20 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none" placeholder="e.g. Phase 2: Technical Content Expansion" />
                       </div>
                     </div>
                   )}
@@ -251,7 +251,7 @@ export default function AdminDashboard({ adminData }) {
                     <div className="space-y-4">
                       <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-2">
                         <h3 className="font-display text-lg font-bold">Campaign Roadmap</h3>
-                        <button onClick={() => addArrayItem("timeline", {step: editForm.timeline.length + 1, title: "New Phase", status: "pending"})} className="text-xs font-mono-pro text-[#00FF94] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Phase</button>
+                        <button onClick={() => addArrayItem("timeline", {step: editForm.timeline.length + 1, title: "New Phase", status: "pending"})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Phase</button>
                       </div>
                       {editForm.timeline.map((item, i) => (
                         <div key={i} className="flex gap-4 items-start bg-white/[0.02] p-4 rounded-xl border border-white/5">
@@ -272,11 +272,11 @@ export default function AdminDashboard({ adminData }) {
                     <div className="space-y-4">
                       <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-2">
                         <h3 className="font-display text-lg font-bold">Recent Deliverables</h3>
-                        <button onClick={() => addArrayItem("recent_activity", {date: new Date().toISOString(), title: "New Task"})} className="text-xs font-mono-pro text-[#00FF94] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Task</button>
+                        <button onClick={() => addArrayItem("recent_activity", {date: new Date().toISOString(), title: "New Task"})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Task</button>
                       </div>
                       {editForm.recent_activity.map((item, i) => (
                         <div key={i} className="flex gap-4 items-start bg-white/[0.02] p-4 rounded-xl border border-white/5">
-                          <input type="text" value={item.date} onChange={e => updateArrayItem("recent_activity", i, "date", e.target.value)} className="w-48 bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-sm font-mono text-[#00FF94]" placeholder="YYYY-MM-DD or ISO" />
+                          <input type="text" value={item.date} onChange={e => updateArrayItem("recent_activity", i, "date", e.target.value)} className="w-48 bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-sm font-mono text-[#00D67D]" placeholder="YYYY-MM-DD or ISO" />
                           <input type="text" value={item.title} onChange={e => updateArrayItem("recent_activity", i, "title", e.target.value)} className="flex-1 bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-sm" placeholder="Task description" />
                           <button onClick={() => removeArrayItem("recent_activity", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
                         </div>
@@ -288,12 +288,12 @@ export default function AdminDashboard({ adminData }) {
                     <div className="space-y-4">
                       <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-2">
                         <h3 className="font-display text-lg font-bold">Strategy Vault</h3>
-                        <button onClick={() => addArrayItem("documents", {title: "New Document", url: "#"})} className="text-xs font-mono-pro text-[#00FF94] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Document</button>
+                        <button onClick={() => addArrayItem("documents", {title: "New Document", url: "#"})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Document</button>
                       </div>
                       {editForm.documents.map((item, i) => (
                         <div key={i} className="flex gap-4 items-start bg-white/[0.02] p-4 rounded-xl border border-white/5">
                           <input type="text" value={item.title} onChange={e => updateArrayItem("documents", i, "title", e.target.value)} className="flex-1 bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-sm" placeholder="Doc Title" />
-                          <input type="text" value={item.url} onChange={e => updateArrayItem("documents", i, "url", e.target.value)} className="flex-1 bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-[#00FF94]" placeholder="URL link" />
+                          <input type="text" value={item.url} onChange={e => updateArrayItem("documents", i, "url", e.target.value)} className="flex-1 bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-[#00D67D]" placeholder="URL link" />
                           <button onClick={() => removeArrayItem("documents", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
                         </div>
                       ))}
@@ -306,7 +306,7 @@ export default function AdminDashboard({ adminData }) {
               {/* Modal Footer */}
               <div className="px-8 py-5 border-t border-white/5 bg-black/40 flex justify-end gap-4">
                 <button onClick={() => setEditingClient(null)} className="px-6 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-wider text-white/50 hover:text-white transition-colors">Cancel</button>
-                <button onClick={handleSave} className="flex items-center gap-2 px-8 py-3 rounded-xl bg-[#00FF94] text-black font-bold font-mono-pro text-xs uppercase tracking-wider hover:bg-white transition-colors">
+                <button onClick={handleSave} className="flex items-center gap-2 px-8 py-3 rounded-xl bg-[#00D67D] text-black font-bold font-mono-pro text-xs uppercase tracking-wider hover:bg-white transition-colors">
                   <Save className="w-4 h-4" /> Push Live
                 </button>
               </div>

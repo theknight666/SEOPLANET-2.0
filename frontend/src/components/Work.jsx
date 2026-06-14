@@ -75,7 +75,7 @@ export default function Work() {
       <div className="max-w-7xl mx-auto">
         <motion.div {...reveal} className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
           <div>
-            <p className="overline mb-4">[03] · Selected Work</p>
+            <p className="overline-premium mb-4">[03] · Selected Work</p>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter max-w-3xl leading-[1.02]">
               Real results, <br />
               <span className="text-white/40">measured in revenue.</span>
@@ -105,12 +105,12 @@ export default function Work() {
               <div className="relative h-full flex flex-col justify-between p-7 sm:p-9">
                 <div className="flex items-start justify-between">
                   <div>
-                    <span className="overline">{c.code}</span>
+                    <span className="overline-premium">{c.code}</span>
                     <div className="mt-2 font-mono-pro text-xs text-white/50">
                       {c.industry}
                     </div>
                   </div>
-                  <div className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center group-hover:bg-[#00FF94] group-hover:border-[#00FF94] transition-all">
+                  <div className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center group-hover:bg-[#00D67D] group-hover:border-[#00D67D] transition-all">
                     <ArrowUpRight className="w-4 h-4 text-white group-hover:text-black transition-colors" />
                   </div>
                 </div>
@@ -119,7 +119,7 @@ export default function Work() {
                   <div className="font-display text-5xl sm:text-6xl font-black neon-text leading-none mb-3">
                     {c.metric}
                   </div>
-                  <div className="overline text-white/50 mb-5">{c.metricLabel}</div>
+                  <div className="overline-premium text-white/50 mb-5">{c.metricLabel}</div>
                   <h3 className="font-display text-xl sm:text-2xl text-white font-semibold tracking-tight max-w-md leading-tight">
                     {c.title}
                   </h3>

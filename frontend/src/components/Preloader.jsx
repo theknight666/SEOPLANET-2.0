@@ -60,7 +60,7 @@ export default function Preloader() {
           {/* Grid + grain backdrop */}
           <div className="absolute inset-0 grid-bg opacity-50 pointer-events-none" />
           <div className="absolute inset-0 grain pointer-events-none" />
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#00FF94]/[0.06] blur-3xl pointer-events-none" />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#00D67D]/[0.06] blur-3xl pointer-events-none" />
 
           {/* Top status row */}
           <motion.div
@@ -70,7 +70,7 @@ export default function Preloader() {
             className="absolute top-8 left-0 right-0 px-8 sm:px-12 flex items-center justify-between text-[10px] sm:text-xs font-mono-pro uppercase tracking-[0.25em] text-white/40"
           >
             <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00FF94] animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00D67D] animate-pulse" />
               Initializing
             </span>
             <span className="hidden sm:inline">SEO Planet · v.2026</span>
@@ -87,7 +87,7 @@ export default function Preloader() {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 rounded-full border border-[#00FF94]/40"
+              className="absolute inset-0 rounded-full border border-[#00D67D]/40"
               style={{
                 background:
                   "conic-gradient(from 0deg, transparent 0%, #00FF94 25%, transparent 50%, transparent 100%)",
@@ -112,14 +112,14 @@ export default function Preloader() {
               }}
             />
             {/* Glowing core */}
-            <div className="absolute inset-[26%] rounded-full bg-[#00FF94] shadow-[0_0_60px_rgba(0,255,148,0.7)] animate-pulse" />
+            <div className="absolute inset-[26%] rounded-full bg-[#00D67D] shadow-[0_0_60px_rgba(0,255,148,0.7)] animate-pulse" />
             {/* Orbiting dots */}
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
               className="absolute inset-0"
             >
-              <span className="absolute left-1/2 -top-1 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#00FF94]" />
+              <span className="absolute left-1/2 -top-1 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#00D67D]" />
               <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#00E5FF]" />
             </motion.div>
           </motion.div>
@@ -145,7 +145,7 @@ export default function Preloader() {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.65, duration: 0.5 }}
-              className="w-2 h-2 rounded-full bg-[#00FF94] mx-1 sm:mx-2 self-center shadow-[0_0_18px_rgba(0,255,148,0.7)]"
+              className="w-2 h-2 rounded-full bg-[#00D67D] mx-1 sm:mx-2 self-center shadow-[0_0_18px_rgba(0,255,148,0.7)]"
             />
             {word2.map((c, i) => (
               <motion.span
@@ -169,7 +169,7 @@ export default function Preloader() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.0 }}
-            className="overline text-[10px] sm:text-xs text-white/40 mb-14"
+            className="overline-premium text-[10px] sm:text-xs text-white/40 mb-14"
           >
             The new era of marketing
           </motion.p>
@@ -183,17 +183,17 @@ export default function Preloader() {
           >
             <div className="max-w-4xl mx-auto">
               <div className="flex items-end justify-between mb-4">
-                <span className="overline text-white/35 text-[10px]">
+                <span className="overline-premium text-white/35 text-[10px]">
                   Loading systems
                 </span>
                 <span className="font-display font-black tabular-nums text-white text-3xl sm:text-4xl tracking-tighter">
                   {String(progress).padStart(3, "0")}
-                  <span className="text-[#00FF94] ml-0.5">%</span>
+                  <span className="text-[#00D67D] ml-0.5">%</span>
                 </span>
               </div>
               <div className="relative w-full h-px bg-white/10 overflow-hidden">
                 <motion.div
-                  className="absolute inset-y-0 left-0 bg-[#00FF94] shadow-[0_0_18px_rgba(0,255,148,0.55)]"
+                  className="absolute inset-y-0 left-0 bg-[#00D67D] shadow-[0_0_18px_rgba(0,255,148,0.55)]"
                   style={{ width: `${progress}%` }}
                 />
                 {/* shimmer */}
