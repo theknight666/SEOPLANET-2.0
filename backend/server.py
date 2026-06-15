@@ -227,6 +227,12 @@ async def create_new_client(payload: ClientCreate, current_client: dict = Depend
             "da": "0",
             "backlinks": "0"
         },
+        "metrics_changes": {
+            "traffic": "+0%",
+            "rankings": "+0%",
+            "da": "+0",
+            "backlinks": "+0"
+        },
         "current_focus": "Phase 1: Technical Foundation & Access",
         "recent_activity": [
             {"date": datetime.now(timezone.utc).isoformat(), "title": "Portal access provisioned"}
@@ -239,6 +245,24 @@ async def create_new_client(payload: ClientCreate, current_client: dict = Depend
         ],
         "documents": [
             {"title": "Welcome Guide & Roadmap", "url": "#"}
+        ],
+        "traffic_trend": [
+            {"name": "Jan", "traffic": 1000},
+            {"name": "Feb", "traffic": 1200},
+            {"name": "Mar", "traffic": 1500},
+            {"name": "Apr", "traffic": 2000},
+            {"name": "May", "traffic": 2500},
+            {"name": "Jun", "traffic": 3200}
+        ],
+        "keyword_rankings": [
+            {"keyword": "seo services", "rank": 12, "change": "+5", "volume": "12,000", "status": "active"}
+        ],
+        "competitors": [
+            {"name": "Competitor A", "traffic": "12k", "da": "45"},
+            {"name": "Competitor B", "traffic": "8k", "da": "38"}
+        ],
+        "goals": [
+            {"title": "Leads per month", "target": 500, "current": 120}
         ]
     }
     await db.clients.insert_one(client_doc)
@@ -254,10 +278,15 @@ async def get_all_clients(current_client: dict = Depends(get_current_client)):
 
 class ClientUpdate(BaseModel):
     metrics: dict
+    metrics_changes: dict = {}
     current_focus: str
     timeline: list
     recent_activity: list
     documents: list
+    traffic_trend: list = []
+    keyword_rankings: list = []
+    competitors: list = []
+    goals: list = []
 
 @api_router.put("/onboarding/clients/{username}")
 async def update_client(username: str, payload: ClientUpdate, current_client: dict = Depends(get_current_client)):
@@ -266,10 +295,15 @@ async def update_client(username: str, payload: ClientUpdate, current_client: di
     
     update_data = {
         "metrics": payload.metrics,
+        "metrics_changes": payload.metrics_changes,
         "current_focus": payload.current_focus,
         "timeline": payload.timeline,
         "recent_activity": payload.recent_activity,
-        "documents": payload.documents
+        "documents": payload.documents,
+        "traffic_trend": payload.traffic_trend,
+        "keyword_rankings": payload.keyword_rankings,
+        "competitors": payload.competitors,
+        "goals": payload.goals
     }
     result = await db.clients.update_one({"username": username}, {"$set": update_data})
     if result.matched_count == 0:
