@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
 import { LogOut, Loader2, FileText, CheckCircle2, Clock, PlayCircle, TrendingUp, Target, Shield, Link, Activity, Lock, Users, Search, LayoutDashboard, LayoutGrid, List, Download, CheckCircle, CircleDashed, Calendar, BarChart3, Calculator, FolderClosed, MessageSquare, Receipt, Send, FileCode, ImageIcon } from "lucide-react";
 import axios from "axios";
@@ -82,6 +82,68 @@ const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
 };
+
+// --- 3D Parallax Tilt Card Component ---
+function TiltCard({ children, className = "", ...props }) {
+  const ref = useRef(null);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15, mass: 0.1 });
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15, mass: 0.1 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["5deg", "-5deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-5deg", "5deg"]);
+  const glareX = useTransform(mouseXSpring, [-0.5, 0.5], ["100%", "0%"]);
+  const glareY = useTransform(mouseYSpring, [-0.5, 0.5], ["100%", "0%"]);
+
+  const handleMouseMove = (e) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      {...props}
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      className={`relative group perspective-1000 ${className}`}
+    >
+      <motion.div
+        className="pointer-events-none absolute inset-0 z-50 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background: "radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, transparent 60%)",
+          left: glareX,
+          top: glareY,
+          transform: "translate(-50%, -50%)",
+          width: "200%",
+          height: "200%",
+        }}
+      />
+      {children}
+    </motion.div>
+  );
+}
 
 function DashboardSkeleton() {
   return (
@@ -193,8 +255,7 @@ export default function Dashboard() {
       {showDashboard && (
         <div className="flex h-screen w-full bg-black text-white overflow-hidden grain selection:bg-[#00FF94] selection:text-black">
           <div className="fixed inset-0 grid-bg opacity-10 pointer-events-none z-0" />
-          <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full bg-[#00FF94]/5 blur-[150px] pointer-events-none z-0" />
-
+          
           {/* Desktop Sidebar */}
           <aside className="hidden md:flex flex-col w-64 border-r border-white/5 bg-[#050505]/80 backdrop-blur-xl shrink-0 z-20">
             <div className="h-20 flex items-center px-8 border-b border-white/5 shrink-0">
@@ -281,7 +342,7 @@ export default function Dashboard() {
                           { label: "Backlinks Added", value: data.metrics?.backlinks || "0", icon: Link, change: data.metrics_changes?.backlinks || "+0" },
                           { label: "Leads Generated", value: data.metrics?.da || "0", icon: Users, change: data.metrics_changes?.da || "+0" }
                         ].map((m, i) => (
-                          <motion.div 
+                          <TiltCard 
                             key={i} 
                             whileHover={{ y: -4, scale: 1.02 }}
                             className="group relative glass rounded-2xl p-6 border border-white/[0.04] hover:border-[#00FF94]/40 hover:shadow-[0_0_30px_rgba(0,255,148,0.1)] transition-all duration-300 flex flex-col"
@@ -293,12 +354,12 @@ export default function Dashboard() {
                             </div>
                             <p className="font-display font-black text-3xl mb-1 tracking-tight">{m.value}</p>
                             <p className="font-mono-pro text-[10px] uppercase tracking-widest text-white/40">{m.label}</p>
-                          </motion.div>
+                          </TiltCard>
                         ))}
                       </motion.div>
 
                       {/* Traffic Trend Chart */}
-                      <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04] relative overflow-hidden">
+                      <TiltCard variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04] relative overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-[#00FF94]/5 to-transparent pointer-events-none" />
                         <h3 className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mb-6">Traffic Trend (6 Months)</h3>
                         <div className="h-48 w-full">
@@ -319,13 +380,13 @@ export default function Dashboard() {
                             </AreaChart>
                           </ResponsiveContainer>
                         </div>
-                      </motion.div>
+                      </TiltCard>
                     </div>
                   )}
 
                   {/* Keyword Rankings */}
                   {data.keyword_rankings && data.keyword_rankings.length > 0 && (
-                    <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04] overflow-hidden">
+                    <TiltCard variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04] overflow-hidden">
                       <h3 className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mb-6">Keyword Positions</h3>
                       <div className="overflow-x-auto">
                         <table className="w-full text-left">
@@ -355,12 +416,12 @@ export default function Dashboard() {
                           </tbody>
                         </table>
                       </div>
-                    </motion.div>
+                    </TiltCard>
                   )}
 
                   {/* Competitor Comparison */}
                   {data.competitors && data.competitors.length > 0 && (
-                    <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04]">
+                    <TiltCard variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04]">
                       <h3 className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mb-6">Competitive Landscape</h3>
                       <div className="space-y-4">
                         {/* Client's own row for comparison */}
@@ -392,12 +453,12 @@ export default function Dashboard() {
                           </div>
                         ))}
                       </div>
-                    </motion.div>
+                    </TiltCard>
                   )}
 
                   {/* Goal Progress */}
                   {data.goals && data.goals.length > 0 && (
-                    <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04]">
+                    <TiltCard variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04]">
                       <h3 className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mb-6">Target Progression</h3>
                       <div className="space-y-6">
                         {data.goals.map((goal, i) => {
@@ -420,7 +481,7 @@ export default function Dashboard() {
                           );
                         })}
                       </div>
-                    </motion.div>
+                    </TiltCard>
                   )}
 
                   {/* Campaign Roadmap */}
@@ -490,7 +551,7 @@ export default function Dashboard() {
               {/* Right Column */}
               <div className="lg:col-span-5 space-y-8 lg:pt-32">
                 {/* Sprint Focus */}
-                <motion.div variants={itemVariants} className="relative rounded-3xl p-[1px] overflow-hidden group">
+                <TiltCard variants={itemVariants} className="relative rounded-3xl p-[1px] overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#00FF94]/40 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
                   <div className="relative rounded-3xl bg-[#050505] p-8 sm:p-10 h-full backdrop-blur-xl">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-[#00FF94]/10 blur-[50px] pointer-events-none" />
@@ -499,10 +560,10 @@ export default function Dashboard() {
                       {data.current_focus || "Phase 1: Technical Foundation & Site Architecture"}
                     </p>
                   </div>
-                </motion.div>
+                </TiltCard>
 
                 {/* Vault */}
-                <motion.div variants={itemVariants} className="rounded-3xl glass p-8 sm:p-10 border border-white/[0.04]">
+                <TiltCard variants={itemVariants} className="rounded-3xl glass p-8 sm:p-10 border border-white/[0.04]">
                   <h3 className="overline text-white/40 mb-8 flex items-center gap-3">
                     <div className="w-6 h-[1px] bg-white/20" /> Strategy Vault
                   </h3>
@@ -525,7 +586,7 @@ export default function Dashboard() {
                       <p className="text-sm text-white/40 font-mono-pro italic">No documents uploaded yet.</p>
                     )}
                   </div>
-                </motion.div>
+                </TiltCard>
 
                 {/* Support */}
                 <motion.div variants={itemVariants} className="relative rounded-3xl p-8 sm:p-10 border border-[#00FF94]/20 bg-[#00FF94]/5 overflow-hidden">
