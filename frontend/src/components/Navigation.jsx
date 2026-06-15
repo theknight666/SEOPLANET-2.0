@@ -5,6 +5,7 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 const links = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
+  { label: "Portfolio", href: "https://portfolio.seoplanet.in" },
   { label: "Process", href: "#process" },
   { label: "Packages", href: "#packages" },
   { label: "Team", href: "#team" },
@@ -53,6 +54,7 @@ export default function Navigation() {
             <a
               key={l.href}
               href={l.href}
+              {...(l.href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
               className="px-4 py-2 text-xs uppercase tracking-[0.2em] text-white/65 hover:text-white transition-colors font-mono-pro relative group"
               data-testid={`nav-link-${l.label.toLowerCase()}`}
             >
@@ -95,6 +97,7 @@ export default function Navigation() {
               <a
                 key={l.href}
                 href={l.href}
+                {...(l.href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
                 onClick={() => setOpen(false)}
                 className="text-white/80 font-mono-pro uppercase tracking-[0.2em] text-sm py-3 px-2 border-b border-white/5 hover:text-white"
               >
