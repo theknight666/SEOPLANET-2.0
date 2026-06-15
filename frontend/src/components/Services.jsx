@@ -74,7 +74,7 @@ export default function Services() {
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-6">
           {/* Highlight card */}
-          <TiltCard className="md:col-span-8 md:row-span-2 h-full w-full">
+          <TiltCard isVolumetric={true} className="md:col-span-8 md:row-span-2 h-full w-full">
           <motion.div
             {...reveal}
             className="relative neon-border rounded-2xl bg-gradient-to-br from-[#0A0F0C] to-[#05050A] p-8 sm:p-12 group h-full"
@@ -118,7 +118,7 @@ export default function Services() {
           </TiltCard>
 
           {/* Side small */}
-          <TiltCard className="md:col-span-4 h-full w-full">
+          <TiltCard isVolumetric={true} className="md:col-span-4 h-full w-full">
           <motion.div
             {...reveal}
             className="relative rounded-2xl bg-white/[0.03] border border-white/10 p-7 transition-all duration-300 group h-full"
@@ -140,7 +140,7 @@ export default function Services() {
           </motion.div>
           </TiltCard>
 
-          <TiltCard className="md:col-span-4 h-full w-full">
+          <TiltCard isVolumetric={true} className="md:col-span-4 h-full w-full">
           <motion.div
             {...reveal}
             className="relative rounded-2xl bg-white/[0.03] border border-white/10 p-7 transition-all duration-300 group h-full"
@@ -163,7 +163,7 @@ export default function Services() {
           </TiltCard>
 
           {services.map((s) => (
-            <TiltCard key={s.code} className="md:col-span-3 h-full w-full">
+            <TiltCard isVolumetric={true} key={s.code} className="md:col-span-3 h-full w-full">
             <motion.div
               {...reveal}
               className="relative rounded-2xl bg-white/[0.03] border border-white/10 p-6 transition-all duration-300 group h-full"

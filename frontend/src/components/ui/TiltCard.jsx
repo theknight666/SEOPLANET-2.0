@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 
-export default function TiltCard({ children, className = "", maxRotation = 12 }) {
+export default function TiltCard({ children, className = "", maxRotation = 12, isVolumetric = false }) {
   const ref = useRef(null);
 
   const x = useMotionValue(0.5);
@@ -42,6 +42,21 @@ export default function TiltCard({ children, className = "", maxRotation = 12 })
         }}
         className="relative w-full h-full transform-gpu will-change-transform"
       >
+        {/* Volumetric Block Extrusion (Slices) */}
+        {isVolumetric && (
+          <div style={{ transformStyle: "preserve-3d" }} className="absolute inset-0 pointer-events-none transition-all duration-300">
+            {Array.from({ length: 15 }).map((_, i) => (
+              <div 
+                key={i}
+                className={`absolute inset-0 rounded-2xl ${i === 14 ? 'bg-[#00FF94]/10 border border-[#00FF94]/30 shadow-[0_0_20px_rgba(0,255,148,0.2)]' : 'bg-[#0A0F0C] border border-[#00FF94]/5'}`}
+                style={{ 
+                  transform: `translateZ(-${(i + 1) * 2}px)`,
+                }} 
+              />
+            ))}
+          </div>
+        )}
+
         <div style={{ transformStyle: "preserve-3d" }} className="w-full h-full relative z-10">
           {children}
         </div>

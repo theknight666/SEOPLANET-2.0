@@ -212,7 +212,7 @@ export default function Work() {
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-6">
           {cases.map((c) => (
-            <TiltCard key={c.code} className={`${c.span} h-full w-full`} maxRotation={8}>
+            <TiltCard key={c.code} className={`${c.span} h-full w-full`} maxRotation={8} isVolumetric={true}>
             <motion.a
               href="#contact"
               {...reveal}

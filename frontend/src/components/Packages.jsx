@@ -127,7 +127,7 @@ export default function Packages() {
           {packages.map((pkg) => {
             const Icon = pkg.icon;
             return (
-              <TiltCard key={pkg.code} className="h-full w-full">
+              <TiltCard key={pkg.code} className="h-full w-full" isVolumetric={true}>
                 <motion.div
                   {...reveal}
                 className={`relative rounded-2xl p-8 sm:p-10 transition-all duration-300 group flex flex-col justify-between min-h-[720px] ${
