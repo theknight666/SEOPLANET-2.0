@@ -24,7 +24,6 @@ const PROJECTS = [
     quote: "SEO Planet completely transformed our digital presence. Bookings went up 300% in month one. The attention to performance is incredible.",
     quoteAuthor: "Founder, Eventa",
     video: "https://cdn.pixabay.com/video/2020/05/21/40008-424750244_tiny.mp4", // Placeholder for actual showreel
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1440&q=80", // Manually provided screenshot
   },
   {
     index: "002",
@@ -43,7 +42,6 @@ const PROJECTS = [
     quote: "The attention to detail is unmatched. Our properties finally look as premium online as they do in person.",
     quoteAuthor: "Director, Midheaven Properties",
     video: "https://cdn.pixabay.com/video/2019/04/10/22744-330560410_tiny.mp4", // Placeholder
-    image: "https://images.unsplash.com/photo-1555421689-d68471e189f2?w=1440&q=80", // Manually provided screenshot
   },
 ];
 
@@ -139,7 +137,13 @@ function Header({ scrolled }) {
 ───────────────────────────────────────────── */
 function ExpandPanel({ p, open, isEven }) {
   const panelRef = useRef(null);
-  const [height, setHeight] = useState(0);
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [imgError, setImgError] = useState(false);
+
+  // Thum.io provides much faster, more reliable free screenshots without aggressive rate limits. 
+  // However, for SPAs, a manually provided 'image' in PROJECTS is highly recommended.
+  const screenshotUrl = p.image || `https://image.thum.io/get/width/1440/crop/900/noanimate/${p.url}`;
+
   useEffect(() => {
     if (!panelRef.current) return;
     if (open) {
@@ -149,8 +153,16 @@ function ExpandPanel({ p, open, isEven }) {
       return () => clearTimeout(t);
     } else {
       setHeight(0);
+      setImgLoaded(false);
+      setImgError(false);
     }
   }, [open]);
+
+  useEffect(() => {
+    if (imgLoaded && panelRef.current && open) {
+      setHeight(panelRef.current.scrollHeight);
+    }
+  }, [imgLoaded, open]);
 
   return (
     <div
@@ -208,27 +220,39 @@ function ExpandPanel({ p, open, isEven }) {
               </div>
             </div>
 
-            {/* Visual Content (Live Iframe) */}
+            {/* Visual Content (Screenshot) */}
             <div style={{
               position: "relative", width: "100%", flex: 1, display: "flex",
               border: "1px solid rgba(255,255,255,0.06)", borderTop: "none", borderRadius: "0 0 8px 8px",
-              background: "#0A0A12", minHeight: "450px", overflow: "hidden",
+              background: "#0A0A12", minHeight: imgLoaded ? "auto" : "280px",
             }}>
               
-              {open && (
-                <iframe
-                  src={p.url}
-                  title={`${p.title} live preview`}
-                  loading="lazy"
-                  style={{
-                    width: "100%", height: "100%", border: "none",
-                    borderRadius: "0 0 8px 8px", background: "#fff"
-                  }}
-                />
+              {!imgLoaded && !imgError && (
+                <div style={{
+                  position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "12px",
+                }}>
+                  <div style={{ width: "28px", height: "28px", borderRadius: "50%", border: `2px solid ${p.color}30`, borderTopColor: p.color, animation: "spin 0.8s linear infinite" }} />
+                  <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "9px", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(255,255,255,0.2)" }}>Capturing screenshot…</span>
+                </div>
               )}
 
+              {imgError && (
+                <div style={{ padding: "48px 24px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%", gap: "12px" }}>
+                  <span style={{ fontSize: "32px" }}>🌐</span>
+                  <a href={p.url} target="_blank" rel="noreferrer" style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "10px", letterSpacing: "0.2em", textTransform: "uppercase", color: p.color, textDecoration: "none" }}>Open {p.title} ↗</a>
+                </div>
+              )}
+
+              <img
+                src={screenshotUrl}
+                alt={`${p.title} preview`}
+                onLoad={() => setImgLoaded(true)}
+                onError={() => { setImgError(true); setImgLoaded(true); }}
+                style={{ display: imgError ? "none" : "block", width: "100%", height: "auto", objectFit: "cover", borderRadius: "0 0 8px 8px", opacity: imgLoaded && !imgError ? 1 : 0, transition: "opacity 0.6s ease" }}
+              />
+
               {/* Visit overlay */}
-              {open && (
+              {imgLoaded && !imgError && (
                 <a
                   href={p.url}
                   target="_blank"
