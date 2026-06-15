@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
 import { LogOut, Loader2, FileText, CheckCircle2, Clock, PlayCircle, TrendingUp, Target, Shield, Link, Activity, Lock, Users, Search, LayoutDashboard, LayoutGrid, List, Download, CheckCircle, CircleDashed, Calendar, BarChart3, Calculator, FolderClosed, MessageSquare, Receipt, Send, FileCode, ImageIcon } from "lucide-react";
 import axios from "axios";
+import { Toaster, toast } from "sonner";
 import AdminDashboard from "./AdminDashboard";
 import { AreaChart, Area, Tooltip, ResponsiveContainer } from "recharts";
 
@@ -82,6 +83,26 @@ const itemVariants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
 };
 
+function DashboardSkeleton() {
+  return (
+    <div className="flex h-screen w-full bg-[#05050A] text-white overflow-hidden grain">
+      <aside className="hidden md:flex flex-col w-64 border-r border-white/5 bg-[#0A0A0F]/80 p-6 space-y-4">
+        <div className="w-32 h-6 bg-white/5 rounded-full animate-pulse mb-8" />
+        {[...Array(6)].map((_, i) => <div key={i} className="w-full h-10 bg-white/5 rounded-xl animate-pulse" />)}
+      </aside>
+      <main className="flex-1 p-6 md:p-12 overflow-y-auto">
+        <div className="max-w-5xl mx-auto space-y-8">
+          <div className="w-48 h-8 bg-white/5 rounded-xl animate-pulse mb-8" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[...Array(3)].map((_, i) => <div key={i} className="h-32 bg-white/5 rounded-2xl animate-pulse" />)}
+          </div>
+          <div className="h-64 bg-white/5 rounded-3xl animate-pulse mt-8" />
+        </div>
+      </main>
+    </div>
+  );
+}
+
 export default function Dashboard() {
   const { logout } = useAuth();
   const [data, setData] = useState(null);
@@ -150,11 +171,7 @@ export default function Dashboard() {
   }, []);
 
   if (loading && !data) {
-    return (
-      <div className="min-h-screen w-full flex items-center justify-center bg-[#05050A]">
-        <Loader2 className="w-8 h-8 text-[#00FF94] animate-spin" />
-      </div>
-    );
+    return <DashboardSkeleton />;
   }
 
   if (!data) return null;
@@ -171,75 +188,68 @@ export default function Dashboard() {
         )}
       </AnimatePresence>
 
-      {showDashboard && (
-        <div className="min-h-screen w-full bg-[#05050A] text-white overflow-hidden grain selection:bg-[#00FF94] selection:text-black">
-          <div className="fixed inset-0 grid-bg opacity-10 pointer-events-none" />
-          <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full bg-[#00FF94]/5 blur-[150px] pointer-events-none" />
+      <Toaster theme="dark" position="bottom-right" toastOptions={{ style: { background: '#0A0A0F', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontFamily: 'monospace' } }} />
 
-          <header className="relative z-10 border-b border-white/5 bg-[#0A0A0F]/80 backdrop-blur-xl">
-            <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      {showDashboard && (
+        <div className="flex h-screen w-full bg-[#05050A] text-white overflow-hidden grain selection:bg-[#00FF94] selection:text-black">
+          <div className="fixed inset-0 grid-bg opacity-10 pointer-events-none z-0" />
+          <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full bg-[#00FF94]/5 blur-[150px] pointer-events-none z-0" />
+
+          {/* Desktop Sidebar */}
+          <aside className="hidden md:flex flex-col w-64 border-r border-white/5 bg-[#0A0A0F]/80 backdrop-blur-xl shrink-0 z-20">
+            <div className="h-20 flex items-center px-8 border-b border-white/5 shrink-0">
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 rounded-full bg-[#00FF94] shadow-[0_0_10px_#00FF94] animate-pulse" />
-                <span className="font-display font-bold tracking-widest text-sm uppercase">
-                  SEO PLANET <span className="text-white/20 mx-3">|</span> <span className="text-[#00FF94]">Secure Portal</span>
-                </span>
+                <span className="font-display font-bold tracking-widest text-sm uppercase">SEO PLANET</span>
               </div>
-              <button onClick={logout} className="group flex items-center gap-2 text-xs font-mono-pro text-white/50 hover:text-white transition-colors">
+            </div>
+            
+            <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto custom-scrollbar">
+              {[
+                { id: "overview", label: "Command Center", icon: LayoutDashboard },
+                { id: "deliverables", label: "Deliverables", icon: Activity },
+                { id: "content", label: "Content", icon: Calendar },
+                { id: "reports", label: "Reports", icon: BarChart3 },
+                { id: "documents", label: "Documents", icon: FolderClosed },
+                { id: "messages", label: "Messages", icon: MessageSquare },
+                { id: "invoices", label: "Invoices", icon: Receipt },
+              ].map(item => {
+                const Icon = item.icon;
+                const isActive = activeTab === item.id;
+                return (
+                  <button 
+                    key={item.id}
+                    onClick={() => setActiveTab(item.id)}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 ${isActive ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
+                  >
+                    <Icon className="w-4 h-4" /> {item.label}
+                  </button>
+                );
+              })}
+            </nav>
+
+            <div className="p-6 border-t border-white/5 shrink-0">
+              <button onClick={logout} className="group flex items-center gap-3 text-xs font-mono-pro text-white/50 hover:text-white transition-colors w-full p-3 rounded-xl hover:bg-white/5">
                 <LogOut className="w-4 h-4 group-hover:text-[#00FF94] transition-colors" /> Disconnect
               </button>
             </div>
-          </header>
+          </aside>
 
-          {/* Sub-Navigation */}
-          <div className="relative z-10 max-w-6xl mx-auto px-6 mt-8">
-            <div className="flex items-center gap-4 border-b border-white/10 pb-4 overflow-x-auto custom-scrollbar">
-              <button 
-                onClick={() => setActiveTab("overview")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 ${activeTab === "overview" ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
-              >
-                <LayoutDashboard className="w-4 h-4" /> Command Center
-              </button>
-              <button 
-                onClick={() => setActiveTab("deliverables")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 ${activeTab === "deliverables" ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
-              >
-                <Activity className="w-4 h-4" /> Deliverables
-              </button>
-              <button 
-                onClick={() => setActiveTab("content")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 ${activeTab === "content" ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
-              >
-                <Calendar className="w-4 h-4" /> Content
-              </button>
-              <button 
-                onClick={() => setActiveTab("reports")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${activeTab === "reports" ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
-              >
-                <BarChart3 className="w-4 h-4" /> Reports
-              </button>
-              <button 
-                onClick={() => setActiveTab("documents")}
-                className={`flex items-center gap-2 px-4 py-2 whitespace-nowrap rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 ${activeTab === "documents" ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
-              >
-                <FolderClosed className="w-4 h-4" /> Documents
-              </button>
-              <button 
-                onClick={() => setActiveTab("messages")}
-                className={`flex items-center gap-2 px-4 py-2 whitespace-nowrap rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 ${activeTab === "messages" ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
-              >
-                <MessageSquare className="w-4 h-4" /> Messages
-              </button>
-              <button 
-                onClick={() => setActiveTab("invoices")}
-                className={`flex items-center gap-2 px-4 py-2 whitespace-nowrap rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 ${activeTab === "invoices" ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
-              >
-                <Receipt className="w-4 h-4" /> Invoices
-              </button>
-            </div>
-          </div>
+          {/* Main Area (Mobile & Desktop) */}
+          <div className="flex-1 flex flex-col h-screen relative z-10 min-w-0">
+            {/* Mobile Header */}
+            <header className="md:hidden h-16 border-b border-white/5 bg-[#0A0A0F]/80 backdrop-blur-xl flex items-center justify-between px-6 shrink-0 z-20">
+               <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 rounded-full bg-[#00FF94] shadow-[0_0_10px_#00FF94] animate-pulse" />
+                  <span className="font-display font-bold tracking-widest text-sm uppercase text-[#00FF94]">Portal</span>
+                </div>
+               <button onClick={logout}><LogOut className="w-4 h-4 text-white/50" /></button>
+            </header>
 
-          <main className="relative z-10 max-w-6xl mx-auto px-6 py-8 sm:py-12">
-            <AnimatePresence mode="wait">
+            {/* Scrollable Content */}
+            <main className="flex-1 overflow-y-auto p-6 md:p-12 pb-32 md:pb-12 custom-scrollbar">
+              <div className="max-w-5xl mx-auto relative z-10">
+                <AnimatePresence mode="wait">
             {activeTab === "overview" ? (
             <motion.div key="overview" variants={containerVariants} initial="hidden" animate="show" exit={{ opacity: 0, y: 10 }} transition={{ duration: 0.3 }} className="grid lg:grid-cols-12 gap-12 lg:gap-16">
               
@@ -986,9 +996,39 @@ export default function Dashboard() {
                 </div>
               </div>
             </motion.div>
-            )}
-            </AnimatePresence>
-          </main>
+                </AnimatePresence>
+              </div>
+            </main>
+
+            {/* Mobile Bottom Nav */}
+            <nav className="md:hidden absolute bottom-0 left-0 right-0 bg-[#0A0A0F]/90 backdrop-blur-xl border-t border-white/5 z-50">
+               <div className="flex items-center overflow-x-auto custom-scrollbar px-2 py-3 gap-2">
+                 {[
+                  { id: "overview", label: "Hub", icon: LayoutDashboard },
+                  { id: "deliverables", label: "Work", icon: Activity },
+                  { id: "content", label: "Content", icon: Calendar },
+                  { id: "reports", label: "Reports", icon: BarChart3 },
+                  { id: "documents", label: "Vault", icon: FolderClosed },
+                  { id: "messages", label: "Comms", icon: MessageSquare },
+                  { id: "invoices", label: "Billing", icon: Receipt },
+                 ].map(item => {
+                   const Icon = item.icon;
+                   const isActive = activeTab === item.id;
+                   return (
+                     <button
+                       key={item.id}
+                       onClick={() => setActiveTab(item.id)}
+                       className={`flex flex-col items-center justify-center gap-1 min-w-[64px] px-2 py-2 rounded-xl transition-colors ${isActive ? 'text-[#00FF94]' : 'text-white/40 hover:text-white'}`}
+                     >
+                       <Icon className="w-5 h-5" />
+                       <span className="font-mono-pro text-[9px] uppercase tracking-wider">{item.label}</span>
+                     </button>
+                   );
+                 })}
+               </div>
+            </nav>
+
+          </div>
         </div>
       )}
     </>
