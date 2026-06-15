@@ -137,6 +137,7 @@ function Header({ scrolled }) {
 ───────────────────────────────────────────── */
 function ExpandPanel({ p, open, isEven }) {
   const panelRef = useRef(null);
+  const [height, setHeight] = useState(0);
   const [imgLoaded, setImgLoaded] = useState(false);
   const [imgError, setImgError] = useState(false);
 
