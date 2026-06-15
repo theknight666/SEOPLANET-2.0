@@ -21,7 +21,7 @@ function CinematicLoader({ companyName, onComplete }) {
     <motion.div 
       exit={{ opacity: 0, scale: 1.05 }} 
       transition={{ duration: 0.8, ease: "easeInOut" }}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#05050A] text-white grain"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black text-white grain"
     >
       <div className="absolute inset-0 grid-bg opacity-20" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#00FF94]/10 blur-[150px] animate-pulse" />
@@ -85,18 +85,18 @@ const itemVariants = {
 
 function DashboardSkeleton() {
   return (
-    <div className="flex h-screen w-full bg-[#05050A] text-white overflow-hidden grain">
-      <aside className="hidden md:flex flex-col w-64 border-r border-white/5 bg-[#0A0A0F]/80 p-6 space-y-4">
-        <div className="w-32 h-6 bg-white/5 rounded-full animate-pulse mb-8" />
-        {[...Array(6)].map((_, i) => <div key={i} className="w-full h-10 bg-white/5 rounded-xl animate-pulse" />)}
+    <div className="flex h-screen w-full bg-black text-white overflow-hidden grain">
+      <aside className="hidden md:flex flex-col w-64 border-r border-white/5 bg-[#050505]/80 p-6 space-y-4">
+        <div className="w-32 h-6 bg-white/[0.02] rounded-full animate-pulse mb-8" />
+        {[...Array(6)].map((_, i) => <div key={i} className="w-full h-10 bg-white/[0.02] rounded-xl animate-pulse" />)}
       </aside>
       <main className="flex-1 p-6 md:p-12 overflow-y-auto">
         <div className="max-w-5xl mx-auto space-y-8">
-          <div className="w-48 h-8 bg-white/5 rounded-xl animate-pulse mb-8" />
+          <div className="w-48 h-8 bg-white/[0.02] rounded-xl animate-pulse mb-8" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[...Array(3)].map((_, i) => <div key={i} className="h-32 bg-white/5 rounded-2xl animate-pulse" />)}
+            {[...Array(3)].map((_, i) => <div key={i} className="h-32 bg-white/[0.02] rounded-2xl animate-pulse" />)}
           </div>
-          <div className="h-64 bg-white/5 rounded-3xl animate-pulse mt-8" />
+          <div className="h-64 bg-white/[0.02] rounded-3xl animate-pulse mt-8" />
         </div>
       </main>
     </div>
@@ -191,12 +191,12 @@ export default function Dashboard() {
       <Toaster theme="dark" position="bottom-right" toastOptions={{ style: { background: '#0A0A0F', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontFamily: 'monospace' } }} />
 
       {showDashboard && (
-        <div className="flex h-screen w-full bg-[#05050A] text-white overflow-hidden grain selection:bg-[#00FF94] selection:text-black">
+        <div className="flex h-screen w-full bg-black text-white overflow-hidden grain selection:bg-[#00FF94] selection:text-black">
           <div className="fixed inset-0 grid-bg opacity-10 pointer-events-none z-0" />
           <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full bg-[#00FF94]/5 blur-[150px] pointer-events-none z-0" />
 
           {/* Desktop Sidebar */}
-          <aside className="hidden md:flex flex-col w-64 border-r border-white/5 bg-[#0A0A0F]/80 backdrop-blur-xl shrink-0 z-20">
+          <aside className="hidden md:flex flex-col w-64 border-r border-white/5 bg-[#050505]/80 backdrop-blur-xl shrink-0 z-20">
             <div className="h-20 flex items-center px-8 border-b border-white/5 shrink-0">
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 rounded-full bg-[#00FF94] shadow-[0_0_10px_#00FF94] animate-pulse" />
@@ -220,7 +220,7 @@ export default function Dashboard() {
                   <button 
                     key={item.id}
                     onClick={() => setActiveTab(item.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 ${isActive ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 ${isActive ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/[0.02] border border-transparent'}`}
                   >
                     <Icon className="w-4 h-4" /> {item.label}
                   </button>
@@ -229,7 +229,7 @@ export default function Dashboard() {
             </nav>
 
             <div className="p-6 border-t border-white/5 shrink-0">
-              <button onClick={logout} className="group flex items-center gap-3 text-xs font-mono-pro text-white/50 hover:text-white transition-colors w-full p-3 rounded-xl hover:bg-white/5">
+              <button onClick={logout} className="group flex items-center gap-3 text-xs font-mono-pro text-white/50 hover:text-white transition-colors w-full p-3 rounded-xl hover:bg-white/[0.02]">
                 <LogOut className="w-4 h-4 group-hover:text-[#00FF94] transition-colors" /> Disconnect
               </button>
             </div>
@@ -238,7 +238,7 @@ export default function Dashboard() {
           {/* Main Area (Mobile & Desktop) */}
           <div className="flex-1 flex flex-col h-screen relative z-10 min-w-0">
             {/* Mobile Header */}
-            <header className="md:hidden h-16 border-b border-white/5 bg-[#0A0A0F]/80 backdrop-blur-xl flex items-center justify-between px-6 shrink-0 z-20">
+            <header className="md:hidden h-16 border-b border-white/5 bg-[#050505]/80 backdrop-blur-xl flex items-center justify-between px-6 shrink-0 z-20">
                <div className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-[#00FF94] shadow-[0_0_10px_#00FF94] animate-pulse" />
                   <span className="font-display font-bold tracking-widest text-sm uppercase text-[#00FF94]">Portal</span>
@@ -284,7 +284,7 @@ export default function Dashboard() {
                           <motion.div 
                             key={i} 
                             whileHover={{ y: -4, scale: 1.02 }}
-                            className="group relative glass rounded-2xl p-6 border border-white/10 hover:border-[#00FF94]/40 hover:shadow-[0_0_30px_rgba(0,255,148,0.1)] transition-all duration-300 flex flex-col"
+                            className="group relative glass rounded-2xl p-6 border border-white/[0.04] hover:border-[#00FF94]/40 hover:shadow-[0_0_30px_rgba(0,255,148,0.1)] transition-all duration-300 flex flex-col"
                           >
                             <div className="absolute inset-0 bg-gradient-to-br from-[#00FF94]/0 to-[#00FF94]/[0.02] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
                             <div className="flex justify-between items-start mb-4">
@@ -298,7 +298,7 @@ export default function Dashboard() {
                       </motion.div>
 
                       {/* Traffic Trend Chart */}
-                      <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/10 relative overflow-hidden">
+                      <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04] relative overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-[#00FF94]/5 to-transparent pointer-events-none" />
                         <h3 className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mb-6">Traffic Trend (6 Months)</h3>
                         <div className="h-48 w-full">
@@ -325,7 +325,7 @@ export default function Dashboard() {
 
                   {/* Keyword Rankings */}
                   {data.keyword_rankings && data.keyword_rankings.length > 0 && (
-                    <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/10 overflow-hidden">
+                    <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04] overflow-hidden">
                       <h3 className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mb-6">Keyword Positions</h3>
                       <div className="overflow-x-auto">
                         <table className="w-full text-left">
@@ -346,7 +346,7 @@ export default function Dashboard() {
                                 <td className={`py-4 font-mono-pro text-xs ${kw.change.startsWith('-') ? 'text-red-400' : 'text-[#00FF94]'}`}>{kw.change}</td>
                                 <td className="py-4 font-mono-pro text-xs text-white/50">{kw.volume}</td>
                                 <td className="py-4 text-right">
-                                  <span className={`inline-flex px-2 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-wider ${kw.status === 'active' ? 'bg-[#00FF94]/10 text-[#00FF94]' : 'bg-white/5 text-white/40'}`}>
+                                  <span className={`inline-flex px-2 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-wider ${kw.status === 'active' ? 'bg-[#00FF94]/10 text-[#00FF94]' : 'bg-white/[0.02] text-white/40'}`}>
                                     {kw.status}
                                   </span>
                                 </td>
@@ -360,7 +360,7 @@ export default function Dashboard() {
 
                   {/* Competitor Comparison */}
                   {data.competitors && data.competitors.length > 0 && (
-                    <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/10">
+                    <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04]">
                       <h3 className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mb-6">Competitive Landscape</h3>
                       <div className="space-y-4">
                         {/* Client's own row for comparison */}
@@ -397,7 +397,7 @@ export default function Dashboard() {
 
                   {/* Goal Progress */}
                   {data.goals && data.goals.length > 0 && (
-                    <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/10">
+                    <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04]">
                       <h3 className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mb-6">Target Progression</h3>
                       <div className="space-y-6">
                         {data.goals.map((goal, i) => {
@@ -408,7 +408,7 @@ export default function Dashboard() {
                                 <span className="font-display font-bold text-white/90 truncate mr-4">{goal.title}</span>
                                 <span className="font-mono-pro text-[10px] text-white/50 uppercase shrink-0">Current: {goal.current} / Target: {goal.target}</span>
                               </div>
-                              <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+                              <div className="h-2 w-full bg-white/[0.02] rounded-full overflow-hidden">
                                 <motion.div 
                                   initial={{ width: 0 }}
                                   animate={{ width: `${percent}%` }}
@@ -430,7 +430,7 @@ export default function Dashboard() {
                     </h3>
                     <div className="relative ml-4 space-y-14">
                       {/* Animated vertical line */}
-                      <div className="absolute top-2 bottom-2 left-[-1px] w-[2px] bg-white/5 rounded-full overflow-hidden">
+                      <div className="absolute top-2 bottom-2 left-[-1px] w-[2px] bg-white/[0.02] rounded-full overflow-hidden">
                         <motion.div 
                           initial={{ height: 0 }} 
                           animate={{ height: "100%" }} 
@@ -444,7 +444,7 @@ export default function Dashboard() {
                           <div className={`absolute -left-[5px] top-1.5 w-3 h-3 rounded-full border-2 border-[#05050A] transition-colors duration-500 ${
                             item.status === 'completed' ? 'bg-[#00FF94] shadow-[0_0_12px_#00FF94]' :
                             item.status === 'in_progress' ? 'bg-white shadow-[0_0_12px_white] animate-pulse' :
-                            'bg-[#0A0A0F] border-white/20'
+                            'bg-[#050505] border-white/20'
                           }`} />
                           
                           <div className={`flex items-start justify-between gap-4 ${item.status === 'pending' ? 'opacity-40' : ''}`}>
@@ -492,7 +492,7 @@ export default function Dashboard() {
                 {/* Sprint Focus */}
                 <motion.div variants={itemVariants} className="relative rounded-3xl p-[1px] overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#00FF94]/40 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
-                  <div className="relative rounded-3xl bg-[#0A0A0F] p-8 sm:p-10 h-full backdrop-blur-xl">
+                  <div className="relative rounded-3xl bg-[#050505] p-8 sm:p-10 h-full backdrop-blur-xl">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-[#00FF94]/10 blur-[50px] pointer-events-none" />
                     <h3 className="overline text-[#00FF94] mb-6 flex items-center gap-2"><Target className="w-4 h-4"/> Current Sprint Focus</h3>
                     <p className="font-display text-2xl sm:text-3xl font-bold leading-tight tracking-tight drop-shadow-lg">
@@ -502,7 +502,7 @@ export default function Dashboard() {
                 </motion.div>
 
                 {/* Vault */}
-                <motion.div variants={itemVariants} className="rounded-3xl glass p-8 sm:p-10 border border-white/10">
+                <motion.div variants={itemVariants} className="rounded-3xl glass p-8 sm:p-10 border border-white/[0.04]">
                   <h3 className="overline text-white/40 mb-8 flex items-center gap-3">
                     <div className="w-6 h-[1px] bg-white/20" /> Strategy Vault
                   </h3>
@@ -553,7 +553,7 @@ export default function Dashboard() {
                   <h2 className="font-display text-3xl font-bold text-white mb-2">Deliverables Tracker</h2>
                   <p className="font-mono-pro text-sm text-white/50">Track, review, and download all project deliverables in real-time.</p>
                 </div>
-                <div className="flex bg-black/40 border border-white/10 rounded-xl p-1">
+                <div className="flex bg-black/40 border border-white/[0.04] rounded-xl p-1">
                   <button onClick={() => setViewMode("table")} className={`p-2 rounded-lg transition-colors ${viewMode === "table" ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white/80'}`}>
                     <List className="w-5 h-5" />
                   </button>
@@ -564,7 +564,7 @@ export default function Dashboard() {
               </div>
 
               {viewMode === "table" ? (
-                <div className="glass rounded-2xl border border-white/10 overflow-hidden">
+                <div className="glass rounded-2xl border border-white/[0.04] overflow-hidden">
                   <div className="overflow-x-auto">
                     <table className="w-full text-left">
                       <thead>
@@ -585,7 +585,7 @@ export default function Dashboard() {
                               <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-widest ${
                                 item.status === 'Delivered' ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20' : 
                                 item.status === 'Pending Approval' ? 'bg-[#FF9F0A]/10 text-[#FF9F0A] border border-[#FF9F0A]/20' : 
-                                'bg-white/5 text-white/40 border border-white/10'
+                                'bg-white/[0.02] text-white/40 border border-white/[0.04]'
                               }`}>
                                 {item.status === 'Delivered' && <CheckCircle className="w-3 h-3" />}
                                 {item.status === 'Pending Approval' && <Clock className="w-3 h-3" />}
@@ -595,7 +595,7 @@ export default function Dashboard() {
                             </td>
                             <td className="py-4 px-6 font-mono-pro text-xs text-[#00FF94]">{item.due_date || "TBD"}</td>
                             <td className="py-4 px-6 text-right">
-                              <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center p-2 rounded-lg bg-white/5 hover:bg-[#00FF94] hover:text-black text-white/60 transition-all duration-300">
+                              <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center p-2 rounded-lg bg-white/[0.02] hover:bg-[#00FF94] hover:text-black text-white/60 transition-all duration-300">
                                 <Download className="w-4 h-4" />
                               </a>
                             </td>
@@ -612,7 +612,7 @@ export default function Dashboard() {
                   {['In Progress', 'Pending Approval', 'Delivered'].map((colStatus) => {
                     const colItems = (data.full_deliverables || []).filter(item => item.status === colStatus);
                     return (
-                      <div key={colStatus} className="glass rounded-2xl border border-white/10 p-6 flex flex-col gap-4">
+                      <div key={colStatus} className="glass rounded-2xl border border-white/[0.04] p-6 flex flex-col gap-4">
                         <div className="flex items-center justify-between mb-2">
                           <h3 className="font-mono-pro text-xs uppercase tracking-widest text-white/60 flex items-center gap-2">
                             {colStatus === 'Delivered' && <div className="w-2 h-2 rounded-full bg-[#00FF94]" />}
@@ -638,7 +638,7 @@ export default function Dashboard() {
                           </div>
                         ))}
                         {colItems.length === 0 && (
-                          <div className="py-8 text-center border border-dashed border-white/10 rounded-xl">
+                          <div className="py-8 text-center border border-dashed border-white/[0.04] rounded-xl">
                             <span className="font-mono-pro text-[10px] text-white/30 uppercase tracking-widest">Empty</span>
                           </div>
                         )}
@@ -657,7 +657,7 @@ export default function Dashboard() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {data.content_calendar && data.content_calendar.length > 0 ? data.content_calendar.map((item, i) => (
-                  <div key={i} className="glass rounded-2xl border border-white/10 overflow-hidden flex flex-col group hover:border-white/20 transition-colors">
+                  <div key={i} className="glass rounded-2xl border border-white/[0.04] overflow-hidden flex flex-col group hover:border-white/20 transition-colors">
                     <div className="p-6 flex-1 border-b border-white/5">
                       <div className="flex justify-between items-start mb-4">
                         <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-widest ${
@@ -697,7 +697,7 @@ export default function Dashboard() {
                     )}
                   </div>
                 )) : (
-                  <div className="col-span-full py-12 text-center glass rounded-2xl border border-white/10">
+                  <div className="col-span-full py-12 text-center glass rounded-2xl border border-white/[0.04]">
                     <Calendar className="w-8 h-8 text-white/20 mx-auto mb-4" />
                     <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">No content scheduled.</p>
                   </div>
@@ -715,7 +715,7 @@ export default function Dashboard() {
                 
                 <div className="space-y-4">
                   {data.monthly_reports && data.monthly_reports.length > 0 ? data.monthly_reports.map((item, i) => (
-                    <div key={i} className="glass rounded-2xl p-6 border border-white/10 flex items-center justify-between group hover:border-[#00FF94]/40 transition-all duration-300">
+                    <div key={i} className="glass rounded-2xl p-6 border border-white/[0.04] flex items-center justify-between group hover:border-[#00FF94]/40 transition-all duration-300">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-black/40 border border-white/5 flex items-center justify-center">
                           <FileText className="w-6 h-6 text-[#00FF94]" />
@@ -725,12 +725,12 @@ export default function Dashboard() {
                           <p className="font-mono-pro text-xs uppercase tracking-widest text-white/40">{item.month}</p>
                         </div>
                       </div>
-                      <a href={item.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 text-white hover:bg-[#00FF94] hover:text-black font-mono-pro text-xs uppercase tracking-widest font-bold transition-all duration-300">
+                      <a href={item.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-xl bg-white/[0.02] text-white hover:bg-[#00FF94] hover:text-black font-mono-pro text-xs uppercase tracking-widest font-bold transition-all duration-300">
                         <Download className="w-4 h-4" /> Download PDF
                       </a>
                     </div>
                   )) : (
-                    <div className="py-12 text-center glass rounded-2xl border border-white/10">
+                    <div className="py-12 text-center glass rounded-2xl border border-white/[0.04]">
                       <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">No reports available yet.</p>
                     </div>
                   )}
@@ -777,7 +777,7 @@ export default function Dashboard() {
                       />
                     </div>
 
-                    <div className="pt-6 border-t border-white/10">
+                    <div className="pt-6 border-t border-white/[0.04]">
                       <p className="font-mono-pro text-xs uppercase tracking-widest text-white/40 mb-2">Est. Organic Revenue/Mo</p>
                       <p className="font-display font-black text-4xl text-[#00FF94]">
                         ${(parseInt((data.metrics?.traffic || "0").toString().replace(/,/g, '')) * (conversionRate / 100) * aov).toLocaleString(undefined, {maximumFractionDigits: 0})}
@@ -806,7 +806,7 @@ export default function Dashboard() {
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {categoryDocs.map((doc, i) => (
-                        <div key={i} className="glass rounded-xl p-5 border border-white/10 flex items-start gap-4 group hover:border-white/30 transition-colors">
+                        <div key={i} className="glass rounded-xl p-5 border border-white/[0.04] flex items-start gap-4 group hover:border-white/30 transition-colors">
                           <div className="w-10 h-10 rounded-lg bg-black/40 border border-white/5 flex items-center justify-center shrink-0">
                             {(doc.url || "").includes('.pdf') ? <FileText className="w-5 h-5 text-red-400" /> :
                              (doc.url || "").match(/\.(png|jpg|jpeg|svg)$/i) ? <ImageIcon className="w-5 h-5 text-[#00FF94]" /> :
@@ -816,7 +816,7 @@ export default function Dashboard() {
                             <h4 className="font-display font-bold text-white truncate">{doc.name || doc.title}</h4>
                             <p className="font-mono-pro text-[10px] text-white/40 uppercase mt-1">{doc.upload_date || "Unknown Date"}</p>
                           </div>
-                          <a href={doc.url} target="_blank" rel="noreferrer" className="p-2 bg-white/5 hover:bg-[#00FF94]/10 hover:text-[#00FF94] text-white/40 rounded-lg transition-colors shrink-0">
+                          <a href={doc.url} target="_blank" rel="noreferrer" className="p-2 bg-white/[0.02] hover:bg-[#00FF94]/10 hover:text-[#00FF94] text-white/40 rounded-lg transition-colors shrink-0">
                             <Download className="w-4 h-4" />
                           </a>
                         </div>
@@ -827,14 +827,14 @@ export default function Dashboard() {
               })}
               
               {(!data.documents || data.documents.length === 0) && (
-                <div className="py-16 text-center glass rounded-2xl border border-white/10">
+                <div className="py-16 text-center glass rounded-2xl border border-white/[0.04]">
                   <FolderClosed className="w-8 h-8 text-white/20 mx-auto mb-4" />
                   <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">No documents available.</p>
                 </div>
               )}
             </motion.div>
             ) : activeTab === "messages" ? (
-            <motion.div key="messages" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="h-[calc(100vh-280px)] min-h-[500px] glass rounded-3xl border border-white/10 flex flex-col overflow-hidden">
+            <motion.div key="messages" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="h-[calc(100vh-280px)] min-h-[500px] glass rounded-3xl border border-white/[0.04] flex flex-col overflow-hidden">
               {/* Header */}
               <div className="p-6 border-b border-white/5 flex items-center justify-between bg-black/20">
                 <div>
@@ -855,7 +855,7 @@ export default function Dashboard() {
                         <span className="font-display font-bold text-sm text-white/80">{msg.sender}</span>
                         <span className="font-mono-pro text-[9px] text-white/30 uppercase">{new Date(msg.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                       </div>
-                      <div className={`p-4 rounded-2xl ${isClient ? 'bg-[#00FF94]/10 border border-[#00FF94]/20 text-white rounded-tr-sm' : 'bg-white/5 border border-white/10 text-white/90 rounded-tl-sm'}`}>
+                      <div className={`p-4 rounded-2xl ${isClient ? 'bg-[#00FF94]/10 border border-[#00FF94]/20 text-white rounded-tr-sm' : 'bg-white/[0.02] border border-white/[0.04] text-white/90 rounded-tl-sm'}`}>
                         <p className="text-sm whitespace-pre-wrap leading-relaxed">{msg.text}</p>
                         {msg.tagged_item && (
                           <div className={`mt-3 px-3 py-1.5 rounded-lg text-xs font-mono-pro uppercase tracking-widest inline-flex items-center gap-2 ${isClient ? 'bg-[#00FF94]/20 text-[#00FF94]' : 'bg-black/40 text-white/60'}`}>
@@ -882,7 +882,7 @@ export default function Dashboard() {
                   </div>
                 )}
                 <div className="flex items-end gap-2">
-                  <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-2 flex flex-col focus-within:border-[#00FF94]/50 transition-colors">
+                  <div className="flex-1 bg-white/[0.02] border border-white/[0.04] rounded-2xl p-2 flex flex-col focus-within:border-[#00FF94]/50 transition-colors">
                     <textarea 
                       value={messageInput}
                       onChange={e => setMessageInput(e.target.value)}
@@ -946,7 +946,7 @@ export default function Dashboard() {
               </div>
 
               {/* Table */}
-              <div className="glass rounded-2xl border border-white/10 overflow-hidden">
+              <div className="glass rounded-2xl border border-white/[0.04] overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left">
                     <thead>
@@ -1002,7 +1002,7 @@ export default function Dashboard() {
         </main>
 
         {/* Mobile Bottom Nav */}
-        <nav className="md:hidden absolute bottom-0 left-0 right-0 bg-[#0A0A0F]/90 backdrop-blur-xl border-t border-white/5 z-50">
+        <nav className="md:hidden absolute bottom-0 left-0 right-0 bg-[#050505]/90 backdrop-blur-xl border-t border-white/5 z-50">
            <div className="flex items-center overflow-x-auto custom-scrollbar px-2 py-3 gap-2">
              {[
               { id: "overview", label: "Hub", icon: LayoutDashboard },
