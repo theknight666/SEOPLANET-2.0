@@ -123,7 +123,7 @@ export default function Packages() {
         </motion.div>
 
         {/* Pricing Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-14 max-w-6xl mx-auto">
           {packages.map((pkg) => {
             const Icon = pkg.icon;
             return (

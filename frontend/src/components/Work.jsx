@@ -210,7 +210,7 @@ export default function Work() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14">
           {cases.map((c) => (
             <TiltCard key={c.code} className={`${c.span} h-full w-full`} isVolumetric={true}>
             <motion.a

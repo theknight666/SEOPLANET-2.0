@@ -72,12 +72,12 @@ export default function Services() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14">
           {/* Highlight card */}
           <TiltCard isVolumetric={true} className="md:col-span-8 md:row-span-2 h-full w-full">
           <motion.div
             {...reveal}
-            className="relative neon-border rounded-2xl bg-gradient-to-br from-[#0A0F0C] to-[#05050A] p-8 sm:p-12 group h-full"
+            className="relative neon-border rounded-2xl bg-[#05050A]/40 backdrop-blur-md p-8 sm:p-12 group h-full"
             style={{ transformStyle: "preserve-3d" }}
             data-testid="service-card-highlight"
           >
