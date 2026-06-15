@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
-import { LogOut, Loader2, FileText, CheckCircle2, Clock, PlayCircle, TrendingUp, Target, Shield, Link, Activity } from "lucide-react";
+import { LogOut, Loader2, LineChart, Bell, TrendingUp, FileText, Activity, ClipboardCheck, Calendar, Clock, MessageSquare, Video, Receipt, Folder, Calculator, Sparkles, Lock, Target, Gift } from "lucide-react";
 import axios from "axios";
 import AdminDashboard from "./AdminDashboard";
 import TiltCard from "../../components/ui/TiltCard";
@@ -41,6 +41,164 @@ const itemVariants = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
 };
+
+const DASHBOARD_SECTIONS = [
+  {
+    title: "WELCOME ZONE — FIRST THING THEY SEE",
+    columns: "lg:grid-cols-2",
+    cards: [
+      {
+        icon: LineChart,
+        title: "Campaign snapshot",
+        description: "Live overview of active campaigns — traffic, rankings, leads — all in one glance. No login needed to feel the pulse.",
+        tag: "Core",
+        tagColor: "text-[#00D67D] bg-[#00D67D]/10"
+      },
+      {
+        icon: Bell,
+        title: "Dedicated account manager",
+        description: "Direct Calendly link, WhatsApp, email — and their photo + name front and centre. Feels personal, not corporate.",
+        tag: "Core",
+        tagColor: "text-[#00D67D] bg-[#00D67D]/10"
+      }
+    ]
+  },
+  {
+    title: "REPORTING & VISIBILITY",
+    columns: "lg:grid-cols-3",
+    cards: [
+      {
+        icon: TrendingUp,
+        title: "Live KPI dashboard",
+        description: "Organic traffic, keyword rankings, DA/PA, backlinks added, leads generated — updated weekly.",
+        tag: "Core",
+        tagColor: "text-[#00D67D] bg-[#00D67D]/10"
+      },
+      {
+        icon: FileText,
+        title: "Monthly reports",
+        description: "Downloadable PDF reports with commentary. Branded, polished — something they can share with their own stakeholders.",
+        tag: "Core",
+        tagColor: "text-[#00D67D] bg-[#00D67D]/10"
+      },
+      {
+        icon: Activity,
+        title: "Competitor intelligence",
+        description: "Side-by-side view of where they stand vs competitors on keywords, backlinks, and domain authority.",
+        tag: "Power",
+        tagColor: "text-[#FFBD2E] bg-[#FFBD2E]/10"
+      }
+    ]
+  },
+  {
+    title: "DELIVERY & PROJECT TRACKING",
+    columns: "lg:grid-cols-3",
+    cards: [
+      {
+        icon: ClipboardCheck,
+        title: "Deliverable tracker",
+        description: "What's been delivered, what's in progress, what's coming next — with dates. Full transparency, zero chasing.",
+        tag: "Core",
+        tagColor: "text-[#00D67D] bg-[#00D67D]/10"
+      },
+      {
+        icon: Calendar,
+        title: "Content calendar",
+        description: "Planned content, publish dates, keywords targeted, approval status. Client can review and comment before publishing.",
+        tag: "Core",
+        tagColor: "text-[#00D67D] bg-[#00D67D]/10"
+      },
+      {
+        icon: Clock,
+        title: "Approval queue",
+        description: "Content, creatives, or technical changes awaiting client sign-off. Clear CTA to approve or request revisions.",
+        tag: "New",
+        tagColor: "text-[#3B82F6] bg-[#3B82F6]/10"
+      }
+    ]
+  },
+  {
+    title: "COMMUNICATION & RELATIONSHIP",
+    columns: "lg:grid-cols-2",
+    cards: [
+      {
+        icon: MessageSquare,
+        title: "Messaging thread",
+        description: "In-portal communication — keeps everything in one place. No lost email threads. Tag specific reports or deliverables in messages.",
+        tag: "Power",
+        tagColor: "text-[#FFBD2E] bg-[#FFBD2E]/10"
+      },
+      {
+        icon: Video,
+        title: "Strategy session recordings",
+        description: "Past call recordings and summary notes accessible anytime. Clients feel supported even outside call hours.",
+        tag: "Trust builder",
+        tagColor: "text-white/60 bg-white/5"
+      }
+    ]
+  },
+  {
+    title: "DOCUMENTS & BILLING",
+    columns: "lg:grid-cols-3",
+    cards: [
+      {
+        icon: Receipt,
+        title: "Invoice & payment history",
+        description: "All invoices in one place — paid, pending, upcoming. Download receipts anytime.",
+        tag: "Core",
+        tagColor: "text-[#00D67D] bg-[#00D67D]/10"
+      },
+      {
+        icon: Folder,
+        title: "Document vault",
+        description: "Contract, SOW, brand assets, credentials handed over — all securely stored and downloadable.",
+        tag: "Trust builder",
+        tagColor: "text-white/60 bg-white/5"
+      },
+      {
+        icon: Calculator,
+        title: "ROI calculator",
+        description: "Live view of estimated revenue impact from organic traffic growth. Makes the retainer feel like an investment, not a cost.",
+        tag: "Power",
+        tagColor: "text-[#FFBD2E] bg-[#FFBD2E]/10"
+      }
+    ]
+  },
+  {
+    title: "PREMIUM-FEEL TOUCHES",
+    columns: "lg:grid-cols-4",
+    cards: [
+      {
+        icon: Sparkles,
+        title: "Onboarding progress",
+        description: "A clear checklist of launch steps — shows how far along they are and what's next.",
+        tag: "",
+        tagColor: ""
+      },
+      {
+        icon: Lock,
+        title: "White-label branding",
+        description: "Portal feels like an extension of SEO Planet — not a generic SaaS tool.",
+        tag: "",
+        tagColor: ""
+      },
+      {
+        icon: Target,
+        title: "Goal tracking",
+        description: "Client sets goals (e.g. 500 leads/mo). Dashboard tracks progress towards them visually.",
+        tag: "",
+        tagColor: ""
+      },
+      {
+        icon: Gift,
+        title: "Referral program",
+        description: "Happy clients can refer and track their rewards from inside the portal.",
+        tag: "",
+        tagColor: ""
+      }
+    ]
+  }
+];
 
 export default function Dashboard() {
   const { logout } = useAuth();
@@ -105,134 +263,46 @@ export default function Dashboard() {
             </div>
           </header>
 
-          <main className="relative z-10 max-w-7xl mx-auto px-6 py-12 sm:py-24">
-            <motion.div variants={containerVariants} initial="hidden" animate="show" className="grid lg:grid-cols-12 gap-16">
-              
-              <div className="lg:col-span-7 space-y-16">
-                <motion.div variants={itemVariants}>
-                  <p className="overline-premium text-[#00D67D] mb-4">Performance Overview</p>
-                  <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter leading-[1.1] mb-6">
-                    Welcome,<br/>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">{data.company_name}</span>
-                  </h1>
-                  <p className="font-mono-pro text-base text-white/60 leading-relaxed max-w-lg">
-                    Your bespoke SEO dashboard. Track real-time performance, review architectural changes, and access your strategy vault below.
-                  </p>
-                </motion.div>
-
-                {data.metrics && (
-                  <motion.div variants={itemVariants} className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    {[
-                      { label: "Organic Traffic", value: data.metrics.traffic, icon: TrendingUp },
-                      { label: "Top 3 Rankings", value: data.metrics.rankings, icon: Target },
-                      { label: "Domain Auth", value: data.metrics.da, icon: Shield },
-                      { label: "New Backlinks", value: data.metrics.backlinks, icon: Link }
-                    ].map((m, i) => (
-                      <TiltCard key={i}>
-                        <div className="glass rounded-2xl p-6 border border-white/5 h-full">
-                          <m.icon className="w-5 h-5 text-[#00D67D] mb-4 opacity-80" />
-                          <p className="font-display font-bold text-2xl mb-1">{m.value}</p>
-                          <p className="font-mono-pro text-[10px] uppercase tracking-widest text-white/40">{m.label}</p>
-                        </div>
-                      </TiltCard>
-                    ))}
-                  </motion.div>
-                )}
-
-                <motion.div variants={itemVariants}>
-                  <h3 className="overline-premium text-white/40 mb-10 flex items-center gap-3">
-                    <div className="w-6 h-[1px] bg-white/20" /> Campaign Architecture
-                  </h3>
-                  <div className="relative ml-4 space-y-12">
-                    <div className="absolute top-2 bottom-2 left-[-1px] w-[1px] bg-gradient-to-b from-white/10 to-transparent" />
-                    {data.timeline?.map((item, i) => (
-                      <div key={i} className="relative pl-10 group">
-                        <div className={`absolute -left-[4.5px] top-2 w-2.5 h-2.5 rounded-full transition-colors duration-500 ${
-                          item.status === 'completed' ? 'bg-[#00D67D]' :
-                          item.status === 'in_progress' ? 'bg-white shadow-[0_0_15px_rgba(255,255,255,0.5)]' :
-                          'bg-[#0A0A0C] border border-white/20'
-                        }`} />
-                        <div className={`flex items-start justify-between gap-4 ${item.status === 'pending' ? 'opacity-40' : ''}`}>
-                          <div>
-                            <h4 className="font-display text-xl font-bold mb-1">{item.title}</h4>
-                            <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">Phase {item.step}</p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-
-                {data.recent_activity && data.recent_activity.length > 0 && (
-                  <motion.div variants={itemVariants} className="pt-8">
-                    <h3 className="overline-premium text-white/40 mb-8 flex items-center gap-3">
-                      <div className="w-6 h-[1px] bg-white/20" /> Recent Deliverables
-                    </h3>
-                    <div className="space-y-4">
-                      {data.recent_activity.map((act, i) => (
-                        <div key={i} className="flex gap-5 p-5 rounded-2xl glass border border-white/5">
-                          <div>
-                            <p className="font-mono-pro text-[10px] text-[#00D67D] mb-1.5 uppercase tracking-wider">
-                              {new Date(act.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                            </p>
-                            <p className="font-display text-base font-medium text-white/90">{act.title}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </div>
-
-              <div className="lg:col-span-5 space-y-8 lg:pt-32">
-                <motion.div variants={itemVariants}>
-                  <TiltCard maxRotation={5}>
-                    <div className="rounded-3xl glass p-10 border border-white/5 h-full">
-                      <h3 className="overline-premium text-[#00D67D] mb-4 flex items-center gap-2"><Target className="w-4 h-4"/> Current Sprint</h3>
-                      <p className="font-display text-2xl font-bold leading-tight tracking-tight">
-                        {data.current_focus || "Technical Foundation & Audit"}
-                      </p>
-                    </div>
-                  </TiltCard>
-                </motion.div>
-
-                <motion.div variants={itemVariants} className="rounded-3xl glass p-10 border border-white/5">
-                  <h3 className="overline-premium text-white/40 mb-8 flex items-center gap-3">
-                    <div className="w-6 h-[1px] bg-white/20" /> Strategy Vault
-                  </h3>
-                  <div className="space-y-3">
-                    {data.documents?.length > 0 ? (
-                      data.documents.map((doc, i) => (
-                        <a key={i} href={doc.url} target="_blank" rel="noreferrer" className="group flex items-center justify-between p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] transition-all">
-                          <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-lg bg-black/20 flex items-center justify-center text-white/40 group-hover:text-[#00D67D] transition-colors">
-                              <FileText className="w-4 h-4" />
-                            </div>
-                            <div>
-                              <p className="font-display font-bold text-sm mb-0.5">{doc.title}</p>
-                              <p className="font-mono-pro text-[10px] text-white/40 uppercase tracking-wider">PDF Document</p>
-                            </div>
-                          </div>
-                        </a>
-                      ))
-                    ) : (
-                      <p className="text-sm text-white/40 font-mono-pro italic">No documents uploaded.</p>
-                    )}
-                  </div>
-                </motion.div>
-
-                <motion.div variants={itemVariants} className="rounded-3xl p-10 bg-[#00D67D]/5 border border-[#00D67D]/10">
-                  <h3 className="overline-premium text-[#00D67D] mb-4">Dedicated Support</h3>
-                  <p className="font-mono-pro text-sm text-white/60 leading-relaxed mb-8">
-                    Contact your account manager directly to discuss strategic pivots or request assistance.
-                  </p>
-                  <a href="mailto:founder@seoplanet.in" className="inline-flex items-center justify-center w-full px-6 py-4 bg-white text-black rounded-xl font-mono-pro text-xs font-bold uppercase tracking-widest hover:bg-[#00D67D] transition-colors">
-                    Contact Team
-                  </a>
-                </motion.div>
-              </div>
-
+          <main className="relative z-10 max-w-7xl mx-auto px-6 py-12 sm:py-24 space-y-16">
+            <motion.div variants={itemVariants} className="mb-12">
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter leading-[1.1] mb-6">
+                Welcome back,<br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">{data.company_name}</span>
+              </h1>
+              <p className="font-mono-pro text-base sm:text-lg text-white/50 max-w-2xl leading-relaxed">
+                Your bespoke SEO command center. Track real-time performance, review architectural changes, and access your strategy vault.
+              </p>
             </motion.div>
+
+            {DASHBOARD_SECTIONS.map((section, idx) => (
+              <motion.section key={idx} variants={itemVariants} className="space-y-6">
+                <h2 className="font-mono-pro text-xs sm:text-sm text-white/40 uppercase tracking-[0.2em] font-bold">
+                  {section.title}
+                </h2>
+                <div className={`grid grid-cols-1 md:grid-cols-2 ${section.columns} gap-4`}>
+                  {section.cards.map((card, cIdx) => (
+                    <TiltCard key={cIdx} maxRotation={3}>
+                      <div className="glass rounded-2xl p-6 sm:p-8 border border-white/5 h-full flex flex-col hover:bg-white/[0.04] transition-colors relative group">
+                        <card.icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#00D67D] mb-6 opacity-80 group-hover:opacity-100 transition-opacity" />
+                        <h3 className="font-display font-bold text-lg sm:text-xl text-white/90 mb-3 leading-snug">
+                          {card.title}
+                        </h3>
+                        <p className="font-mono-pro text-xs sm:text-sm text-white/50 leading-relaxed flex-1">
+                          {card.description}
+                        </p>
+                        {card.tag && (
+                          <div className="mt-8 flex">
+                            <span className={`px-2.5 py-1 rounded-full font-mono-pro text-[10px] uppercase tracking-wider font-bold ${card.tagColor}`}>
+                              {card.tag}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </TiltCard>
+                  ))}
+                </div>
+              </motion.section>
+            ))}
           </main>
         </div>
       )}
