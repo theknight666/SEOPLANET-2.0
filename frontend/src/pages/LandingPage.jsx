@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Preloader from "../components/Preloader";
 import ScrollProgress from "../components/ScrollProgress";
 import Navigation from "../components/Navigation";
@@ -12,6 +12,17 @@ import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 
 export default function LandingPage() {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("scrollTo") === "contact" || window.location.hash === "#contact") {
+      // Wait for preloader to finish (~3.2s) before jumping
+      setTimeout(() => {
+        const el = document.getElementById("contact");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 3500);
+    }
+  }, []);
+
   return (
     <main className="bg-[#05050A] text-white" data-testid="landing-page">
       <Preloader />

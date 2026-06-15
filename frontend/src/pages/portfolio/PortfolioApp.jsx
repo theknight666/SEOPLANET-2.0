@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 import "../../index.css";
 import "./portfolio.css";
 
@@ -108,7 +109,7 @@ function Header({ scrolled }) {
       }}>
         Work
       </span>
-      <a href="https://seoplanet.in#contact" style={{ textDecoration: "none" }}>
+      <a href="https://seoplanet.in/?scrollTo=contact#contact" style={{ textDecoration: "none" }}>
         <span style={{
           fontFamily: "JetBrains Mono, monospace", fontSize: "10px", fontWeight: 700,
           letterSpacing: "0.28em", textTransform: "uppercase", color: "#00FF94",
@@ -609,19 +610,12 @@ function BottomCTA({ revealed }) {
         Remarkable.
       </h2>
       <a
-        href="https://seoplanet.in#contact"
-        style={{
-          display: "inline-flex", alignItems: "center", gap: "12px",
-          padding: "18px 40px",
-          background: "#00FF94", color: "#000",
-          fontFamily: "JetBrains Mono, monospace",
-          fontSize: "11px", fontWeight: 700,
-          letterSpacing: "0.25em", textTransform: "uppercase",
-          textDecoration: "none", cursor: "none",
-          animation: "pulse-ring 2.6s infinite",
-        }}
+        href="https://seoplanet.in/?scrollTo=contact#contact"
+        className="group inline-flex justify-center items-center gap-3 rounded-full bg-[#00FF94] text-black px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] font-bold hover:bg-white transition-colors active:scale-95 w-full sm:w-auto"
+        style={{ animation: "pulse-ring 2.6s infinite", cursor: "none" }}
       >
-        Start a Project ↗
+        Start a Project
+        <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />
       </a>
     </section>
   );
