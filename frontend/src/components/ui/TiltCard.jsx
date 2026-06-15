@@ -60,8 +60,7 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
         {/* Floating Content Layer */}
         <div 
           style={{ 
-            transformStyle: "preserve-3d",
-            transform: isVolumetric ? "translateZ(50px)" : "none"
+            transformStyle: "preserve-3d"
           }} 
           className="w-full h-full relative z-10 transition-transform duration-300"
         >
