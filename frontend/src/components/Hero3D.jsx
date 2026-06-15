@@ -22,11 +22,24 @@ export default function Hero3D() {
     camera.position.set(0, 0, 6.5);
 
     // Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+    
+    // Clamp pixel ratio on mobile to save fill-rate/GPU
+    const pixelRatio = window.innerWidth < 768 ? Math.min(window.devicePixelRatio, 1.5) : Math.min(window.devicePixelRatio, 2);
+    renderer.setPixelRatio(pixelRatio);
     renderer.setSize(width, height);
     renderer.setClearColor(0x000000, 0);
     mount.appendChild(renderer.domElement);
+
+    // Visibility Observer to pause rendering when scrolled past
+    let isVisible = true;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        isVisible = entries[0].isIntersecting;
+      },
+      { threshold: 0 }
+    );
+    observer.observe(mount);
 
     // Lights
     scene.add(new THREE.AmbientLight(0xffffff, 0.35));
@@ -158,11 +171,13 @@ export default function Hero3D() {
     // Mouse parallax
     const mouse = { x: 0, y: 0 };
     const onMove = (e) => {
+      // Only calculate if visible
+      if (!isVisible) return;
       const rect = mount.getBoundingClientRect();
       mouse.x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
       mouse.y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
     };
-    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mousemove", onMove, { passive: true });
 
     // Resize
     const onResize = () => {
@@ -173,12 +188,17 @@ export default function Hero3D() {
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
     };
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", onResize, { passive: true });
 
     // Animate
     const clock = new THREE.Clock();
     let rafId;
     const tick = () => {
+      rafId = requestAnimationFrame(tick);
+      
+      // Zero-lag optimization: Completely pause all math and WebGL rendering when off-screen
+      if (!isVisible) return;
+
       const delta = clock.getDelta();
       const t = clock.elapsedTime;
 
@@ -208,12 +228,12 @@ export default function Hero3D() {
       });
 
       renderer.render(scene, camera);
-      rafId = requestAnimationFrame(tick);
     };
     tick();
 
     return () => {
       cancelAnimationFrame(rafId);
+      observer.disconnect();
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("resize", onResize);
       renderer.dispose();

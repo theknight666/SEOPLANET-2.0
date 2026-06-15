@@ -38,8 +38,9 @@ export default function TiltCard({ children, className = "", maxRotation = 12 })
           rotateX,
           rotateY,
           transformStyle: "preserve-3d",
+          willChange: "transform",
         }}
-        className="relative w-full h-full transform-gpu"
+        className="relative w-full h-full transform-gpu will-change-transform"
       >
         <div style={{ transformStyle: "preserve-3d" }} className="w-full h-full relative z-10">
           {children}

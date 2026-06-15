@@ -116,6 +116,8 @@ body {
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
         border: 1px solid rgba(255, 255, 255, 0.08);
+        transform: translateZ(0);
+        will-change: transform;
     }
     .neon-text {
         color: #00FF94;
@@ -138,9 +140,13 @@ body {
         mix-blend-mode: overlay;
         pointer-events: none;
         z-index: 1;
+        transform: translateZ(0);
+        will-change: transform;
     }
     .marquee {
         animation: marquee 38s linear infinite;
+        transform: translateZ(0);
+        will-change: transform;
     }
 }
 
