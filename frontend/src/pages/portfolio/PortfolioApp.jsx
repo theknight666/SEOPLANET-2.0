@@ -664,7 +664,8 @@ export default function PortfolioApp() {
 
   return (
     <div
-      style={{ background: "#05050A", color: "#fff", minHeight: "100vh", cursor: "none", overflowX: "hidden" }}
+      className="portfolio-root"
+      style={{ background: "#05050A", color: "#fff", minHeight: "100vh", overflowX: "hidden" }}
       onMouseEnter={() => setHovered(false)}
     >
       <Cursor hovered={hovered} />

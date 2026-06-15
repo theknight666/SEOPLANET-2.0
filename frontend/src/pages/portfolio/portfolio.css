@@ -15,10 +15,12 @@
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #05050A; }
-::-webkit-scrollbar-thumb { background: rgba(0,255,148,0.2); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(0,255,148,0.45); }
+.portfolio-root::-webkit-scrollbar { width: 6px; }
+.portfolio-root::-webkit-scrollbar-track { background: #05050A; }
+.portfolio-root::-webkit-scrollbar-thumb { background: rgba(0,255,148,0.2); border-radius: 4px; }
+.portfolio-root::-webkit-scrollbar-thumb:hover { background: rgba(0,255,148,0.45); }
 
-/* Kill default cursor everywhere */
-*, *::before, *::after { cursor: none !important; }
+/* Kill default cursor ONLY inside portfolio */
+.portfolio-root, .portfolio-root *, .portfolio-root *::before, .portfolio-root *::after { 
+  cursor: none !important; 
+}
