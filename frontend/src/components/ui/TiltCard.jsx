@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 
-export default function TiltCard({ children, className = "", maxRotation = 12, spotLightColor = "rgba(0, 255, 148, 0.15)" }) {
+export default function TiltCard({ children, className = "", maxRotation = 12 }) {
   const ref = useRef(null);
 
   const x = useMotionValue(0.5);
@@ -44,26 +44,6 @@ export default function TiltCard({ children, className = "", maxRotation = 12, s
         <div style={{ transformStyle: "preserve-3d" }} className="w-full h-full relative z-10">
           {children}
         </div>
-
-        {/* Interactive Spotlight */}
-        <motion.div
-          className="pointer-events-none absolute inset-0 z-20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-screen"
-          style={{
-            background: useMotionTemplate`radial-gradient(circle at calc(${smoothX} * 100%) calc(${smoothY} * 100%), ${spotLightColor} 0%, transparent 60%)`,
-          }}
-        />
-
-        {/* Dynamic Glowing Border */}
-        <motion.div
-          className="pointer-events-none absolute -inset-[1px] z-30 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-          style={{
-            background: useMotionTemplate`radial-gradient(circle at calc(${smoothX} * 100%) calc(${smoothY} * 100%), rgba(255,255,255,0.5) 0%, transparent 40%)`,
-            WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-            WebkitMaskComposite: "xor",
-            maskComposite: "exclude",
-            padding: "1px",
-          }}
-        />
       </motion.div>
     </div>
   );
