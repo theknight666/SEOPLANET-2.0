@@ -5,18 +5,10 @@ import { Toaster } from "sonner";
 import LandingPage from "./pages/LandingPage";
 import Blog from "./pages/Blog";
 import OnboardingApp from "./pages/onboarding/OnboardingApp";
-import PortfolioApp from "./pages/portfolio/PortfolioApp";
 
 function App() {
   const isLocalOnboarding = window.location.hostname === "localhost" && window.location.port === "3000" && window.location.pathname.startsWith("/onboarding-test");
   const isOnboardingDomain = window.location.hostname.startsWith("onboarding.") || isLocalOnboarding;
-
-  const isLocalPortfolio = window.location.hostname === "localhost" && window.location.port === "3000" && window.location.pathname.startsWith("/portfolio-test");
-  const isPortfolioDomain = window.location.hostname.startsWith("portfolio.") || isLocalPortfolio;
-
-  if (isPortfolioDomain) {
-    return <PortfolioApp />;
-  }
 
   if (isOnboardingDomain) {
     return (
