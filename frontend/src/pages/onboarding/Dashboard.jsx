@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
-import { LogOut, Loader2, FileText, CheckCircle2, Clock, PlayCircle, TrendingUp, Target, Shield, Link, Activity, Lock, Users, Search, LayoutDashboard, LayoutGrid, List, Download, CheckCircle, CircleDashed, Calendar, BarChart3, Calculator } from "lucide-react";
+import { LogOut, Loader2, FileText, CheckCircle2, Clock, PlayCircle, TrendingUp, Target, Shield, Link, Activity, Lock, Users, Search, LayoutDashboard, LayoutGrid, List, Download, CheckCircle, CircleDashed, Calendar, BarChart3, Calculator, FolderClosed, MessageSquare, Receipt, Send, FileCode, ImageIcon } from "lucide-react";
 import axios from "axios";
 import AdminDashboard from "./AdminDashboard";
 import { AreaChart, Area, Tooltip, ResponsiveContainer } from "recharts";
@@ -87,10 +87,39 @@ export default function Dashboard() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showDashboard, setShowDashboard] = useState(false);
-  const [activeTab, setActiveTab] = useState("overview"); // "overview" | "deliverables" | "content" | "reports"
+  const [activeTab, setActiveTab] = useState("overview"); // "overview" | "deliverables" | "content" | "reports" | "documents" | "messages" | "invoices"
   const [viewMode, setViewMode] = useState("table"); // "table" | "kanban"
   const [aov, setAov] = useState(500);
   const [conversionRate, setConversionRate] = useState(2.5);
+  const [messageInput, setMessageInput] = useState("");
+  const [taggedItem, setTaggedItem] = useState("");
+
+  const handleSendMessage = async () => {
+    if (!messageInput.trim()) return;
+    try {
+      const token = localStorage.getItem("seoplanet_token");
+      await axios.post("https://seoplanet-2-0.onrender.com/api/onboarding/clients/me/messages", {
+        text: messageInput,
+        tagged_item: taggedItem,
+        date: new Date().toISOString()
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const newData = { ...data };
+      if (!newData.messages) newData.messages = [];
+      newData.messages.push({
+        sender: "Client",
+        text: messageInput,
+        tagged_item: taggedItem,
+        date: new Date().toISOString()
+      });
+      setData(newData);
+      setMessageInput("");
+      setTaggedItem("");
+    } catch (err) {
+      console.error("Failed to send message", err);
+    }
+  };
 
   const handleContentStatus = async (index, newStatus) => {
     try {
@@ -163,7 +192,7 @@ export default function Dashboard() {
 
           {/* Sub-Navigation */}
           <div className="relative z-10 max-w-6xl mx-auto px-6 mt-8">
-            <div className="flex items-center gap-4 border-b border-white/10 pb-4">
+            <div className="flex items-center gap-4 border-b border-white/10 pb-4 overflow-x-auto custom-scrollbar">
               <button 
                 onClick={() => setActiveTab("overview")}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 ${activeTab === "overview" ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
@@ -184,9 +213,27 @@ export default function Dashboard() {
               </button>
               <button 
                 onClick={() => setActiveTab("reports")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 ${activeTab === "reports" ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${activeTab === "reports" ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
               >
                 <BarChart3 className="w-4 h-4" /> Reports
+              </button>
+              <button 
+                onClick={() => setActiveTab("documents")}
+                className={`flex items-center gap-2 px-4 py-2 whitespace-nowrap rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 ${activeTab === "documents" ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
+              >
+                <FolderClosed className="w-4 h-4" /> Documents
+              </button>
+              <button 
+                onClick={() => setActiveTab("messages")}
+                className={`flex items-center gap-2 px-4 py-2 whitespace-nowrap rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 ${activeTab === "messages" ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
+              >
+                <MessageSquare className="w-4 h-4" /> Messages
+              </button>
+              <button 
+                onClick={() => setActiveTab("invoices")}
+                className={`flex items-center gap-2 px-4 py-2 whitespace-nowrap rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-all duration-300 ${activeTab === "invoices" ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 shadow-[0_0_20px_rgba(0,255,148,0.1)]' : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}`}
+              >
+                <Receipt className="w-4 h-4" /> Invoices
               </button>
             </div>
           </div>
@@ -731,6 +778,213 @@ export default function Dashboard() {
                 </div>
               </div>
 
+            </motion.div>
+            ) : activeTab === "documents" ? (
+            <motion.div key="documents" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="space-y-8">
+              <div>
+                <h2 className="font-display text-3xl font-bold text-white mb-2">File Vault</h2>
+                <p className="font-mono-pro text-sm text-white/50">Secure repository for all project documents and assets.</p>
+              </div>
+
+              {['Contract', 'SOW', 'Brand Assets', 'Credentials'].map(category => {
+                const categoryDocs = (data.documents || []).filter(doc => doc.category === category);
+                if (categoryDocs.length === 0) return null;
+                return (
+                  <div key={category} className="space-y-4 mb-8">
+                    <h3 className="font-mono-pro text-xs uppercase tracking-widest text-white/40 flex items-center gap-2">
+                      <FolderClosed className="w-4 h-4" /> {category}
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {categoryDocs.map((doc, i) => (
+                        <div key={i} className="glass rounded-xl p-5 border border-white/10 flex items-start gap-4 group hover:border-white/30 transition-colors">
+                          <div className="w-10 h-10 rounded-lg bg-black/40 border border-white/5 flex items-center justify-center shrink-0">
+                            {(doc.url || "").includes('.pdf') ? <FileText className="w-5 h-5 text-red-400" /> :
+                             (doc.url || "").match(/\.(png|jpg|jpeg|svg)$/i) ? <ImageIcon className="w-5 h-5 text-[#00FF94]" /> :
+                             <FileCode className="w-5 h-5 text-blue-400" />}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-display font-bold text-white truncate">{doc.name || doc.title}</h4>
+                            <p className="font-mono-pro text-[10px] text-white/40 uppercase mt-1">{doc.upload_date || "Unknown Date"}</p>
+                          </div>
+                          <a href={doc.url} target="_blank" rel="noreferrer" className="p-2 bg-white/5 hover:bg-[#00FF94]/10 hover:text-[#00FF94] text-white/40 rounded-lg transition-colors shrink-0">
+                            <Download className="w-4 h-4" />
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+              
+              {(!data.documents || data.documents.length === 0) && (
+                <div className="py-16 text-center glass rounded-2xl border border-white/10">
+                  <FolderClosed className="w-8 h-8 text-white/20 mx-auto mb-4" />
+                  <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">No documents available.</p>
+                </div>
+              )}
+            </motion.div>
+            ) : activeTab === "messages" ? (
+            <motion.div key="messages" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="h-[calc(100vh-280px)] min-h-[500px] glass rounded-3xl border border-white/10 flex flex-col overflow-hidden">
+              {/* Header */}
+              <div className="p-6 border-b border-white/5 flex items-center justify-between bg-black/20">
+                <div>
+                  <h2 className="font-display text-xl font-bold text-white flex items-center gap-2">
+                    <MessageSquare className="w-5 h-5 text-[#00FF94]" /> Secure Comms
+                  </h2>
+                  <p className="font-mono-pro text-[10px] text-white/40 uppercase mt-1">Encrypted direct channel to your account team</p>
+                </div>
+              </div>
+
+              {/* Messages Area */}
+              <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar flex flex-col">
+                {data.messages && data.messages.length > 0 ? data.messages.map((msg, i) => {
+                  const isClient = msg.sender === "Client";
+                  return (
+                    <div key={i} className={`flex flex-col max-w-[80%] ${isClient ? 'self-end items-end' : 'self-start items-start'}`}>
+                      <div className="flex items-baseline gap-2 mb-1">
+                        <span className="font-display font-bold text-sm text-white/80">{msg.sender}</span>
+                        <span className="font-mono-pro text-[9px] text-white/30 uppercase">{new Date(msg.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                      </div>
+                      <div className={`p-4 rounded-2xl ${isClient ? 'bg-[#00FF94]/10 border border-[#00FF94]/20 text-white rounded-tr-sm' : 'bg-white/5 border border-white/10 text-white/90 rounded-tl-sm'}`}>
+                        <p className="text-sm whitespace-pre-wrap leading-relaxed">{msg.text}</p>
+                        {msg.tagged_item && (
+                          <div className={`mt-3 px-3 py-1.5 rounded-lg text-xs font-mono-pro uppercase tracking-widest inline-flex items-center gap-2 ${isClient ? 'bg-[#00FF94]/20 text-[#00FF94]' : 'bg-black/40 text-white/60'}`}>
+                            <Link className="w-3 h-3" /> {msg.tagged_item}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )
+                }) : (
+                  <div className="m-auto text-center">
+                    <MessageSquare className="w-8 h-8 text-white/10 mx-auto mb-4" />
+                    <p className="font-mono-pro text-xs text-white/30 uppercase tracking-widest">No messages yet.</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Input Area */}
+              <div className="p-4 bg-black/40 border-t border-white/5">
+                {taggedItem && (
+                  <div className="mb-2 inline-flex items-center gap-2 bg-[#00FF94]/10 text-[#00FF94] px-3 py-1 rounded-full text-[10px] font-mono-pro uppercase">
+                    <Link className="w-3 h-3" /> Tagged: {taggedItem}
+                    <button onClick={() => setTaggedItem("")} className="ml-1 hover:text-white"><LogOut className="w-3 h-3 rotate-45" /></button>
+                  </div>
+                )}
+                <div className="flex items-end gap-2">
+                  <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-2 flex flex-col focus-within:border-[#00FF94]/50 transition-colors">
+                    <textarea 
+                      value={messageInput}
+                      onChange={e => setMessageInput(e.target.value)}
+                      placeholder="Type your message securely..."
+                      className="w-full bg-transparent resize-none outline-none text-sm p-2 text-white placeholder-white/30 min-h-[44px] max-h-[120px] custom-scrollbar"
+                      rows={1}
+                      onKeyDown={e => {
+                        if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSendMessage(); }
+                      }}
+                    />
+                    <div className="flex justify-between items-center px-2 pb-1">
+                      <select 
+                        value={taggedItem} 
+                        onChange={e => setTaggedItem(e.target.value)}
+                        className="bg-transparent text-[10px] font-mono-pro text-white/40 outline-none uppercase cursor-pointer hover:text-white/80"
+                      >
+                        <option value="">+ Tag Item</option>
+                        {data.full_deliverables?.map(d => <option key={d.name} value={d.name}>{d.name}</option>)}
+                        {data.monthly_reports?.map(r => <option key={r.title} value={r.title}>{r.title}</option>)}
+                      </select>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={handleSendMessage}
+                    disabled={!messageInput.trim()}
+                    className="h-[84px] w-[84px] shrink-0 rounded-2xl bg-[#00FF94] text-black flex items-center justify-center hover:bg-white transition-colors disabled:opacity-50 disabled:hover:bg-[#00FF94]"
+                  >
+                    <Send className="w-6 h-6 ml-1" />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+            ) : (
+            <motion.div key="invoices" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="space-y-8">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="font-display text-3xl font-bold text-white mb-2">Invoices Tracker</h2>
+                  <p className="font-mono-pro text-sm text-white/50">View and download your billing history.</p>
+                </div>
+              </div>
+
+              {/* YTD Summary */}
+              <div className="glass rounded-3xl p-8 border border-[#00FF94]/20 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[#00FF94]/10 blur-[80px] rounded-full pointer-events-none" />
+                <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6 justify-between">
+                  <div>
+                    <h3 className="font-mono-pro text-xs uppercase tracking-widest text-white/60 mb-2">Total Paid (YTD)</h3>
+                    <p className="font-display font-black text-5xl text-[#00FF94]">
+                      ${(data.invoices || []).filter(inv => inv.status === 'Paid').reduce((sum, inv) => sum + Number(inv.amount), 0).toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="bg-black/40 px-6 py-4 rounded-2xl border border-white/5 text-center">
+                      <p className="font-mono-pro text-[10px] text-white/40 uppercase tracking-widest mb-1">Pending</p>
+                      <p className="font-display font-bold text-xl text-white">
+                        ${(data.invoices || []).filter(inv => inv.status === 'Pending').reduce((sum, inv) => sum + Number(inv.amount), 0).toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Table */}
+              <div className="glass rounded-2xl border border-white/10 overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left">
+                    <thead>
+                      <tr className="border-b border-white/5 bg-black/20">
+                        <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Invoice #</th>
+                        <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Date</th>
+                        <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Amount</th>
+                        <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Status</th>
+                        <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal text-right">Download</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(data.invoices || []).length > 0 ? (data.invoices || []).map((inv, i) => (
+                        <tr key={i} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors group">
+                          <td className="py-4 px-6">
+                            <span className="font-display font-bold text-white">{inv.number}</span>
+                          </td>
+                          <td className="py-4 px-6">
+                            <span className="font-mono-pro text-xs text-white/60">{inv.date}</span>
+                          </td>
+                          <td className="py-4 px-6">
+                            <span className="font-mono-pro text-sm text-white">${Number(inv.amount).toLocaleString()}</span>
+                          </td>
+                          <td className="py-4 px-6">
+                            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-widest ${
+                              inv.status === 'Paid' ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20' : 
+                              'bg-[#FF9F0A]/10 text-[#FF9F0A] border border-[#FF9F0A]/20'
+                            }`}>
+                              {inv.status}
+                            </span>
+                          </td>
+                          <td className="py-4 px-6 text-right">
+                            <a href={inv.url} target="_blank" rel="noreferrer" className="inline-flex p-2 text-white/40 hover:text-[#00FF94] hover:bg-[#00FF94]/10 rounded-lg transition-colors">
+                              <Download className="w-4 h-4" />
+                            </a>
+                          </td>
+                        </tr>
+                      )) : (
+                        <tr>
+                          <td colSpan="5" className="py-12 text-center">
+                            <span className="font-mono-pro text-[10px] text-white/30 uppercase tracking-widest">No invoices found</span>
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </motion.div>
             )}
             </AnimatePresence>

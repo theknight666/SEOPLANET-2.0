@@ -275,6 +275,16 @@ async def create_new_client(payload: ClientCreate, current_client: dict = Depend
         ],
         "monthly_reports": [
             {"title": "May 2026 Performance", "month": "May 2026", "url": "#"}
+        ],
+        "messages": [
+            {"sender": "Agency", "text": "Welcome to your new SEO hub! Let us know if you have any questions.", "date": "2026-06-16T10:00:00Z", "tagged_item": ""}
+        ],
+        "invoices": [
+            {"number": "INV-001", "date": "2026-06-01", "amount": 2500, "status": "Paid", "url": "#"}
+        ],
+        "documents": [
+            {"name": "Master Services Agreement", "category": "Contract", "upload_date": "2026-06-01", "url": "#"},
+            {"name": "Brand Guidelines", "category": "Brand Assets", "upload_date": "2026-06-05", "url": "#"}
         ]
     }
     await db.clients.insert_one(client_doc)
@@ -302,6 +312,8 @@ class ClientUpdate(BaseModel):
     full_deliverables: list = []
     content_calendar: list = []
     monthly_reports: list = []
+    messages: list = []
+    invoices: list = []
 
 @api_router.put("/onboarding/clients/{username}")
 async def update_client(username: str, payload: ClientUpdate, current_client: dict = Depends(get_current_client)):
@@ -321,7 +333,9 @@ async def update_client(username: str, payload: ClientUpdate, current_client: di
         "goals": payload.goals,
         "full_deliverables": payload.full_deliverables,
         "content_calendar": payload.content_calendar,
-        "monthly_reports": payload.monthly_reports
+        "monthly_reports": payload.monthly_reports,
+        "messages": payload.messages,
+        "invoices": payload.invoices
     }
     result = await db.clients.update_one({"username": username}, {"$set": update_data})
     if result.matched_count == 0:
@@ -347,6 +361,30 @@ async def update_content_status(payload: ContentStatusUpdate, current_client: di
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Client not found")
     return {"status": "success", "message": "Status updated"}
 
+class SendMessage(BaseModel):
+    text: str
+    tagged_item: str = ""
+    date: str
+
+@api_router.post("/onboarding/clients/me/messages")
+async def send_client_message(payload: SendMessage, current_client: dict = Depends(get_current_client)):
+    if not current_client or current_client.get("username") == "admin":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only clients can send messages via this route")
+    
+    username = current_client["username"]
+    new_message = {
+        "sender": "Client",
+        "text": payload.text,
+        "tagged_item": payload.tagged_item,
+        "date": payload.date
+    }
+    result = await db.clients.update_one(
+        {"username": username},
+        {"$push": {"messages": new_message}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Client not found")
+    return {"status": "success", "message": "Message sent"}
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
