@@ -77,7 +77,7 @@ export default function Services() {
           <TiltCard isVolumetric={true} className="md:col-span-8 md:row-span-2 h-full w-full">
           <motion.div
             {...reveal}
-            className="relative neon-border rounded-2xl bg-[#05050A]/40 backdrop-blur-md p-8 sm:p-12 group h-full"
+            className="relative neon-border rounded-2xl bg-white/[0.03] border border-white/10 p-8 sm:p-12 group h-full"
             style={{ transformStyle: "preserve-3d" }}
             data-testid="service-card-highlight"
           >
