@@ -88,6 +88,18 @@ export default function AdminDashboard({ adminData }) {
     }
   };
 
+  const handleDelete = async (username, companyName) => {
+    if (!window.confirm(`Are you absolutely sure you want to delete the client ${companyName} (@${username})? This cannot be undone.`)) return;
+    
+    try {
+      await axios.delete(`https://seoplanet-2-0.onrender.com/api/onboarding/clients/${username}`);
+      toast.success("Client deleted successfully.");
+      fetchClients();
+    } catch (err) {
+      toast.error(err.response?.data?.detail || "Failed to delete client.");
+    }
+  };
+
   // Array Builders
   const addArrayItem = (field, defaultObj) => setEditForm(prev => ({ ...prev, [field]: [...prev[field], defaultObj] }));
   const updateArrayItem = (field, index, key, value) => {
@@ -170,9 +182,14 @@ export default function AdminDashboard({ adminData }) {
                             </span>
                           </td>
                           <td className="px-6 py-4 text-right">
-                            <button onClick={() => openEditor(c)} className="inline-flex items-center gap-2 px-4 py-2 bg-white/[0.02] hover:bg-[#00D67D] hover:text-black rounded-lg font-mono-pro text-xs uppercase tracking-wider transition-colors">
-                              <Edit2 className="w-3.5 h-3.5" /> Edit Data
-                            </button>
+                            <div className="flex items-center justify-end gap-2">
+                              <button onClick={() => openEditor(c)} className="inline-flex items-center gap-2 px-4 py-2 bg-white/[0.02] hover:bg-[#00D67D] hover:text-black rounded-lg font-mono-pro text-xs uppercase tracking-wider transition-colors">
+                                <Edit2 className="w-3.5 h-3.5" /> Edit Data
+                              </button>
+                              <button onClick={() => handleDelete(c.username, c.company_name)} className="inline-flex items-center justify-center w-8 h-8 bg-white/[0.02] hover:bg-red-500 hover:text-white rounded-lg transition-colors" title="Delete Client">
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}

@@ -342,6 +342,18 @@ async def update_client(username: str, payload: ClientUpdate, current_client: di
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Client not found")
     return {"status": "success", "message": "Client updated"}
 
+@api_router.delete("/onboarding/clients/{username}")
+async def delete_client(username: str, current_client: dict = Depends(get_current_client)):
+    if current_client.get("username") != "admin":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
+    if username == "admin":
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Cannot delete admin account")
+    
+    result = await db.clients.delete_one({"username": username})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Client not found")
+    return {"status": "success", "message": "Client deleted"}
+
 class ContentStatusUpdate(BaseModel):
     item_index: int
     status: str
