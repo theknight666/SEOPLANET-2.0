@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring as useFramerSpring } from "framer-motion";
 import { useSpring, animated, config } from "@react-spring/web";
-import Lenis from "lenis";
 import { useAuth } from "../../context/AuthContext";
 import { LogOut, Loader2, FileText, CheckCircle2, Clock, PlayCircle, TrendingUp, Target, Shield, Link, Activity, Lock, Users, Search, LayoutDashboard, LayoutGrid, List, Download, CheckCircle, CircleDashed, Calendar, BarChart3, Calculator, FolderClosed, MessageSquare, Receipt, Send, FileCode, ImageIcon } from "lucide-react";
 import axios from "axios";
@@ -9,54 +8,64 @@ import { Toaster, toast } from "sonner";
 import AdminDashboard from "./AdminDashboard";
 import { AreaChart, Area, Tooltip, ResponsiveContainer } from "recharts";
 
-function CinematicLoader({ onComplete }) {
+function CinematicLoader({ companyName, onComplete }) {
   const [phase, setPhase] = useState(0);
 
   useEffect(() => {
-    // 0: Initial fade in
-    // 1: Ring drawing (0.5s)
-    // 2: Scale up and exit (2.5s)
-    const t1 = setTimeout(() => setPhase(1), 500);
-    const t2 = setTimeout(() => setPhase(2), 2000);
-    const t3 = setTimeout(() => onComplete(), 2800);
+    const t1 = setTimeout(() => setPhase(1), 1200);
+    const t2 = setTimeout(() => setPhase(2), 2400);
+    const t3 = setTimeout(() => onComplete(), 4000);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, []); // Empty dependency array prevents resetting the loader on re-renders
 
   return (
     <motion.div 
-      exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }} 
-      transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black text-white"
+      exit={{ opacity: 0, scale: 1.05 }} 
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black text-white grain"
     >
+      <div className="absolute inset-0 grid-bg opacity-20" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#00FF94]/10 blur-[150px] animate-pulse" />
+      
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: phase === 2 ? 1.2 : 1 }}
-        transition={{ duration: phase === 2 ? 0.8 : 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="relative flex items-center justify-center w-32 h-32"
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="relative z-10 flex flex-col items-center"
       >
-        {/* Animated Progress Ring */}
-        <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="2" />
-          <motion.circle 
-            cx="50" cy="50" r="48" 
-            fill="none" 
-            stroke="#00FF94" 
-            strokeWidth="2"
-            strokeLinecap="round"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ 
-              pathLength: phase >= 1 ? 1 : 0,
-              opacity: phase >= 1 ? 1 : 0
-            }}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
-          />
-        </svg>
-
-        {/* Logo Center */}
-        <div className="flex flex-col items-center justify-center">
-          <div className="w-3 h-3 rounded-full bg-[#00FF94] shadow-[0_0_15px_#00FF94] mb-2" />
-          <span className="font-display font-bold tracking-[0.2em] text-[10px] uppercase text-white">SEO PLANET</span>
+        <Lock className="w-12 h-12 text-[#00FF94] mb-8 opacity-80" />
+        
+        <div className="h-12 flex items-center justify-center">
+          <AnimatePresence mode="wait">
+            {phase === 0 && (
+              <motion.p key="p0" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="font-mono-pro text-sm uppercase tracking-[0.3em] text-white/50">
+                Decrypting Secure Channel...
+              </motion.p>
+            )}
+            {phase === 1 && (
+              <motion.p key="p1" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="font-mono-pro text-sm uppercase tracking-[0.3em] text-white/50">
+                Synchronizing Strategy Vault...
+              </motion.p>
+            )}
+            {phase === 2 && (
+              <motion.div key="p2" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center">
+                <p className="font-display text-3xl font-bold text-[#00FF94] mb-2 drop-shadow-[0_0_15px_rgba(0,255,148,0.5)]">ACCESS GRANTED</p>
+                <p className="font-mono-pro text-xs uppercase tracking-[0.4em] text-white">Welcome, {companyName}</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
+        
+        {phase < 2 && (
+          <div className="w-64 h-1 bg-white/10 rounded-full mt-8 overflow-hidden">
+            <motion.div 
+              initial={{ width: "0%" }} 
+              animate={{ width: "100%" }} 
+              transition={{ duration: 2.4, ease: "linear" }}
+              className="h-full bg-[#00FF94] shadow-[0_0_10px_#00FF94]"
+            />
+          </div>
+        )}
       </motion.div>
     </motion.div>
   );
@@ -298,25 +307,7 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
-  // --- Lenis Smooth Scroll Setup ---
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      touchMultiplier: 2,
-    });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    return () => lenis.destroy();
-  }, []);
 
   // --- Global Mouse Tracking for Parallax (60fps without re-renders) ---
   const mouseX = useMotionValue(0);
