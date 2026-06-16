@@ -111,9 +111,6 @@ export default function Hero() {
         </motion.p>
 
         <motion.h1
-          initial="hidden"
-          animate="visible"
-          variants={{}}
           className="font-display font-black text-white text-3xl sm:text-5xl lg:text-[5rem] leading-[0.95] tracking-tighter max-w-5xl"
           data-testid="hero-headline"
         >

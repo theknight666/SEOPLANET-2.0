@@ -17,7 +17,8 @@ export default function Preloader() {
     const duration = 2000;
     let raf;
     const easeOut = (t) => 1 - Math.pow(1 - t, 4);
-    const tick = (now) => {
+    const tick = () => {
+      const now = performance.now();
       const t = Math.min(1, (now - start) / duration);
       setProgress(Math.round(easeOut(t) * 100));
       if (t < 1) raf = requestAnimationFrame(tick);
@@ -94,7 +95,7 @@ export default function Preloader() {
                 className="absolute flex items-center gap-3 sm:gap-4 z-0 pointer-events-none origin-center"
               >
                 <span className="relative inline-block w-3 h-3 sm:w-4 sm:h-4 opacity-0" />
-                <span className="font-display font-black tracking-tight text-white text-3xl sm:text-4xl blur-[1px]">
+                <span className="font-display font-black tracking-tight text-white text-3xl sm:text-4xl">
                   SEO PLANET
                 </span>
               </motion.div>
@@ -115,7 +116,7 @@ export default function Preloader() {
                 className="absolute flex items-center gap-3 sm:gap-4 z-0 pointer-events-none origin-center"
               >
                 <span className="relative inline-block w-3 h-3 sm:w-4 sm:h-4 opacity-0" />
-                <span className="font-display font-black tracking-tight text-white text-3xl sm:text-4xl blur-[1px]">
+                <span className="font-display font-black tracking-tight text-white text-3xl sm:text-4xl">
                   SEO PLANET
                 </span>
               </motion.div>
