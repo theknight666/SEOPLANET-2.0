@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring as useFramerSpring } from "framer-motion";
+import Lenis from "lenis";
 import { useSpring, animated, config } from "@react-spring/web";
 import { useAuth } from "../../context/AuthContext";
 import { LogOut, Loader2, FileText, CheckCircle2, Clock, PlayCircle, TrendingUp, Target, Shield, Link, Activity, Lock, Users, Search, LayoutDashboard, LayoutGrid, List, Download, CheckCircle, CircleDashed, Calendar, BarChart3, Calculator, FolderClosed, MessageSquare, Receipt, Send, FileCode, ImageIcon } from "lucide-react";
@@ -307,6 +308,35 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
+  // --- Lenis Smooth Scroll Setup ---
+  useEffect(() => {
+    // We bind Lenis to the scrollable main container instead of the window
+    const wrapper = document.querySelector('#dashboard-scroll-wrapper');
+    const content = document.querySelector('#dashboard-scroll-content');
+    
+    if (!wrapper || !content) return;
+
+    const lenis = new Lenis({
+      wrapper: wrapper,
+      content: content,
+      duration: 1.4,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      touchMultiplier: 2,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    return () => lenis.destroy();
+  }, [showDashboard]); // Re-initialize when dashboard mounts
+
+
 
 
   // --- Global Mouse Tracking for Parallax (60fps without re-renders) ---
@@ -462,8 +492,8 @@ export default function Dashboard() {
             </motion.header>
 
             {/* Scrollable Content */}
-            <main className="flex-1 overflow-y-auto p-6 md:p-12 pb-32 md:pb-12 custom-scrollbar">
-              <div className="max-w-5xl mx-auto relative z-10">
+            <main id="dashboard-scroll-wrapper" className="flex-1 overflow-y-auto p-6 md:p-12 pb-32 md:pb-12 custom-scrollbar">
+              <div id="dashboard-scroll-content" className="max-w-5xl mx-auto relative z-10">
                 <AnimatePresence mode="wait">
             {activeTab === "overview" ? (
             <motion.div key="overview" variants={containerVariants} initial="hidden" animate="show" exit={{ opacity: 0, y: 10 }} transition={{ duration: 0.3 }} className="grid lg:grid-cols-12 gap-12 lg:gap-16">
