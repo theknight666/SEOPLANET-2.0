@@ -174,13 +174,8 @@ function ExpandPanel({ p, open, isEven }) {
       }}
     >
       <div ref={panelRef}>
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: isEven ? "1.1fr 0.9fr" : "0.9fr 1.1fr",
-          gap: "0",
-          borderTop: `1px solid ${p.color}20`,
-          background: "#07070F",
-        }}>
+        <div className={`grid gap-0 border-t border-[${p.color}20] bg-[#07070F] grid-cols-1 md:grid-cols-2`}
+             style={{ borderTopColor: `${p.color}20` }}>
           {/* LEFT: Preview / Before & After */}
           <div style={{ 
             padding: isEven ? "32px 40px 32px 56px" : "32px 56px 32px 40px", 
@@ -460,17 +455,9 @@ function ProjectRow({ p, index, revealed }) {
         )}
 
         {/* Row content */}
-        <div style={{
-          display: "flex", alignItems: "center", justifyContent: "space-between",
-          flexDirection: isEven ? "row" : "row-reverse",
-          padding: "clamp(28px, 4vw, 48px) 0",
-          position: "relative", zIndex: 3,
-        }}>
+        <div className={`flex items-start md:items-center justify-between gap-8 md:gap-0 relative z-10 py-[clamp(28px,4vw,48px)] flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
           {/* Title Area */}
-          <div style={{ 
-            display: "flex", alignItems: "baseline", gap: "clamp(16px, 3vw, 40px)", flex: 1,
-            flexDirection: isEven ? "row" : "row-reverse", textAlign: isEven ? "left" : "right"
-          }}>
+          <div className={`flex items-baseline gap-[clamp(16px,3vw,40px)] flex-1 w-full flex-col md:flex-row ${!isEven ? 'md:flex-row-reverse' : ''}`} style={{ textAlign: isEven ? "left" : "right" }}>
             <span style={{
               fontFamily: "JetBrains Mono, monospace", fontSize: "11px", fontWeight: 700,
               color: isHovered || isOpen ? p.color : "rgba(255,255,255,0.2)",
@@ -500,11 +487,9 @@ function ProjectRow({ p, index, revealed }) {
           </div>
 
           {/* Stats Area */}
-          <div style={{ 
-            textAlign: isEven ? "right" : "left", flexShrink: 0, 
+          <div className={`flex items-start md:items-center gap-8 md:gap-6 shrink-0 w-full md:w-auto mt-6 md:mt-0 flex-row ${!isEven ? 'md:flex-row-reverse' : ''}`} style={{ 
+            textAlign: isEven ? "right" : "left", 
             marginLeft: isEven ? "24px" : "0", marginRight: isEven ? "0" : "24px",
-            display: "flex", alignItems: "center", gap: "32px",
-            flexDirection: isEven ? "row" : "row-reverse"
           }}>
             <div style={{
               width: "40px", height: "40px", borderRadius: "50%",

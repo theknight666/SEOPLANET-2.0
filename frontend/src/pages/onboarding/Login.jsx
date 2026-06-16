@@ -31,7 +31,7 @@ export default function Login() {
   };
 
   return (
-    <div className="relative min-h-screen w-full flex items-center justify-center bg-[#05050A] text-white overflow-hidden grain selection:bg-[#00D67D] selection:text-black">
+    <div className="relative min-h-[100dvh] w-full flex items-center justify-center bg-[#05050A] text-white overflow-hidden grain selection:bg-[#00D67D] selection:text-black">
       {/* Background Ambience */}
       <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#00D67D]/5 blur-[120px] pointer-events-none" />

@@ -215,7 +215,7 @@ const AnimatedNumber = ({ value }) => {
 
 function DashboardSkeleton() {
   return (
-    <div className="flex h-screen w-full bg-black text-white overflow-hidden grain">
+    <div className="flex h-[100dvh] w-full bg-black text-white overflow-hidden grain">
       <aside className="hidden md:flex flex-col w-64 border-r border-white/5 bg-[#050505]/80 p-6 space-y-4">
         <div className="w-32 h-6 bg-white/[0.02] rounded-full animate-pulse mb-8" />
         {[...Array(6)].map((_, i) => <div key={i} className="w-full h-10 bg-white/[0.02] rounded-xl animate-pulse" />)}
@@ -401,7 +401,7 @@ export default function Dashboard() {
       {showDashboard && (
         <motion.div 
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}
-          className="flex h-screen w-full bg-black text-white overflow-hidden grain selection:bg-[#00FF94] selection:text-black"
+          className="flex h-[100dvh] w-full bg-black text-white overflow-hidden grain selection:bg-[#00FF94] selection:text-black"
         >
           {/* Subtle static grid dot pattern */}
           <div className="fixed inset-0 pointer-events-none z-0" style={{ backgroundImage: 'radial-gradient(circle at center, rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
@@ -476,7 +476,7 @@ export default function Dashboard() {
           </motion.aside>
 
           {/* Main Area (Mobile & Desktop) */}
-          <div className="flex-1 flex flex-col h-screen relative z-10 min-w-0">
+          <div className="flex-1 flex flex-col h-[100dvh] relative z-10 min-w-0">
             {/* Mobile Header */}
             <motion.header 
               initial={{ y: -20, opacity: 0 }}
