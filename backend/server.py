@@ -28,7 +28,7 @@ db = client[os.environ['DB_NAME']]
 # Resend setup
 RESEND_API_KEY = os.environ.get('RESEND_API_KEY', '')
 SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'onboarding@resend.dev')
-AGENCY_EMAIL = os.environ.get('AGENCY_EMAIL', 'founder@seoplanet.com')
+AGENCY_EMAIL = os.environ.get('AGENCY_EMAIL', 'enquiry@seoplanet.in')
 if RESEND_API_KEY:
     resend.api_key = RESEND_API_KEY
 
