@@ -640,32 +640,119 @@ function ProjectRow({ p, index, revealed }) {
 }
 
 /* ─────────────────────────────────────────────
+   PARALLAX TEXT
+───────────────────────────────────────────── */
+function ParallaxManyMore({ revealed }) {
+  const containerRef = useRef(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setMousePos({ x, y });
+  };
+
+  const handleMouseLeave = () => {
+    setMousePos({ x: 0, y: 0 });
+  };
+
+  return (
+    <div 
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        padding: "clamp(60px, 10vw, 120px) 0",
+        display: "flex", justifyContent: "center", alignItems: "center",
+        perspective: "1000px",
+        opacity: revealed ? 1 : 0,
+        transform: revealed ? "none" : "translateY(40px)",
+        transition: "opacity 1s, transform 1s"
+      }}
+    >
+      <div style={{
+        position: "relative",
+        transformStyle: "preserve-3d",
+        transform: `rotateX(${mousePos.y * -20}deg) rotateY(${mousePos.x * 20}deg)`,
+        transition: "transform 0.15s ease-out",
+      }}>
+        {/* Shadow Layer */}
+        <div style={{
+          fontFamily: "'Unbounded', sans-serif", fontWeight: 900,
+          fontSize: "clamp(3rem, 8vw, 8rem)", letterSpacing: "-0.04em",
+          color: "rgba(0,255,148,0.15)",
+          transform: "translateZ(-40px)", filter: "blur(12px)",
+          position: "absolute", top: 0, left: 0, whiteSpace: "nowrap"
+        }}>
+          And Many more...
+        </div>
+        
+        {/* Back Layer */}
+        <div style={{
+          fontFamily: "'Unbounded', sans-serif", fontWeight: 900,
+          fontSize: "clamp(3rem, 8vw, 8rem)", letterSpacing: "-0.04em",
+          color: "rgba(255,255,255,0.02)",
+          transform: "translateZ(-20px)",
+          position: "absolute", top: 0, left: 0, whiteSpace: "nowrap",
+          WebkitTextStroke: "1px rgba(255,255,255,0.15)",
+        }}>
+          And Many more...
+        </div>
+
+        {/* Front Layer */}
+        <div style={{
+          fontFamily: "'Unbounded', sans-serif", fontWeight: 900,
+          fontSize: "clamp(3rem, 8vw, 8rem)", letterSpacing: "-0.04em",
+          color: "#fff",
+          transform: "translateZ(30px)",
+          position: "relative", whiteSpace: "nowrap",
+          textShadow: "0 10px 30px rgba(0,0,0,0.5)"
+        }}>
+          And <span style={{ color: "#00FF94" }}>Many</span> more...
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
    CAPABILITIES MARQUEE
 ───────────────────────────────────────────── */
 function CapabilitiesMarquee() {
-  const items = ["Next.js", "★", "Brand Identity", "★", "Technical SEO", "★", "WordPress", "★", "UI/UX Design", "★", "Conversion Flow", "★"];
+  const row1 = ["React", "★", "Next.js", "★", "Vue.js", "★", "Angular", "★", "Svelte", "★", "TailwindCSS", "★", "Framer Motion", "★", "TypeScript", "★", "WebSockets", "★"];
+  const row2 = ["Node.js", "★", "Python", "★", "Django", "★", "FastAPI", "★", "GraphQL", "★", "Technical SEO", "★", "Core Web Vitals", "★", "PostgreSQL", "★", "MongoDB", "★"];
+  const row3 = ["Figma", "★", "UI/UX Design", "★", "AWS", "★", "Docker", "★", "Vercel", "★", "Brand Identity", "★", "Conversion Flow", "★", "Shopify", "★", "WordPress", "★"];
+  
+  const MarqueeRow = ({ items, className }) => (
+    <div className={className} style={{ display: "flex", whiteSpace: "nowrap", padding: "12px 0" }}>
+      {Array.from({ length: 4 }).map((_, i) => (
+        <div key={i} style={{ display: "flex", alignItems: "center" }}>
+          {items.map((item, j) => (
+            <span key={`${i}-${j}`} style={{
+              fontFamily: "JetBrains Mono, monospace", fontSize: "11px", fontWeight: item === "★" ? 400 : 700,
+              color: item === "★" ? "#00FF94" : "rgba(255,255,255,0.3)",
+              textTransform: "uppercase", letterSpacing: "0.2em", padding: "0 24px"
+            }}>
+              {item}
+            </span>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <div style={{ 
-      width: "100%", overflow: "hidden", padding: "40px 0", marginTop: "80px",
+      width: "100%", overflow: "hidden", padding: "60px 0", marginTop: "40px",
       borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)",
       background: "linear-gradient(to right, rgba(5,5,10,1) 0%, rgba(5,5,10,0) 10%, rgba(5,5,10,0) 90%, rgba(5,5,10,1) 100%)",
-      display: "flex", position: "relative"
+      display: "flex", flexDirection: "column", position: "relative"
     }}>
-      <div className="portfolio-marquee" style={{ display: "flex", whiteSpace: "nowrap" }}>
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center" }}>
-            {items.map((item, j) => (
-              <span key={`${i}-${j}`} style={{
-                fontFamily: "JetBrains Mono, monospace", fontSize: "11px", fontWeight: item === "★" ? 400 : 700,
-                color: item === "★" ? "#00FF94" : "rgba(255,255,255,0.3)",
-                textTransform: "uppercase", letterSpacing: "0.2em", padding: "0 24px"
-              }}>
-                {item}
-              </span>
-            ))}
-          </div>
-        ))}
-      </div>
+      <MarqueeRow items={row1} className="portfolio-marquee" />
+      <MarqueeRow items={row2} className="portfolio-marquee-right" />
+      <MarqueeRow items={row3} className="portfolio-marquee" />
     </div>
   );
 }
@@ -722,8 +809,10 @@ export default function PortfolioApp() {
   const [loaded, setLoaded] = useState(false);
   const [rowsRevealed, setRowsRevealed] = useState(false);
   const [ctaRevealed, setCtaRevealed] = useState(false);
+  const [manyMoreRevealed, setManyMoreRevealed] = useState(false);
   const rowsRef = useRef(null);
   const ctaRef = useRef(null);
+  const manyMoreRef = useRef(null);
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 100);
@@ -745,6 +834,12 @@ export default function PortfolioApp() {
   useEffect(() => {
     const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setCtaRevealed(true); }, { threshold: 0.1 });
     if (ctaRef.current) obs.observe(ctaRef.current);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setManyMoreRevealed(true); }, { threshold: 0.1 });
+    if (manyMoreRef.current) obs.observe(manyMoreRef.current);
     return () => obs.disconnect();
   }, []);
 
@@ -797,6 +892,11 @@ export default function PortfolioApp() {
         {PROJECTS.map((p, i) => (
           <ProjectRow key={p.index} p={p} index={i} revealed={rowsRevealed} />
         ))}
+      </div>
+
+      {/* PARALLAX MANY MORE */}
+      <div ref={manyMoreRef}>
+        <ParallaxManyMore revealed={manyMoreRevealed} />
       </div>
 
       {/* CAPABILITIES MARQUEE */}
