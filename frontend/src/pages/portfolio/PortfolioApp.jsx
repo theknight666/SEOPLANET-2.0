@@ -28,7 +28,7 @@ const PROJECTS = [
   },
   {
     index: "002",
-    title: "Aditya Marketing",
+    title: "Nova Productions",
     subtitle: "Digital Marketing Portfolio",
     category: "Portfolio · Web App",
     year: "2025",
@@ -691,7 +691,7 @@ function BottomCTA({ revealed }) {
       </div>
       <h2 style={{
         fontFamily: "'Unbounded', sans-serif", fontWeight: 900,
-        fontSize: "clamp(2.5rem, 7vw, 6rem)",
+        fontSize: "clamp(1.75rem, 4.9vw, 4.2rem)",
         lineHeight: 0.92, letterSpacing: "-0.03em",
         color: "#fff", margin: "0 0 48px",
       }}>
@@ -751,7 +751,7 @@ export default function PortfolioApp() {
   return (
     <div
       className="portfolio-root"
-      style={{ background: "#05050A", color: "#fff", minHeight: "100vh", overflowX: "hidden" }}
+      style={{ background: "#05050A", color: "#fff", minHeight: "100vh", overflowX: "hidden", zoom: 0.9 }}
       onMouseEnter={() => setHovered(false)}
     >
       <Cursor hovered={hovered} />
@@ -774,7 +774,7 @@ export default function PortfolioApp() {
           </div>
           <h1 style={{
             fontFamily: "'Unbounded', sans-serif", fontWeight: 900,
-            fontSize: "clamp(3rem, 8vw, 7.5rem)", lineHeight: 0.9, letterSpacing: "-0.04em",
+            fontSize: "clamp(2.1rem, 5.6vw, 5.25rem)", lineHeight: 0.9, letterSpacing: "-0.04em",
             color: "#fff", margin: 0,
           }}>
             Real Projects.
