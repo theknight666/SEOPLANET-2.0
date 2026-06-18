@@ -39,29 +39,14 @@ export default function Contact() {
     }
     setLoading(true);
     try {
-      // EMAILJS INTEGRATION (Replace placeholders with your actual keys)
-      const serviceId = "YOUR_SERVICE_ID";
-      const templateId = "YOUR_TEMPLATE_ID";
-      const publicKey = "YOUR_PUBLIC_KEY";
-
-      const res = await axios.post(`https://api.emailjs.com/api/v1.0/email/send`, {
-        service_id: serviceId,
-        template_id: templateId,
-        user_id: publicKey,
-        template_params: {
-          from_name: form.name,
-          from_email: form.email,
-          company: form.company,
-          message: form.message,
-        }
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
+      const res = await axios.post(`https://seoplanet-2-0.onrender.com/api/contact`, {
+        name: form.name,
+        email: form.email,
+        company: form.company,
+        message: form.message,
       });
-      // EmailJS returns "OK" on success
-      if (res.data === "OK") {
+      
+      if (res.data && res.data.status === "success") {
         setSuccess(true);
         toast.success("Message received. We'll reply within 24 hours.");
         setForm({ name: "", email: "", company: "", message: "" });
