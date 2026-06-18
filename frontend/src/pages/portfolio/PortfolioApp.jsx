@@ -640,78 +640,72 @@ function ProjectRow({ p, index, revealed }) {
 }
 
 /* ─────────────────────────────────────────────
-   PARALLAX TEXT
+   PREMIUM PARALLAX TEXT
 ───────────────────────────────────────────── */
 function ParallaxManyMore({ revealed }) {
   const containerRef = useRef(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const textRef = useRef(null);
 
-  const handleMouseMove = (e) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setMousePos({ x, y });
-  };
+  useEffect(() => {
+    let raf;
+    let target = 0;
+    let current = 0;
 
-  const handleMouseLeave = () => {
-    setMousePos({ x: 0, y: 0 });
-  };
+    const tick = () => {
+      if (containerRef.current && textRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const center = window.innerHeight / 2;
+        
+        // Target parallax offset based on scroll position relative to center of screen
+        target = (rect.top - center) * 0.25;
+        
+        // Buttery smooth momentum interpolation
+        current += (target - current) * 0.08;
+        
+        textRef.current.style.transform = `translate3d(0, ${current}px, 0)`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   return (
     <div 
       ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       style={{
-        padding: "clamp(60px, 10vw, 120px) 0",
+        padding: "clamp(100px, 15vw, 180px) 0",
         display: "flex", justifyContent: "center", alignItems: "center",
-        perspective: "1000px",
+        overflow: "hidden",
+        position: "relative",
         opacity: revealed ? 1 : 0,
-        transform: revealed ? "none" : "translateY(40px)",
-        transition: "opacity 1s, transform 1s"
+        transition: "opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1)"
       }}
     >
-      <div style={{
-        position: "relative",
-        transformStyle: "preserve-3d",
-        transform: `rotateX(${mousePos.y * -20}deg) rotateY(${mousePos.x * 20}deg)`,
-        transition: "transform 0.15s ease-out",
-      }}>
-        {/* Shadow Layer */}
-        <div style={{
+      <div 
+        ref={textRef}
+        style={{
           fontFamily: "'Unbounded', sans-serif", fontWeight: 900,
-          fontSize: "clamp(3rem, 8vw, 8rem)", letterSpacing: "-0.04em",
-          color: "rgba(0,255,148,0.15)",
-          transform: "translateZ(-40px)", filter: "blur(12px)",
-          position: "absolute", top: 0, left: 0, whiteSpace: "nowrap"
+          fontSize: "clamp(4rem, 11vw, 11rem)", 
+          letterSpacing: "-0.04em",
+          lineHeight: 1,
+          whiteSpace: "nowrap",
+          color: "transparent",
+          WebkitTextStroke: "1px rgba(255,255,255,0.12)",
+          display: "flex", alignItems: "center", gap: "clamp(1rem, 2vw, 2rem)",
+          willChange: "transform"
+        }}
+      >
+        <span>And</span>
+        <span style={{ 
+          color: "#fff", 
+          WebkitTextStroke: "0px",
+          textShadow: "0 20px 80px rgba(0,255,148,0.25)"
         }}>
-          And Many more...
-        </div>
-        
-        {/* Back Layer */}
-        <div style={{
-          fontFamily: "'Unbounded', sans-serif", fontWeight: 900,
-          fontSize: "clamp(3rem, 8vw, 8rem)", letterSpacing: "-0.04em",
-          color: "rgba(255,255,255,0.02)",
-          transform: "translateZ(-20px)",
-          position: "absolute", top: 0, left: 0, whiteSpace: "nowrap",
-          WebkitTextStroke: "1px rgba(255,255,255,0.15)",
-        }}>
-          And Many more...
-        </div>
-
-        {/* Front Layer */}
-        <div style={{
-          fontFamily: "'Unbounded', sans-serif", fontWeight: 900,
-          fontSize: "clamp(3rem, 8vw, 8rem)", letterSpacing: "-0.04em",
-          color: "#fff",
-          transform: "translateZ(30px)",
-          position: "relative", whiteSpace: "nowrap",
-          textShadow: "0 10px 30px rgba(0,0,0,0.5)"
-        }}>
-          And <span style={{ color: "#00FF94" }}>Many</span> more...
-        </div>
+          Many
+        </span>
+        <span>more...</span>
       </div>
     </div>
   );
