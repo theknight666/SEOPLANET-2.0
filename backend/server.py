@@ -241,51 +241,18 @@ async def create_new_client(payload: ClientCreate, current_client: dict = Depend
             {"step": 1, "title": "Onboarding & Access", "status": "completed"},
             {"step": 2, "title": "Technical SEO Audit", "status": "in_progress"},
             {"step": 3, "title": "Keyword Strategy", "status": "pending"},
-            {"step": 4, "title": "Content Execution", "status": "pending"},
+            {"step": 4, "title": "Content Execution", "status": "pending"}
         ],
-        "documents": [
-            {"title": "Welcome Guide & Roadmap", "url": "#"}
-        ],
-        "traffic_trend": [
-            {"name": "Jan", "traffic": 1000},
-            {"name": "Feb", "traffic": 1200},
-            {"name": "Mar", "traffic": 1500},
-            {"name": "Apr", "traffic": 2000},
-            {"name": "May", "traffic": 2500},
-            {"name": "Jun", "traffic": 3200}
-        ],
-        "keyword_rankings": [
-            {"keyword": "seo services", "rank": 12, "change": "+5", "volume": "12,000", "status": "active"}
-        ],
-        "competitors": [
-            {"name": "Competitor A", "traffic": "12k", "da": "45"},
-            {"name": "Competitor B", "traffic": "8k", "da": "38"}
-        ],
-        "goals": [
-            {"title": "Leads per month", "target": 500, "current": 120}
-        ],
-        "full_deliverables": [
-            {"name": "Q3 Content Strategy", "type": "Strategy", "status": "Delivered", "due_date": "2026-06-01", "url": "#"},
-            {"name": "Technical SEO Audit", "type": "Audit", "status": "In Progress", "due_date": "2026-06-20", "url": "#"},
-            {"name": "Backlink Campaign (Tier 1)", "type": "Off-page", "status": "Pending Approval", "due_date": "2026-06-30", "url": "#"}
-        ],
-        "content_calendar": [
-            {"title": "10 SEO Trends for 2026", "keyword": "seo trends", "publish_date": "2026-07-05", "status": "Pending Approval"},
-            {"title": "How to do Local SEO", "keyword": "local seo guide", "publish_date": "2026-07-12", "status": "Approved"}
-        ],
-        "monthly_reports": [
-            {"title": "May 2026 Performance", "month": "May 2026", "url": "#"}
-        ],
-        "messages": [
-            {"sender": "Agency", "text": "Welcome to your new SEO hub! Let us know if you have any questions.", "date": "2026-06-16T10:00:00Z", "tagged_item": ""}
-        ],
-        "invoices": [
-            {"number": "INV-001", "date": "2026-06-01", "amount": 2500, "status": "Paid", "url": "#"}
-        ],
-        "documents": [
-            {"name": "Master Services Agreement", "category": "Contract", "upload_date": "2026-06-01", "url": "#"},
-            {"name": "Brand Guidelines", "category": "Brand Assets", "upload_date": "2026-06-05", "url": "#"}
-        ]
+        "documents": [],
+        "traffic_trend": [],
+        "keyword_rankings": [],
+        "competitors": [],
+        "goals": [],
+        "full_deliverables": [],
+        "content_calendar": [],
+        "monthly_reports": [],
+        "messages": [],
+        "invoices": []
     }
     await db.clients.insert_one(client_doc)
     return {"status": "success", "message": "Client created"}
@@ -299,6 +266,7 @@ async def get_all_clients(current_client: dict = Depends(get_current_client)):
     return {"status": "success", "data": clients}
 
 class ClientUpdate(BaseModel):
+    status: str = "active"
     metrics: dict
     metrics_changes: dict = {}
     current_focus: str
@@ -321,6 +289,7 @@ async def update_client(username: str, payload: ClientUpdate, current_client: di
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
     
     update_data = {
+        "status": payload.status,
         "metrics": payload.metrics,
         "metrics_changes": payload.metrics_changes,
         "current_focus": payload.current_focus,

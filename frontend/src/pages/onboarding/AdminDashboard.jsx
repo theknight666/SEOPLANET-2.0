@@ -57,6 +57,7 @@ export default function AdminDashboard({ adminData }) {
   const openEditor = (client) => {
     setEditingClient(client);
     setEditForm({
+      status: client.status || "active",
       metrics: client.metrics || { traffic: "0", rankings: "0", da: "0", backlinks: "0" },
       metrics_changes: client.metrics_changes || { traffic: "+0%", rankings: "+0%", da: "+0", backlinks: "+0" },
       current_focus: client.current_focus || "",
@@ -71,8 +72,7 @@ export default function AdminDashboard({ adminData }) {
       content_calendar: client.content_calendar || [],
       monthly_reports: client.monthly_reports || [],
       messages: client.messages || [],
-      invoices: client.invoices || [],
-      documents: client.documents || []
+      invoices: client.invoices || []
     });
     setEditTab("metrics");
   };
@@ -180,8 +180,19 @@ export default function AdminDashboard({ adminData }) {
                             <span className="font-mono-pro text-xs text-[#00D67D]">@{c.username}</span>
                           </td>
                           <td className="px-6 py-4">
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#00D67D]/10 text-[#00D67D] font-mono-pro text-[10px] uppercase tracking-wider">
-                              <div className="w-1.5 h-1.5 rounded-full bg-[#00D67D]" /> Active
+                            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono-pro text-[10px] uppercase tracking-wider ${
+                              c.status === 'paused' ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20' :
+                              c.status === 'completed' ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20' :
+                              c.status === 'onboarding' ? 'bg-purple-500/10 text-purple-500 border border-purple-500/20' :
+                              'bg-[#00D67D]/10 text-[#00D67D] border border-[#00D67D]/20'
+                            }`}>
+                              <div className={`w-1.5 h-1.5 rounded-full ${
+                                c.status === 'paused' ? 'bg-amber-500' :
+                                c.status === 'completed' ? 'bg-blue-500' :
+                                c.status === 'onboarding' ? 'bg-purple-500' :
+                                'bg-[#00D67D]'
+                              }`} /> 
+                              {c.status || 'Active'}
                             </span>
                           </td>
                           <td className="px-6 py-4 text-right">
@@ -252,7 +263,7 @@ export default function AdminDashboard({ adminData }) {
               <div className="flex-1 flex overflow-hidden">
                 {/* Editor Tabs */}
                 <div className="w-48 border-r border-white/5 bg-black/20 p-4 space-y-2 overflow-y-auto custom-scrollbar">
-                  {["metrics", "trend", "keywords", "competitors", "goals", "deliverables", "content", "reports", "documents", "messages", "invoices"].map(tab => (
+                  {["metrics", "trend", "keywords", "competitors", "goals", "deliverables", "content", "reports", "documents", "messages", "invoices", "timeline", "activity"].map(tab => (
                     <button key={tab} onClick={() => setEditTab(tab)} className={`w-full text-left px-4 py-3 rounded-xl font-mono-pro text-[10px] uppercase tracking-wider transition-all ${editTab === tab ? 'bg-[#00D67D]/10 text-[#00D67D]' : 'text-white/50 hover:bg-white/[0.02] hover:text-white'}`}>
                       {tab}
                     </button>
@@ -265,6 +276,19 @@ export default function AdminDashboard({ adminData }) {
                   {editTab === "metrics" && (
                     <div className="space-y-6">
                       <h3 className="font-display text-lg font-bold mb-4 border-b border-white/[0.04] pb-2">Core Metrics & Focus</h3>
+                      <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-6 mb-6">
+                        <label className="overline-premium block mb-2 text-[#00D67D] text-[10px]">Campaign Status</label>
+                        <select 
+                          value={editForm.status} 
+                          onChange={e => setEditForm({...editForm, status: e.target.value})} 
+                          className="w-full bg-[#00D67D]/5 border border-[#00D67D]/20 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none cursor-pointer"
+                        >
+                          <option value="active" className="bg-[#0A0A0F] text-white">Active</option>
+                          <option value="paused" className="bg-[#0A0A0F] text-white">Paused</option>
+                          <option value="onboarding" className="bg-[#0A0A0F] text-white">Onboarding</option>
+                          <option value="completed" className="bg-[#0A0A0F] text-white">Completed</option>
+                        </select>
+                      </div>
                       <div className="grid grid-cols-2 gap-6">
                         <div className="flex gap-2">
                           <div className="flex-1"><label className="overline-premium block mb-2 text-white/50 text-[10px]">Traffic Value</label><input value={editForm.metrics.traffic} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, traffic: e.target.value}})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none" /></div>

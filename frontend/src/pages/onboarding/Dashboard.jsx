@@ -488,20 +488,42 @@ export default function Dashboard() {
               {/* Left Column */}
               <div className="lg:col-span-7 space-y-12">
                 <motion.div variants={itemVariants}>
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
-                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#00FF94]/10 border border-[#00FF94]/20 mb-6 relative group"
-                  >
+                  <div className="flex flex-wrap items-center gap-3 mb-6">
                     <motion.div 
-                      animate={{ boxShadow: ["0 0 0px #00FF94", "0 0 15px #00FF94", "0 0 0px #00FF94"] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="absolute inset-0 rounded-full opacity-50"
-                    />
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#00FF94] shadow-[0_0_8px_#00FF94]" />
-                    <span className="font-mono-pro text-[10px] text-[#00FF94] uppercase tracking-widest relative z-10">Exclusive Portal Activated</span>
-                  </motion.div>
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#00FF94]/10 border border-[#00FF94]/20 relative group"
+                    >
+                      <motion.div 
+                        animate={{ boxShadow: ["0 0 0px #00FF94", "0 0 15px #00FF94", "0 0 0px #00FF94"] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        className="absolute inset-0 rounded-full opacity-50"
+                      />
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#00FF94] shadow-[0_0_8px_#00FF94]" />
+                      <span className="font-mono-pro text-[10px] text-[#00FF94] uppercase tracking-widest relative z-10">Exclusive Portal Activated</span>
+                    </motion.div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
+                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border font-mono-pro text-[10px] uppercase tracking-widest relative ${
+                        data.status === 'paused' ? 'bg-amber-500/10 border-amber-500/20 text-amber-500' :
+                        data.status === 'completed' ? 'bg-blue-500/10 border-blue-500/20 text-blue-500' :
+                        data.status === 'onboarding' ? 'bg-purple-500/10 border-purple-500/20 text-purple-500' :
+                        'bg-[#00FF94]/10 border-[#00FF94]/20 text-[#00FF94]'
+                      }`}
+                    >
+                      <div className={`w-1.5 h-1.5 rounded-full ${
+                        data.status === 'paused' ? 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]' :
+                        data.status === 'completed' ? 'bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]' :
+                        data.status === 'onboarding' ? 'bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.5)]' :
+                        'bg-[#00FF94] shadow-[0_0_8px_#00FF94]'
+                      }`} />
+                      <span>{data.status || 'Active'}</span>
+                    </motion.div>
+                  </div>
                   
                   <motion.h1 
                     className="font-display text-4xl sm:text-6xl font-black tracking-tighter leading-none mb-6"
@@ -1237,11 +1259,19 @@ export default function Dashboard() {
                       <select 
                         value={taggedItem} 
                         onChange={e => setTaggedItem(e.target.value)}
-                        className="bg-transparent text-[10px] font-mono-pro text-white/40 outline-none uppercase cursor-pointer hover:text-white/80"
+                        className="bg-[#0A0A0F] text-white/50 text-[10px] font-mono-pro outline-none uppercase cursor-pointer hover:text-white/80 border border-white/10 rounded px-2 py-1"
                       >
-                        <option value="">+ Tag Item</option>
-                        {data.full_deliverables?.map(d => <option key={d.name} value={d.name}>{d.name}</option>)}
-                        {data.monthly_reports?.map(r => <option key={r.title} value={r.title}>{r.title}</option>)}
+                        <option value="" className="bg-[#0A0A0F] text-white/70">+ Tag Item</option>
+                        {data.full_deliverables?.map(d => (
+                          <option key={d.name} value={d.name} className="bg-[#0A0A0F] text-white">
+                            {d.name}
+                          </option>
+                        ))}
+                        {data.monthly_reports?.map(r => (
+                          <option key={r.title} value={r.title} className="bg-[#0A0A0F] text-white">
+                            {r.title}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>

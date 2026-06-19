@@ -221,6 +221,7 @@ function Cursor({ hovered }) {
   return (
     <div
       ref={el}
+      className="portfolio-cursor"
       style={{
         position: "fixed", top: 0, left: 0,
         pointerEvents: "none", zIndex: 9999, borderRadius: "50%",
@@ -238,16 +239,18 @@ function Cursor({ hovered }) {
 ───────────────────────────────────────────── */
 function Header({ scrolled }) {
   return (
-    <header style={{
-      position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
-      padding: "0 clamp(24px, 4vw, 64px)",
-      height: "60px",
-      display: "flex", alignItems: "center", justifyContent: "space-between",
-      background: scrolled ? "rgba(5,5,10,0.85)" : "transparent",
-      backdropFilter: scrolled ? "blur(20px)" : "none",
-      borderBottom: scrolled ? "1px solid rgba(255,255,255,0.04)" : "none",
-      transition: "all 0.5s ease",
-    }}>
+    <header 
+      className="portfolio-header"
+      style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
+        height: "60px",
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        background: scrolled ? "rgba(5,5,10,0.85)" : "transparent",
+        backdropFilter: scrolled ? "blur(20px)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.04)" : "none",
+        transition: "all 0.5s ease",
+      }}
+    >
       <a href="https://seoplanet.in" style={{ textDecoration: "none" }}>
         <span className="hover-neon" style={{
           fontFamily: "JetBrains Mono, monospace", fontSize: "10px", fontWeight: 700,
@@ -321,14 +324,7 @@ function ExpandPanel({ p, open, isEven }) {
         <div className={`grid gap-0 border-t border-[${p.color}20] bg-[#07070F] grid-cols-1 md:grid-cols-2`}
              style={{ borderTopColor: `${p.color}20` }}>
           {/* LEFT: Preview / Before & After */}
-          <div style={{ 
-            padding: isEven ? "32px 40px 32px 56px" : "32px 56px 32px 40px", 
-            borderRight: isEven ? "1px solid rgba(255,255,255,0.05)" : "none", 
-            borderLeft: !isEven ? "1px solid rgba(255,255,255,0.05)" : "none", 
-            display: "flex", flexDirection: "column",
-            gridColumn: isEven ? "1" : "2",
-            gridRow: "1"
-          }}>
+          <div className={`expand-panel-left ${isEven ? "even" : "odd"}`}>
 
             {/* Browser chrome */}
             <div style={{
@@ -403,12 +399,7 @@ function ExpandPanel({ p, open, isEven }) {
           </div>
 
           {/* RIGHT: details */}
-          <div style={{ 
-            padding: isEven ? "48px 56px 48px 40px" : "48px 40px 48px 56px", 
-            display: "flex", flexDirection: "column", justifyContent: "space-between",
-            gridColumn: isEven ? "2" : "1",
-            gridRow: "1"
-          }}>
+          <div className={`expand-panel-right ${isEven ? "even" : "odd"}`}>
             <div>
               <div style={{
                 fontFamily: "JetBrains Mono, monospace", fontSize: "9px",
@@ -546,29 +537,31 @@ function ProjectRow({ p, index, revealed }) {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         onClick={() => setIsOpen(!isOpen)}
+        className="portfolio-row"
         style={{
           position: "relative",
           borderTop: `1px solid rgba(255,255,255,${isHovered || isOpen ? 0.15 : 0.06})`,
           padding: "0 clamp(24px, 4vw, 64px)",
-          cursor: "none",
           overflow: "hidden",
           transition: "border-color 0.4s ease",
         }}
       >
         {/* Hover Reveal (Video or Fallback Image) */}
         {!isOpen && (
-          <div style={{
-            position: "absolute",
-            top: 0, 
-            right: isEven ? "clamp(24px, 4vw, 64px)" : "auto",
-            left: !isEven ? "clamp(24px, 4vw, 64px)" : "auto",
-            width: "42%", height: "100%",
-            overflow: "hidden",
-            clipPath: isHovered ? "inset(0% 0% 0% 0%)" : (isEven ? "inset(0% 100% 0% 0%)" : "inset(0% 0% 0% 100%)"),
-            transition: "clip-path 0.7s cubic-bezier(0.76,0,0.24,1)",
-            zIndex: 2,
-            pointerEvents: "none",
-          }}>
+          <div 
+            className="hover-reveal-container"
+            style={{
+              position: "absolute",
+              top: 0, 
+              right: isEven ? "clamp(24px, 4vw, 64px)" : "auto",
+              left: !isEven ? "clamp(24px, 4vw, 64px)" : "auto",
+              width: "42%", height: "100%",
+              overflow: "hidden",
+              clipPath: isHovered ? "inset(0% 0% 0% 0%)" : (isEven ? "inset(0% 100% 0% 0%)" : "inset(0% 0% 0% 100%)"),
+              transition: "clip-path 0.7s cubic-bezier(0.76,0,0.24,1)",
+              zIndex: 2,
+              pointerEvents: "none",
+            }}>
             {p.video ? (
               <video
                 ref={imageRef}
@@ -601,7 +594,7 @@ function ProjectRow({ p, index, revealed }) {
         {/* Row content */}
         <div className={`flex items-start md:items-center justify-between gap-8 md:gap-0 relative z-10 py-[clamp(28px,4vw,48px)] flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
           {/* Title Area */}
-          <div className={`flex items-baseline gap-[clamp(16px,3vw,40px)] flex-1 w-full flex-col md:flex-row ${!isEven ? 'md:flex-row-reverse' : ''}`} style={{ textAlign: isEven ? "left" : "right" }}>
+          <div className={`flex items-baseline gap-[clamp(16px,3vw,40px)] flex-1 w-full flex-col md:flex-row ${!isEven ? 'md:flex-row-reverse' : ''} portfolio-title-area ${isEven ? 'even' : 'odd'}`}>
             <span style={{
               fontFamily: "JetBrains Mono, monospace", fontSize: "11px", fontWeight: 700,
               color: isHovered || isOpen ? p.color : "rgba(255,255,255,0.2)",
@@ -631,10 +624,7 @@ function ProjectRow({ p, index, revealed }) {
           </div>
 
           {/* Stats Area */}
-          <div className={`flex items-start md:items-center gap-8 md:gap-6 shrink-0 w-full md:w-auto mt-6 md:mt-0 flex-row ${!isEven ? 'md:flex-row-reverse' : ''}`} style={{ 
-            textAlign: isEven ? "right" : "left", 
-            marginLeft: isEven ? "24px" : "0", marginRight: isEven ? "0" : "24px",
-          }}>
+          <div className={`flex items-start md:items-center gap-8 md:gap-6 shrink-0 w-full md:w-auto mt-6 md:mt-0 flex-row ${!isEven ? 'md:flex-row-reverse' : ''} portfolio-stats-area ${isEven ? 'even' : 'odd'}`}>
             <div style={{
               width: "40px", height: "40px", borderRadius: "50%",
               border: `1px solid ${isOpen ? p.color : "rgba(255,255,255,0.1)"}`,
@@ -819,7 +809,7 @@ function BottomCTA({ revealed }) {
       <a
         href="https://seoplanet.in/?scrollTo=contact#contact"
         className="group inline-flex justify-center items-center gap-3 rounded-full bg-[#00FF94] text-black px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] font-bold hover:bg-white transition-colors active:scale-95 w-full sm:w-auto"
-        style={{ animation: "pulse-ring 2.6s infinite", cursor: "none" }}
+        style={{ animation: "pulse-ring 2.6s infinite" }}
       >
         Start a Project
         <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />

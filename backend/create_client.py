@@ -4,6 +4,8 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from passlib.context import CryptContext
 from dotenv import load_dotenv
 
+import datetime
+
 load_dotenv('.env')
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -29,16 +31,38 @@ async def main():
         "company_name": company_name,
         "password_hash": hashed_password,
         "status": "active",
+        "metrics": {
+            "traffic": "0",
+            "rankings": "0",
+            "da": "0",
+            "backlinks": "0"
+        },
+        "metrics_changes": {
+            "traffic": "+0%",
+            "rankings": "+0%",
+            "da": "+0",
+            "backlinks": "+0"
+        },
+        "current_focus": "Phase 1: Technical Foundation & Access",
+        "recent_activity": [
+            {"date": datetime.datetime.now(datetime.timezone.utc).isoformat(), "title": "Portal access provisioned"}
+        ],
         "timeline": [
             {"step": 1, "title": "Onboarding & Access", "status": "completed"},
             {"step": 2, "title": "Technical SEO Audit", "status": "in_progress"},
             {"step": 3, "title": "Keyword Strategy", "status": "pending"},
-            {"step": 4, "title": "Content Execution", "status": "pending"},
+            {"step": 4, "title": "Content Execution", "status": "pending"}
         ],
-        "documents": [
-            {"title": "Welcome Guide & Roadmap", "url": "#"},
-            {"title": "Initial Audit Report", "url": "#"},
-        ]
+        "documents": [],
+        "traffic_trend": [],
+        "keyword_rankings": [],
+        "competitors": [],
+        "goals": [],
+        "full_deliverables": [],
+        "content_calendar": [],
+        "monthly_reports": [],
+        "messages": [],
+        "invoices": []
     }
 
     # Check if exists
