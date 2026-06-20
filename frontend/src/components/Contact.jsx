@@ -287,15 +287,11 @@ export default function Contact() {
                       <input type="text" name="name" value={booking.name} onChange={onBookingChange} required placeholder="Full name" className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00FF94] transition-all" />
                     </div>
                     <div>
-                      <label className="overline block mb-2 text-white/50">Work Email</label>
+                      <label className="overline block mb-2 text-white/50">Email</label>
                       <input type="email" name="email" value={booking.email} onChange={onBookingChange} required placeholder="you@company.com" className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00FF94] transition-all" />
                     </div>
                   </div>
 
-                  <div>
-                    <label className="overline block mb-2 text-white/50">Company Website</label>
-                    <input type="text" name="website" value={booking.website} onChange={onBookingChange} placeholder="https://" className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00FF94] transition-all" />
-                  </div>
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
