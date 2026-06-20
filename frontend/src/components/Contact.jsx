@@ -17,7 +17,12 @@ export default function Contact() {
   const [success, setSuccess] = useState(false);
   const [contactMethod, setContactMethod] = useState("form"); // "form" or "calendly"
 
+  const [booking, setBooking] = useState({ name: "", email: "", website: "", focus: "", budget: "" });
+  const [bookingLoading, setBookingLoading] = useState(false);
+  const [bookingSuccess, setBookingSuccess] = useState(false);
+
   const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  const onBookingChange = (e) => setBooking((b) => ({ ...b, [e.target.name]: e.target.value }));
 
   useEffect(() => {
     const handleSelectPackage = (e) => {
@@ -69,6 +74,45 @@ export default function Contact() {
       toast.error(err?.response?.data?.message || err?.message || "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const onBookingSubmit = async (e) => {
+    e.preventDefault();
+    if (!booking.name || !booking.email) {
+      toast.error("Name and email are required.");
+      return;
+    }
+    setBookingLoading(true);
+    try {
+      const message = `Website: ${booking.website || '—'}\nFocus: ${booking.focus || '—'}\nBudget: ${booking.budget || '—'}\n\n[This is a Discovery Session Request]`;
+      
+      const web3FormsRes = await axios.post("https://api.web3forms.com/submit", {
+        access_key: "a2cc5258-81af-442b-b3fa-69064a5c56ae",
+        name: booking.name,
+        email: booking.email,
+        message: message,
+        subject: `[SEO Planet] Discovery Session Request from ${booking.name}`,
+        from_name: "SEO Planet Bookings"
+      });
+
+      if (!web3FormsRes.data.success) throw new Error("Failed to send request");
+
+      await axios.post(`https://seoplanet-2-0.onrender.com/api/contact`, {
+        name: booking.name,
+        email: booking.email,
+        company: booking.website,
+        message: message,
+      });
+
+      setBookingSuccess(true);
+      toast.success("Discovery session requested! We'll send you available time slots shortly.");
+      setBooking({ name: "", email: "", website: "", focus: "", budget: "" });
+    } catch (err) {
+      console.error("Booking error:", err);
+      toast.error(err?.message || "Something went wrong.");
+    } finally {
+      setBookingLoading(false);
     }
   };
 
@@ -207,15 +251,85 @@ export default function Contact() {
             </p>
           </form>
             ) : (
-              <div className="relative rounded-2xl glass p-1 overflow-hidden" style={{ minHeight: "650px" }}>
-                <iframe
-                  src="https://calendly.com/your-calendly-link?hide_gdpr_banner=1&background_color=05050A&text_color=ffffff&primary_color=00FF94"
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                  title="Calendly Scheduling"
-                  className="absolute inset-0"
-                />
+              <div className="relative rounded-2xl glass p-6 sm:p-10 flex flex-col xl:flex-row gap-10">
+                {/* Left Side: Value Prop */}
+                <div className="xl:w-5/12 flex flex-col justify-between">
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#00FF94]/10 border border-[#00FF94]/20 mb-6">
+                      <div className="w-2 h-2 rounded-full bg-[#00FF94] animate-pulse" />
+                      <span className="text-[10px] font-mono-pro text-[#00FF94] uppercase tracking-widest font-bold">Accepting Projects</span>
+                    </div>
+                    <h3 className="text-3xl font-display font-black text-white leading-tight mb-4 tracking-tight">
+                      Discovery <br /> <span className="neon-text italic font-light">Session</span>
+                    </h3>
+                    <p className="text-sm font-mono-pro text-white/50 leading-relaxed mb-8">
+                      Skip the endless back-and-forth emails. Book a focused 30-minute strategic deep dive with our growth team to uncover your exact scaling bottlenecks.
+                    </p>
+                    
+                    <ul className="space-y-4 mb-8">
+                      {["Baseline Technical Audit", "Competitor Gap Analysis", "90-Day Growth Roadmap"].map((item, i) => (
+                        <li key={i} className="flex items-center gap-3 text-sm font-mono-pro text-white/70">
+                          <CheckCircle2 className="w-4 h-4 text-[#00FF94] shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Right Side: Form */}
+                <form onSubmit={onBookingSubmit} className="xl:w-7/12 flex flex-col gap-4">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="overline block mb-2 text-white/50">Your Name</label>
+                      <input type="text" name="name" value={booking.name} onChange={onBookingChange} required placeholder="Full name" className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00FF94] transition-all" />
+                    </div>
+                    <div>
+                      <label className="overline block mb-2 text-white/50">Work Email</label>
+                      <input type="email" name="email" value={booking.email} onChange={onBookingChange} required placeholder="you@company.com" className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00FF94] transition-all" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="overline block mb-2 text-white/50">Company Website</label>
+                    <input type="text" name="website" value={booking.website} onChange={onBookingChange} placeholder="https://" className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00FF94] transition-all" />
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="overline block mb-2 text-white/50">Primary Focus</label>
+                      <select name="focus" value={booking.focus} onChange={onBookingChange} required className="w-full bg-[#0A0F0C] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:outline-none focus:border-[#00FF94] transition-all appearance-none cursor-pointer">
+                        <option value="" disabled>Select Area</option>
+                        <option value="Technical SEO">Technical SEO & Core Web Vitals</option>
+                        <option value="Content Strategy">Content & Semantic Authority</option>
+                        <option value="Link Building">Digital PR & Link Building</option>
+                        <option value="Full Service">Full Service Growth Partner</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="overline block mb-2 text-white/50">Monthly Budget</label>
+                      <select name="budget" value={booking.budget} onChange={onBookingChange} required className="w-full bg-[#0A0F0C] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:outline-none focus:border-[#00FF94] transition-all appearance-none cursor-pointer">
+                        <option value="" disabled>Select Range</option>
+                        <option value="$1k - $2k">$1k - $2k</option>
+                        <option value="$2k - $5k">$2k - $5k</option>
+                        <option value="$5k+">$5k+</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <button type="submit" disabled={bookingLoading} className="mt-4 w-full inline-flex items-center justify-center gap-3 rounded-xl bg-[#00FF94] text-black px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.2em] font-bold hover:bg-white transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed">
+                    {bookingLoading ? (
+                      <><Loader2 className="w-4 h-4 animate-spin" /> Requesting...</>
+                    ) : bookingSuccess ? (
+                      <><CheckCircle2 className="w-4 h-4" /> Request Sent</>
+                    ) : (
+                      <>Request Strategy Call <ArrowUpRight className="w-4 h-4" /></>
+                    )}
+                  </button>
+                  <p className="mt-1 text-[10px] font-mono-pro text-white/35 text-center tracking-wider">
+                    No obligations. 100% confidential.
+                  </p>
+                </form>
               </div>
             )}
           </div>
