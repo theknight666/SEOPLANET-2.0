@@ -67,19 +67,25 @@ export default function Navigation() {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <div className="flex bg-white/[0.04] p-1 rounded-full border border-white/10 w-fit">
+          <div className="relative flex items-center bg-white/[0.03] backdrop-blur-xl p-1 rounded-full border border-white/[0.08] shadow-[inset_0_1px_4px_rgba(0,0,0,0.5)]">
+            {/* Sliding Pill */}
+            <div
+              className={`absolute top-1 bottom-1 w-[calc(50%-4px)] bg-gradient-to-b from-[#00FF94] to-[#00CC76] rounded-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_8px_rgba(0,255,148,0.4)] ${
+                currency === 'USD' ? "translate-x-0" : "translate-x-[calc(100%+4px)]"
+              }`}
+            />
             <button
               onClick={() => setCurrency('USD')}
-              className={`px-3 py-1.5 rounded-full text-[10px] font-mono-pro font-bold uppercase tracking-widest transition-all ${
-                currency === 'USD' ? "bg-[#00FF94] text-black" : "text-white/50 hover:text-white"
+              className={`relative z-10 px-4 py-1.5 rounded-full text-[10px] font-mono-pro font-bold uppercase tracking-widest transition-colors duration-300 w-16 text-center ${
+                currency === 'USD' ? "text-[#05050A]" : "text-white/60 hover:text-white"
               }`}
             >
               USD
             </button>
             <button
               onClick={() => setCurrency('INR')}
-              className={`px-3 py-1.5 rounded-full text-[10px] font-mono-pro font-bold uppercase tracking-widest transition-all ${
-                currency === 'INR' ? "bg-[#00FF94] text-black" : "text-white/50 hover:text-white"
+              className={`relative z-10 px-4 py-1.5 rounded-full text-[10px] font-mono-pro font-bold uppercase tracking-widest transition-colors duration-300 w-16 text-center ${
+                currency === 'INR' ? "text-[#05050A]" : "text-white/60 hover:text-white"
               }`}
             >
               INR
@@ -126,19 +132,24 @@ export default function Navigation() {
                 {l.label}
               </a>
             ))}
-            <div className="flex bg-white/[0.04] p-1 rounded-full border border-white/10 w-fit mt-2 mx-auto">
+            <div className="relative flex items-center bg-white/[0.03] backdrop-blur-xl p-1 rounded-full border border-white/[0.08] shadow-[inset_0_1px_4px_rgba(0,0,0,0.5)] mt-2 mx-auto">
+              <div
+                className={`absolute top-1 bottom-1 w-[calc(50%-4px)] bg-gradient-to-b from-[#00FF94] to-[#00CC76] rounded-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_8px_rgba(0,255,148,0.4)] ${
+                  currency === 'USD' ? "translate-x-0" : "translate-x-[calc(100%+4px)]"
+                }`}
+              />
               <button
                 onClick={() => setCurrency('USD')}
-                className={`px-4 py-2 rounded-full text-[10px] font-mono-pro font-bold uppercase tracking-widest transition-all ${
-                  currency === 'USD' ? "bg-[#00FF94] text-black" : "text-white/50 hover:text-white"
+                className={`relative z-10 px-4 py-2 rounded-full text-[10px] font-mono-pro font-bold uppercase tracking-widest transition-colors duration-300 w-16 text-center ${
+                  currency === 'USD' ? "text-[#05050A]" : "text-white/60 hover:text-white"
                 }`}
               >
                 USD
               </button>
               <button
                 onClick={() => setCurrency('INR')}
-                className={`px-4 py-2 rounded-full text-[10px] font-mono-pro font-bold uppercase tracking-widest transition-all ${
-                  currency === 'INR' ? "bg-[#00FF94] text-black" : "text-white/50 hover:text-white"
+                className={`relative z-10 px-4 py-2 rounded-full text-[10px] font-mono-pro font-bold uppercase tracking-widest transition-colors duration-300 w-16 text-center ${
+                  currency === 'INR' ? "text-[#05050A]" : "text-white/60 hover:text-white"
                 }`}
               >
                 INR
