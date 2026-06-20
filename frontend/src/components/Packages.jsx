@@ -86,31 +86,6 @@ const packages = [
     ],
     recommended: false,
     testid: "package-card-domination"
-  },
-  {
-    code: "SYS 04",
-    tag: "[SYS 04] · FLEXIBLE",
-    title: "Custom Budget",
-    price: { INR: "Custom", USD: "Custom" },
-    priceSub: { INR: "Tailored to your needs", USD: "Tailored to your needs" },
-    desc: "A customized growth architecture built around your exact financial and strategic constraints.",
-    icon: Settings,
-    accent: "#FFBD2E",
-    bestFor: "Brands needing specific, tailored interventions",
-    timeline: "Timeline depends on scope",
-    features: [
-      "Completely flexible service selection",
-      "Pick and choose what you need most",
-      "Tailored strategy consulting sessions",
-      "Custom analytics & reporting cadence",
-      "One-off projects or custom retainers",
-      "Adjustable scale of deliverables",
-      "Direct line to senior strategists",
-      "Transparent cost-breakdown",
-      "Agile pivoting based on market feedback"
-    ],
-    recommended: false,
-    testid: "package-card-custom"
   }
 ];
 
@@ -150,7 +125,7 @@ export default function Packages() {
         </motion.div>
 
         {/* Pricing Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-14 max-w-6xl mx-auto">
           {packages.map((pkg) => {
             const Icon = pkg.icon;
             return (
@@ -195,7 +170,7 @@ export default function Packages() {
 
                   {/* Pricing Display */}
                   <div className="border-t border-b border-white/5 py-6 mb-8 flex items-baseline gap-2">
-                    <span className="font-display text-4xl sm:text-5xl font-black text-white">
+                    <span className="font-display text-2xl sm:text-3xl font-black text-white">
                       {pkg.price[currency]}
                     </span>
                     <span className="font-mono-pro text-xs text-white/40">
