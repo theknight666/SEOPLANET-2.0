@@ -14,8 +14,7 @@ from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List, Optional, Any
 import uuid
 from datetime import datetime, timezone, timedelta
-import smtplib
-from email.message import EmailMessage
+import httpx
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -25,13 +24,8 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-# Email/SMTP setup
-SMTP_HOST = os.environ.get('SMTP_HOST', '')
-SMTP_PORT = int(os.environ.get('SMTP_PORT', '465'))
-SMTP_USER = os.environ.get('SMTP_USER', '')
-SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD', '')
-
-SENDER_EMAIL = os.environ.get('SENDER_EMAIL', SMTP_USER)
+# Web3Forms setup
+WEB3FORMS_ACCESS_KEY = os.environ.get('WEB3FORMS_ACCESS_KEY', '')
 AGENCY_EMAIL = os.environ.get('AGENCY_EMAIL', 'enquiry@seoplanet.in')
 
 app = FastAPI(title="SEO Planet API")
@@ -137,36 +131,29 @@ def _build_email_html(payload: ContactCreate) -> str:
     """
 
 
-def _send_smtp_email_sync(payload: ContactCreate) -> None:
-    msg = EmailMessage()
-    msg['Subject'] = f"[SEO Planet] New transmission from {payload.name}"
-    msg['From'] = SENDER_EMAIL or SMTP_USER
-    msg['To'] = AGENCY_EMAIL
-    msg['Reply-To'] = payload.email
-    
-    html_content = _build_email_html(payload)
-    msg.set_content("Please enable HTML to view this message.")
-    msg.add_alternative(html_content, subtype='html')
-    
-    if SMTP_PORT == 465:
-        with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, timeout=10) as server:
-            if SMTP_USER and SMTP_PASSWORD:
-                server.login(SMTP_USER, SMTP_PASSWORD)
-            server.send_message(msg)
-    else:
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=10) as server:
-            server.starttls()
-            if SMTP_USER and SMTP_PASSWORD:
-                server.login(SMTP_USER, SMTP_PASSWORD)
-            server.send_message(msg)
-
-
 async def _send_contact_email(payload: ContactCreate) -> tuple[bool, Optional[str]]:
-    if not SMTP_HOST:
-        return False, "SMTP_HOST not configured"
+    if not WEB3FORMS_ACCESS_KEY:
+        return False, "WEB3FORMS_ACCESS_KEY not configured"
+        
+    url = "https://api.web3forms.com/submit"
+    data = {
+        "access_key": WEB3FORMS_ACCESS_KEY,
+        "name": payload.name,
+        "email": payload.email,
+        "message": f"Company: {payload.company or '—'}\n\nMessage: {payload.message}",
+        "subject": f"[SEO Planet] New transmission from {payload.name}",
+        "from_name": "SEO Planet Forms"
+    }
+    
     try:
-        await asyncio.to_thread(_send_smtp_email_sync, payload)
-        return True, None
+        async with httpx.AsyncClient() as client:
+            response = await client.post(url, json=data, timeout=10)
+            response.raise_for_status()
+            res_data = response.json()
+            if res_data.get("success"):
+                return True, None
+            else:
+                return False, res_data.get("message", "Web3Forms API error")
     except Exception as e:
         return False, str(e)
 
