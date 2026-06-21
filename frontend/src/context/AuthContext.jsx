@@ -76,12 +76,12 @@ export function AuthProvider({ children }) {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post("https://seoplanet-2-0.onrender.com/api/auth/login", {
-        username,
-        password
-      });
-      if (response.data.access_token) {
-        setToken(response.data.access_token);
+      const domain = window.location.hostname.startsWith("onboarding.") || (window.location.hostname === "localhost" && window.location.pathname.startsWith("/onboarding-test")) ? "onboarding" : "portal";
+      const res = await axios.post("https://seoplanet-2-0.onrender.com/api/auth/login", { username, password, domain });
+      const newToken = res.data.access_token;
+      if (newToken) {
+        setToken(newToken);
+        sessionStorage.setItem("token", newToken);
         return true;
       }
       return false;

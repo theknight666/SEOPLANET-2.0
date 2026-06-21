@@ -82,10 +82,19 @@ async def get_current_client(token: str = Depends(oauth2_scheme)):
             raise credentials_exception
     except JWTError:
         raise credentials_exception
+        
+    onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'onboardingadmin')
+    portal_user = os.environ.get('PORTAL_ADMIN_USER', 'portaladmin')
+
+    if username == onboarding_user:
+        return {"username": username, "company_name": "Onboarding Command", "role": "admin"}
+    elif username == portal_user:
+        return {"username": username, "company_name": "Portal Control", "role": "admin"}
     
     client_doc = await db.clients.find_one({"username": username}, {"_id": 0, "password_hash": 0})
     if client_doc is None:
         raise credentials_exception
+    client_doc["role"] = "client"
     return client_doc
 
 # ===== Models =====
@@ -206,60 +215,55 @@ async def root():
 class LoginRequest(BaseModel):
     username: str
     password: str
+    domain: Optional[str] = None
 
 @api_router.post("/auth/login")
 async def login(req: LoginRequest):
     try:
+        onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'onboardingadmin')
+        onboarding_pass = os.environ.get('ONBOARDING_ADMIN_PASS', 'onboardingpass2026')
+        portal_user = os.environ.get('PORTAL_ADMIN_USER', 'portaladmin')
+        portal_pass = os.environ.get('PORTAL_ADMIN_PASS', 'portalpass2026')
+        
+        is_admin = False
+        valid_admin = False
+        
+        if req.username == onboarding_user:
+            is_admin = True
+            if req.password == onboarding_pass and req.domain != "portal":
+                valid_admin = True
+        elif req.username == portal_user:
+            is_admin = True
+            if req.password == portal_pass and req.domain != "onboarding":
+                valid_admin = True
+                
+        if is_admin:
+            if not valid_admin:
+                raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid admin credentials or domain")
+            access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+            access_token = create_access_token(data={"sub": req.username}, expires_delta=access_token_expires)
+            return {"access_token": access_token, "token_type": "bearer"}
+
         client_doc = await db.clients.find_one({"username": req.username})
         if not client_doc or not verify_password(req.password, client_doc["password_hash"]):
-            db_name = os.environ.get('DB_NAME', 'unknown')
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail=f"Incorrect username or password. DB_NAME is: {db_name}, client_doc is: {bool(client_doc)}",
+                detail=f"Incorrect username or password.",
             )
+            
+        if req.domain == "onboarding":
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Clients cannot access onboarding domain")
         
         access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token = create_access_token(
             data={"sub": client_doc["username"]}, expires_delta=access_token_expires
         )
         return {"access_token": access_token, "token_type": "bearer"}
+    except HTTPException:
+        raise
     except Exception as e:
         import traceback
         raise HTTPException(status_code=400, detail=str(traceback.format_exc()))
-
-@api_router.get("/auth/bootstrap_admin")
-async def bootstrap_admin():
-    # Legacy admin (optional, can be kept for safety)
-    h_legacy = hash_password("seo_admin_2026")
-    client_doc_legacy = {
-        "username": "admin",
-        "company_name": "Founder",
-        "password_hash": h_legacy,
-        "status": "active"
-    }
-    await db.clients.update_one({"username": "admin"}, {"$set": client_doc_legacy}, upsert=True)
-
-    # Onboarding Admin
-    h_onboard = hash_password("onboardingpass2026")
-    client_doc_onboard = {
-        "username": "onboardingadmin",
-        "company_name": "Onboarding Command",
-        "password_hash": h_onboard,
-        "status": "active"
-    }
-    await db.clients.update_one({"username": "onboardingadmin"}, {"$set": client_doc_onboard}, upsert=True)
-
-    # Portal Admin
-    h_portal = hash_password("portalpass2026")
-    client_doc_portal = {
-        "username": "portaladmin",
-        "company_name": "Portal Control",
-        "password_hash": h_portal,
-        "status": "active"
-    }
-    await db.clients.update_one({"username": "portaladmin"}, {"$set": client_doc_portal}, upsert=True)
-
-    return {"status": "success", "message": "Onboarding and Portal Admin users securely bootstrapped!"}
 
 @api_router.get("/onboarding/dashboard")
 async def get_onboarding_dashboard(current_client: dict = Depends(get_current_client)):
@@ -276,7 +280,7 @@ class ClientCreate(BaseModel):
 
 @api_router.post("/onboarding/clients")
 async def create_new_client(payload: ClientCreate, current_client: dict = Depends(get_current_client)):
-    if current_client.get("username") not in ["admin", "onboardingadmin", "portaladmin"]:
+    if current_client.get("role") != "admin":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
     
     existing = await db.clients.find_one({"username": payload.username})
@@ -332,7 +336,7 @@ async def create_new_client(payload: ClientCreate, current_client: dict = Depend
 
 @api_router.get("/onboarding/clients")
 async def get_all_clients(current_client: dict = Depends(get_current_client)):
-    if current_client.get("username") not in ["admin", "onboardingadmin", "portaladmin"]:
+    if current_client.get("role") != "admin":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
     
     clients = await db.clients.find({"username": {"$ne": "admin"}}, {"_id": 0, "password_hash": 0}).to_list(100)
@@ -358,7 +362,7 @@ class ClientUpdate(BaseModel):
 
 @api_router.put("/onboarding/clients/{username}")
 async def update_client(username: str, payload: ClientUpdate, current_client: dict = Depends(get_current_client)):
-    if current_client.get("username") not in ["admin", "onboardingadmin", "portaladmin"]:
+    if current_client.get("role") != "admin":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
     
     update_data = {
@@ -386,7 +390,7 @@ async def update_client(username: str, payload: ClientUpdate, current_client: di
 
 @api_router.delete("/onboarding/clients/{username}")
 async def delete_client(username: str, current_client: dict = Depends(get_current_client)):
-    if current_client.get("username") not in ["admin", "onboardingadmin", "portaladmin"]:
+    if current_client.get("role") != "admin":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
     if username in ["admin", "onboardingadmin", "portaladmin"]:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Cannot delete admin accounts")
@@ -402,7 +406,7 @@ class ContentStatusUpdate(BaseModel):
 
 @api_router.put("/onboarding/clients/me/content-status")
 async def update_content_status(payload: ContentStatusUpdate, current_client: dict = Depends(get_current_client)):
-    if not current_client or current_client.get("username") in ["admin", "onboardingadmin", "portaladmin"]:
+    if not current_client or current_client.get("role") == "admin":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only clients can update content status")
     
     username = current_client["username"]
@@ -422,7 +426,7 @@ class SendMessage(BaseModel):
 
 @api_router.post("/onboarding/clients/me/messages")
 async def send_client_message(payload: SendMessage, current_client: dict = Depends(get_current_client)):
-    if not current_client or current_client.get("username") in ["admin", "onboardingadmin", "portaladmin"]:
+    if not current_client or current_client.get("role") == "admin":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only clients can send messages via this route")
     
     username = current_client["username"]
