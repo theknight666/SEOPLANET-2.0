@@ -4,12 +4,12 @@ import { AuthProvider, useAuth } from "../../context/AuthContext";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
 
-const ProtectedRoute = ({ children }) => {
+const DashboardOrLogin = () => {
   const { isAuthenticated } = useAuth();
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Login />;
   }
-  return children;
+  return <Dashboard />;
 };
 
 export default function OnboardingApp() {
@@ -17,15 +17,7 @@ export default function OnboardingApp() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route 
-            path="/" 
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            } 
-          />
+          <Route path="/" element={<DashboardOrLogin />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
