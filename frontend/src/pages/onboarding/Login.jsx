@@ -80,7 +80,7 @@ export default function Login() {
                 onChange={(e) => setUsername(e.target.value)}
                 required
                 className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white text-sm font-mono-pro placeholder:text-white/20 focus:outline-none focus:border-[#00D67D] focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(0,255,148,0.12)] transition-all"
-                placeholder="client_id"
+                placeholder={isOnboardingDomain ? "admin_username" : "client_id"}
               />
             </div>
             <div>
