@@ -196,7 +196,7 @@ def _send_welcome_email(to_email: str, username: str, password: str, company_nam
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
                         <td style="padding:12px 0;color:#6B7280;font-size:13px;width:100px;border-bottom:1px solid rgba(255,255,255,0.03);">Secure Portal</td>
-                        <td style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.03);"><a href="https://seoplanet-2-0.onrender.com" style="color:#00FF94;font-size:15px;text-decoration:none;font-weight:500;">Access Command Center &rarr;</a></td>
+                        <td style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.03);"><a href="https://portal.seoplanet.in" style="color:#00FF94;font-size:15px;text-decoration:none;font-weight:500;">Access Command Center &rarr;</a></td>
                       </tr>
                       <tr>
                         <td style="padding:12px 0;color:#6B7280;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.03);">Username</td>
