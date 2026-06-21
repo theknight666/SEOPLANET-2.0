@@ -60,7 +60,6 @@ export default function AdminDashboard({ adminData }) {
       
       setAdminForm({ username: "", company: "", email: "", password: "", tier: "Launch System" });
       fetchClients();
-      setActiveTab("clients");
     } catch (err) {
       toast.error(err.response?.data?.detail || "Failed to create client");
     } finally {
