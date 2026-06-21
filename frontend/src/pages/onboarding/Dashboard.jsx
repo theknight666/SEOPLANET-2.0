@@ -294,12 +294,16 @@ export default function Dashboard() {
       console.error("Failed to update status", err);
     }
   };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get("https://seoplanet-2-0.onrender.com/api/onboarding/dashboard");
-        setData(res.data.data);
+        if (["admin", "onboarding_admin", "portal_admin"].includes(res.data.data.username)) {
+          setIsAdmin(true);
+          setAdminData(res.data.data);
+        } else {
+          setData(res.data.data);
+        }
       } catch (err) {
         console.error("Dashboard fetch error", err);
       } finally {

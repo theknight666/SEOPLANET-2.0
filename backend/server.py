@@ -229,15 +229,37 @@ async def login(req: LoginRequest):
 
 @api_router.get("/auth/bootstrap_admin")
 async def bootstrap_admin():
-    h = hash_password("seo_admin_2026")
-    client_doc = {
+    # Legacy admin (optional, can be kept for safety)
+    h_legacy = hash_password("seo_admin_2026")
+    client_doc_legacy = {
         "username": "admin",
         "company_name": "Founder",
-        "password_hash": h,
+        "password_hash": h_legacy,
         "status": "active"
     }
-    await db.clients.update_one({"username": "admin"}, {"$set": client_doc}, upsert=True)
-    return {"status": "success", "message": "Admin user securely bootstrapped on the server! You can now log in."}
+    await db.clients.update_one({"username": "admin"}, {"$set": client_doc_legacy}, upsert=True)
+
+    # Onboarding Admin
+    h_onboard = hash_password("onboarding_pass_2026")
+    client_doc_onboard = {
+        "username": "onboarding_admin",
+        "company_name": "Onboarding Command",
+        "password_hash": h_onboard,
+        "status": "active"
+    }
+    await db.clients.update_one({"username": "onboarding_admin"}, {"$set": client_doc_onboard}, upsert=True)
+
+    # Portal Admin
+    h_portal = hash_password("portal_pass_2026")
+    client_doc_portal = {
+        "username": "portal_admin",
+        "company_name": "Portal Control",
+        "password_hash": h_portal,
+        "status": "active"
+    }
+    await db.clients.update_one({"username": "portal_admin"}, {"$set": client_doc_portal}, upsert=True)
+
+    return {"status": "success", "message": "Onboarding and Portal Admin users securely bootstrapped!"}
 
 @api_router.get("/onboarding/dashboard")
 async def get_onboarding_dashboard(current_client: dict = Depends(get_current_client)):
@@ -254,7 +276,7 @@ class ClientCreate(BaseModel):
 
 @api_router.post("/onboarding/clients")
 async def create_new_client(payload: ClientCreate, current_client: dict = Depends(get_current_client)):
-    if current_client.get("username") != "admin":
+    if current_client.get("username") not in ["admin", "onboarding_admin", "portal_admin"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
     
     existing = await db.clients.find_one({"username": payload.username})
@@ -310,7 +332,7 @@ async def create_new_client(payload: ClientCreate, current_client: dict = Depend
 
 @api_router.get("/onboarding/clients")
 async def get_all_clients(current_client: dict = Depends(get_current_client)):
-    if current_client.get("username") != "admin":
+    if current_client.get("username") not in ["admin", "onboarding_admin", "portal_admin"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
     
     clients = await db.clients.find({"username": {"$ne": "admin"}}, {"_id": 0, "password_hash": 0}).to_list(100)
@@ -336,7 +358,7 @@ class ClientUpdate(BaseModel):
 
 @api_router.put("/onboarding/clients/{username}")
 async def update_client(username: str, payload: ClientUpdate, current_client: dict = Depends(get_current_client)):
-    if current_client.get("username") != "admin":
+    if current_client.get("username") not in ["admin", "onboarding_admin", "portal_admin"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
     
     update_data = {
@@ -364,10 +386,10 @@ async def update_client(username: str, payload: ClientUpdate, current_client: di
 
 @api_router.delete("/onboarding/clients/{username}")
 async def delete_client(username: str, current_client: dict = Depends(get_current_client)):
-    if current_client.get("username") != "admin":
+    if current_client.get("username") not in ["admin", "onboarding_admin", "portal_admin"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
-    if username == "admin":
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Cannot delete admin account")
+    if username in ["admin", "onboarding_admin", "portal_admin"]:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Cannot delete admin accounts")
     
     result = await db.clients.delete_one({"username": username})
     if result.deleted_count == 0:
@@ -380,7 +402,7 @@ class ContentStatusUpdate(BaseModel):
 
 @api_router.put("/onboarding/clients/me/content-status")
 async def update_content_status(payload: ContentStatusUpdate, current_client: dict = Depends(get_current_client)):
-    if not current_client or current_client.get("username") == "admin":
+    if not current_client or current_client.get("username") in ["admin", "onboarding_admin", "portal_admin"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only clients can update content status")
     
     username = current_client["username"]
@@ -400,7 +422,7 @@ class SendMessage(BaseModel):
 
 @api_router.post("/onboarding/clients/me/messages")
 async def send_client_message(payload: SendMessage, current_client: dict = Depends(get_current_client)):
-    if not current_client or current_client.get("username") == "admin":
+    if not current_client or current_client.get("username") in ["admin", "onboarding_admin", "portal_admin"]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only clients can send messages via this route")
     
     username = current_client["username"]
