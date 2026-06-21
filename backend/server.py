@@ -170,7 +170,8 @@ def _send_welcome_email(to_email: str, username: str, password: str, company_nam
                 
                 <!-- Premium Header / Logo Area -->
                 <tr><td align="center" style="padding:48px 40px 0 40px;">
-                  <h2 style="margin:0;color:#00FF94;font-size:18px;letter-spacing:0.4em;text-transform:uppercase;font-weight:600;">SEO Planet</h2>
+                  <div style="display:inline-block;vertical-align:middle;width:18px;height:18px;background-color:#00FF94;border-radius:50%;margin-right:12px;box-shadow:0 0 12px rgba(0,255,148,0.5);"></div>
+                  <span style="color:#ffffff;font-size:22px;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;vertical-align:middle;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">SEO PLANET</span>
                   <div style="height:1px;width:40px;background:#00FF94;margin:24px auto;"></div>
                 </td></tr>
 
@@ -184,7 +185,7 @@ def _send_welcome_email(to_email: str, username: str, password: str, company_nam
                     We are truly honored to partner with you on this journey. By joining SEO Planet, you have taken a profound step toward digital dominance. Rest assured, you are now in the hands of experts committed to engineering unparalleled, royal success for your brand.
                   </p>
                   <p style="color:#A0A5B0;font-size:15px;line-height:1.8;margin:0 0 32px 0;text-align:left;">
-                    Take a deep breath. The hard part is over. While you focus on your vision, our team is already working tirelessly in the background to elevate your search presence to the highest tier. Below are the keys to your dedicated command center—a meticulously crafted sanctuary where strategy meets flawless execution.
+                    Take a deep breath. The hard part is over. While you focus on your vision, our team is already working tirelessly in the background to elevate your search presence to the highest tier. Below are the keys to your dedicated command center, a meticulously crafted sanctuary where strategy meets flawless execution.
                   </p>
 
                   <!-- Credentials Box -->
