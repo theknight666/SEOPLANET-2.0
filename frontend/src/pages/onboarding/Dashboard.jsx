@@ -238,6 +238,8 @@ export default function Dashboard() {
   const { logout } = useAuth();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminData, setAdminData] = useState(null);
   const [showDashboard, setShowDashboard] = useState(false);
   const [activeTab, setActiveTab] = useState("overview"); // "overview" | "deliverables" | "content" | "reports" | "documents" | "messages" | "invoices"
   const [viewMode, setViewMode] = useState("table"); // "table" | "kanban"
