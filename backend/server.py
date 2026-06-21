@@ -338,8 +338,14 @@ async def create_new_client(payload: ClientCreate, current_client: dict = Depend
 async def get_all_clients(current_client: dict = Depends(get_current_client)):
     if current_client.get("role") != "admin":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
+        
+    onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'onboardingadmin')
+    portal_user = os.environ.get('PORTAL_ADMIN_USER', 'portaladmin')
     
-    clients = await db.clients.find({"username": {"$ne": "admin"}}, {"_id": 0, "password_hash": 0}).to_list(100)
+    clients = await db.clients.find({
+        "username": {"$nin": ["admin", onboarding_user, portal_user]}
+    }, {"_id": 0, "password_hash": 0}).to_list(100)
+    
     return {"status": "success", "data": clients}
 
 class ClientUpdate(BaseModel):
