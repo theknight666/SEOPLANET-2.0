@@ -428,6 +428,7 @@ export default function Dashboard() {
                 { id: "deliverables", label: "Deliverables", icon: Activity },
                 { id: "content", label: "Content", icon: Calendar },
                 { id: "reports", label: "Reports", icon: BarChart3 },
+                { id: "progress", label: "Progress", icon: TrendingUp },
                 { id: "documents", label: "Documents", icon: FolderClosed },
                 { id: "messages", label: "Messages", icon: MessageSquare },
                 { id: "invoices", label: "Invoices", icon: Receipt },
@@ -1155,6 +1156,37 @@ export default function Dashboard() {
               </div>
 
             </motion.div>
+            ) : activeTab === "progress" ? (
+            <motion.div key="progress" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="space-y-8">
+              <div>
+                <h2 className="font-display text-3xl font-bold text-white mb-2">Progress Updates</h2>
+                <p className="font-mono-pro text-sm text-white/50">Track the latest milestones and week-over-week campaign progress.</p>
+              </div>
+              
+              <div className="space-y-4">
+                {data.progress_reports && data.progress_reports.length > 0 ? data.progress_reports.map((item, i) => (
+                  <div key={i} className="glass rounded-2xl p-6 border border-white/[0.04] flex items-center justify-between group hover:border-[#00FF94]/40 transition-all duration-300">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-black/40 border border-white/5 flex items-center justify-center">
+                        <TrendingUp className="w-6 h-6 text-[#00FF94]" />
+                      </div>
+                      <div>
+                        <h3 className="font-display font-bold text-lg text-white mb-1">{item.title}</h3>
+                        <p className="font-mono-pro text-xs uppercase tracking-widest text-white/40">{item.date}</p>
+                      </div>
+                    </div>
+                    <a href={item.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-xl bg-white/[0.02] text-white hover:bg-[#00FF94] hover:text-black font-mono-pro text-xs uppercase tracking-widest font-bold transition-all duration-300">
+                      <Link className="w-4 h-4" /> View Report
+                    </a>
+                  </div>
+                )) : (
+                  <div className="py-12 text-center glass rounded-2xl border border-white/[0.04]">
+                    <TrendingUp className="w-8 h-8 text-white/20 mx-auto mb-4" />
+                    <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">No progress reports available yet.</p>
+                  </div>
+                )}
+              </div>
+            </motion.div>
             ) : activeTab === "documents" ? (
             <motion.div key="documents" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="space-y-8">
               <div>
@@ -1386,6 +1418,7 @@ export default function Dashboard() {
               { id: "deliverables", label: "Work", icon: Activity },
               { id: "content", label: "Content", icon: Calendar },
               { id: "reports", label: "Reports", icon: BarChart3 },
+              { id: "progress", label: "Progress", icon: TrendingUp },
               { id: "documents", label: "Vault", icon: FolderClosed },
               { id: "messages", label: "Comms", icon: MessageSquare },
               { id: "invoices", label: "Billing", icon: Receipt },

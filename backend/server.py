@@ -366,6 +366,7 @@ class ClientUpdate(BaseModel):
     full_deliverables: list = []
     content_calendar: list = []
     monthly_reports: list = []
+    progress_reports: list = []
     messages: list = []
     invoices: list = []
 
@@ -389,6 +390,7 @@ async def update_client(username: str, payload: ClientUpdate, current_client: di
         "full_deliverables": payload.full_deliverables,
         "content_calendar": payload.content_calendar,
         "monthly_reports": payload.monthly_reports,
+        "progress_reports": payload.progress_reports,
         "messages": payload.messages,
         "invoices": payload.invoices
     }
