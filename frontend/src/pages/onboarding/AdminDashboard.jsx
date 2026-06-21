@@ -15,6 +15,7 @@ export default function AdminDashboard({ adminData }) {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [tierFilter, setTierFilter] = useState("All");
   
   // Edit Modal State
   const [editingClient, setEditingClient] = useState(null);
@@ -228,7 +229,7 @@ export default function AdminDashboard({ adminData }) {
           
           {activeTab === "clients" && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
                   <h1 className="font-display text-3xl font-black mb-2">Client Roster</h1>
                   <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">Manage your active campaigns</p>
@@ -245,13 +246,30 @@ export default function AdminDashboard({ adminData }) {
                 </div>
               </div>
 
+              {/* Filters */}
+              <div className="flex items-center gap-2 mb-8 overflow-x-auto pb-2 custom-scrollbar">
+                {["All", "Domination System", "Growth Engine", "Launch System"].map(tier => (
+                  <button 
+                    key={tier}
+                    onClick={() => setTierFilter(tier)}
+                    className={`whitespace-nowrap px-4 py-2 rounded-full font-mono-pro text-xs tracking-wider transition-colors border ${
+                      tierFilter === tier 
+                        ? 'bg-[#00D67D] text-black border-[#00D67D] font-bold' 
+                        : 'bg-white/[0.02] text-white/50 border-white/5 hover:text-white hover:bg-white/[0.05]'
+                    }`}
+                  >
+                    {tier}
+                  </button>
+                ))}
+              </div>
+
               {loading ? (
                 <div className="flex items-center justify-center py-20"><Loader2 className="w-8 h-8 text-[#00D67D] animate-spin" /></div>
               ) : (
                 <div>
-                  {renderClientTable(filteredClients.filter(c => c.tier === "Domination System"), "Domination System", "text-[#00D67D]")}
-                  {renderClientTable(filteredClients.filter(c => c.tier === "Growth Engine"), "Growth Engine", "text-[#00FF94]")}
-                  {renderClientTable(filteredClients.filter(c => !c.tier || c.tier === "Launch System"), "Launch System", "text-white")}
+                  {(tierFilter === "All" || tierFilter === "Domination System") && renderClientTable(filteredClients.filter(c => c.tier === "Domination System"), "Domination System", "text-[#00D67D]")}
+                  {(tierFilter === "All" || tierFilter === "Growth Engine") && renderClientTable(filteredClients.filter(c => c.tier === "Growth Engine"), "Growth Engine", "text-[#00FF94]")}
+                  {(tierFilter === "All" || tierFilter === "Launch System") && renderClientTable(filteredClients.filter(c => !c.tier || c.tier === "Launch System"), "Launch System", "text-white")}
                 </div>
               )}
             </motion.div>
