@@ -14,6 +14,7 @@ export default function AdminDashboard({ adminData }) {
   const [activeTab, setActiveTab] = useState(isOnboardingDomain ? "provision" : "clients");
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
   
   // Edit Modal State
   const [editingClient, setEditingClient] = useState(null);
@@ -124,6 +125,11 @@ export default function AdminDashboard({ adminData }) {
     setEditForm({ ...editForm, [field]: newArr });
   };
 
+  const filteredClients = clients.filter(c => 
+    c.company_name?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    c.username?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="min-h-screen w-full bg-black text-white flex overflow-hidden grain selection:bg-[#00D67D] selection:text-black">
       {/* Sidebar */}
@@ -162,10 +168,20 @@ export default function AdminDashboard({ adminData }) {
           
           {activeTab === "clients" && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="flex items-center justify-between mb-8">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                 <div>
                   <h1 className="font-display text-3xl font-black mb-2">Client Roster</h1>
                   <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">Manage your active campaigns</p>
+                </div>
+                <div className="relative">
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-white/40" />
+                  <input 
+                    type="text" 
+                    placeholder="Search clients..." 
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full sm:w-64 pl-9 pr-4 py-2 bg-white/[0.02] border border-white/5 rounded-xl text-sm text-white font-mono-pro focus:outline-none focus:border-[#00D67D] transition-colors"
+                  />
                 </div>
               </div>
 
@@ -183,9 +199,9 @@ export default function AdminDashboard({ adminData }) {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
-                      {clients.length === 0 ? (
-                        <tr><td colSpan="4" className="px-6 py-8 text-center text-white/40 font-mono-pro text-sm">No clients provisioned yet.</td></tr>
-                      ) : clients.map(c => (
+                      {filteredClients.length === 0 ? (
+                        <tr><td colSpan="4" className="px-6 py-8 text-center text-white/40 font-mono-pro text-sm">No clients found.</td></tr>
+                      ) : filteredClients.map(c => (
                         <tr key={c.username} className="hover:bg-white/[0.02] transition-colors">
                           <td className="px-6 py-4">
                             <span className="font-display font-bold text-white">{c.company_name}</span>
