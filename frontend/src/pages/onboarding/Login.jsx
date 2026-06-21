@@ -12,6 +12,8 @@ export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  const isOnboardingDomain = window.location.hostname.startsWith("onboarding.") || (window.location.hostname === "localhost" && window.location.pathname.startsWith("/onboarding-test"));
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!username || !password) return;
@@ -55,10 +57,16 @@ export default function Login() {
           </motion.div>
           
           <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-            Client <span className="neon-text italic font-light">Portal</span>
+            {isOnboardingDomain ? (
+              <>Admin <span className="neon-text italic font-light">Onboarding</span></>
+            ) : (
+              <>Client <span className="neon-text italic font-light">Portal</span></>
+            )}
           </h1>
           <p className="font-mono-pro text-sm text-white/50">
-            Enter your secure credentials to view project updates and analytics.
+            {isOnboardingDomain
+              ? "Enter your admin credentials to provision new client accounts."
+              : "Enter your secure credentials to view project updates and analytics."}
           </p>
         </div>
 
