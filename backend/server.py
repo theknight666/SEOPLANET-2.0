@@ -163,60 +163,68 @@ def _send_welcome_email(to_email: str, username: str, password: str, company_nam
         html_content = f"""
         <!DOCTYPE html>
         <html>
-        <body style="margin:0;padding:0;background-color:#F9FAFB;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111827;">
-          <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#F9FAFB;padding:40px 20px;">
+        <body style="margin:0;padding:0;background-color:#F3F4F6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111827;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#F3F4F6;padding:40px 20px;">
             <tr><td align="center">
-              <table width="640" cellpadding="0" cellspacing="0" style="background:#ffffff;border:1px solid #E5E7EB;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,0.05);overflow:hidden;">
+              <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,0.05);border:1px solid #E5E7EB;">
                 
-                <!-- Big Header Welcome Text -->
-                <tr><td style="background-color:#05050A;padding:60px 40px;text-align:center;">
-                  <!-- Logo -->
-                  <img src="https://portal.seoplanet.in/email-logo.png" alt="SEO Planet" style="height:32px;display:block;margin:0 auto 40px auto;" />
-                  
-                  <h1 style="margin:0;color:#ffffff;font-size:42px;font-weight:700;line-height:1.1;letter-spacing:-0.02em;">
-                    Welcome to the Elite, <br/><span style="color:#00FF94;">{company_name}</span>.
-                  </h1>
+                <!-- Welcome Header -->
+                <tr><td style="padding:48px 48px 24px 48px;text-align:left;background:#ffffff;">
+                  <h1 style="margin:0;color:#000000;font-size:72px;font-weight:900;letter-spacing:-0.04em;text-transform:uppercase;line-height:1;font-family:'Arial Black',Impact,sans-serif;">WELCOME</h1>
                 </td></tr>
 
                 <!-- Welcome Message -->
-                <tr><td style="padding:48px 48px 32px 48px;text-align:left;">
-                  <p style="color:#374151;font-size:16px;line-height:1.8;margin:0 0 24px 0;">
-                    We are truly honored to partner with you on this journey. By joining SEO Planet, you have taken a profound step toward digital dominance. Rest assured, you are now in the hands of experts committed to engineering unparalleled, royal success for your brand.
+                <tr><td style="padding:0 48px 32px 48px;text-align:left;background:#ffffff;">
+                  <p style="margin:0 0 24px 0;font-size:16px;font-weight:700;color:#000000;">
+                    Hey {company_name},
                   </p>
-                  <p style="color:#374151;font-size:16px;line-height:1.8;margin:0 0 40px 0;">
-                    Take a deep breath. The hard part is over. While you focus on your vision, our team is already working tirelessly in the background to elevate your search presence to the highest tier. Below are the keys to your dedicated command center, a meticulously crafted sanctuary where strategy meets flawless execution.
+                  
+                  <p style="color:#4B5563;font-size:15px;line-height:1.6;margin:0 0 24px 0;">
+                    Thank you for choosing to work with us. We're thrilled to have the opportunity to bring your vision to life. Below, you'll find everything you need to get started smoothly.
                   </p>
 
+                  <p style="margin:0 0 16px 0;font-size:12px;font-weight:800;color:#000000;letter-spacing:0.05em;text-transform:uppercase;">
+                    AGREEMENT: <a href="#" style="color:#4B5563;text-decoration:none;">(LINK TO THE AGREEMENT)</a>
+                  </p>
+
+                  <p style="margin:0 0 16px 0;font-size:12px;font-weight:800;color:#000000;letter-spacing:0.05em;text-transform:uppercase;">
+                    CLIENT PORTAL LINK: <a href="https://portal.seoplanet.in" style="color:#4B5563;text-decoration:none;">(PORTAL LINK)</a>
+                  </p>
+                  
+                  <p style="color:#4B5563;font-size:15px;line-height:1.6;margin:0 0 24px 0;">
+                    Welcome to your personalized Client Portal! This is your dedicated space to stay connected with us and track every stage of your project in one convenient place. Inside, you'll find:
+                  </p>
+
+                  <ul style="color:#4B5563;font-size:14px;line-height:1.6;margin:0 0 32px 0;padding-left:20px;">
+                    <li style="margin-bottom:12px;"><strong style="color:#000000;">Project Overview:</strong> A summary of your project goals, timelines, and key deliverables.</li>
+                    <li style="margin-bottom:12px;"><strong style="color:#000000;">Documents (Agreements & Invoices):</strong> All your important paperwork in one place. Easily review signed agreements and manage invoices.</li>
+                    <li style="margin-bottom:12px;"><strong style="color:#000000;">Project Timeline & Updates:</strong> Stay informed with real-time updates on your project's milestones and progress. View a detailed timeline, upcoming tasks, and key dates to ensure everything is on track.</li>
+                    <li style="margin-bottom:12px;"><strong style="color:#000000;">Media Deliverables:</strong> Access your project's files, including drafts, final deliverables, and reference materials. All content will be organized and readily available for your review and download.</li>
+                    <li style="margin-bottom:12px;"><strong style="color:#000000;">Contact:</strong> Need assistance or have questions? Here's how to reach us.</li>
+                  </ul>
+
                   <!-- Credentials Box -->
-                  <div style="background:#F3F4F6;border:1px solid #E5E7EB;border-radius:12px;padding:32px;">
-                    <p style="margin:0 0 16px 0;color:#111827;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;">Your Access Keys</p>
-                    
+                  <div style="background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:24px;margin-bottom:32px;">
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="padding:14px 0;color:#6B7280;font-size:14px;width:120px;border-bottom:1px solid #E5E7EB;">Secure Portal</td>
-                        <td style="padding:14px 0;border-bottom:1px solid #E5E7EB;"><a href="https://portal.seoplanet.in" style="color:#000000;font-size:16px;text-decoration:none;font-weight:600;">Access Command Center &rarr;</a></td>
+                        <td style="padding:8px 0;color:#6B7280;font-size:13px;width:100px;border-bottom:1px solid #E5E7EB;">Username</td>
+                        <td style="padding:8px 0;color:#111827;font-size:15px;font-family:monospace;letter-spacing:0.05em;border-bottom:1px solid #E5E7EB;font-weight:700;">{username}</td>
                       </tr>
                       <tr>
-                        <td style="padding:14px 0;color:#6B7280;font-size:14px;border-bottom:1px solid #E5E7EB;">Username</td>
-                        <td style="padding:14px 0;color:#111827;font-size:16px;font-family:monospace;letter-spacing:0.05em;border-bottom:1px solid #E5E7EB;font-weight:600;">{username}</td>
-                      </tr>
-                      <tr>
-                        <td style="padding:14px 0;color:#6B7280;font-size:14px;">Password</td>
-                        <td style="padding:14px 0;color:#111827;font-size:16px;font-family:monospace;letter-spacing:0.05em;font-weight:600;">{password}</td>
+                        <td style="padding:8px 0;color:#6B7280;font-size:13px;">Password</td>
+                        <td style="padding:8px 0;color:#111827;font-size:15px;font-family:monospace;letter-spacing:0.05em;font-weight:700;">{password}</td>
                       </tr>
                     </table>
                   </div>
+                  
+                  <p style="color:#4B5563;font-size:14px;line-height:1.6;margin:0 0 32px 0;">
+                    The Client Portal is designed to make your experience with us as seamless and transparent as possible. We're excited to have you here and look forward to creating exceptional work together!
+                  </p>
                 </td></tr>
-                
-                <!-- Footer -->
-                <tr><td style="background:#F9FAFB;border-top:1px solid #E5E7EB;padding:32px 48px;text-align:center;">
-                  <p style="margin:0;color:#6B7280;font-size:13px;line-height:1.6;">
-                    For your security, we recommend updating your password upon your first login.<br/>
-                    If you require any assistance, your dedicated concierge team is standing by.
-                  </p>
-                  <p style="margin:20px 0 0 0;color:#9CA3AF;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;">
-                    &copy; 2026 SEO Planet. All rights reserved.
-                  </p>
+
+                <!-- Logo Footer -->
+                <tr><td align="right" style="padding:24px 48px;border-top:1px solid #E5E7EB;background:#ffffff;">
+                  <img src="https://portal.seoplanet.in/email-logo.png" alt="SEO Planet" style="height:24px;display:inline-block;" />
                 </td></tr>
 
               </table>
