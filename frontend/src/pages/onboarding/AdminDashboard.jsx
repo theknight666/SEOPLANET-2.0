@@ -107,7 +107,7 @@ export default function AdminDashboard({ adminData }) {
     if (!password) return;
     
     try {
-      await axios.delete(`https://seoplanet-2-0.onrender.com/api/onboarding/clients/${username}?password=${encodeURIComponent(password)}`, { withCredentials: true });
+      await axios.delete(`https://seoplanet-2-0.onrender.com/api/onboarding/clients/${username}?password=${encodeURIComponent(password)}`);
       toast.success("Client deleted successfully.");
       fetchClients();
     } catch (err) {
