@@ -300,9 +300,9 @@ export default function AdminDashboard({ adminData }) {
                 <div>
                   <label className="overline-premium block mb-2 text-white/50 text-[10px]">Subscription Tier</label>
                   <select value={adminForm.tier} onChange={e => setAdminForm({...adminForm, tier: e.target.value})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00D67D] focus:outline-none appearance-none">
-                    <option value="Launch System">Launch System</option>
-                    <option value="Growth Engine">Growth Engine</option>
-                    <option value="Domination System">Domination System</option>
+                    <option value="Launch System" className="bg-[#0A0A0F] text-white">Launch System</option>
+                    <option value="Growth Engine" className="bg-[#0A0A0F] text-white">Growth Engine</option>
+                    <option value="Domination System" className="bg-[#0A0A0F] text-white">Domination System</option>
                   </select>
                 </div>
                 <button type="submit" disabled={provisionLoading} className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#00D67D] text-black px-6 py-4 font-mono-pro text-xs uppercase tracking-[0.2em] font-bold hover:bg-white transition-colors disabled:opacity-50">
