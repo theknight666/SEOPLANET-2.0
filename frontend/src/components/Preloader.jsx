@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function Preloader() {
+export default function Preloader({ loadingText = "Systems Loading" }) {
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
 
@@ -131,7 +131,7 @@ export default function Preloader() {
           >
             <div className="flex justify-between items-end mb-3">
               <span className="font-mono-pro text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-white/40">
-                Systems Loading
+                {loadingText}
               </span>
               <span className="font-mono-pro text-[9px] sm:text-[10px] tabular-nums text-white/40">
                 {String(progress).padStart(3, "0")}%

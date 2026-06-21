@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import "../../index.css";
 import "./portfolio.css";
+import Preloader from "../../components/Preloader";
 
 /* ─────────────────────────────────────────────
    REAL PROJECTS DATA
@@ -867,6 +868,7 @@ export default function PortfolioApp() {
       style={{ background: "#05050A", color: "#fff", minHeight: "100vh", overflowX: "hidden" }}
       onMouseEnter={() => setHovered(false)}
     >
+      <Preloader loadingText="Portfolio Loading" />
       <Cursor hovered={hovered} />
       <Header scrolled={scrolled} />
 
