@@ -103,10 +103,11 @@ export default function AdminDashboard({ adminData }) {
   };
 
   const handleDelete = async (username, companyName) => {
-    if (!window.confirm(`Are you absolutely sure you want to delete the client ${companyName} (@${username})? This cannot be undone.`)) return;
+    const password = window.prompt(`CRITICAL ACTION: Please enter your Admin Password to confirm the deletion of ${companyName} (@${username}):`);
+    if (!password) return;
     
     try {
-      await axios.delete(`https://seoplanet-2-0.onrender.com/api/onboarding/clients/${username}`);
+      await axios.delete(`https://seoplanet-2-0.onrender.com/api/onboarding/clients/${username}?password=${encodeURIComponent(password)}`, { withCredentials: true });
       toast.success("Client deleted successfully.");
       fetchClients();
     } catch (err) {

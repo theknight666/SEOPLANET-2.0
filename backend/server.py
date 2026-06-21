@@ -398,11 +398,14 @@ async def update_client(username: str, payload: ClientUpdate, current_client: di
     return {"status": "success", "message": "Client updated"}
 
 @api_router.delete("/onboarding/clients/{username}")
-async def delete_client(username: str, current_client: dict = Depends(get_current_client)):
+async def delete_client(username: str, password: str = None, current_client: dict = Depends(get_current_client)):
     if current_client.get("role") != "admin":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
     if username in ["admin", "onboardingadmin", "portaladmin"]:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Cannot delete admin accounts")
+    
+    if not password or not verify_password(password, current_client["password_hash"]):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid admin password. Deletion cancelled.")
     
     result = await db.clients.delete_one({"username": username})
     if result.deleted_count == 0:
