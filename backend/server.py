@@ -277,6 +277,7 @@ class ClientCreate(BaseModel):
     company_name: str
     email: EmailStr
     password: str
+    tier: str = "Launch System"
 
 @api_router.post("/onboarding/clients")
 async def create_new_client(payload: ClientCreate, current_client: dict = Depends(get_current_client)):
@@ -294,6 +295,7 @@ async def create_new_client(payload: ClientCreate, current_client: dict = Depend
         "email": payload.email,
         "password_hash": hashed_password,
         "status": "active",
+        "tier": payload.tier,
         "metrics": {
             "traffic": "0",
             "rankings": "0",
@@ -350,6 +352,7 @@ async def get_all_clients(current_client: dict = Depends(get_current_client)):
 
 class ClientUpdate(BaseModel):
     status: str = "active"
+    tier: str = "Launch System"
     metrics: dict
     metrics_changes: dict = {}
     current_focus: str

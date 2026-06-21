@@ -22,7 +22,7 @@ export default function AdminDashboard({ adminData }) {
   const [editForm, setEditForm] = useState(null);
 
   // Provision Form State
-  const [adminForm, setAdminForm] = useState({ username: "", company: "", email: "", password: "" });
+  const [adminForm, setAdminForm] = useState({ username: "", company: "", email: "", password: "", tier: "Launch System" });
   const [provisionLoading, setProvisionLoading] = useState(false);
 
   const fetchClients = async () => {
@@ -47,7 +47,8 @@ export default function AdminDashboard({ adminData }) {
         username: adminForm.username,
         company_name: adminForm.company,
         email: adminForm.email,
-        password: adminForm.password
+        password: adminForm.password,
+        tier: adminForm.tier
       });
       
       if (res.data.email_sent) {
@@ -56,7 +57,7 @@ export default function AdminDashboard({ adminData }) {
         toast.success("Client account provisioned (Email delivery failed/disabled).");
       }
       
-      setAdminForm({ username: "", company: "", email: "", password: "" });
+      setAdminForm({ username: "", company: "", email: "", password: "", tier: "Launch System" });
       fetchClients();
       setActiveTab("clients");
     } catch (err) {
@@ -69,6 +70,7 @@ export default function AdminDashboard({ adminData }) {
   const openEditor = (client) => {
     setEditingClient(client);
     setEditForm({
+      tier: client.tier || "Launch System",
       status: client.status || "active",
       metrics: client.metrics || { traffic: "0", rankings: "0", da: "0", backlinks: "0" },
       metrics_changes: client.metrics_changes || { traffic: "+0%", rankings: "+0%", da: "+0", backlinks: "+0" },
@@ -130,6 +132,64 @@ export default function AdminDashboard({ adminData }) {
     c.username?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const renderClientTable = (tierClients, title, colorClass) => (
+    <div className="mb-10">
+      <h2 className={`font-display text-xl font-bold mb-4 ${colorClass}`}>{title}</h2>
+      <div className="glass rounded-2xl border border-white/5 overflow-hidden">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="border-b border-white/5 bg-white/[0.02]">
+              <th className="px-6 py-4 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest">Company</th>
+              <th className="px-6 py-4 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest">Username</th>
+              <th className="px-6 py-4 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest">Status</th>
+              <th className="px-6 py-4 text-right font-mono-pro text-[10px] text-white/40 uppercase tracking-widest">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/5">
+            {tierClients.length === 0 ? (
+              <tr><td colSpan="4" className="px-6 py-8 text-center text-white/40 font-mono-pro text-sm">No clients found in this tier.</td></tr>
+            ) : tierClients.map(c => (
+              <tr key={c.username} className="hover:bg-white/[0.02] transition-colors">
+                <td className="px-6 py-4">
+                  <span className="font-display font-bold text-white">{c.company_name}</span>
+                </td>
+                <td className="px-6 py-4">
+                  <span className="font-mono-pro text-xs text-[#00D67D]">@{c.username}</span>
+                </td>
+                <td className="px-6 py-4">
+                  <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono-pro text-[10px] uppercase tracking-wider ${
+                    c.status === 'paused' ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20' :
+                    c.status === 'completed' ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20' :
+                    c.status === 'onboarding' ? 'bg-purple-500/10 text-purple-500 border border-purple-500/20' :
+                    'bg-[#00D67D]/10 text-[#00D67D] border border-[#00D67D]/20'
+                  }`}>
+                    <div className={`w-1.5 h-1.5 rounded-full ${
+                      c.status === 'paused' ? 'bg-amber-500' :
+                      c.status === 'completed' ? 'bg-blue-500' :
+                      c.status === 'onboarding' ? 'bg-purple-500' :
+                      'bg-[#00D67D]'
+                    }`} /> 
+                    {c.status || 'Active'}
+                  </span>
+                </td>
+                <td className="px-6 py-4 text-right">
+                  <div className="flex items-center justify-end gap-2">
+                    <button onClick={() => openEditor(c)} className="inline-flex items-center gap-2 px-4 py-2 bg-white/[0.02] hover:bg-[#00D67D] hover:text-black rounded-lg font-mono-pro text-xs uppercase tracking-wider transition-colors">
+                      <Edit2 className="w-3.5 h-3.5" /> Edit Data
+                    </button>
+                    <button onClick={() => handleDelete(c.username, c.company_name)} className="inline-flex items-center justify-center w-8 h-8 bg-white/[0.02] hover:bg-red-500 hover:text-white rounded-lg transition-colors" title="Delete Client">
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+
   return (
     <div className="min-h-screen w-full bg-black text-white flex overflow-hidden grain selection:bg-[#00D67D] selection:text-black">
       {/* Sidebar */}
@@ -188,57 +248,10 @@ export default function AdminDashboard({ adminData }) {
               {loading ? (
                 <div className="flex items-center justify-center py-20"><Loader2 className="w-8 h-8 text-[#00D67D] animate-spin" /></div>
               ) : (
-                <div className="glass rounded-2xl border border-white/5 overflow-hidden">
-                  <table className="w-full text-left border-collapse">
-                    <thead>
-                      <tr className="border-b border-white/5 bg-white/[0.02]">
-                        <th className="px-6 py-4 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest">Company</th>
-                        <th className="px-6 py-4 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest">Username</th>
-                        <th className="px-6 py-4 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest">Status</th>
-                        <th className="px-6 py-4 text-right font-mono-pro text-[10px] text-white/40 uppercase tracking-widest">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-white/5">
-                      {filteredClients.length === 0 ? (
-                        <tr><td colSpan="4" className="px-6 py-8 text-center text-white/40 font-mono-pro text-sm">No clients found.</td></tr>
-                      ) : filteredClients.map(c => (
-                        <tr key={c.username} className="hover:bg-white/[0.02] transition-colors">
-                          <td className="px-6 py-4">
-                            <span className="font-display font-bold text-white">{c.company_name}</span>
-                          </td>
-                          <td className="px-6 py-4">
-                            <span className="font-mono-pro text-xs text-[#00D67D]">@{c.username}</span>
-                          </td>
-                          <td className="px-6 py-4">
-                            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono-pro text-[10px] uppercase tracking-wider ${
-                              c.status === 'paused' ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20' :
-                              c.status === 'completed' ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20' :
-                              c.status === 'onboarding' ? 'bg-purple-500/10 text-purple-500 border border-purple-500/20' :
-                              'bg-[#00D67D]/10 text-[#00D67D] border border-[#00D67D]/20'
-                            }`}>
-                              <div className={`w-1.5 h-1.5 rounded-full ${
-                                c.status === 'paused' ? 'bg-amber-500' :
-                                c.status === 'completed' ? 'bg-blue-500' :
-                                c.status === 'onboarding' ? 'bg-purple-500' :
-                                'bg-[#00D67D]'
-                              }`} /> 
-                              {c.status || 'Active'}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 text-right">
-                            <div className="flex items-center justify-end gap-2">
-                              <button onClick={() => openEditor(c)} className="inline-flex items-center gap-2 px-4 py-2 bg-white/[0.02] hover:bg-[#00D67D] hover:text-black rounded-lg font-mono-pro text-xs uppercase tracking-wider transition-colors">
-                                <Edit2 className="w-3.5 h-3.5" /> Edit Data
-                              </button>
-                              <button onClick={() => handleDelete(c.username, c.company_name)} className="inline-flex items-center justify-center w-8 h-8 bg-white/[0.02] hover:bg-red-500 hover:text-white rounded-lg transition-colors" title="Delete Client">
-                                <Trash2 className="w-3.5 h-3.5" />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div>
+                  {renderClientTable(filteredClients.filter(c => c.tier === "Domination System"), "Domination System", "text-[#00D67D]")}
+                  {renderClientTable(filteredClients.filter(c => c.tier === "Growth Engine"), "Growth Engine", "text-[#00FF94]")}
+                  {renderClientTable(filteredClients.filter(c => !c.tier || c.tier === "Launch System"), "Launch System", "text-white")}
                 </div>
               )}
             </motion.div>
@@ -265,6 +278,14 @@ export default function AdminDashboard({ adminData }) {
                 <div>
                   <label className="overline-premium block mb-2 text-white/50 text-[10px]">Secure Password</label>
                   <input required type="text" value={adminForm.password} onChange={e => setAdminForm({...adminForm, password: e.target.value})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00D67D] focus:outline-none" placeholder="Generate a secure password..." />
+                </div>
+                <div>
+                  <label className="overline-premium block mb-2 text-white/50 text-[10px]">Subscription Tier</label>
+                  <select value={adminForm.tier} onChange={e => setAdminForm({...adminForm, tier: e.target.value})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00D67D] focus:outline-none appearance-none">
+                    <option value="Launch System">Launch System</option>
+                    <option value="Growth Engine">Growth Engine</option>
+                    <option value="Domination System">Domination System</option>
+                  </select>
                 </div>
                 <button type="submit" disabled={provisionLoading} className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#00D67D] text-black px-6 py-4 font-mono-pro text-xs uppercase tracking-[0.2em] font-bold hover:bg-white transition-colors disabled:opacity-50">
                   {provisionLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <><PlusCircle className="w-4 h-4" /> Provision Access</>}
@@ -310,18 +331,32 @@ export default function AdminDashboard({ adminData }) {
                   {editTab === "metrics" && (
                     <div className="space-y-6">
                       <h3 className="font-display text-lg font-bold mb-4 border-b border-white/[0.04] pb-2">Core Metrics & Focus</h3>
-                      <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-6 mb-6">
-                        <label className="overline-premium block mb-2 text-[#00D67D] text-[10px]">Campaign Status</label>
-                        <select 
-                          value={editForm.status} 
-                          onChange={e => setEditForm({...editForm, status: e.target.value})} 
-                          className="w-full bg-[#00D67D]/5 border border-[#00D67D]/20 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none cursor-pointer"
-                        >
-                          <option value="active" className="bg-[#0A0A0F] text-white">Active</option>
-                          <option value="paused" className="bg-[#0A0A0F] text-white">Paused</option>
-                          <option value="onboarding" className="bg-[#0A0A0F] text-white">Onboarding</option>
-                          <option value="completed" className="bg-[#0A0A0F] text-white">Completed</option>
-                        </select>
+                      <div className="grid grid-cols-2 gap-4 mb-6">
+                        <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-6">
+                          <label className="overline-premium block mb-2 text-[#00D67D] text-[10px]">Campaign Status</label>
+                          <select 
+                            value={editForm.status} 
+                            onChange={e => setEditForm({...editForm, status: e.target.value})} 
+                            className="w-full bg-[#00D67D]/5 border border-[#00D67D]/20 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none cursor-pointer appearance-none"
+                          >
+                            <option value="active" className="bg-[#0A0A0F] text-white">Active</option>
+                            <option value="paused" className="bg-[#0A0A0F] text-white">Paused</option>
+                            <option value="onboarding" className="bg-[#0A0A0F] text-white">Onboarding</option>
+                            <option value="completed" className="bg-[#0A0A0F] text-white">Completed</option>
+                          </select>
+                        </div>
+                        <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-6">
+                          <label className="overline-premium block mb-2 text-[#00D67D] text-[10px]">Subscription Tier</label>
+                          <select 
+                            value={editForm.tier} 
+                            onChange={e => setEditForm({...editForm, tier: e.target.value})} 
+                            className="w-full bg-[#00D67D]/5 border border-[#00D67D]/20 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none cursor-pointer appearance-none"
+                          >
+                            <option value="Launch System" className="bg-[#0A0A0F] text-white">Launch System</option>
+                            <option value="Growth Engine" className="bg-[#0A0A0F] text-white">Growth Engine</option>
+                            <option value="Domination System" className="bg-[#0A0A0F] text-white">Domination System</option>
+                          </select>
+                        </div>
                       </div>
                       <div className="grid grid-cols-2 gap-6">
                         <div className="flex gap-2">
