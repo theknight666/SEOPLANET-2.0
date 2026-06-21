@@ -126,7 +126,7 @@ class ContactSubmission(BaseModel):
 
 # ===== Helpers =====
 def _build_email_html(payload: ContactCreate) -> str:
-    safe_company = payload.company or "—"
+    safe_company = payload.company or "N/A"
     safe_message = (payload.message or "").replace("\n", "<br/>")
     return f"""
     <table width="100%" cellpadding="0" cellspacing="0" style="background:#05050A;padding:32px 0;font-family:Arial,Helvetica,sans-serif;color:#ffffff;">
@@ -193,7 +193,7 @@ def _send_welcome_email(to_email: str, username: str, password: str, company_nam
                   </p>
                   
                   <p style="color:#A1A1AA;font-size:16px;line-height:1.8;margin:0 0 24px 0;font-weight:300;">
-                    It is with profound honor and deep respect that we formally welcome you into the exclusive ranks of the SEO Planet family. By forging this alliance today, you haven't just signed up for a service&mdash;you have claimed your rightful throne in the digital ecosystem. You have drawn a definitive line in the sand, signaling to the world that you are no longer competing; you are conquering.
+                    It is with profound honor and deep respect that we formally welcome you into the exclusive ranks of the SEO Planet family. By forging this alliance today, you haven't just signed up for a service - you have claimed your rightful throne in the digital ecosystem. You have drawn a definitive line in the sand, signaling to the world that you are no longer competing; you are conquering.
                   </p>
                   
                   <p style="color:#A1A1AA;font-size:16px;line-height:1.8;margin:0 0 24px 0;font-weight:300;">

@@ -51,7 +51,7 @@ export default function Contact() {
         access_key: "a2cc5258-81af-442b-b3fa-69064a5c56ae",
         name: form.name,
         email: form.email,
-        message: `Company: ${form.company || '—'}\n\nMessage: ${form.message}`,
+        message: `Company: ${form.company || 'N/A'}\n\nMessage: ${form.message}`,
         subject: `[SEO Planet] New transmission from ${form.name}`,
         from_name: "SEO Planet Forms"
       });
@@ -87,7 +87,7 @@ export default function Contact() {
     }
     setBookingLoading(true);
     try {
-      const message = `Website: ${booking.website || '—'}\nFocus: ${booking.focus || '—'}\nBudget: ${booking.budget || '—'}\n\n[This is a Discovery Session Request]`;
+      const message = `Website: ${booking.website || 'N/A'}\nFocus: ${booking.focus || 'N/A'}\nBudget: ${booking.budget || 'N/A'}\n\n[This is a Discovery Session Request]`;
       
       const web3FormsRes = await axios.post("https://api.web3forms.com/submit", {
         access_key: "a2cc5258-81af-442b-b3fa-69064a5c56ae",

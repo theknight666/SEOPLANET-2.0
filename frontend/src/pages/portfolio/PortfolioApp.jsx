@@ -19,7 +19,7 @@ const PROJECTS = [
     color: "#00FF94",
     url: "https://eventa-lovat.vercel.app",
     description:
-      "A premium event discovery and booking platform built for curated experiences. Clean, fast, and conversion-optimised — from browsing to booking in under 30 seconds. Built with performance-first architecture and a pixel-perfect design system.",
+      "A premium event discovery and booking platform built for curated experiences. Clean, fast, and conversion-optimised - from browsing to booking in under 30 seconds. Built with performance-first architecture and a pixel-perfect design system.",
     tags: ["Next.js", "TailwindCSS", "Vercel"],
     scope: ["UX/UI Design", "Full-Stack Dev", "Conversion Flow"],
     quote: "SEO Planet completely transformed our digital presence. Bookings went up 300% in month one. The attention to performance is incredible.",
@@ -55,7 +55,7 @@ const PROJECTS = [
     resultLabel: "Production",
     color: "#00FF94",
     url: "https://property-design-sigma.vercel.app",
-    description: "SR Elite Properties — Hyderabad's trusted dealership for open plots, villas, farmland, and apartments. Curating legally verified, high-appreciation properties with the absolute highest standards of transparency.",
+    description: "SR Elite Properties - Hyderabad's trusted dealership for open plots, villas, farmland, and apartments. Curating legally verified, high-appreciation properties with the absolute highest standards of transparency.",
     tags: ["React", "TailwindCSS", "Framer Motion"],
     scope: ["UX/UI Design", "Frontend Dev", "SEO"],
     quote: "A perfectly engineered website that showcases our luxury properties with the elegance they deserve.",
@@ -92,7 +92,7 @@ const PROJECTS = [
     color: "#C9A96E",
     url: "https://midheaven.in",
     description:
-      "Complete digital identity for Midheaven Properties — a luxury real estate brand positioned around elevated living. Elegant Cormorant Garamond typography, cinematic imagery, and a content strategy anchored in aspiration. 'Your Gateway to Elevated Living.'",
+      "Complete digital identity for Midheaven Properties - a luxury real estate brand positioned around elevated living. Elegant Cormorant Garamond typography, cinematic imagery, and a content strategy anchored in aspiration. 'Your Gateway to Elevated Living.'",
     tags: ["WordPress", "Elementor Pro", "SEO"],
     scope: ["Brand Identity", "Web Design", "Copywriting"],
     quote: "The attention to detail is unmatched. Our properties finally look as premium online as they do in person.",
@@ -407,7 +407,7 @@ function ExpandPanel({ p, open, isEven }) {
                 letterSpacing: "0.3em", textTransform: "uppercase",
                 color: p.color, marginBottom: "20px",
               }}>
-                {p.index} — {p.category}
+                {p.index} - {p.category}
               </div>
               <h3 style={{
                 fontFamily: "'Unbounded', sans-serif", fontWeight: 900,
@@ -434,7 +434,7 @@ function ExpandPanel({ p, open, isEven }) {
                     fontFamily: "JetBrains Mono, monospace", fontSize: "9px", 
                     letterSpacing: "0.15em", textTransform: "uppercase", color: p.color 
                   }}>
-                    — {p.quoteAuthor}
+                    - {p.quoteAuthor}
                   </div>
                 </div>
               )}
