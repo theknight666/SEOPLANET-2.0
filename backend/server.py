@@ -170,16 +170,14 @@ def _send_welcome_email(to_email: str, username: str, password: str, company_nam
                 
                 <!-- Premium Header / Logo Area -->
                 <tr><td align="center" style="padding:48px 40px 0 40px;">
-                  <!-- Replace the src below with your actual animated logo GIF URL -->
-                  <img src="https://seoplanet.in/favicon.svg" alt="SEO Planet" width="60" style="display:block;margin-bottom:16px;filter:drop-shadow(0 0 12px rgba(0,255,148,0.5));" />
-                  <h2 style="margin:0;color:#00FF94;font-size:16px;letter-spacing:0.4em;text-transform:uppercase;font-weight:600;">SEO Planet</h2>
-                  <div style="height:1px;width:40px;background:linear-gradient(90deg, transparent, #00FF94, transparent);margin:24px auto;"></div>
+                  <h2 style="margin:0;color:#00FF94;font-size:18px;letter-spacing:0.4em;text-transform:uppercase;font-weight:600;">SEO Planet</h2>
+                  <div style="height:1px;width:40px;background:#00FF94;margin:24px auto;"></div>
                 </td></tr>
 
                 <!-- Welcome Message -->
                 <tr><td style="padding:10px 48px 40px 48px;text-align:center;">
                   <h1 style="margin:0 0 24px 0;color:#ffffff;font-size:28px;font-weight:300;line-height:1.3;letter-spacing:0.02em;">
-                    Welcome to the Elite,<br/><span style="font-weight:600;background:-webkit-linear-gradient(0deg, #ffffff, #a0a5b0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">{company_name}</span>.
+                    Welcome to the Elite,<br/><span style="font-weight:600;color:#00FF94;">{company_name}</span>.
                   </h1>
                   
                   <p style="color:#A0A5B0;font-size:15px;line-height:1.8;margin:0 0 20px 0;text-align:left;">
