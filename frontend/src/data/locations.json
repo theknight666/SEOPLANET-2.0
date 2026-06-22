@@ -22,15 +22,15 @@
     "growthStat": "285%"
   },
   {
-    "slug": "dubai",
-    "city": "Dubai",
-    "region": "Dubai",
-    "country": "UAE",
-    "localIndustry": "Luxury Real Estate & Hospitality",
-    "localLandmark": "Downtown Dubai",
-    "competitorCount": "800+",
-    "searchVolume": "18,000+",
-    "growthStat": "420%"
+    "slug": "india",
+    "city": "India",
+    "region": "South Asia",
+    "country": "India",
+    "localIndustry": "IT & E-Commerce",
+    "localLandmark": "Tech Hubs",
+    "competitorCount": "2,500+",
+    "searchVolume": "150,000+",
+    "growthStat": "500%"
   },
   {
     "slug": "los-angeles",
