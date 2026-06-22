@@ -1,0 +1,57 @@
+[
+  {
+    "slug": "new-york",
+    "city": "New York",
+    "region": "NY",
+    "country": "USA",
+    "localIndustry": "Finance & Real Estate",
+    "localLandmark": "Wall Street",
+    "competitorCount": "1,400+",
+    "searchVolume": "25,000+",
+    "growthStat": "314%"
+  },
+  {
+    "slug": "london",
+    "city": "London",
+    "region": "England",
+    "country": "UK",
+    "localIndustry": "Fintech & Corporate",
+    "localLandmark": "The City",
+    "competitorCount": "1,200+",
+    "searchVolume": "22,000+",
+    "growthStat": "285%"
+  },
+  {
+    "slug": "dubai",
+    "city": "Dubai",
+    "region": "Dubai",
+    "country": "UAE",
+    "localIndustry": "Luxury Real Estate & Hospitality",
+    "localLandmark": "Downtown Dubai",
+    "competitorCount": "800+",
+    "searchVolume": "18,000+",
+    "growthStat": "420%"
+  },
+  {
+    "slug": "los-angeles",
+    "city": "Los Angeles",
+    "region": "CA",
+    "country": "USA",
+    "localIndustry": "Entertainment & Tech",
+    "localLandmark": "Silicon Beach",
+    "competitorCount": "1,100+",
+    "searchVolume": "20,000+",
+    "growthStat": "260%"
+  },
+  {
+    "slug": "singapore",
+    "city": "Singapore",
+    "region": "Central",
+    "country": "Singapore",
+    "localIndustry": "Tech & Finance",
+    "localLandmark": "Marina Bay",
+    "competitorCount": "600+",
+    "searchVolume": "15,000+",
+    "growthStat": "390%"
+  }
+]

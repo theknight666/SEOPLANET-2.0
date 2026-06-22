@@ -50,39 +50,14 @@ function ClientLogos() {
   );
 }
 
-export default function Hero({ locationData }) {
-  const [isDesktop, setIsDesktop] = React.useState(true);
+export default function Hero() {
+  const [isDesktop, setIsDesktop] = React.useState(window.innerWidth > 768);
 
   React.useEffect(() => {
-    setIsDesktop(window.innerWidth > 768);
     const handleResize = () => setIsDesktop(window.innerWidth > 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  const headlineTokens = locationData ? [
-    { text: "The", color: "text-white" },
-    { text: "#1", color: "neon-text italic font-light" },
-    { text: "SEO", color: "neon-text italic font-light" },
-    { text: "br" },
-    { text: "Agency", color: "text-white" },
-    { text: "In", color: "text-white" },
-    { text: locationData.city, color: "text-[#00e5ff] italic font-light" },
-  ] : [
-    { text: "We", color: "text-white" },
-    { text: "Built", color: "text-white" },
-    { text: "br" },
-    { text: "The", color: "text-white" },
-    { text: "New", color: "neon-text italic font-light" },
-    { text: "Era", color: "neon-text italic font-light" },
-    { text: "br" },
-    { text: "Of", color: "text-white" },
-    { text: "Marketing", color: "text-white" },
-  ];
-
-  const subheadlineText = locationData
-    ? `We pair algorithmic SEO with performance ads and content systems to help ${locationData.localIndustry} brands dominate ${locationData.city}. Outrank ${locationData.competitorCount} competitors today.`
-    : `SEO Planet is a digital marketing agency built for the AI era. We pair algorithmic SEO with performance ads, content systems, and analytics to help ambitious brands win their category.`;
 
   return (
     <section
@@ -131,14 +106,24 @@ export default function Hero({ locationData }) {
       {/* Content */}
       <div className="relative z-[3] max-w-7xl mx-auto px-6 sm:px-12 pt-32 sm:pt-40 pb-24 sm:pb-28 min-h-screen flex flex-col justify-center">
         <motion.p {...fade(0)} className="overline mb-6">
-          <span className="text-[#00FF94]">[001]</span> &nbsp;{locationData ? `Local SEO For ${locationData.city}` : 'Next-Gen Marketing Agency'}
+          <span className="text-[#00FF94]">[001]</span> &nbsp;Next-Gen Marketing Agency
         </motion.p>
 
         <motion.h1
           className="font-display font-black text-white text-3xl sm:text-5xl lg:text-[5rem] leading-[0.95] tracking-tighter max-w-5xl"
           data-testid="hero-headline"
         >
-          {headlineTokens.map((w, i) =>
+          {[
+            { text: "We", color: "text-white" },
+            { text: "Built", color: "text-white" },
+            { text: "br" },
+            { text: "The", color: "text-white" },
+            { text: "New", color: "neon-text italic font-light" },
+            { text: "Era", color: "neon-text italic font-light" },
+            { text: "br" },
+            { text: "Of", color: "text-white" },
+            { text: "Marketing", color: "text-white" },
+          ].map((w, i) =>
             w.text === "br" ? (
               <br key={`br-${i}`} />
             ) : (
@@ -174,7 +159,9 @@ export default function Hero({ locationData }) {
           {...fade(0.55)}
           className="mt-8 max-w-xl text-sm sm:text-base text-white/60 leading-relaxed font-mono-pro"
         >
-          {subheadlineText}
+          SEO Planet is a digital marketing agency built for the AI era. We pair
+          algorithmic SEO with performance ads, content systems, and analytics
+          to help ambitious brands win their category.
         </motion.p>
 
         <motion.div {...fade(0.8)} className="mt-10 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-4 w-full sm:w-auto">

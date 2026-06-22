@@ -1,0 +1,157 @@
+/* Portfolio animations */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Scrollbar */
+.portfolio-root::-webkit-scrollbar { width: 6px; }
+.portfolio-root::-webkit-scrollbar-track { background: #05050A; }
+.portfolio-root::-webkit-scrollbar-thumb { background: rgba(0,255,148,0.2); border-radius: 4px; }
+.portfolio-root::-webkit-scrollbar-thumb:hover { background: rgba(0,255,148,0.45); }
+
+/* Kill default cursor ONLY inside portfolio */
+.portfolio-root, .portfolio-root *, .portfolio-root *::before, .portfolio-root *::after { 
+  cursor: none !important; 
+}
+
+/* Marquee Animation */
+.portfolio-marquee {
+  animation: portfolioMarquee 25s linear infinite;
+}
+
+@keyframes portfolioMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.portfolio-marquee-right {
+  animation: portfolioMarqueeRight 25s linear infinite;
+}
+
+@keyframes portfolioMarqueeRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* Responsive Cursor Override */
+@media (max-width: 768px) {
+  .portfolio-root, 
+  .portfolio-root *, 
+  .portfolio-root *::before, 
+  .portfolio-root *::after { 
+    cursor: auto !important; 
+  }
+  .portfolio-cursor {
+    display: none !important;
+  }
+}
+
+/* Responsive Header Padding */
+.portfolio-header {
+  padding: 0 16px !important;
+}
+@media (min-width: 768px) {
+  .portfolio-header {
+    padding: 0 clamp(24px, 4vw, 64px) !important;
+  }
+}
+
+/* Row hover video container hide on mobile */
+@media (max-width: 768px) {
+  .hover-reveal-container {
+    display: none !important;
+  }
+}
+
+/* Project Row Title Area Alignments */
+.portfolio-title-area {
+  text-align: left;
+}
+@media (min-width: 768px) {
+  .portfolio-title-area.even {
+    text-align: left;
+  }
+  .portfolio-title-area.odd {
+    text-align: right;
+  }
+}
+
+/* Project Row Stats Area Alignments and Margins */
+.portfolio-stats-area {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+}
+@media (min-width: 768px) {
+  .portfolio-stats-area.even {
+    text-align: right;
+    margin-left: 24px;
+    margin-right: 0;
+  }
+  .portfolio-stats-area.odd {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 24px;
+  }
+}
+
+/* Expansion Panel Details and Preview Stacking */
+.expand-panel-left {
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  order: 2; /* Preview below on mobile */
+  border-left: none !important;
+  border-right: none !important;
+}
+.expand-panel-right {
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  order: 1; /* Details on top on mobile */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@media (min-width: 768px) {
+  .expand-panel-left {
+    order: unset;
+  }
+  .expand-panel-right {
+    order: unset;
+    border-bottom: none;
+  }
+  .expand-panel-left.even {
+    padding: 32px 40px 32px 56px;
+    border-right: 1px solid rgba(255,255,255,0.05) !important;
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .expand-panel-left.odd {
+    padding: 32px 56px 32px 40px;
+    border-left: 1px solid rgba(255,255,255,0.05) !important;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .expand-panel-right.even {
+    padding: 48px 56px 48px 40px;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .expand-panel-right.odd {
+    padding: 48px 40px 48px 56px;
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
