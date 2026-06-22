@@ -19,6 +19,11 @@ import resend
 import secrets
 import string
 
+try:
+    from logo_b64 import LOGO_B64
+except ImportError:
+    LOGO_B64 = ""
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
@@ -176,7 +181,7 @@ def _send_welcome_email(to_email: str, username: str, password: str, company_nam
                 
                 <!-- Header Section -->
                 <tr><td style="padding:60px 48px 40px 48px;text-align:center;background:linear-gradient(180deg, #101018 0%, #0A0A0F 100%);border-bottom:1px solid #151520;">
-                  <img src="https://portal.seoplanet.in/email-logo-white.png" alt="SEO Planet" width="140" style="display:block;margin:0 auto 32px auto;border:0;" />
+                  <img src="cid:logo" alt="SEO Planet" width="140" style="display:block;margin:0 auto 32px auto;border:0;" />
                   <h1 style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:56px;letter-spacing:-0.05em;margin:0 0 16px 0;color:#ffffff;line-height:1.1;">
                     Welcome
                   </h1>
@@ -281,6 +286,16 @@ def _send_welcome_email(to_email: str, username: str, password: str, company_nam
             "subject": "Welcome to SEO Planet - Your Portal Credentials",
             "html": html_content,
         }
+        
+        if LOGO_B64:
+            params["attachments"] = [
+                {
+                    "filename": "email-logo-white.png",
+                    "content": LOGO_B64,
+                    "content_id": "logo"
+                }
+            ]
+            
         resend.Emails.send(params)
             
         logger.info(f"Welcome email sent successfully to {to_email}")
