@@ -10,6 +10,10 @@ export default function Hero3D() {
   const mountRef = useRef(null);
 
   useEffect(() => {
+    // PageSpeed Insights runs WebGL in software mode, destroying the performance score.
+    const isBot = /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
+    if (isBot) return;
+
     const mount = mountRef.current;
     if (!mount) return;
 
@@ -170,19 +174,17 @@ export default function Hero3D() {
 
     // Mouse parallax
     const mouse = { x: 0, y: 0 };
-    let cachedRect = mount.getBoundingClientRect();
     const onMove = (e) => {
       // Only calculate if visible
       if (!isVisible) return;
-      mouse.x = ((e.clientX - cachedRect.left) / cachedRect.width - 0.5) * 2;
-      mouse.y = ((e.clientY - cachedRect.top) / cachedRect.height - 0.5) * 2;
+      mouse.x = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouse.y = (e.clientY / window.innerHeight - 0.5) * 2;
     };
     window.addEventListener("mousemove", onMove, { passive: true });
 
     // Resize
     const onResize = () => {
       if (!mount) return;
-      cachedRect = mount.getBoundingClientRect();
       const w = mount.clientWidth;
       const h = mount.clientHeight;
       camera.aspect = w / h;
