@@ -294,7 +294,7 @@ export default function Contact() {
 
                   <div className="mb-4">
                     <label className="overline block mb-2 text-white/50">Phone Number</label>
-                    <input type="tel" name="phone" value={booking.phone} onChange={onBookingChange} required placeholder="+1 (555) 000-0000" className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00FF94] transition-all" />
+                    <input type="tel" name="phone" value={booking.phone} onChange={onBookingChange} required placeholder={currency === 'USD' ? "+1 (555) 000-0000" : "+91 98765 43210"} className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono-pro placeholder:text-white/25 focus:outline-none focus:border-[#00FF94] transition-all" />
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-4">
