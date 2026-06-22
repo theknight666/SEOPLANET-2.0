@@ -138,7 +138,7 @@ export default function Hero({ locationData }) {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-[3] max-w-7xl mx-auto px-6 sm:px-12 pt-16 sm:pt-24 pb-12 sm:pb-16 min-h-screen flex flex-col justify-center">
+      <div className="relative z-[3] max-w-7xl mx-auto px-6 sm:px-12 pt-32 sm:pt-40 pb-8 sm:pb-10 min-h-screen flex flex-col justify-center">
         <motion.p {...fade(0)} className="overline mb-4 sm:mb-5">
           <span className="text-[#00FF94]">[001]</span> &nbsp;{locationData ? `Local SEO For ${locationData.city}` : 'Next-Gen Marketing Agency'}
         </motion.p>
@@ -215,7 +215,7 @@ export default function Hero({ locationData }) {
         {/* Metric strip */}
         <motion.div
           {...fade(1.0)}
-          className="mt-8 sm:mt-12 grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 border border-white/5 max-w-4xl"
+          className="mt-6 sm:mt-8 grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 border border-white/5 max-w-4xl"
           data-testid="hero-metric-strip"
         >
           <HeroMetric
