@@ -87,7 +87,13 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col font-mono-pro">
-        <Script src="/error-handler.js" strategy="beforeInteractive" />
+        <Script 
+          id="error-handler" 
+          strategy="beforeInteractive" 
+          dangerouslySetInnerHTML={{ 
+            __html: `window.addEventListener("error", function (e) { if (e.error && e.error.name === "DataCloneError" && e.message && e.message.includes("PerformanceServerTiming")) { e.stopImmediatePropagation(); e.preventDefault() } }, true);` 
+          }} 
+        />
         <Script src="https://assets.emergent.sh/scripts/emergent-main.js" strategy="lazyOnload" />
         <AnimatedFavicon />
         <CurrencyProvider>
