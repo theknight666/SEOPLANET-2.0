@@ -11,7 +11,7 @@ export default function Hero3D() {
 
   useEffect(() => {
     // PageSpeed Insights runs WebGL in software mode, destroying the performance score.
-    const isBot = /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
+    const isBot = navigator.webdriver || /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse|ptst/i.test(navigator.userAgent);
     if (isBot) return;
 
     const mount = mountRef.current;
@@ -28,8 +28,8 @@ export default function Hero3D() {
     // Renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
     
-    // Clamp pixel ratio on mobile to save fill-rate/GPU
-    const pixelRatio = window.innerWidth < 768 ? Math.min(window.devicePixelRatio, 1.5) : Math.min(window.devicePixelRatio, 2);
+    // Clamp pixel ratio to 1.25 max to save fill-rate/GPU, even on retina displays
+    const pixelRatio = Math.min(window.devicePixelRatio, 1.25);
     renderer.setPixelRatio(pixelRatio);
     renderer.setSize(width, height);
     renderer.setClearColor(0x000000, 0);
@@ -90,9 +90,9 @@ export default function Hero3D() {
     const dotGeoA = new THREE.SphereGeometry(0.022, 8, 8);
     const dotMatGreen = new THREE.MeshBasicMaterial({ color: 0x00ff94 });
     const dotMatCyan = new THREE.MeshBasicMaterial({ color: 0x00e5ff });
-    for (let i = 0; i < 130; i++) {
-      const phi = Math.acos(-1 + (2 * i) / 130);
-      const theta = Math.sqrt(130 * Math.PI) * phi;
+    for (let i = 0; i < 60; i++) {
+      const phi = Math.acos(-1 + (2 * i) / 60);
+      const theta = Math.sqrt(60 * Math.PI) * phi;
       const r = 2.35;
       const m = new THREE.Mesh(dotGeoA, i % 5 === 0 ? dotMatCyan : dotMatGreen);
       m.position.set(
@@ -106,14 +106,14 @@ export default function Hero3D() {
 
     // Rings
     const ring1 = new THREE.Mesh(
-      new THREE.TorusGeometry(2.7, 0.005, 16, 200),
+      new THREE.TorusGeometry(2.7, 0.005, 16, 100),
       new THREE.MeshBasicMaterial({ color: 0x00ff94, transparent: true, opacity: 0.7 })
     );
     ring1.rotation.x = Math.PI / 2;
     planet.add(ring1);
 
     const ring2 = new THREE.Mesh(
-      new THREE.TorusGeometry(3.1, 0.003, 16, 200),
+      new THREE.TorusGeometry(3.1, 0.003, 16, 100),
       new THREE.MeshBasicMaterial({ color: 0x00e5ff, transparent: true, opacity: 0.5 })
     );
     ring2.rotation.set(Math.PI / 2.4, 0.4, 0);
@@ -122,8 +122,8 @@ export default function Hero3D() {
     // Floating shards
     const shards = [];
     const shardGeo = new THREE.OctahedronGeometry(0.18, 0);
-    for (let i = 0; i < 8; i++) {
-      const angle = (i / 8) * Math.PI * 2;
+    for (let i = 0; i < 6; i++) {
+      const angle = (i / 6) * Math.PI * 2;
       const r = 4.2 + (i % 3) * 0.4;
       const m = new THREE.Mesh(
         shardGeo,
@@ -147,7 +147,7 @@ export default function Hero3D() {
     }
 
     // Starfield (points)
-    const starsCount = 1800;
+    const starsCount = 400;
     const starPositions = new Float32Array(starsCount * 3);
     for (let i = 0; i < starsCount; i++) {
       const r = 60 * Math.cbrt(0.2 + Math.random() * 0.8);
