@@ -181,9 +181,8 @@ export default function Hero({ locationData }) {
           <MagneticWrap strength={24}>
             <a
               href="#contact"
-              className="group inline-flex justify-center items-center gap-3 rounded-full bg-[#00FF94] text-black px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] font-bold hover:bg-white transition-colors active:scale-95 w-full sm:w-auto"
+              className="pulse-ring-btn group inline-flex justify-center items-center gap-3 rounded-full bg-[#00FF94] text-black px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] font-bold hover:bg-white transition-colors active:scale-95 w-full sm:w-auto"
               data-testid="hero-cta-launch"
-              style={{ animation: "pulse-ring 2.6s infinite" }}
               aria-label="Start a new SEO project with SEO Planet"
             >
               Start a Project
