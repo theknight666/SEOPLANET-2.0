@@ -188,6 +188,9 @@ def _send_welcome_email(to_email: str, username: str, password: str, company_nam
                   <p style="margin:0;color:#6B7280;font-size:12px;letter-spacing:6px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;">
                     To The New Era
                   </p>
+                  <p style="margin:24px 0 0 0;color:#00FF94;font-size:16px;letter-spacing:2px;text-transform:uppercase;font-weight:600;font-family:'Inter',sans-serif;">
+                    {company_name}
+                  </p>
                 </td></tr>
 
                 <!-- Content Section -->
