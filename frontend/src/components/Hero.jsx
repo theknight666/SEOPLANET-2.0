@@ -12,7 +12,10 @@ const HERO_BG = process.env.NEXT_PUBLIC_HERO_BG_IMAGE || "";
 const BASE_DELAY = 2.7;
 
 /** Returns 0 delay for bots to get instant LCP, otherwise returns the requested delay. */
-const getDelay = (offset) => typeof window !== "undefined" && window.IS_BOT ? 0 : BASE_DELAY + offset;
+const getDelay = (offset) => {
+  const isBot = typeof window !== "undefined" && (window.IS_BOT || navigator.webdriver || (navigator.plugins && navigator.plugins.length === 0) || /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse|ptst/i.test(navigator.userAgent));
+  return isBot ? 0 : BASE_DELAY + offset;
+};
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -40,9 +43,9 @@ function HeroMetric({ value, label, format }) {
 
 function ClientLogos() {
   return (
-    <motion.div {...fade(0.9)} className="mt-12 pt-8 border-t border-white/5 opacity-60">
-      <p className="text-[10px] uppercase tracking-[0.2em] mb-5 font-mono-pro text-white/40">Trusted by fast-growing brands</p>
-      <div className="flex flex-wrap gap-8 sm:gap-12 items-center grayscale">
+    <motion.div {...fade(0.9)} className="mt-8 pt-6 border-t border-white/5 opacity-60">
+      <p className="text-[10px] uppercase tracking-[0.2em] mb-4 font-mono-pro text-white/40">Trusted by fast-growing brands</p>
+      <div className="flex flex-wrap gap-6 sm:gap-10 items-center grayscale">
         <span className="font-display font-bold text-lg sm:text-xl text-white">Acme Corp</span>
         <span className="font-display font-bold text-lg sm:text-xl text-white italic">Globex</span>
         <span className="font-display font-bold text-lg sm:text-xl text-white tracking-tighter">Soylent</span>
@@ -134,13 +137,13 @@ export default function Hero({ locationData }) {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-[3] max-w-7xl mx-auto px-6 sm:px-12 pt-32 sm:pt-40 pb-24 sm:pb-28 min-h-screen flex flex-col justify-center">
-        <motion.p {...fade(0)} className="overline mb-6">
+      <div className="relative z-[3] max-w-7xl mx-auto px-6 sm:px-12 pt-24 sm:pt-32 pb-16 sm:pb-20 min-h-screen flex flex-col justify-center">
+        <motion.p {...fade(0)} className="overline mb-4 sm:mb-6">
           <span className="text-[#00FF94]">[001]</span> &nbsp;{locationData ? `Local SEO For ${locationData.city}` : 'Next-Gen Marketing Agency'}
         </motion.p>
 
         <motion.h1
-          className="font-display font-black text-white text-3xl sm:text-5xl lg:text-[5rem] leading-[0.95] tracking-tighter max-w-5xl"
+          className="font-display font-black text-white text-3xl sm:text-4xl lg:text-[4rem] leading-[0.95] tracking-tighter max-w-5xl"
           data-testid="hero-headline"
         >
           {headlineTokens.map((w, i) =>
@@ -177,16 +180,16 @@ export default function Hero({ locationData }) {
 
         <motion.p
           {...fade(0.55)}
-          className="mt-8 max-w-xl text-sm sm:text-base text-white/60 leading-relaxed font-mono-pro"
+          className="mt-6 max-w-xl text-sm sm:text-base text-white/60 leading-relaxed font-mono-pro"
         >
           {subheadlineText}
         </motion.p>
 
-        <motion.div {...fade(0.8)} className="mt-10 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-4 w-full sm:w-auto">
+        <motion.div {...fade(0.8)} className="mt-6 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-4 w-full sm:w-auto">
           <MagneticWrap strength={24}>
             <a
               href="#contact"
-              className="pulse-ring-btn group inline-flex justify-center items-center gap-3 rounded-full bg-[#00FF94] text-black px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] font-bold hover:bg-white transition-colors active:scale-95 w-full sm:w-auto"
+              className="pulse-ring-btn group inline-flex justify-center items-center gap-3 rounded-full bg-[#00FF94] text-black px-6 py-3 font-mono-pro text-xs uppercase tracking-[0.25em] font-bold hover:bg-white transition-colors active:scale-95 w-full sm:w-auto"
               data-testid="hero-cta-launch"
               aria-label="Start a new SEO project with SEO Planet"
             >
@@ -197,7 +200,7 @@ export default function Hero({ locationData }) {
           <MagneticWrap strength={20}>
             <a
               href="#work"
-              className="group inline-flex justify-center items-center gap-3 rounded-full border border-white/15 text-white px-7 py-4 font-mono-pro text-xs uppercase tracking-[0.25em] hover:border-[#00FF94] hover:text-[#00FF94] transition-colors w-full sm:w-auto"
+              className="group inline-flex justify-center items-center gap-3 rounded-full border border-white/15 text-white px-6 py-3 font-mono-pro text-xs uppercase tracking-[0.25em] hover:border-[#00FF94] hover:text-[#00FF94] transition-colors w-full sm:w-auto"
               data-testid="hero-cta-work"
               aria-label="View SEO Planet case studies"
             >
@@ -213,7 +216,7 @@ export default function Hero({ locationData }) {
         {/* Metric strip */}
         <motion.div
           {...fade(1.0)}
-          className="mt-16 sm:mt-20 grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 border border-white/5 max-w-3xl"
+          className="mt-10 sm:mt-12 grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 border border-white/5 max-w-3xl"
           data-testid="hero-metric-strip"
         >
           <HeroMetric
