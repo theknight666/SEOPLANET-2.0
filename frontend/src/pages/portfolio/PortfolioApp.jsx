@@ -889,7 +889,7 @@ export default function PortfolioApp() {
           </div>
           <h1 style={{
             fontFamily: "'Unbounded', sans-serif", fontWeight: 900,
-            fontSize: "clamp(2.1rem, 5.6vw, 5.25rem)", lineHeight: 0.9, letterSpacing: "-0.04em",
+            fontSize: "clamp(1.68rem, 4.48vw, 4.2rem)", lineHeight: 0.9, letterSpacing: "-0.04em",
             color: "#fff", margin: 0,
           }}>
             Real Projects.
