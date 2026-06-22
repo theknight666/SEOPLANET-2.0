@@ -32,15 +32,7 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*\\.(?:env|php|sql|bak|zip|htpasswd|log|ini|conf))",
-      "destination": "/404"
-    },
-    {
-      "source": "/(.*\\.git.*)",
-      "destination": "/404"
-    },
-    {
-      "source": "/(.*)",
+      "source": "/((?!.*\\.(?:env|php|sql|bak|zip|htpasswd|log|ini|conf)|.*\\.git).*)",
       "has": [
         {
           "type": "header",
@@ -51,7 +43,7 @@
       "destination": "/api/prerender?path=$1"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!.*\\.(?:env|php|sql|bak|zip|htpasswd|log|ini|conf)|.*\\.git).*)",
       "destination": "/index.html"
     }
   ]
