@@ -138,7 +138,7 @@ export default function Hero({ locationData }) {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-[3] max-w-7xl mx-auto px-6 sm:px-12 pt-24 sm:pt-28 pb-20 sm:pb-24 min-h-screen flex flex-col justify-center">
+      <div className="relative z-[3] max-w-7xl mx-auto px-6 sm:px-12 pt-28 sm:pt-32 pb-20 sm:pb-24 min-h-screen flex flex-col justify-center">
         <motion.p {...fade(0)} className="overline mb-4 sm:mb-5">
           <span className="text-[#00FF94]">[001]</span> &nbsp;{locationData ? `Local SEO For ${locationData.city}` : 'Next-Gen Marketing Agency'}
         </motion.p>
