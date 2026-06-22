@@ -24,11 +24,11 @@
     <meta property="og:image" content="https://seoplanet.in/og-image.jpg" />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://seoplanet.in/" />
-    <meta property="twitter:title" content="SEO Planet | Premier Digital Marketing & SEO Agency" />
-    <meta property="twitter:description" content="SEO Planet is a premier digital marketing agency for the AI era. We pair algorithmic SEO, performance ads, and content systems to help ambitious brands win." />
-    <meta property="twitter:image" content="https://seoplanet.in/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://seoplanet.in/" />
+    <meta name="twitter:title" content="SEO Planet | Premier Digital Marketing & SEO Agency" />
+    <meta name="twitter:description" content="SEO Planet is a premier digital marketing agency for the AI era. We pair algorithmic SEO, performance ads, and content systems to help ambitious brands win." />
+    <meta name="twitter:image" content="https://seoplanet.in/og-image.jpg" />
 
     <!-- Schema.org JSON-LD Graph -->
     <script type="application/ld+json">
@@ -41,6 +41,10 @@
           "url": "https://seoplanet.in/",
           "name": "SEO Planet",
           "description": "Premier digital marketing agency built for the AI era.",
+          "sameAs": [
+            "https://twitter.com/seoplanet",
+            "https://linkedin.com/company/seoplanet"
+          ],
           "potentialAction": {
             "@type": "SearchAction",
             "target": "https://seoplanet.in/?s={search_term_string}",
@@ -52,6 +56,7 @@
           "@id": "https://seoplanet.in/#organization",
           "name": "SEO Planet",
           "url": "https://seoplanet.in/",
+          "description": "Premier digital marketing agency built for the AI era.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://seoplanet.in/favicon.svg"
@@ -69,7 +74,12 @@
           "sameAs": [
             "https://twitter.com/seoplanet",
             "https://linkedin.com/company/seoplanet"
-          ]
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+918796422715",
+            "contactType": "Customer Service"
+          }
         },
         {
           "@type": "LocalBusiness",
@@ -120,7 +130,7 @@
         Learn how to configure a non-root public URL by running `npm run build`.
         -->
     <title>SEO Planet | Premier Digital Marketing & SEO Agency</title>
-    <script>window.addEventListener("error", function (e) { if (e.error instanceof DOMException && e.error.name === "DataCloneError" && e.message && e.message.includes("PerformanceServerTiming")) { e.stopImmediatePropagation(); e.preventDefault() } }, true);</script>
+    <script src="%PUBLIC_URL%/error-handler.js"></script>
     <script defer src="https://assets.emergent.sh/scripts/emergent-main.js"></script>
 </head>
 
@@ -161,77 +171,7 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script>
-        !(function (t, e) {
-            var o, n, p, r;
-            e.__SV ||
-                ((window.posthog = e),
-                    (e._i = []),
-                    (e.init = function (i, s, a) {
-                        function g(t, e) {
-                            var o = e.split(".");
-                            2 == o.length && ((t = t[o[0]]), (e = o[1])),
-                                (t[e] = function () {
-                                    t.push(
-                                        [e].concat(
-                                            Array.prototype.slice.call(
-                                                arguments,
-                                                0,
-                                            ),
-                                        ),
-                                    );
-                                });
-                        }
-                        ((p = t.createElement("script")).type =
-                            "text/javascript"),
-                            (p.crossOrigin = "anonymous"),
-                            (p.async = !0),
-                            (p.src =
-                                s.api_host.replace(
-                                    ".i.posthog.com",
-                                    "-assets.i.posthog.com",
-                                ) + "/static/array.js"),
-                            (r =
-                                t.getElementsByTagName(
-                                    "script",
-                                )[0]).parentNode.insertBefore(p, r);
-                        var u = e;
-                        for (
-                            void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
-                            u.people = u.people || [],
-                            u.toString = function (t) {
-                                var e = "posthog";
-                                return (
-                                    "posthog" !== a && (e += "." + a),
-                                    t || (e += " (stub)"),
-                                    e
-                                );
-                            },
-                            u.people.toString = function () {
-                                return u.toString(1) + ".people (stub)";
-                            },
-                            o =
-                            "init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug xs getPageViewId captureTraceFeedback captureTraceMetric".split(
-                                " ",
-                            ),
-                            n = 0;
-                            n < o.length;
-                            n++
-                        )
-                            g(u, o[n]);
-                        e._i.push([i, s, a]);
-                    }),
-                    (e.__SV = 1));
-        })(document, window.posthog || []);
-        posthog.init("phc_xAvL2Iq4tFmANRE7kzbKwaSqp1HJjN7x48s3vr0CMjs", {
-            api_host: "https://us.i.posthog.com",
-            person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well,
-            session_recording: {
-                recordCrossOriginIframes: true,
-                capturePerformance: false,
-            },
-        });
-    </script>
+    <script src="%PUBLIC_URL%/analytics.js" async></script>
 </body>
 
 </html>
