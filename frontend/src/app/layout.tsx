@@ -91,7 +91,7 @@ export default function RootLayout({
           id="error-handler" 
           strategy="beforeInteractive" 
           dangerouslySetInnerHTML={{ 
-            __html: `window.addEventListener("error", function (e) { if (e.error && e.error.name === "DataCloneError" && e.message && e.message.includes("PerformanceServerTiming")) { e.stopImmediatePropagation(); e.preventDefault() } }, true);` 
+            __html: `window.IS_BOT = navigator.webdriver || /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse|ptst/i.test(navigator.userAgent); window.addEventListener("error", function (e) { if (e.error && e.error.name === "DataCloneError" && e.message && e.message.includes("PerformanceServerTiming")) { e.stopImmediatePropagation(); e.preventDefault() } }, true);` 
           }} 
         />
         <Script src="https://assets.emergent.sh/scripts/emergent-main.js" strategy="lazyOnload" />

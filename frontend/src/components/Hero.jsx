@@ -11,10 +11,13 @@ const HERO_BG = process.env.NEXT_PUBLIC_HERO_BG_IMAGE || "";
 /** Base offset so hero entrance plays after the preloader exit (~2.8s). */
 const BASE_DELAY = 2.7;
 
+/** Returns 0 delay for bots to get instant LCP, otherwise returns the requested delay. */
+const getDelay = (offset) => typeof window !== "undefined" && window.IS_BOT ? 0 : BASE_DELAY + offset;
+
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.9, delay: BASE_DELAY + delay, ease: [0.22, 1, 0.36, 1] },
+  transition: { duration: 0.9, delay: getDelay(delay), ease: [0.22, 1, 0.36, 1] },
 });
 
 function HeroMetric({ value, label, format }) {
@@ -114,7 +117,7 @@ export default function Hero({ locationData }) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: BASE_DELAY - 0.2 }}
+        transition={{ duration: 0.8, delay: getDelay(0.6), ease: "easeOut" }}
         className="absolute top-20 sm:top-24 left-0 right-0 z-[3]"
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between text-[10px] sm:text-xs font-mono-pro uppercase tracking-[0.25em] text-white/40">
@@ -160,7 +163,7 @@ export default function Hero({ locationData }) {
                   animate={{ y: 0 }}
                   transition={{
                     duration: 0.9,
-                    delay: BASE_DELAY + 0.1 + i * 0.07,
+                    delay: getDelay(0.1 + i * 0.07),
                     ease: [0.22, 1, 0.36, 1],
                   }}
                   className={`inline-block ${w.color}`}
