@@ -24,6 +24,11 @@ try:
 except ImportError:
     LOGO_B64 = ""
 
+try:
+    from welcome_text_b64 import WELCOME_TEXT_B64
+except ImportError:
+    WELCOME_TEXT_B64 = ""
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
@@ -182,9 +187,7 @@ def _send_welcome_email(to_email: str, username: str, password: str, company_nam
                 <!-- Header Section -->
                 <tr><td style="padding:60px 48px 40px 48px;text-align:center;background:linear-gradient(180deg, #101018 0%, #0A0A0F 100%);border-bottom:1px solid #151520;">
                   <img src="cid:logo" alt="SEO Planet" width="140" style="display:block;margin:0 auto 32px auto;border:0;" />
-                  <h1 style="font-family:'Unbounded',sans-serif;font-weight:300;font-size:56px;letter-spacing:-0.02em;margin:0 0 16px 0;color:#ffffff;line-height:1.1;">
-                    Welcome
-                  </h1>
+                  <img src="cid:welcome_text" alt="Welcome" style="display:block;height:56px;margin:0 auto 16px auto;border:0;" />
                   <p style="margin:0;color:#6B7280;font-size:12px;letter-spacing:6px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;">
                     To The New Era
                   </p>
@@ -290,14 +293,21 @@ def _send_welcome_email(to_email: str, username: str, password: str, company_nam
             "html": html_content,
         }
         
-        if LOGO_B64:
-            params["attachments"] = [
-                {
+        if LOGO_B64 or WELCOME_TEXT_B64:
+            attachments = []
+            if LOGO_B64:
+                attachments.append({
                     "filename": "email-logo-white.png",
                     "content": LOGO_B64,
                     "content_id": "logo"
-                }
-            ]
+                })
+            if WELCOME_TEXT_B64:
+                attachments.append({
+                    "filename": "welcome_text.png",
+                    "content": WELCOME_TEXT_B64,
+                    "content_id": "welcome_text"
+                })
+            params["attachments"] = attachments
             
         resend.Emails.send(params)
             
