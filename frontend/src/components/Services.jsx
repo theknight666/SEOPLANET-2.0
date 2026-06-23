@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import TiltCard from "./ui/TiltCard";
 import {
   Search,
@@ -9,6 +9,7 @@ import {
   Sparkles,
   ArrowUpRight,
   CircuitBoard,
+  X,
 } from "lucide-react";
 
 const reveal = {
@@ -50,6 +51,8 @@ const services = [
 ];
 
 export default function Services() {
+  const [isEnterpriseExpanded, setIsEnterpriseExpanded] = useState(false);
+
   return (
     <section
       id="services"
@@ -77,6 +80,7 @@ export default function Services() {
           <TiltCard isVolumetric={true} className="md:col-span-8 md:row-span-2 h-full w-full">
           <motion.div
             {...reveal}
+            layoutId="enterprise-search-card"
             className="relative neon-border rounded-2xl bg-white/[0.03] border border-white/10 p-8 sm:p-12 group h-full"
             style={{ transformStyle: "preserve-3d" }}
             data-testid="service-card-highlight"
@@ -108,7 +112,10 @@ export default function Services() {
                 ))}
               </div>
 
-              <div className="mt-10 inline-flex items-center gap-2 text-[#00FF94] font-mono-pro text-xs uppercase tracking-[0.25em] cursor-pointer group/cta">
+              <div 
+                onClick={() => setIsEnterpriseExpanded(true)}
+                className="mt-10 inline-flex items-center gap-2 text-[#00FF94] font-mono-pro text-xs uppercase tracking-[0.25em] cursor-pointer group/cta"
+              >
                 Learn More
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover/cta:rotate-45" />
               </div>
@@ -188,6 +195,74 @@ export default function Services() {
           ))}
         </div>
       </div>
+
+      <AnimatePresence>
+        {isEnterpriseExpanded && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-md"
+              onClick={() => setIsEnterpriseExpanded(false)}
+            />
+            <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
+              <motion.div
+                layoutId="enterprise-search-card"
+                className="relative w-full max-w-4xl neon-border rounded-2xl bg-[#05050A] border border-[#00FF94]/30 p-8 sm:p-12 overflow-hidden pointer-events-auto shadow-[0_0_100px_rgba(0,255,148,0.15)]"
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                <div className="absolute inset-0 grid-bg opacity-30" style={{ transform: "translateZ(10px)" }} />
+                <div className="absolute -right-40 -bottom-40 w-96 h-96 rounded-full bg-[#00FF94]/20 blur-3xl" style={{ transform: "translateZ(20px)" }} />
+                
+                <button 
+                  onClick={() => setIsEnterpriseExpanded(false)}
+                  className="absolute top-6 right-6 p-2 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors z-10"
+                  style={{ transform: "translateZ(60px)" }}
+                  aria-label="Close details"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                <div className="relative z-10" style={{ transform: "translateZ(50px)" }}>
+                  <div className="flex items-center gap-4 mb-6">
+                    <CircuitBoard className="w-8 h-8 text-[#00FF94]" />
+                    <span className="overline">[S01] · Deep Dive</span>
+                  </div>
+                  <h3 className="font-display text-4xl sm:text-5xl font-black tracking-tighter text-white mb-6">
+                    Enterprise <span className="neon-text">Search Architecture</span>
+                  </h3>
+                  
+                  <div className="space-y-6 text-white/70 font-mono-pro text-sm leading-relaxed max-w-3xl">
+                    <p className="text-white/90 text-base">
+                      Dominating the modern search landscape requires more than just keywords. It demands a fully integrated ecosystem of technical perfection, semantic authority, and computational analysis.
+                    </p>
+                    
+                    <div className="grid sm:grid-cols-2 gap-6 mt-8">
+                      <div className="bg-white/5 border border-white/10 p-5 rounded-xl">
+                        <h4 className="text-[#00FF94] font-bold mb-2 text-base">1. Algorithmic Entity Optimization</h4>
+                        <p>We map your brand and products into knowledge graphs that Google's LLMs and traditional algorithms inherently understand and prioritize.</p>
+                      </div>
+                      <div className="bg-white/5 border border-white/10 p-5 rounded-xl">
+                        <h4 className="text-[#00FF94] font-bold mb-2 text-base">2. Technical Infrastructure</h4>
+                        <p>We deploy advanced Next.js/React server-side rendering, schema markup, and dynamic sitemaps to ensure perfect crawlability and lightning-fast Core Web Vitals.</p>
+                      </div>
+                      <div className="bg-white/5 border border-white/10 p-5 rounded-xl">
+                        <h4 className="text-[#00FF94] font-bold mb-2 text-base">3. Programmatic Content Scaling</h4>
+                        <p>We engineer automated, high-quality content loops that capture thousands of long-tail intent variations without sacrificing brand voice or quality.</p>
+                      </div>
+                      <div className="bg-white/5 border border-white/10 p-5 rounded-xl">
+                        <h4 className="text-[#00FF94] font-bold mb-2 text-base">4. Predictive Analytics</h4>
+                        <p>Our proprietary attribution modeling forecasts exactly how search volume translates to pipeline revenue, eliminating the guesswork from SEO.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
