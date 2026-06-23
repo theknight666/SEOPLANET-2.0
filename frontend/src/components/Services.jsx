@@ -206,18 +206,18 @@ export default function Services() {
               className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-md"
               onClick={() => setIsEnterpriseExpanded(false)}
             />
-            <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
+            <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6 pointer-events-none perspective-[2000px]">
               <motion.div
                 layoutId="enterprise-search-card"
-                className="relative w-full max-w-4xl neon-border rounded-2xl bg-[#05050A] border border-[#00FF94]/30 p-8 sm:p-12 overflow-hidden pointer-events-auto shadow-[0_0_100px_rgba(0,255,148,0.15)]"
+                className="relative w-full max-w-4xl rounded-2xl bg-gradient-to-br from-[#13131A] to-[#0A0A0F] border border-white/10 border-t-white/20 p-8 sm:p-12 overflow-hidden pointer-events-auto shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.1)]"
                 style={{ transformStyle: "preserve-3d" }}
               >
-                <div className="absolute inset-0 grid-bg opacity-30" style={{ transform: "translateZ(10px)" }} />
-                <div className="absolute -right-40 -bottom-40 w-96 h-96 rounded-full bg-[#00FF94]/20 blur-3xl" style={{ transform: "translateZ(20px)" }} />
+                {/* Subtle ambient light instead of harsh neon grid */}
+                <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-[#00FF94]/10 blur-[120px]" style={{ transform: "translateZ(10px)" }} />
                 
                 <button 
                   onClick={() => setIsEnterpriseExpanded(false)}
-                  className="absolute top-6 right-6 p-2 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors z-10"
+                  className="absolute top-6 right-6 p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all z-10 hover:scale-105 active:scale-95"
                   style={{ transform: "translateZ(60px)" }}
                   aria-label="Close details"
                 >
@@ -226,34 +226,42 @@ export default function Services() {
 
                 <div className="relative z-10" style={{ transform: "translateZ(50px)" }}>
                   <div className="flex items-center gap-4 mb-6">
-                    <CircuitBoard className="w-8 h-8 text-[#00FF94]" />
-                    <span className="overline">[S01] · Deep Dive</span>
+                    <CircuitBoard className="w-6 h-6 text-[#00FF94]" />
+                    <span className="overline text-white/50 tracking-[0.3em]">[S01] · Deep Dive</span>
                   </div>
-                  <h3 className="font-display text-4xl sm:text-5xl font-black tracking-tighter text-white mb-6">
-                    Enterprise <span className="neon-text">Search Architecture</span>
+                  <h3 className="font-display text-4xl sm:text-5xl font-bold tracking-tighter text-white mb-6 drop-shadow-xl">
+                    Enterprise <span className="text-[#00FF94]">Search Architecture</span>
                   </h3>
                   
-                  <div className="space-y-6 text-white/70 font-mono-pro text-sm leading-relaxed max-w-3xl">
-                    <p className="text-white/90 text-base">
+                  <div className="space-y-8 text-white/70 font-mono-pro text-sm leading-relaxed max-w-3xl">
+                    <p className="text-white/80 text-base max-w-2xl">
                       Dominating the modern search landscape requires more than just keywords. It demands a fully integrated ecosystem of technical perfection, semantic authority, and computational analysis.
                     </p>
                     
-                    <div className="grid sm:grid-cols-2 gap-6 mt-8">
-                      <div className="bg-white/5 border border-white/10 p-5 rounded-xl">
-                        <h4 className="text-[#00FF94] font-bold mb-2 text-base">1. Algorithmic Entity Optimization</h4>
-                        <p>We map your brand and products into knowledge graphs that Google's LLMs and traditional algorithms inherently understand and prioritize.</p>
+                    <div className="grid sm:grid-cols-2 gap-6 mt-8" style={{ transformStyle: "preserve-3d" }}>
+                      <div className="bg-gradient-to-b from-white/10 to-transparent border border-white/10 border-t-white/20 p-6 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02]" style={{ transform: "translateZ(20px)" }}>
+                        <h4 className="text-white font-bold mb-3 text-base flex items-center gap-2">
+                          <span className="text-[#00FF94] text-xs">01</span> Algorithmic Entity Optimization
+                        </h4>
+                        <p className="text-white/60">We map your brand and products into knowledge graphs that Google's LLMs and traditional algorithms inherently understand and prioritize.</p>
                       </div>
-                      <div className="bg-white/5 border border-white/10 p-5 rounded-xl">
-                        <h4 className="text-[#00FF94] font-bold mb-2 text-base">2. Technical Infrastructure</h4>
-                        <p>We deploy advanced Next.js/React server-side rendering, schema markup, and dynamic sitemaps to ensure perfect crawlability and lightning-fast Core Web Vitals.</p>
+                      <div className="bg-gradient-to-b from-white/10 to-transparent border border-white/10 border-t-white/20 p-6 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02]" style={{ transform: "translateZ(20px)" }}>
+                        <h4 className="text-white font-bold mb-3 text-base flex items-center gap-2">
+                          <span className="text-[#00FF94] text-xs">02</span> Technical Infrastructure
+                        </h4>
+                        <p className="text-white/60">We deploy advanced Next.js/React server-side rendering, schema markup, and dynamic sitemaps to ensure perfect crawlability and lightning-fast Core Web Vitals.</p>
                       </div>
-                      <div className="bg-white/5 border border-white/10 p-5 rounded-xl">
-                        <h4 className="text-[#00FF94] font-bold mb-2 text-base">3. Programmatic Content Scaling</h4>
-                        <p>We engineer automated, high-quality content loops that capture thousands of long-tail intent variations without sacrificing brand voice or quality.</p>
+                      <div className="bg-gradient-to-b from-white/10 to-transparent border border-white/10 border-t-white/20 p-6 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02]" style={{ transform: "translateZ(20px)" }}>
+                        <h4 className="text-white font-bold mb-3 text-base flex items-center gap-2">
+                          <span className="text-[#00FF94] text-xs">03</span> Programmatic Content Scaling
+                        </h4>
+                        <p className="text-white/60">We engineer automated, high-quality content loops that capture thousands of long-tail intent variations without sacrificing brand voice or quality.</p>
                       </div>
-                      <div className="bg-white/5 border border-white/10 p-5 rounded-xl">
-                        <h4 className="text-[#00FF94] font-bold mb-2 text-base">4. Predictive Analytics</h4>
-                        <p>Our proprietary attribution modeling forecasts exactly how search volume translates to pipeline revenue, eliminating the guesswork from SEO.</p>
+                      <div className="bg-gradient-to-b from-white/10 to-transparent border border-white/10 border-t-white/20 p-6 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02]" style={{ transform: "translateZ(20px)" }}>
+                        <h4 className="text-white font-bold mb-3 text-base flex items-center gap-2">
+                          <span className="text-[#00FF94] text-xs">04</span> Predictive Analytics
+                        </h4>
+                        <p className="text-white/60">Our proprietary attribution modeling forecasts exactly how search volume translates to pipeline revenue, eliminating the guesswork from SEO.</p>
                       </div>
                     </div>
                   </div>
