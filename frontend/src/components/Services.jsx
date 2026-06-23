@@ -21,29 +21,29 @@ const reveal = {
 const services = [
   {
     code: "S04",
-    title: "High-ROI Paid Ads",
-    desc: "Stop burning cash. We deploy ads that print money and scale fast.",
+    title: "Performance Marketing",
+    desc: "Data-driven media buying optimized for predictable scaling and maximum efficiency.",
     icon: Zap,
     accent: "#00E5FF",
   },
   {
     code: "S05",
-    title: "Dominant Content SEO",
-    desc: "We build high-volume content that outranks competitors and owns your niche.",
+    title: "Topical Authority Content",
+    desc: "Comprehensive content strategies that establish deep topical relevance and industry leadership.",
     icon: FileCode2,
     accent: "#00FF94",
   },
   {
     code: "S06",
-    title: "Hard Data & Analytics",
-    desc: "No vanity metrics. Just clear data on exactly what drives revenue.",
+    title: "Advanced Analytics & BI",
+    desc: "Robust attribution modeling and business intelligence for data-informed decision making.",
     icon: BarChart3,
     accent: "#00E5FF",
   },
   {
     code: "S07",
-    title: "High-Converting Design",
-    desc: "Websites built to do one thing: turn traffic into paying customers.",
+    title: "Conversion-Optimized Design",
+    desc: "User-centric interfaces engineered to maximize engagement and conversion rates.",
     icon: Sparkles,
     accent: "#00FF94",
   },
@@ -63,7 +63,7 @@ export default function Services() {
             <p className="overline mb-4">[02] · What We Do</p>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter max-w-2xl leading-[1.02]">
               Six core services. <br />
-              <span className="text-white/40">One aggressive growth engine.</span>
+              <span className="text-white/40">One unified growth architecture.</span>
             </h2>
           </div>
           <p className="font-mono-pro text-sm text-white/55 max-w-sm">
@@ -89,10 +89,10 @@ export default function Services() {
                 <CircuitBoard className="w-6 h-6 text-[#00FF94]" />
               </div>
               <h3 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tighter text-white drop-shadow-xl">
-                Ruthless <span className="neon-text">SEO</span>
+                Enterprise <span className="neon-text">Search</span>
               </h3>
               <p className="mt-5 text-white/65 max-w-md leading-relaxed font-mono-pro text-sm">
-                Technical perfection, aggressive link building, and content systems that force you to the top of Google.
+                Advanced technical frameworks, entity-based search strategies, and comprehensive topical coverage.
               </p>
 
               <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -130,10 +130,10 @@ export default function Services() {
                 <Search className="w-5 h-5 text-[#00FF94] group-hover:scale-110 transition-transform" />
               </div>
               <h3 className="font-display text-2xl text-white font-bold tracking-tight">
-                Conversion Optimization
+                Behavioral Analytics & CRO
               </h3>
               <p className="mt-3 text-xs text-white/55 font-mono-pro leading-relaxed">
-                We find where you're losing money, fix the leaks, and force your funnel to convert.
+                Systematic funnel teardowns, rigorous A/B testing, and quantitative research to optimize the user journey.
               </p>
             </div>
           </motion.div>
@@ -152,10 +152,10 @@ export default function Services() {
                 <Sparkles className="w-5 h-5 text-[#00E5FF] group-hover:scale-110 transition-transform" />
               </div>
               <h3 className="font-display text-2xl text-white font-bold tracking-tight">
-                AI Search Dominance
+                Generative Engine Optimization
               </h3>
               <p className="mt-3 text-xs text-white/55 font-mono-pro leading-relaxed">
-                Own the answers in ChatGPT, Perplexity, and Gemini before your competitors even try.
+                Strategic adaptation ensuring brand visibility across LLMs and next-generation discovery platforms.
               </p>
             </div>
           </motion.div>

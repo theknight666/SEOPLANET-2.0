@@ -58,12 +58,12 @@ export default function Process() {
           <div className="md:col-span-5">
             <p className="overline mb-4">[04] · How We Work</p>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.02]">
-              From day one <br />
-              to <span className="neon-text italic font-light">category dominance</span>.
+              From discovery <br />
+              to <span className="neon-text italic font-light">sustained market leadership</span>.
             </h2>
           </div>
           <p className="md:col-span-6 md:col-start-7 md:pt-3 font-mono-pro text-sm text-white/60 leading-relaxed">
-            A proven, aggressive four-phase system. No guesswork, no fluff. Just a straight line to dominating your market.
+            A refined, four-phase methodology. Rigorous analysis, strategic execution, and measurable outcomes designed to deliver consistent growth.
           </p>
         </motion.div>
 
