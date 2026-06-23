@@ -87,8 +87,8 @@ export default function Hero({ locationData }) {
   ];
 
   const subheadlineText = locationData
-    ? `We pair algorithmic SEO with predictive acquisition and content networks to help ${locationData.localIndustry} brands dominate ${locationData.city}. Outrank ${locationData.competitorCount} competitors today.`
-    : `SEO Planet is a continuous revenue engineering lab. We deploy autonomous growth loops, algorithmic intelligence, and predictive analytics to systematically dominate your category.`;
+    ? `We pair ruthless SEO with high-ROI ads and content systems to help ${locationData.localIndustry} brands dominate ${locationData.city}. Outrank ${locationData.competitorCount} competitors today.`
+    : `We don't do "marketing." We build aggressive growth engines. SEO Planet combines ruthless SEO, high-ROI ads, and hard data to crush your competitors and scale your revenue.`;
 
   return (
     <>
@@ -140,7 +140,7 @@ export default function Hero({ locationData }) {
         {/* Content */}
         <div className="relative z-[3] max-w-7xl mx-auto px-6 sm:px-12 pt-30 sm:pt-32 pb-20 sm:pb-24 min-h-screen flex flex-col justify-center">
           <motion.p {...fade(0)} className="overline mb-4 sm:mb-5">
-            <span className="text-[#00FF94]">[001]</span> &nbsp;{locationData ? `Local SEO For ${locationData.city}` : 'Algorithmic Growth Architecture'}
+            <span className="text-[#00FF94]">[001]</span> &nbsp;{locationData ? `Local SEO For ${locationData.city}` : 'Unfair Advantage Engineering'}
           </motion.p>
 
           <motion.h1
@@ -244,17 +244,17 @@ export default function Hero({ locationData }) {
             {Array.from({ length: 2 }).map((_, k) => (
               <div key={k} className="flex shrink-0">
                 {[
-                  "Algorithmic Intelligence",
+                  "Dominant SEO",
                   "★",
-                  "Revenue Engineering",
+                  "High-ROI Ads",
                   "★",
-                  "Growth Loops",
+                  "Revenue Scaling",
                   "★",
-                  "Predictive Analytics",
+                  "Hard Data",
                   "★",
-                  "Digital Ecosystems",
+                  "Competitor Crushing",
                   "★",
-                  "Behavioral Conversion",
+                  "Ruthless Conversion",
                   "★",
                 ].map((w, i) => (
                   <span key={`${k}-${i}`} className="px-6">
