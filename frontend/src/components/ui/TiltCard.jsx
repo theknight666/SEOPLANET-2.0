@@ -49,6 +49,8 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
               let sliceClass = "";
               if (volumetricTheme === "green") {
                 sliceClass = i === 9 ? 'bg-[#00FF94]/15 border border-[#00FF94]/50 shadow-[0_0_30px_rgba(0,255,148,0.3)]' : 'bg-[#05050A]/80 border border-[#00FF94]/5';
+              } else if (volumetricTheme === "glass") {
+                sliceClass = i === 9 ? 'bg-black/40 border border-white/20 shadow-[0_50px_100px_-20px_rgba(0,0,0,1)]' : 'bg-transparent border border-white/5';
               } else {
                 sliceClass = i === 9 ? 'bg-[#05050A]/90 border border-white/20 shadow-[0_50px_100px_-20px_rgba(0,0,0,1)]' : 'bg-[#05050A]/90 border border-white/5';
               }

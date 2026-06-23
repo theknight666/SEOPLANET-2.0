@@ -219,9 +219,9 @@ export default function Services() {
                 className="relative w-full max-w-4xl pointer-events-auto"
                 style={{ transformStyle: "preserve-3d" }}
               >
-                <TiltCard isVolumetric={true} volumetricTheme="neutral" depthMultiplier={5} className="w-full h-full">
+                <TiltCard isVolumetric={true} volumetricTheme="glass" depthMultiplier={5} className="w-full h-full">
                   <div
-                    className="relative w-full rounded-3xl bg-[#05050A]/90 backdrop-blur-3xl border border-white/10 p-8 sm:p-12 overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.1)]"
+                    className="relative w-full rounded-3xl bg-black/20 backdrop-blur-3xl border border-white/20 border-b-white/5 border-r-white/5 p-8 sm:p-12 overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)]"
                     style={{ transformStyle: "preserve-3d" }}
                   >
                     <button 
@@ -237,8 +237,8 @@ export default function Services() {
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.15, duration: 0.6, type: "spring", bounce: 0 }}
-                      className="relative z-10" 
-                      style={{ transformStyle: "preserve-3d", transform: "translateZ(50px)" }}
+                      className="relative z-10 drop-shadow-[0_30px_30px_rgba(0,0,0,0.8)]" 
+                      style={{ transformStyle: "preserve-3d", transform: "translateZ(100px)" }}
                     >
                   <div className="flex items-center gap-4 mb-6">
                     <CircuitBoard className="w-6 h-6 text-[#00FF94]" />
