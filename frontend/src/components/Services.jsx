@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useRef } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import TiltCard from "./ui/TiltCard";
 import {
   Search,
@@ -52,6 +52,34 @@ const services = [
 
 export default function Services() {
   const [isEnterpriseExpanded, setIsEnterpriseExpanded] = useState(false);
+  
+  // 3D Parallax State for Modal
+  const modalRef = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 20 });
+  
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e) => {
+    if (!modalRef.current) return;
+    const rect = modalRef.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   return (
     <section
@@ -217,29 +245,40 @@ export default function Services() {
                 className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#00E5FF]/10 rounded-full blur-[120px]" 
               />
 
+              {/* Interactive 3D Tilt Wrapper */}
               <motion.div
-                layoutId="enterprise-search-card"
-                transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className="relative w-full max-w-4xl rounded-3xl bg-white/[0.02] backdrop-blur-3xl border border-white/5 border-t-white/20 border-l-white/20 p-8 sm:p-12 overflow-hidden pointer-events-auto shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8),0_0_80px_rgba(0,255,148,0.05),inset_0_1px_1px_rgba(255,255,255,0.1)]"
-                style={{ transformStyle: "preserve-3d" }}
+                ref={modalRef}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                className="relative w-full max-w-4xl pointer-events-auto"
+                style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
               >
-                
-                <button 
-                  onClick={() => setIsEnterpriseExpanded(false)}
-                  className="absolute top-6 right-6 p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all z-20 hover:scale-105 active:scale-95"
-                  style={{ transform: "translateZ(60px)" }}
-                  aria-label="Close details"
+                <motion.div
+                  layoutId="enterprise-search-card"
+                  transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                  className="relative w-full rounded-3xl bg-white/[0.02] backdrop-blur-3xl border border-white/5 border-t-white/20 border-l-white/20 p-8 sm:p-12 overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8),0_0_80px_rgba(0,255,148,0.05),inset_0_1px_1px_rgba(255,255,255,0.1)]"
+                  style={{ transformStyle: "preserve-3d" }}
                 >
-                  <X className="w-5 h-5" />
-                </button>
+                  {/* Physical Depth Slab Layers */}
+                  <div className="absolute inset-0 rounded-3xl bg-white/[0.01] border border-white/5 pointer-events-none" style={{ transform: "translateZ(-10px)" }} />
+                  <div className="absolute inset-0 rounded-3xl bg-black/40 border border-white/5 pointer-events-none shadow-[0_50px_100px_-20px_rgba(0,0,0,1)]" style={{ transform: "translateZ(-20px)" }} />
+                  
+                  <button 
+                    onClick={() => setIsEnterpriseExpanded(false)}
+                    className="absolute top-6 right-6 p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all z-20 hover:scale-105 active:scale-95"
+                    style={{ transform: "translateZ(60px)" }}
+                    aria-label="Close details"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
 
-                <motion.div 
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative z-10" 
-                  style={{ transform: "translateZ(50px)" }}
-                >
+                  <motion.div 
+                    initial={{ opacity: 0, y: 50, rotateX: 45, rotateY: -10 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0, rotateY: 0 }}
+                    transition={{ delay: 0.35, duration: 0.8, type: "spring", bounce: 0.4 }}
+                    className="relative z-10" 
+                    style={{ transformStyle: "preserve-3d", transform: "translateZ(50px)" }}
+                  >
                   <div className="flex items-center gap-4 mb-6">
                     <CircuitBoard className="w-6 h-6 text-[#00FF94]" />
                     <span className="overline text-white/60 tracking-[0.3em]">[S01] · Deep Dive</span>
@@ -294,9 +333,10 @@ export default function Services() {
                   </div>
                 </motion.div>
               </motion.div>
-            </div>
-          </>
-        )}
+            </motion.div>
+          </div>
+        </>
+      )}
       </AnimatePresence>
     </section>
   );
