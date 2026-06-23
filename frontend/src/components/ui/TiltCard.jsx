@@ -7,7 +7,7 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
 
-  const springConfig = { stiffness: 350, damping: 30, mass: 0.5 };
+  const springConfig = { stiffness: 150, damping: 25, mass: 1.2 };
   const smoothX = useSpring(x, springConfig);
   const smoothY = useSpring(y, springConfig);
 
@@ -50,14 +50,14 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
               if (volumetricTheme === "green") {
                 sliceClass = i === 9 ? 'bg-[#00FF94]/15 border border-[#00FF94]/50 shadow-[0_0_30px_rgba(0,255,148,0.3)]' : 'bg-[#05050A]/80 border border-[#00FF94]/5';
               } else if (volumetricTheme === "glass") {
-                sliceClass = i === 9 ? 'bg-black/40 border border-[#00FF94]/30 shadow-[0_50px_100px_-20px_rgba(0,255,148,0.15)]' : 'bg-transparent border border-[#00FF94]/10';
+                sliceClass = i === 9 ? 'bg-black/20 border border-[#00FF94]/60 shadow-[0_0_50px_rgba(0,255,148,0.3),0_50px_100px_-20px_rgba(0,0,0,1)]' : 'bg-transparent border border-[#00FF94]/30 shadow-[0_0_15px_rgba(0,255,148,0.1)]';
               } else {
                 sliceClass = i === 9 ? 'bg-[#05050A]/90 border border-white/20 shadow-[0_50px_100px_-20px_rgba(0,0,0,1)]' : 'bg-[#05050A]/90 border border-white/5';
               }
               return (
                 <div 
                   key={i}
-                  className={`absolute inset-0 rounded-2xl ${sliceClass}`}
+                  className={`absolute inset-0 rounded-2xl ${sliceClass} transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]`}
                   style={{ transform: `translateZ(-${(i + 1) * 5 * depthMultiplier}px)` }} 
                 />
               );

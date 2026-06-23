@@ -215,7 +215,7 @@ export default function Services() {
               {/* Interactive 3D Wrapper mapped via layoutId */}
               <motion.div
                 layoutId="enterprise-search-card"
-                transition={{ type: "spring", damping: 30, stiffness: 300, mass: 0.8 }}
+                transition={{ type: "spring", stiffness: 150, damping: 25, mass: 1.2 }}
                 className="relative w-full max-w-4xl pointer-events-auto"
                 style={{ transformStyle: "preserve-3d" }}
               >
