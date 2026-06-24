@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 
 export default function TiltCard({ children, className = "", maxRotation = 18, isVolumetric = false, volumetricTheme = "green", depthMultiplier = 1 }) {
@@ -14,8 +14,11 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
   const rotateX = useMotionTemplate`calc((${smoothY} - 0.5) * -${maxRotation * 2}deg)`;
   const rotateY = useMotionTemplate`calc((${smoothX} - 0.5) * ${maxRotation * 2}deg)`;
 
+  const isInteracting = useRef(false);
+
   const handleMouseMove = (e) => {
     if (!ref.current) return;
+    isInteracting.current = true;
     const rect = ref.current.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
@@ -24,9 +27,43 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
   };
 
   const handleMouseLeave = () => {
+    isInteracting.current = false;
     x.set(0.5);
     y.set(0.5);
   };
+
+  const handleTouchMove = (e) => {
+    if (!ref.current) return;
+    isInteracting.current = true;
+    const touch = e.touches[0];
+    const rect = ref.current.getBoundingClientRect();
+    const touchX = touch.clientX - rect.left;
+    const touchY = touch.clientY - rect.top;
+    x.set(Math.min(Math.max(touchX / rect.width, 0), 1));
+    y.set(Math.min(Math.max(touchY / rect.height, 0), 1));
+  };
+
+  useEffect(() => {
+    const handleOrientation = (e) => {
+      if (isInteracting.current) return;
+      let gamma = e.gamma;
+      let beta = e.beta;
+      if (gamma === null || beta === null) return;
+      gamma = Math.min(Math.max(gamma, -45), 45);
+      beta = Math.min(Math.max(beta, 0), 90);
+      x.set((gamma + 45) / 90);
+      y.set(beta / 90);
+    };
+
+    if (typeof window !== "undefined" && window.DeviceOrientationEvent) {
+      window.addEventListener("deviceorientation", handleOrientation);
+    }
+    return () => {
+      if (typeof window !== "undefined" && window.DeviceOrientationEvent) {
+        window.removeEventListener("deviceorientation", handleOrientation);
+      }
+    };
+  }, [x, y]);
 
   return (
     <div style={{ perspective: "1200px" }} className={`relative group ${className}`}>
@@ -34,6 +71,8 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
         ref={ref}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleMouseLeave}
         style={{
           rotateX,
           rotateY,
