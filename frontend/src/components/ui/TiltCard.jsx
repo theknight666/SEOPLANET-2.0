@@ -37,14 +37,14 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
         style={{
           rotateX,
           rotateY,
-          transformStyle: "preserve-3d",
+          transformStyle: "var(--tilt-transform-style, preserve-3d)",
           willChange: "transform",
         }}
         className="relative w-full h-full transform-gpu will-change-transform"
       >
         {/* Volumetric Block Extrusion (Slices) */}
         {isVolumetric && (
-          <div style={{ transformStyle: "preserve-3d" }} className="absolute inset-0 pointer-events-none transition-all duration-300">
+          <div style={{ transformStyle: "var(--tilt-transform-style, preserve-3d)" }} className="absolute inset-0 pointer-events-none transition-all duration-300">
             {Array.from({ length: 10 }).map((_, i) => {
               let sliceClass = "";
               if (volumetricTheme === "green") {
@@ -57,7 +57,7 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
               return (
                 <div 
                   key={i}
-                  className={`absolute inset-0 rounded-2xl ${sliceClass} transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]`}
+                  className={`absolute inset-0 rounded-2xl ${sliceClass} transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-sm:hidden`}
                   style={{ transform: `translateZ(-${(i + 1) * 5 * depthMultiplier}px)` }} 
                 />
               );
@@ -68,8 +68,8 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
         {/* Floating Content Layer */}
         <div 
           style={{ 
-            transformStyle: "preserve-3d",
-            transform: isVolumetric ? "translateZ(50px)" : "none"
+            transformStyle: "var(--tilt-transform-style, preserve-3d)",
+            transform: isVolumetric ? "var(--tilt-content-transform, translateZ(50px))" : "none"
           }} 
           className="w-full h-full relative z-10 transition-transform duration-300"
         >

@@ -220,14 +220,13 @@ export default function Services() {
                   className="relative w-full max-w-4xl pointer-events-auto"
                   style={{ transformStyle: "preserve-3d" }}
                 >
-                  <TiltCard isVolumetric={true} volumetricTheme="glass" depthMultiplier={5} className="w-full h-full">
+                  <TiltCard isVolumetric={true} volumetricTheme="glass" depthMultiplier={5} className="w-full h-full max-sm:[--tilt-transform-style:flat] max-sm:[--tilt-content-transform:none]">
                     <div
-                      className="relative w-full rounded-3xl bg-black/20 backdrop-blur-3xl border border-white/20 border-b-white/5 border-r-white/5 p-5 sm:p-8 overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)]"
-                      style={{ transformStyle: "preserve-3d" }}
+                      className="relative w-full rounded-3xl bg-black/20 backdrop-blur-xl sm:backdrop-blur-3xl border border-white/20 border-b-white/5 border-r-white/5 p-5 sm:p-8 overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] max-sm:[transform-style:flat] sm:[transform-style:preserve-3d]"
                     >
                       <button 
                         onClick={() => setIsEnterpriseExpanded(false)}
-                        className="absolute top-3 right-3 sm:top-5 sm:right-5 p-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all z-20 hover:scale-105 active:scale-95 [--tz-btn:30px] sm:[--tz-btn:60px]"
+                        className="absolute top-3 right-3 sm:top-5 sm:right-5 p-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all z-20 hover:scale-105 active:scale-95 [--tz-btn:0px] sm:[--tz-btn:60px]"
                         style={{ transform: "translateZ(var(--tz-btn))" }}
                         aria-label="Close details"
                       >
@@ -238,8 +237,8 @@ export default function Services() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15, duration: 0.6, type: "spring", bounce: 0 }}
-                        className="relative z-10 drop-shadow-[0_30px_30px_rgba(0,0,0,0.8)] [--tz:60px] sm:[--tz:100px]" 
-                        style={{ transformStyle: "preserve-3d", transform: "translateZ(var(--tz))" }}
+                        className="relative z-10 drop-shadow-[0_30px_30px_rgba(0,0,0,0.8)] [--tz:0px] sm:[--tz:100px] max-sm:[transform-style:flat] sm:[transform-style:preserve-3d]" 
+                        style={{ transform: "translateZ(var(--tz))" }}
                       >
                     <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                       <CircuitBoard className="w-4 h-4 sm:w-5 sm:h-5 text-[#00FF94]" />
@@ -254,10 +253,10 @@ export default function Services() {
                         Dominating the modern search landscape requires more than just keywords. It demands a fully integrated ecosystem of technical perfection, semantic authority, and computational analysis.
                       </p>
                       
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6" style={{ transformStyle: "preserve-3d" }}>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6 max-sm:[transform-style:flat] sm:[transform-style:preserve-3d]">
                         <motion.div 
                           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.6 }}
-                          className="bg-white/[0.03] backdrop-blur-xl border border-white/5 border-t-white/10 p-3 sm:p-4 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02] [--tz-card:10px] sm:[--tz-card:20px]" style={{ transform: "translateZ(var(--tz-card))" }}
+                          className="bg-white/[0.03] backdrop-blur-xl border border-white/5 border-t-white/10 p-3 sm:p-4 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02] [--tz-card:0px] sm:[--tz-card:20px]" style={{ transform: "translateZ(var(--tz-card))" }}
                         >
                           <h4 className="text-white font-bold mb-1 sm:mb-2 text-xs sm:text-sm flex items-center gap-2">
                             <span className="text-[#00FF94] text-[9px] sm:text-[10px]">01</span> Algorithmic Entity Optimization
@@ -266,7 +265,7 @@ export default function Services() {
                         </motion.div>
                         <motion.div 
                           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45, duration: 0.6 }}
-                          className="bg-white/[0.03] backdrop-blur-xl border border-white/5 border-t-white/10 p-3 sm:p-4 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02] [--tz-card:10px] sm:[--tz-card:20px]" style={{ transform: "translateZ(var(--tz-card))" }}
+                          className="bg-white/[0.03] backdrop-blur-xl border border-white/5 border-t-white/10 p-3 sm:p-4 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02] [--tz-card:0px] sm:[--tz-card:20px]" style={{ transform: "translateZ(var(--tz-card))" }}
                         >
                           <h4 className="text-white font-bold mb-1 sm:mb-2 text-xs sm:text-sm flex items-center gap-2">
                             <span className="text-[#00FF94] text-[9px] sm:text-[10px]">02</span> Technical Infrastructure
@@ -275,7 +274,7 @@ export default function Services() {
                         </motion.div>
                         <motion.div 
                           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.6 }}
-                          className="bg-white/[0.03] backdrop-blur-xl border border-white/5 border-t-white/10 p-3 sm:p-4 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02] [--tz-card:10px] sm:[--tz-card:20px]" style={{ transform: "translateZ(var(--tz-card))" }}
+                          className="bg-white/[0.03] backdrop-blur-xl border border-white/5 border-t-white/10 p-3 sm:p-4 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02] [--tz-card:0px] sm:[--tz-card:20px]" style={{ transform: "translateZ(var(--tz-card))" }}
                         >
                           <h4 className="text-white font-bold mb-1 sm:mb-2 text-xs sm:text-sm flex items-center gap-2">
                             <span className="text-[#00FF94] text-[9px] sm:text-[10px]">03</span> Programmatic Content Scaling
@@ -284,7 +283,7 @@ export default function Services() {
                         </motion.div>
                         <motion.div 
                           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55, duration: 0.6 }}
-                          className="bg-white/[0.03] backdrop-blur-xl border border-white/5 border-t-white/10 p-3 sm:p-4 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02] [--tz-card:10px] sm:[--tz-card:20px]" style={{ transform: "translateZ(var(--tz-card))" }}
+                          className="bg-white/[0.03] backdrop-blur-xl border border-white/5 border-t-white/10 p-3 sm:p-4 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02] [--tz-card:0px] sm:[--tz-card:20px]" style={{ transform: "translateZ(var(--tz-card))" }}
                         >
                           <h4 className="text-white font-bold mb-1 sm:mb-2 text-xs sm:text-sm flex items-center gap-2">
                             <span className="text-[#00FF94] text-[9px] sm:text-[10px]">04</span> Predictive Analytics
