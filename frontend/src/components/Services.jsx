@@ -298,7 +298,8 @@ export default function Services() {
                 </TiltCard>
               </motion.div>
             </div>
-          </>
+          </div>
+        </>
       )}
       </AnimatePresence>
     </section>
