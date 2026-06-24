@@ -7,7 +7,7 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
 
-  const springConfig = { stiffness: 400, damping: 30, mass: 0.2 };
+  const springConfig = { stiffness: 300, damping: 30, mass: 0.5 };
   const smoothX = useSpring(x, springConfig);
   const smoothY = useSpring(y, springConfig);
 
@@ -15,6 +15,7 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
   const rotateY = useMotionTemplate`calc((${smoothX} - 0.5) * ${maxRotation * 2}deg)`;
 
   const isInteracting = useRef(false);
+  const isGyroActive = useRef(false);
 
   const handleMouseMove = (e) => {
     if (!ref.current) return;
@@ -28,8 +29,11 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
 
   const handleMouseLeave = () => {
     isInteracting.current = false;
-    x.set(0.5);
-    y.set(0.5);
+    // Do not force snap to center if gyroscope is driving the tilt
+    if (!isGyroActive.current) {
+      x.set(0.5);
+      y.set(0.5);
+    }
   };
 
   const handleTouchMove = (e) => {
@@ -48,6 +52,10 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
     let baselineBeta = null;
 
     const handleOrientation = (e) => {
+      if (e.gamma !== null && e.beta !== null) {
+        isGyroActive.current = true;
+      }
+
       if (isInteracting.current) {
         baselineGamma = e.gamma;
         baselineBeta = e.beta;
