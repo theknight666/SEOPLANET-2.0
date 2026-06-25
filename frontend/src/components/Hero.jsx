@@ -261,7 +261,7 @@ export default function Hero({ locationData }) {
             <HeroMetric value={{ number: 68 }} label="Brands Scaled" />
             <div className="bg-[#05050A] p-5">
               <div className="font-display text-2xl sm:text-3xl text-white font-bold tracking-tight tabular-nums">
-                00:01:60s
+                00:01:60
               </div>
               <div className="overline mt-2 text-white/40 text-[9px]">
                 Avg. Page Speed
