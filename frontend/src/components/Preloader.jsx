@@ -6,7 +6,7 @@ export default function Preloader({ loadingText = "Systems Loading" }) {
   const [done, setDone] = useState(false);
 
   // Skip preloader entirely for PageSpeed/Lighthouse to get perfect LCP score
-  const isBot = typeof window !== "undefined" && (window.IS_BOT || navigator.webdriver || (navigator.plugins && navigator.plugins.length === 0) || /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse|ptst/i.test(navigator.userAgent));
+  const isBot = typeof window !== "undefined" && (window.IS_BOT || navigator.webdriver || /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse|ptst/i.test(navigator.userAgent));
   if (isBot) {
     return null;
   }

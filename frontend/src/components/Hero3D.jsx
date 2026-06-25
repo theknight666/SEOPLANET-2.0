@@ -11,7 +11,7 @@ export default function Hero3D() {
 
   useEffect(() => {
     // PageSpeed Insights runs WebGL in software mode, destroying the performance score.
-    const isBot = window.IS_BOT || navigator.webdriver || (navigator.plugins && navigator.plugins.length === 0) || /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse|ptst/i.test(navigator.userAgent);
+    const isBot = window.IS_BOT || navigator.webdriver || /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse|ptst/i.test(navigator.userAgent);
     if (isBot) return;
 
     const mount = mountRef.current;

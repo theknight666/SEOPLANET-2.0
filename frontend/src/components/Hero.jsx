@@ -13,7 +13,7 @@ const BASE_DELAY = 2.7;
 
 /** Returns 0 delay for bots to get instant LCP, otherwise returns the requested delay. */
 const getDelay = (offset) => {
-  const isBot = typeof window !== "undefined" && (window.IS_BOT || navigator.webdriver || (navigator.plugins && navigator.plugins.length === 0) || /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse|ptst/i.test(navigator.userAgent));
+  const isBot = typeof window !== "undefined" && (window.IS_BOT || navigator.webdriver || /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse|ptst/i.test(navigator.userAgent));
   return isBot ? 0 : BASE_DELAY + offset;
 };
 

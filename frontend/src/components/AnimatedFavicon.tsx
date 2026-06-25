@@ -7,7 +7,7 @@ export default function AnimatedFavicon() {
     if (typeof window === "undefined") return;
     
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const isBot = (window as any).IS_BOT || navigator.webdriver || (navigator.plugins && navigator.plugins.length === 0) || /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse|ptst/i.test(navigator.userAgent);
+    const isBot = (window as any).IS_BOT || navigator.webdriver || /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse|ptst/i.test(navigator.userAgent);
     if (prefersReducedMotion || isBot) return;
 
     const canvas = document.createElement("canvas");

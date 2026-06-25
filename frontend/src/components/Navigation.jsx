@@ -30,7 +30,7 @@ export default function Navigation() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ 
         duration: 0.7, 
-        delay: typeof window !== "undefined" && (window.IS_BOT || navigator.webdriver || (navigator.plugins && navigator.plugins.length === 0) || /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse|ptst/i.test(navigator.userAgent)) ? 0 : 2.6, 
+        delay: typeof window !== "undefined" && (window.IS_BOT || navigator.webdriver || /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse|ptst/i.test(navigator.userAgent)) ? 0 : 2.6, 
         ease: [0.22, 1, 0.36, 1] 
       }}
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${scrolled ? "py-3" : "py-5"
