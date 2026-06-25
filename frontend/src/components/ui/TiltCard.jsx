@@ -42,48 +42,71 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
   useEffect(() => {
     let baselineGamma = null;
     let baselineBeta = null;
+    let animationFrameId;
+    let targetGamma = null;
+    let targetBeta = null;
 
     const handleOrientation = (e) => {
-      if (e.gamma !== null && e.beta !== null) {
-        isGyroActive.current = true;
-      }
+      if (e.gamma === null || e.beta === null) return;
+      isGyroActive.current = true;
+      targetGamma = e.gamma;
+      targetBeta = e.beta;
+    };
+
+    const updateLoop = () => {
+      animationFrameId = requestAnimationFrame(updateLoop);
+
+      if (targetGamma === null || targetBeta === null) return;
 
       if (isInteracting.current) {
-        baselineGamma = e.gamma;
-        baselineBeta = e.beta;
+        baselineGamma = targetGamma;
+        baselineBeta = targetBeta;
         return;
       }
-      
-      let gamma = e.gamma;
-      let beta = e.beta;
-      if (gamma === null || beta === null) return;
 
       if (baselineGamma === null || baselineBeta === null) {
-        baselineGamma = gamma;
-        baselineBeta = beta;
+        baselineGamma = targetGamma;
+        baselineBeta = targetBeta;
       }
 
-      let deltaGamma = gamma - baselineGamma;
-      let deltaBeta = beta - baselineBeta;
+      // Handle gimbal lock / angle wrap-around
+      let deltaGamma = targetGamma - baselineGamma;
+      if (deltaGamma > 90) deltaGamma -= 180;
+      else if (deltaGamma < -90) deltaGamma += 180;
 
-      // Decrease this value to make the gyro MORE sensitive (requires less physical tilt)
-      const maxTiltRange = 25; 
+      let deltaBeta = targetBeta - baselineBeta;
+      if (deltaBeta > 180) deltaBeta -= 360;
+      else if (deltaBeta < -180) deltaBeta += 360;
 
-      deltaGamma = Math.min(Math.max(deltaGamma, -maxTiltRange), maxTiltRange);
-      deltaBeta = Math.min(Math.max(deltaBeta, -maxTiltRange), maxTiltRange);
+      // Auto-calibration: slowly drift baseline to center over time
+      baselineGamma += deltaGamma * 0.015;
+      baselineBeta += deltaBeta * 0.015;
 
-      // Positive mapping for a physical-object effect
-      x.set((deltaGamma + maxTiltRange) / (maxTiltRange * 2));
-      y.set((deltaBeta + maxTiltRange) / (maxTiltRange * 2));
+      // Keep baselines within valid ranges
+      if (baselineGamma > 90) baselineGamma -= 180;
+      else if (baselineGamma < -90) baselineGamma += 180;
+      if (baselineBeta > 180) baselineBeta -= 360;
+      else if (baselineBeta < -180) baselineBeta += 360;
+
+      // Increase this value to make the gyro LESS sensitive
+      const maxTiltRange = 30; 
+
+      let clampGamma = Math.min(Math.max(deltaGamma, -maxTiltRange), maxTiltRange);
+      let clampBeta = Math.min(Math.max(deltaBeta, -maxTiltRange), maxTiltRange);
+
+      x.set((clampGamma + maxTiltRange) / (maxTiltRange * 2));
+      y.set((clampBeta + maxTiltRange) / (maxTiltRange * 2));
     };
 
     if (typeof window !== "undefined" && window.DeviceOrientationEvent) {
       window.addEventListener("deviceorientation", handleOrientation);
+      animationFrameId = requestAnimationFrame(updateLoop);
     }
     return () => {
       if (typeof window !== "undefined" && window.DeviceOrientationEvent) {
         window.removeEventListener("deviceorientation", handleOrientation);
       }
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, [x, y]);
 
