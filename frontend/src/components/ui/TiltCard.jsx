@@ -38,6 +38,15 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
     }
   };
 
+  useEffect(() => {
+    // Allows mobile users to recalibrate the baseline by tapping anywhere
+    const handleTouch = () => {
+      isInteracting.current = true;
+      setTimeout(() => { isInteracting.current = false; }, 50);
+    };
+    window.addEventListener("touchstart", handleTouch, { passive: true });
+    return () => window.removeEventListener("touchstart", handleTouch);
+  }, []);
 
   useEffect(() => {
     let baselineGamma = null;
@@ -58,6 +67,21 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
       let beta = e.beta;
       if (gamma === null || beta === null) return;
 
+      // Handle device orientation (landscape/portrait swaps the axes)
+      const screenOrientation = typeof window !== "undefined" ? (window.orientation || 0) : 0;
+      if (screenOrientation === 90) {
+        const tmp = gamma;
+        gamma = beta;
+        beta = -tmp;
+      } else if (screenOrientation === -90) {
+        const tmp = gamma;
+        gamma = -beta;
+        beta = tmp;
+      } else if (screenOrientation === 180) {
+        gamma = -gamma;
+        beta = -beta;
+      }
+
       if (baselineGamma === null || baselineBeta === null) {
         baselineGamma = gamma;
         baselineBeta = beta;
@@ -65,6 +89,12 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
 
       let deltaGamma = gamma - baselineGamma;
       let deltaBeta = beta - baselineBeta;
+
+      // Prevent wild spinning when crossing the 180/90 degree boundaries (gimbal lock)
+      if (deltaGamma > 90) deltaGamma -= 180;
+      else if (deltaGamma < -90) deltaGamma += 180;
+      if (deltaBeta > 180) deltaBeta -= 360;
+      else if (deltaBeta < -180) deltaBeta += 360;
 
       // Decrease this value to make the gyro MORE sensitive (requires less physical tilt)
       const maxTiltRange = 25; 
