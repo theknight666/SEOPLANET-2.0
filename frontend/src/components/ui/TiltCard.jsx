@@ -42,55 +42,36 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
   useEffect(() => {
     let baselineGamma = null;
     let baselineBeta = null;
-    let animationFrameId;
-    let targetGamma = null;
-    let targetBeta = null;
 
     const handleOrientation = (e) => {
       if (e.gamma === null || e.beta === null) return;
       isGyroActive.current = true;
-      targetGamma = e.gamma;
-      targetBeta = e.beta;
-    };
-
-    const updateLoop = () => {
-      animationFrameId = requestAnimationFrame(updateLoop);
-
-      if (targetGamma === null || targetBeta === null) return;
 
       if (isInteracting.current) {
-        baselineGamma = targetGamma;
-        baselineBeta = targetBeta;
+        baselineGamma = e.gamma;
+        baselineBeta = e.beta;
         return;
       }
 
       if (baselineGamma === null || baselineBeta === null) {
-        baselineGamma = targetGamma;
-        baselineBeta = targetBeta;
+        baselineGamma = e.gamma;
+        baselineBeta = e.beta;
       }
 
+      let deltaGamma = e.gamma - baselineGamma;
+      let deltaBeta = e.beta - baselineBeta;
+
       // Handle gimbal lock / angle wrap-around
-      let deltaGamma = targetGamma - baselineGamma;
       if (deltaGamma > 90) deltaGamma -= 180;
       else if (deltaGamma < -90) deltaGamma += 180;
 
-      let deltaBeta = targetBeta - baselineBeta;
       if (deltaBeta > 180) deltaBeta -= 360;
       else if (deltaBeta < -180) deltaBeta += 360;
 
-      // Auto-calibration: slowly drift baseline to center over time
-      baselineGamma += deltaGamma * 0.015;
-      baselineBeta += deltaBeta * 0.015;
+      // Increased range for smoother, less abrupt capping
+      const maxTiltRange = 45; 
 
-      // Keep baselines within valid ranges
-      if (baselineGamma > 90) baselineGamma -= 180;
-      else if (baselineGamma < -90) baselineGamma += 180;
-      if (baselineBeta > 180) baselineBeta -= 360;
-      else if (baselineBeta < -180) baselineBeta += 360;
-
-      // Increase this value to make the gyro LESS sensitive
-      const maxTiltRange = 30; 
-
+      // Precise absolute mapping without drift
       let clampGamma = Math.min(Math.max(deltaGamma, -maxTiltRange), maxTiltRange);
       let clampBeta = Math.min(Math.max(deltaBeta, -maxTiltRange), maxTiltRange);
 
@@ -100,13 +81,11 @@ export default function TiltCard({ children, className = "", maxRotation = 18, i
 
     if (typeof window !== "undefined" && window.DeviceOrientationEvent) {
       window.addEventListener("deviceorientation", handleOrientation);
-      animationFrameId = requestAnimationFrame(updateLoop);
     }
     return () => {
       if (typeof window !== "undefined" && window.DeviceOrientationEvent) {
         window.removeEventListener("deviceorientation", handleOrientation);
       }
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, [x, y]);
 
