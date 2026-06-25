@@ -41,16 +41,48 @@ function HeroMetric({ value, label, format }) {
   );
 }
 
+const brands = [
+  { name: "Acme Corp", style: "font-display font-black text-xl tracking-tighter" },
+  { name: "GLOBEX", style: "font-mono-pro font-bold text-lg tracking-[0.2em]" },
+  { name: "Soylent", style: "font-serif font-medium text-2xl italic" },
+  { name: "INITECH", style: "font-sans font-extrabold text-xl tracking-tight" },
+  { name: "Umbrella", style: "font-display font-light text-2xl" },
+];
+
 function ClientLogos() {
   return (
-    <motion.div {...fade(0.9)} className="opacity-60 flex flex-col items-center justify-center text-center">
-      <p className="text-[10px] uppercase tracking-[0.2em] mb-6 font-mono-pro text-white/40">Trusted by fast-growing brands</p>
-      <div className="flex flex-wrap gap-6 sm:gap-12 justify-center items-center grayscale">
-        <span className="font-display font-bold text-base sm:text-lg text-white">Acme Corp</span>
-        <span className="font-display font-bold text-base sm:text-lg text-white italic">Globex</span>
-        <span className="font-display font-bold text-base sm:text-lg text-white tracking-tighter">Soylent</span>
-        <span className="font-display font-bold text-base sm:text-lg text-white">Initech</span>
-        <span className="font-display font-bold text-base sm:text-lg text-white uppercase">Umbrella</span>
+    <motion.div {...fade(0.9)} className="relative w-full flex flex-col items-center justify-center pt-8 pb-4">
+      {/* Subtle top border gradient */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-px bg-gradient-to-r from-transparent via-[#00FF94]/30 to-transparent" />
+      
+      <div className="flex items-center gap-4 mb-10 opacity-80">
+        <span className="hidden sm:block w-12 h-px bg-gradient-to-r from-transparent to-white/20" />
+        <p className="text-[10px] sm:text-xs uppercase tracking-[0.3em] font-mono-pro text-white/60">
+          Trusted by industry leaders
+        </p>
+        <span className="hidden sm:block w-12 h-px bg-gradient-to-l from-transparent to-white/20" />
+      </div>
+      
+      <div className="flex flex-wrap gap-10 sm:gap-20 justify-center items-center max-w-5xl mx-auto px-6">
+        {brands.map((brand, i) => (
+          <div
+            key={brand.name}
+            className="group relative cursor-pointer flex items-center justify-center p-2"
+          >
+            {/* Glow effect on hover */}
+            <div className="absolute inset-0 bg-[#00FF94]/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            
+            <span className={`
+              ${brand.style} 
+              text-white/40 grayscale opacity-70
+              transition-all duration-500 ease-out
+              group-hover:text-white group-hover:grayscale-0 group-hover:opacity-100
+              group-hover:scale-110 relative z-10
+            `}>
+              {brand.name}
+            </span>
+          </div>
+        ))}
       </div>
     </motion.div>
   );
