@@ -175,6 +175,8 @@ def _send_welcome_email(to_email: str, username: str, password: str, company_nam
         <html>
         <head>
           <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Welcome to SEO Planet</title>
           <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Unbounded:wght@400;600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
         </head>
         <body style="margin:0;padding:0;background-color:#ffffff;font-family:'Inter',system-ui,-apple-system,sans-serif;color:#ffffff;line-height:1.6;-webkit-font-smoothing:antialiased;">
@@ -182,7 +184,7 @@ def _send_welcome_email(to_email: str, username: str, password: str, company_nam
             <tr><td align="center">
               
               <!-- Main Container with subtle glowing border simulation -->
-              <table width="640" cellpadding="0" cellspacing="0" style="background:#0A0A0F;border-radius:16px;overflow:hidden;border:1px solid #1F1F2E;box-shadow:0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(0,255,148,0.05);">
+              <table width="100%" cellpadding="0" cellspacing="0" style="max-width:640px;margin:0 auto;background:#0A0A0F;border-radius:16px;overflow:hidden;border:1px solid #1F1F2E;box-shadow:0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(0,255,148,0.05);">
                 
                 <!-- Header Section -->
                 <tr><td style="padding:60px 48px 40px 48px;text-align:center;background:linear-gradient(180deg, #101018 0%, #0A0A0F 100%);border-bottom:1px solid #151520;">

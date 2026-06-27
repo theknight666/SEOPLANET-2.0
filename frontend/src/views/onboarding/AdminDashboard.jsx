@@ -194,6 +194,7 @@ export default function AdminDashboard({ adminData }) {
 
   return (
     <div className="min-h-screen w-full bg-black text-white flex overflow-hidden grain selection:bg-[#00D67D] selection:text-black">
+      <Toaster theme="dark" position="bottom-right" toastOptions={{ style: { background: '#0A0A0F', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontFamily: 'monospace' } }} />
       {/* Sidebar */}
       <aside className="w-64 border-r border-white/5 bg-[#050505] flex flex-col z-20">
         <div className="h-20 flex items-center px-6 border-b border-white/5">

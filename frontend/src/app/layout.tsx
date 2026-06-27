@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Unbounded, Inter, JetBrains_Mono } from "next/font/google";
 import { CurrencyProvider } from "@/context/CurrencyContext";
 import AnimatedFavicon from "@/components/AnimatedFavicon";
+import LenisProvider from "@/components/LenisProvider";
 import "./globals.css";
 
 const unbounded = Unbounded({
@@ -97,7 +98,9 @@ export default function RootLayout({
         <Script src="https://assets.emergent.sh/scripts/emergent-main.js" strategy="lazyOnload" />
         <AnimatedFavicon />
         <CurrencyProvider>
-          {children}
+          <LenisProvider>
+            {children}
+          </LenisProvider>
         </CurrencyProvider>
         <Script src="/analytics.js" strategy="lazyOnload" />
       </body>
