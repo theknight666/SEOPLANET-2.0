@@ -162,7 +162,7 @@ export default function Hero({ locationData }) {
               <span>Status · Online</span>
             </div>
             <div className="hidden sm:flex gap-6">
-              <span>Est. 2019</span>
+              <span>Est. 2018</span>
               <span>68 Clients</span>
               <span className="text-[#00FF94]">Now booking Q1 ’26</span>
             </div>
