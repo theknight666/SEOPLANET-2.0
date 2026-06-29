@@ -426,7 +426,7 @@ const cases = [
     code: "CASE 014",
     client: "NOVA Commerce",
     industry: "DTC · Lifestyle",
-    title: "From obscurity to category leader in 9 months.",
+    title: "From obscurity to category leader in 14 months.",
     metricVal: 842,
     metricPrefix: "+",
     metricSuffix: "%",
