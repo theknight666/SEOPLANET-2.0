@@ -393,7 +393,13 @@ export default function Contact() {
             <div className="rounded-2xl neon-border p-5 sm:p-7 bg-[#0A0F0C]" data-testid="contact-details-availability">
               <p className="overline mb-3">Availability</p>
               <p className="font-mono-pro text-sm text-white/80">
-                Q1 2026 - <span className="neon-text">2 spots open</span>
+                Q{(() => {
+                  const d = new Date();
+                  let q = Math.floor(d.getMonth() / 3) + 2;
+                  let y = d.getFullYear();
+                  if (q > 4) { q -= 4; y += 1; }
+                  return `${q} ${y}`;
+                })()} - <span className="neon-text">2 spots open</span>
               </p>
               <p className="mt-2 text-[11px] font-mono-pro text-white/45">
                 We onboard 6 partners per year. Fit first.

@@ -164,7 +164,13 @@ export default function Hero({ locationData }) {
             <div className="hidden sm:flex gap-6">
               <span>Est. 2018</span>
               <span>68 Clients</span>
-              <span className="text-[#00FF94]">Now booking Q1 ’26</span>
+              <span className="text-[#00FF94]">Now booking Q{(() => {
+                const d = new Date();
+                let q = Math.floor(d.getMonth() / 3) + 2;
+                let y = d.getFullYear();
+                if (q > 4) { q -= 4; y += 1; }
+                return `${q} ’${y.toString().slice(-2)}`;
+              })()}</span>
             </div>
           </div>
         </motion.div>
