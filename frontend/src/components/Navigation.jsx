@@ -51,12 +51,10 @@ export default function Navigation() {
               exit={{ opacity: 0 }}
               className="absolute inset-0 rounded-full overflow-hidden pointer-events-none -z-10"
             >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300%] h-[300%] bg-[conic-gradient(from_0deg,transparent_0_260deg,#00FF94_360deg)] opacity-80"
+              <div
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[1500px] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0_320deg,#00FF94_350deg,#ffffff_360deg)]"
               />
-              <div className="absolute inset-[1.5px] bg-[#05050A]/95 backdrop-blur-2xl rounded-full border border-white/5" />
+              <div className="absolute inset-[1px] bg-[#05050A]/95 backdrop-blur-2xl rounded-full border border-white/5" />
             </motion.div>
           )}
         </AnimatePresence>
