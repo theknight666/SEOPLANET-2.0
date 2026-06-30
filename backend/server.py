@@ -654,7 +654,12 @@ app.include_router(api_router)
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_origins=[
+        "https://www.seoplanet.in", 
+        "https://seoplanet.in", 
+        "https://seoplanet-2-0.vercel.app", 
+        "http://localhost:3000"
+    ] + os.environ.get('CORS_ORIGINS', '').split(','),
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -668,18 +673,17 @@ async def startup_event():
     asyncio.create_task(ping_server())
 
 async def ping_server():
-    url = os.environ.get('RENDER_EXTERNAL_URL')
-    if not url:
-        logger.info("RENDER_EXTERNAL_URL not set, skipping self-ping.")
-        return
+    # Use HF Space URL by default, or an environment variable if set
+    url = os.environ.get('SERVER_URL', 'https://seoplanet-seoplanet-backend.hf.space')
     
     logger.info(f"Starting self-ping to {url} every 10 minutes to prevent sleep.")
     while True:
         try:
             await asyncio.sleep(10 * 60) # 10 minutes
-            logger.info("Sending self-ping to keep Render server awake...")
+            logger.info("Sending self-ping to keep Hugging Face server awake...")
             loop = asyncio.get_running_loop()
-            await loop.run_in_executor(None, urllib.request.urlopen, f"{url.rstrip('/')}/api/")
+            # Send ping to root or API docs
+            await loop.run_in_executor(None, urllib.request.urlopen, f"{url.rstrip('/')}/docs")
             logger.info("Self-ping successful.")
         except asyncio.CancelledError:
             break
