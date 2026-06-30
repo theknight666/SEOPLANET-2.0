@@ -38,16 +38,34 @@ export default function Navigation() {
       data-testid="site-navigation"
     >
       <div
-        className={`mx-auto max-w-7xl px-6 sm:px-10 flex items-center justify-between transition-all duration-500 ${scrolled
-          ? "bg-[#05050A]/80 backdrop-blur-xl border border-white/10 rounded-full py-2 pl-5 pr-2"
-          : ""
-          }`}
+        className={`mx-auto max-w-7xl relative flex items-center justify-between transition-all duration-500 rounded-full ${
+          scrolled ? "py-2 pl-5 pr-2 shadow-[0_0_25px_rgba(0,255,148,0.05)]" : "px-6 sm:px-10"
+        }`}
       >
-        <a href="#top" className="flex items-center gap-2 group" data-testid="nav-logo" aria-label="Scroll to top of SEO Planet">
+        {/* Premium Moving Gradient Border Background */}
+        <AnimatePresence>
+          {scrolled && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 rounded-full overflow-hidden pointer-events-none -z-10"
+            >
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300%] h-[300%] bg-[conic-gradient(from_0deg,transparent_0_260deg,#00FF94_360deg)] opacity-80"
+              />
+              <div className="absolute inset-[1.5px] bg-[#05050A]/95 backdrop-blur-2xl rounded-full border border-white/5" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <a href="#top" className="flex items-center gap-2 group relative z-10" data-testid="nav-logo" aria-label="Scroll to top of SEO Planet">
           <Logo />
         </a>
 
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden md:flex items-center gap-1 relative z-10">
           {links.map((l) => (
             <a
               key={l.href}
@@ -62,7 +80,7 @@ export default function Navigation() {
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-4 relative z-10">
           <div className="flex bg-white/[0.04] p-1 rounded-full border border-white/10 w-fit">
             <button
               onClick={() => setCurrency('USD')}
@@ -94,7 +112,7 @@ export default function Navigation() {
 
         <button
           onClick={() => setOpen((o) => !o)}
-          className="md:hidden text-white p-2"
+          className="md:hidden text-white p-2 relative z-10"
           data-testid="nav-mobile-toggle"
           aria-label="Toggle menu"
         >
