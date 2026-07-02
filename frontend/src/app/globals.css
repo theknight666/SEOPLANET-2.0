@@ -255,6 +255,115 @@ body {
     animation: blink-caret 1s steps(1) infinite;
 }
 
+/* --- Apple-style Premium Liquidglass Theme --- */
+.liquidglass-theme {
+    --bg: #06060a;
+    --surface: rgba(18, 18, 24, 0.45);
+    --border: rgba(255, 255, 255, 0.08);
+    --neon: #2997ff; /* Apple clean blue */
+    --neon-cyan: #0071e3; /* Apple royal blue */
+    
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+.liquidglass-theme .font-display {
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+}
+
+.liquidglass-theme .font-mono-pro {
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    letter-spacing: -0.01em;
+}
+
+.liquidglass-theme ::selection {
+    background: rgba(41, 151, 255, 0.3);
+    color: #fff;
+}
+
+/* Premium frosted liquidglass panels */
+.liquidglass-theme .glass-premium {
+    background: rgba(18, 18, 24, 0.45);
+    backdrop-filter: blur(40px) saturate(190%);
+    -webkit-backdrop-filter: blur(40px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.liquidglass-theme .glass-premium:hover {
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Subtle, Apple-like scrolling */
+.liquidglass-theme .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.liquidglass-theme .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.liquidglass-theme .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 99px;
+}
+.liquidglass-theme .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Apple Messages Chat Bubble Overrides */
+.liquidglass-theme .chat-bubble-client {
+    background: linear-gradient(135deg, #0071e3 0%, #005bb5 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 113, 227, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.liquidglass-theme .chat-bubble-agent {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #e5e5e7;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Moving radial blobs for soft lighting */
+@keyframes fluid-blob-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(40px, -60px) scale(1.1); }
+    66% { transform: translate(-30px, 40px) scale(0.95); }
+}
+
+@keyframes fluid-blob-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-50px, 30px) scale(0.95); }
+    66% { transform: translate(40px, -50px) scale(1.1); }
+}
+
+.liquidglass-theme .fluid-glow-1 {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 113, 227, 0.14) 0%, transparent 70%);
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 0;
+    animation: fluid-blob-1 25s infinite alternate ease-in-out;
+}
+
+.liquidglass-theme .fluid-glow-2 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(147, 51, 234, 0.09) 0%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    animation: fluid-blob-2 20s infinite alternate ease-in-out;
+}
+
+
 
 
 

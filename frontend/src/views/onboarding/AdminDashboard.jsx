@@ -136,50 +136,50 @@ export default function AdminDashboard({ adminData }) {
 
   const renderClientTable = (tierClients, title, colorClass) => (
     <div className="mb-10">
-      <h2 className={`font-display text-xl font-bold mb-4 ${colorClass}`}>{title}</h2>
-      <div className="glass rounded-2xl border border-white/5 overflow-hidden">
+      <h2 className={`font-display text-xl font-semibold mb-4 ${colorClass}`}>{title}</h2>
+      <div className="glass-premium rounded-2xl overflow-hidden">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-white/5 bg-white/[0.02]">
-              <th className="px-6 py-4 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest">Company</th>
-              <th className="px-6 py-4 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest">Username</th>
-              <th className="px-6 py-4 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest">Status</th>
-              <th className="px-6 py-4 text-right font-mono-pro text-[10px] text-white/40 uppercase tracking-widest">Actions</th>
+            <tr className="border-b border-white/5 bg-white/[0.01]">
+              <th className="px-6 py-4 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider">Company</th>
+              <th className="px-6 py-4 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider">Username</th>
+              <th className="px-6 py-4 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider">Status</th>
+              <th className="px-6 py-4 text-right font-mono-pro text-[9px] text-white/40 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5">
             {tierClients.length === 0 ? (
               <tr><td colSpan="4" className="px-6 py-8 text-center text-white/40 font-mono-pro text-sm">No clients found in this tier.</td></tr>
             ) : tierClients.map(c => (
-              <tr key={c.username} className="hover:bg-white/[0.02] transition-colors">
+              <tr key={c.username} className="hover:bg-white/[0.015] transition-colors">
                 <td className="px-6 py-4">
-                  <span className="font-display font-bold text-white">{c.company_name}</span>
+                  <span className="font-display font-medium text-white/95">{c.company_name}</span>
                 </td>
                 <td className="px-6 py-4">
-                  <span className="font-mono-pro text-xs text-[#00D67D]">@{c.username}</span>
+                  <span className="font-mono-pro text-xs text-[#2997ff]">@{c.username}</span>
                 </td>
                 <td className="px-6 py-4">
-                  <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono-pro text-[10px] uppercase tracking-wider ${
-                    c.status === 'paused' ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20' :
-                    c.status === 'completed' ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20' :
-                    c.status === 'onboarding' ? 'bg-purple-500/10 text-purple-500 border border-purple-500/20' :
-                    'bg-[#00D67D]/10 text-[#00D67D] border border-[#00D67D]/20'
+                  <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-wider ${
+                    c.status === 'paused' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/15' :
+                    c.status === 'completed' ? 'bg-blue-500/10 text-blue-455 border border-blue-500/15' :
+                    c.status === 'onboarding' ? 'bg-purple-500/10 text-purple-400 border border-purple-500/15' :
+                    'bg-emerald-500/10 text-emerald-400 border border-emerald-500/15'
                   }`}>
                     <div className={`w-1.5 h-1.5 rounded-full ${
-                      c.status === 'paused' ? 'bg-amber-500' :
-                      c.status === 'completed' ? 'bg-blue-500' :
-                      c.status === 'onboarding' ? 'bg-purple-500' :
-                      'bg-[#00D67D]'
+                      c.status === 'paused' ? 'bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.4)]' :
+                      c.status === 'completed' ? 'bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.4)]' :
+                      c.status === 'onboarding' ? 'bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.4)]' :
+                      'bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.4)]'
                     }`} /> 
                     {c.status || 'Active'}
                   </span>
                 </td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex items-center justify-end gap-2">
-                    <button onClick={() => openEditor(c)} className="inline-flex items-center gap-2 px-4 py-2 bg-white/[0.02] hover:bg-[#00D67D] hover:text-black rounded-lg font-mono-pro text-xs uppercase tracking-wider transition-colors">
+                    <button onClick={() => openEditor(c)} className="inline-flex items-center gap-2 px-4 py-2 bg-white/[0.02] hover:bg-[#2997ff] hover:text-white rounded-lg font-mono-pro text-xs uppercase tracking-wider hover:shadow-[0_4px_12px_rgba(0,113,227,0.3)] transition-all cursor-pointer">
                       <Edit2 className="w-3.5 h-3.5" /> Edit Data
                     </button>
-                    <button onClick={() => handleDelete(c.username, c.company_name)} className="inline-flex items-center justify-center w-8 h-8 bg-white/[0.02] hover:bg-red-500 hover:text-white rounded-lg transition-colors" title="Delete Client">
+                    <button onClick={() => handleDelete(c.username, c.company_name)} className="inline-flex items-center justify-center w-8 h-8 bg-white/[0.02] hover:bg-red-500/10 hover:text-red-400 rounded-lg transition-colors cursor-pointer" title="Delete Client">
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -193,21 +193,21 @@ export default function AdminDashboard({ adminData }) {
   );
 
   return (
-    <div className="min-h-screen w-full bg-black text-white flex overflow-hidden grain selection:bg-[#00D67D] selection:text-black">
-      <Toaster theme="dark" position="bottom-right" toastOptions={{ style: { background: '#0A0A0F', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontFamily: 'monospace' } }} />
+    <div className="liquidglass-theme min-h-screen w-full bg-[#06060a] text-white flex overflow-hidden grain selection:bg-[#2997ff] selection:text-white">
+      <Toaster theme="dark" position="bottom-right" toastOptions={{ style: { background: '#0b0c12', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontFamily: 'monospace' } }} />
       {/* Sidebar */}
-      <aside className="w-64 border-r border-white/5 bg-[#050505] flex flex-col z-20">
+      <aside className="w-64 border-r border-white/5 bg-[#0b0c12]/80 backdrop-blur-xl flex flex-col z-20">
         <div className="h-20 flex items-center px-6 border-b border-white/5">
           <Logo hideVersion={true} />
         </div>
         <nav className="flex-1 p-4 space-y-2">
           {(!isOnboardingDomain) && (
-            <button onClick={() => setActiveTab("clients")} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-wider transition-all ${activeTab === 'clients' ? 'bg-[#00D67D]/10 text-[#00D67D]' : 'text-white/50 hover:bg-white/[0.02] hover:text-white'}`}>
+            <button onClick={() => setActiveTab("clients")} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-wider transition-all cursor-pointer ${activeTab === 'clients' ? 'bg-white/[0.05] text-[#2997ff] border border-white/5' : 'text-white/50 hover:bg-white/[0.02] hover:text-white'}`}>
               <Users className="w-4 h-4" /> Client Roster
             </button>
           )}
           {(isOnboardingDomain || !isPortalDomain) && (
-            <button onClick={() => setActiveTab("provision")} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-wider transition-all ${activeTab === 'provision' ? 'bg-[#00D67D]/10 text-[#00D67D]' : 'text-white/50 hover:bg-white/[0.02] hover:text-white'}`}>
+            <button onClick={() => setActiveTab("provision")} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-wider transition-all cursor-pointer ${activeTab === 'provision' ? 'bg-white/[0.05] text-[#2997ff] border border-white/5' : 'text-white/50 hover:bg-white/[0.02] hover:text-white'}`}>
               <PlusCircle className="w-4 h-4" /> Provision New
             </button>
           )}
@@ -221,13 +221,13 @@ export default function AdminDashboard({ adminData }) {
       <main className="flex-1 relative overflow-y-auto custom-scrollbar">
         <div className="fixed inset-0 grid-bg opacity-10 pointer-events-none" />
         {/* Desktop Gaussian Blur */}
-        <div className="hidden md:block absolute top-0 right-0 w-[800px] h-[500px] rounded-full bg-[#00D67D]/5 blur-[120px] pointer-events-none" />
+        <div className="hidden md:block absolute top-0 right-0 w-[800px] h-[500px] rounded-full bg-[#2997ff]/5 blur-[120px] pointer-events-none" />
         {/* Mobile Safe Gradient */}
-        <div className="block md:hidden absolute top-0 right-0 w-[800px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(0,214,125,0.08)_0%,transparent_50%)] pointer-events-none" />
+        <div className="block md:hidden absolute top-0 right-0 w-[800px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(41,151,255,0.05)_0%,transparent_50%)] pointer-events-none" />
         
         {/* Top Right Disconnect Button */}
         <div className="absolute top-6 right-6 sm:top-8 sm:right-8 z-50">
-          <button onClick={logout} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-mono-pro text-[10px] sm:text-xs uppercase tracking-wider text-white/50 hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/20 border border-white/5 bg-white/[0.02] transition-all shadow-lg backdrop-blur-md">
+          <button onClick={logout} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-mono-pro text-[10px] sm:text-xs uppercase tracking-wider text-white/50 hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/20 border border-white/5 bg-white/[0.02] transition-all shadow-lg backdrop-blur-md cursor-pointer">
             <LogOut className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Disconnect</span>
           </button>
         </div>
@@ -237,8 +237,8 @@ export default function AdminDashboard({ adminData }) {
           {activeTab === "clients" && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
               <div className="mb-6">
-                <h1 className="font-display text-3xl font-black mb-2">Client Roster</h1>
-                <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">Manage your active campaigns</p>
+                <h1 className="font-display text-2xl font-bold mb-1.5 text-white">Client Roster</h1>
+                <p className="font-mono-pro text-xs text-white/45 uppercase tracking-wider">Manage your active campaigns</p>
               </div>
 
               {/* Filters & Search */}
@@ -248,9 +248,9 @@ export default function AdminDashboard({ adminData }) {
                     <button 
                       key={tier}
                       onClick={() => setTierFilter(tier)}
-                      className={`whitespace-nowrap px-4 py-2 rounded-full font-mono-pro text-xs tracking-wider transition-colors border ${
+                      className={`whitespace-nowrap px-4 py-2 rounded-full font-mono-pro text-xs tracking-wider transition-colors border cursor-pointer ${
                         tierFilter === tier 
-                          ? 'bg-[#00D67D] text-black border-[#00D67D] font-bold' 
+                          ? 'bg-gradient-to-r from-[#2997ff] to-[#0071e3] text-white border-none shadow-[0_4px_12px_rgba(0,113,227,0.3)] font-semibold' 
                           : 'bg-white/[0.02] text-white/50 border-white/5 hover:text-white hover:bg-white/[0.05]'
                       }`}
                     >
@@ -265,18 +265,18 @@ export default function AdminDashboard({ adminData }) {
                     placeholder="Search clients..." 
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full sm:w-64 pl-9 pr-4 py-2 bg-white/[0.02] border border-white/5 rounded-xl text-sm text-white font-mono-pro focus:outline-none focus:border-[#00D67D] transition-colors"
+                    className="w-full sm:w-64 pl-9 pr-4 py-2 bg-white/[0.02] border border-white/5 rounded-xl text-sm text-white font-mono-pro focus:outline-none focus:border-[#2997ff] transition-colors"
                   />
                 </div>
               </div>
 
               {loading ? (
-                <div className="flex items-center justify-center py-20"><Loader2 className="w-8 h-8 text-[#00D67D] animate-spin" /></div>
+                <div className="flex items-center justify-center py-20"><Loader2 className="w-8 h-8 text-[#2997ff] animate-spin" /></div>
               ) : (
                 <div>
-                  {(tierFilter === "All" || tierFilter === "Domination System") && renderClientTable(filteredClients.filter(c => c.tier === "Domination System"), "Domination System", "text-[#00D67D]")}
-                  {(tierFilter === "All" || tierFilter === "Growth Engine") && renderClientTable(filteredClients.filter(c => c.tier === "Growth Engine"), "Growth Engine", "text-[#00FF94]")}
-                  {(tierFilter === "All" || tierFilter === "Launch System") && renderClientTable(filteredClients.filter(c => !c.tier || c.tier === "Launch System"), "Launch System", "text-white")}
+                  {(tierFilter === "All" || tierFilter === "Domination System") && renderClientTable(filteredClients.filter(c => c.tier === "Domination System"), "Domination System", "text-[#2997ff]")}
+                  {(tierFilter === "All" || tierFilter === "Growth Engine") && renderClientTable(filteredClients.filter(c => c.tier === "Growth Engine"), "Growth Engine", "text-[#2997ff]")}
+                  {(tierFilter === "All" || tierFilter === "Launch System") && renderClientTable(filteredClients.filter(c => !c.tier || c.tier === "Launch System"), "Launch System", "text-white/60")}
                 </div>
               )}
             </motion.div>
@@ -284,35 +284,35 @@ export default function AdminDashboard({ adminData }) {
 
           {activeTab === "provision" && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="max-w-xl">
-              <h1 className="font-display text-3xl font-black mb-2">Provision Client</h1>
-              <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mb-8">Generate secure access credentials</p>
+              <h1 className="font-display text-2xl font-bold mb-1.5 text-white">Provision Client</h1>
+              <p className="font-mono-pro text-xs text-white/45 uppercase tracking-wider mb-8">Generate secure access credentials</p>
               
-              <form onSubmit={handleAdminSubmit} className="glass rounded-2xl border border-white/5 p-8 space-y-6">
+              <form onSubmit={handleAdminSubmit} className="glass-premium rounded-2xl p-8 space-y-6">
                 <div>
                   <label className="overline-premium block mb-2 text-white/50 text-[10px]">Client Username (No spaces)</label>
-                  <input required type="text" value={adminForm.username} onChange={e => setAdminForm({...adminForm, username: e.target.value})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00D67D] focus:outline-none" placeholder="e.g. acme_corp" />
+                  <input required type="text" value={adminForm.username} onChange={e => setAdminForm({...adminForm, username: e.target.value})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#2997ff] focus:outline-none" placeholder="e.g. acme_corp" />
                 </div>
                 <div>
                   <label className="overline-premium block mb-2 text-white/50 text-[10px]">Company Name</label>
-                  <input required type="text" value={adminForm.company} onChange={e => setAdminForm({...adminForm, company: e.target.value})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00D67D] focus:outline-none" placeholder="e.g. Acme Corporation" />
+                  <input required type="text" value={adminForm.company} onChange={e => setAdminForm({...adminForm, company: e.target.value})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#2997ff] focus:outline-none" placeholder="e.g. Acme Corporation" />
                 </div>
                 <div>
                   <label className="overline-premium block mb-2 text-white/50 text-[10px]">Client Email</label>
-                  <input required type="email" value={adminForm.email} onChange={e => setAdminForm({...adminForm, email: e.target.value})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00D67D] focus:outline-none" placeholder="client@company.com" />
+                  <input required type="email" value={adminForm.email} onChange={e => setAdminForm({...adminForm, email: e.target.value})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#2997ff] focus:outline-none" placeholder="client@company.com" />
                 </div>
                 <div>
                   <label className="overline-premium block mb-2 text-white/50 text-[10px]">Secure Password</label>
-                  <input required type="text" value={adminForm.password} onChange={e => setAdminForm({...adminForm, password: e.target.value})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00D67D] focus:outline-none" placeholder="Generate a secure password..." />
+                  <input required type="text" value={adminForm.password} onChange={e => setAdminForm({...adminForm, password: e.target.value})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#2997ff] focus:outline-none" placeholder="Generate a secure password..." />
                 </div>
                 <div>
                   <label className="overline-premium block mb-2 text-white/50 text-[10px]">Subscription Tier</label>
-                  <select value={adminForm.tier} onChange={e => setAdminForm({...adminForm, tier: e.target.value})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#00D67D] focus:outline-none appearance-none">
-                    <option value="Launch System" className="bg-[#0A0A0F] text-white">Launch System</option>
-                    <option value="Growth Engine" className="bg-[#0A0A0F] text-white">Growth Engine</option>
-                    <option value="Domination System" className="bg-[#0A0A0F] text-white">Domination System</option>
+                  <select value={adminForm.tier} onChange={e => setAdminForm({...adminForm, tier: e.target.value})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm font-mono-pro focus:border-[#2997ff] focus:outline-none appearance-none">
+                    <option value="Launch System" className="bg-[#0c0c12] text-white">Launch System</option>
+                    <option value="Growth Engine" className="bg-[#0c0c12] text-white">Growth Engine</option>
+                    <option value="Domination System" className="bg-[#0c0c12] text-white">Domination System</option>
                   </select>
                 </div>
-                <button type="submit" disabled={provisionLoading} className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#00D67D] text-black px-6 py-4 font-mono-pro text-xs uppercase tracking-[0.2em] font-bold hover:bg-white transition-colors disabled:opacity-50">
+                <button type="submit" disabled={provisionLoading} className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#2997ff] to-[#0071e3] text-white px-6 py-4 font-mono-pro text-xs uppercase tracking-[0.2em] font-semibold hover:brightness-110 shadow-[0_4px_12px_rgba(0,113,227,0.3)] border border-[#2997ff]/20 transition-all cursor-pointer">
                   {provisionLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <><PlusCircle className="w-4 h-4" /> Provision Access</>}
                 </button>
               </form>
@@ -325,16 +325,16 @@ export default function AdminDashboard({ adminData }) {
       {/* Fullscreen Editor Modal */}
       <AnimatePresence>
         {editingClient && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-8">
-            <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} className="w-full max-w-4xl bg-[#050505] border border-white/[0.04] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-full">
+           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-8">
+            <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} className="w-full max-w-4xl bg-[#0c0c12]/95 border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-full">
               
               {/* Modal Header */}
-              <div className="flex items-center justify-between px-8 py-6 border-b border-white/5 bg-white/[0.02]">
+              <div className="flex items-center justify-between px-8 py-6 border-b border-white/5 bg-white/[0.01]">
                 <div>
-                  <h2 className="font-display text-2xl font-bold">Editing <span className="text-[#00D67D]">{editingClient.company_name}</span></h2>
+                  <h2 className="font-display text-2xl font-bold">Editing <span className="text-[#2997ff]">{editingClient.company_name}</span></h2>
                   <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mt-1">Live Dashboard Editor</p>
                 </div>
-                <button onClick={() => setEditingClient(null)} className="p-2 rounded-full hover:bg-white/10 transition-colors">
+                <button onClick={() => setEditingClient(null)} className="p-2 rounded-full hover:bg-white/10 transition-colors text-white/60 hover:text-white cursor-pointer">
                   <X className="w-6 h-6" />
                 </button>
               </div>
@@ -342,68 +342,68 @@ export default function AdminDashboard({ adminData }) {
               {/* Modal Body */}
               <div className="flex-1 flex overflow-hidden">
                 {/* Editor Tabs */}
-                <div className="w-48 border-r border-white/5 bg-black/20 p-4 space-y-2 overflow-y-auto custom-scrollbar">
+                <div className="w-48 border-r border-white/5 bg-white/[0.01] p-4 space-y-2 overflow-y-auto custom-scrollbar">
                   {["metrics", "trend", "keywords", "competitors", "goals", "deliverables", "content", "reports", "progress", "documents", "messages", "invoices", "timeline", "activity"].map(tab => (
-                    <button key={tab} onClick={() => setEditTab(tab)} className={`w-full text-left px-4 py-3 rounded-xl font-mono-pro text-[10px] uppercase tracking-wider transition-all ${editTab === tab ? 'bg-[#00D67D]/10 text-[#00D67D]' : 'text-white/50 hover:bg-white/[0.02] hover:text-white'}`}>
+                    <button key={tab} onClick={() => setEditTab(tab)} className={`w-full text-left px-4 py-3 rounded-xl font-mono-pro text-[10px] uppercase tracking-wider transition-all cursor-pointer ${editTab === tab ? 'bg-white/[0.05] text-[#2997ff] border border-white/5' : 'text-white/50 hover:bg-white/[0.02] hover:text-white'}`}>
                       {tab}
                     </button>
                   ))}
                 </div>
 
                 {/* Editor Content */}
-                <div className="flex-1 overflow-y-auto p-8 custom-scrollbar bg-black">
+                <div className="flex-1 overflow-y-auto p-8 custom-scrollbar bg-[#06060a]/50">
                   
                   {editTab === "metrics" && (
                     <div className="space-y-6">
-                      <h3 className="font-display text-lg font-bold mb-4 border-b border-white/[0.04] pb-2">Core Metrics & Focus</h3>
+                      <h3 className="font-display text-lg font-semibold mb-4 border-b border-white/[0.04] pb-2">Core Metrics & Focus</h3>
                       <div className="grid grid-cols-2 gap-4 mb-6">
                         <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-6">
-                          <label className="overline-premium block mb-2 text-[#00D67D] text-[10px]">Campaign Status</label>
+                          <label className="overline-premium block mb-2 text-[#2997ff] text-[10px]">Campaign Status</label>
                           <select 
                             value={editForm.status} 
                             onChange={e => setEditForm({...editForm, status: e.target.value})} 
-                            className="w-full bg-[#00D67D]/5 border border-[#00D67D]/20 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none cursor-pointer appearance-none"
+                            className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#2997ff] outline-none cursor-pointer appearance-none"
                           >
-                            <option value="active" className="bg-[#0A0A0F] text-white">Active</option>
-                            <option value="paused" className="bg-[#0A0A0F] text-white">Paused</option>
-                            <option value="onboarding" className="bg-[#0A0A0F] text-white">Onboarding</option>
-                            <option value="completed" className="bg-[#0A0A0F] text-white">Completed</option>
+                            <option value="active" className="bg-[#0c0c12] text-white">Active</option>
+                            <option value="paused" className="bg-[#0c0c12] text-white">Paused</option>
+                            <option value="onboarding" className="bg-[#0c0c12] text-white">Onboarding</option>
+                            <option value="completed" className="bg-[#0c0c12] text-white">Completed</option>
                           </select>
                         </div>
                         <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-6">
-                          <label className="overline-premium block mb-2 text-[#00D67D] text-[10px]">Subscription Tier</label>
+                          <label className="overline-premium block mb-2 text-[#2997ff] text-[10px]">Subscription Tier</label>
                           <select 
                             value={editForm.tier} 
                             onChange={e => setEditForm({...editForm, tier: e.target.value})} 
-                            className="w-full bg-[#00D67D]/5 border border-[#00D67D]/20 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none cursor-pointer appearance-none"
+                            className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#2997ff] outline-none cursor-pointer appearance-none"
                           >
-                            <option value="Launch System" className="bg-[#0A0A0F] text-white">Launch System</option>
-                            <option value="Growth Engine" className="bg-[#0A0A0F] text-white">Growth Engine</option>
-                            <option value="Domination System" className="bg-[#0A0A0F] text-white">Domination System</option>
+                            <option value="Launch System" className="bg-[#0c0c12] text-white">Launch System</option>
+                            <option value="Growth Engine" className="bg-[#0c0c12] text-white">Growth Engine</option>
+                            <option value="Domination System" className="bg-[#0c0c12] text-white">Domination System</option>
                           </select>
                         </div>
                       </div>
                       <div className="grid grid-cols-2 gap-6">
                         <div className="flex gap-2">
-                          <div className="flex-1"><label className="overline-premium block mb-2 text-white/50 text-[10px]">Traffic Value</label><input value={editForm.metrics.traffic} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, traffic: e.target.value}})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none" /></div>
-                          <div className="w-24"><label className="overline-premium block mb-2 text-[#00D67D] text-[10px]">Change</label><input value={editForm.metrics_changes?.traffic || ""} onChange={e => setEditForm({...editForm, metrics_changes: {...editForm.metrics_changes, traffic: e.target.value}})} className="w-full bg-[#00D67D]/5 border border-[#00D67D]/20 rounded-xl px-4 py-3 text-[#00D67D] text-sm focus:border-[#00D67D] outline-none" /></div>
+                          <div className="flex-1"><label className="overline-premium block mb-2 text-white/50 text-[10px]">Traffic Value</label><input value={editForm.metrics.traffic} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, traffic: e.target.value}})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm focus:border-[#2997ff] outline-none" /></div>
+                          <div className="w-24"><label className="overline-premium block mb-2 text-[#2997ff] text-[10px]">Change</label><input value={editForm.metrics_changes?.traffic || ""} onChange={e => setEditForm({...editForm, metrics_changes: {...editForm.metrics_changes, traffic: e.target.value}})} className="w-full bg-white/[0.02] border border-[#2997ff]/20 rounded-xl px-4 py-3 text-[#2997ff] text-sm focus:border-[#2997ff] outline-none" /></div>
                         </div>
                         <div className="flex gap-2">
-                          <div className="flex-1"><label className="overline-premium block mb-2 text-white/50 text-[10px]">Rankings Value</label><input value={editForm.metrics.rankings} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, rankings: e.target.value}})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none" /></div>
-                          <div className="w-24"><label className="overline-premium block mb-2 text-[#00D67D] text-[10px]">Change</label><input value={editForm.metrics_changes?.rankings || ""} onChange={e => setEditForm({...editForm, metrics_changes: {...editForm.metrics_changes, rankings: e.target.value}})} className="w-full bg-[#00D67D]/5 border border-[#00D67D]/20 rounded-xl px-4 py-3 text-[#00D67D] text-sm focus:border-[#00D67D] outline-none" /></div>
+                          <div className="flex-1"><label className="overline-premium block mb-2 text-white/50 text-[10px]">Rankings Value</label><input value={editForm.metrics.rankings} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, rankings: e.target.value}})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm focus:border-[#2997ff] outline-none" /></div>
+                          <div className="w-24"><label className="overline-premium block mb-2 text-[#2997ff] text-[10px]">Change</label><input value={editForm.metrics_changes?.rankings || ""} onChange={e => setEditForm({...editForm, metrics_changes: {...editForm.metrics_changes, rankings: e.target.value}})} className="w-full bg-white/[0.02] border border-[#2997ff]/20 rounded-xl px-4 py-3 text-[#2997ff] text-sm focus:border-[#2997ff] outline-none" /></div>
                         </div>
                         <div className="flex gap-2">
-                          <div className="flex-1"><label className="overline-premium block mb-2 text-white/50 text-[10px]">Backlinks Value</label><input value={editForm.metrics.backlinks} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, backlinks: e.target.value}})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none" /></div>
-                          <div className="w-24"><label className="overline-premium block mb-2 text-[#00D67D] text-[10px]">Change</label><input value={editForm.metrics_changes?.backlinks || ""} onChange={e => setEditForm({...editForm, metrics_changes: {...editForm.metrics_changes, backlinks: e.target.value}})} className="w-full bg-[#00D67D]/5 border border-[#00D67D]/20 rounded-xl px-4 py-3 text-[#00D67D] text-sm focus:border-[#00D67D] outline-none" /></div>
+                          <div className="flex-1"><label className="overline-premium block mb-2 text-white/50 text-[10px]">Backlinks Value</label><input value={editForm.metrics.backlinks} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, backlinks: e.target.value}})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm focus:border-[#2997ff] outline-none" /></div>
+                          <div className="w-24"><label className="overline-premium block mb-2 text-[#2997ff] text-[10px]">Change</label><input value={editForm.metrics_changes?.backlinks || ""} onChange={e => setEditForm({...editForm, metrics_changes: {...editForm.metrics_changes, backlinks: e.target.value}})} className="w-full bg-white/[0.02] border border-[#2997ff]/20 rounded-xl px-4 py-3 text-[#2997ff] text-sm focus:border-[#2997ff] outline-none" /></div>
                         </div>
                         <div className="flex gap-2">
-                          <div className="flex-1"><label className="overline-premium block mb-2 text-white/50 text-[10px]">Leads Value</label><input value={editForm.metrics.da} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, da: e.target.value}})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none" /></div>
-                          <div className="w-24"><label className="overline-premium block mb-2 text-[#00D67D] text-[10px]">Change</label><input value={editForm.metrics_changes?.da || ""} onChange={e => setEditForm({...editForm, metrics_changes: {...editForm.metrics_changes, da: e.target.value}})} className="w-full bg-[#00D67D]/5 border border-[#00D67D]/20 rounded-xl px-4 py-3 text-[#00D67D] text-sm focus:border-[#00D67D] outline-none" /></div>
+                          <div className="flex-1"><label className="overline-premium block mb-2 text-white/50 text-[10px]">Leads Value</label><input value={editForm.metrics.da} onChange={e => setEditForm({...editForm, metrics: {...editForm.metrics, da: e.target.value}})} className="w-full bg-white/[0.03] border border-white/[0.04] rounded-xl px-4 py-3 text-white text-sm focus:border-[#2997ff] outline-none" /></div>
+                          <div className="w-24"><label className="overline-premium block mb-2 text-[#2997ff] text-[10px]">Change</label><input value={editForm.metrics_changes?.da || ""} onChange={e => setEditForm({...editForm, metrics_changes: {...editForm.metrics_changes, da: e.target.value}})} className="w-full bg-white/[0.02] border border-[#2997ff]/20 rounded-xl px-4 py-3 text-[#2997ff] text-sm focus:border-[#2997ff] outline-none" /></div>
                         </div>
                       </div>
                       <div className="pt-4">
-                        <label className="overline-premium block mb-2 text-[#00D67D] text-[10px]">Current Sprint Focus (Highlighted Card)</label>
-                        <input value={editForm.current_focus} onChange={e => setEditForm({...editForm, current_focus: e.target.value})} className="w-full bg-[#00D67D]/5 border border-[#00D67D]/20 rounded-xl px-4 py-3 text-white text-sm focus:border-[#00D67D] outline-none" placeholder="e.g. Phase 2: Technical Content Expansion" />
+                        <label className="overline-premium block mb-2 text-[#2997ff] text-[10px]">Current Sprint Focus (Highlighted Card)</label>
+                        <input value={editForm.current_focus} onChange={e => setEditForm({...editForm, current_focus: e.target.value})} className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#2997ff] outline-none" placeholder="e.g. Phase 2: Technical Content Expansion" />
                       </div>
                     </div>
                   )}
@@ -411,14 +411,14 @@ export default function AdminDashboard({ adminData }) {
                   {editTab === "trend" && (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
-                        <h3 className="font-display text-lg font-bold">Traffic Trend (6 Mo)</h3>
-                        <button onClick={() => addArrayItem("traffic_trend", {name: "Month", traffic: 0})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Month</button>
+                        <h3 className="font-display text-lg font-semibold">Traffic Trend (6 Mo)</h3>
+                        <button onClick={() => addArrayItem("traffic_trend", {name: "Month", traffic: 0})} className="text-xs font-mono-pro text-[#2997ff] hover:text-white flex items-center gap-1 cursor-pointer"><PlusCircle className="w-3 h-3"/> Add Month</button>
                       </div>
                       {editForm.traffic_trend.map((item, i) => (
-                        <div key={i} className="flex gap-4 items-start bg-white/[0.02] p-4 rounded-xl border border-white/5">
-                          <input type="text" value={item.name} onChange={e => updateArrayItem("traffic_trend", i, "name", e.target.value)} className="w-32 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Month (e.g. Jan)" />
-                          <input type="number" value={item.traffic} onChange={e => updateArrayItem("traffic_trend", i, "traffic", Number(e.target.value))} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#00D67D]" placeholder="Traffic count" />
-                          <button onClick={() => removeArrayItem("traffic_trend", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
+                        <div key={i} className="flex gap-4 items-start bg-white/[0.01] p-4 rounded-xl border border-white/5">
+                          <input type="text" value={item.name} onChange={e => updateArrayItem("traffic_trend", i, "name", e.target.value)} className="w-32 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Month (e.g. Jan)" />
+                          <input type="number" value={item.traffic} onChange={e => updateArrayItem("traffic_trend", i, "traffic", Number(e.target.value))} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="Traffic count" />
+                          <button onClick={() => removeArrayItem("traffic_trend", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg cursor-pointer"><Trash2 className="w-4 h-4"/></button>
                         </div>
                       ))}
                     </div>
@@ -427,20 +427,20 @@ export default function AdminDashboard({ adminData }) {
                   {editTab === "keywords" && (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
-                        <h3 className="font-display text-lg font-bold">Keyword Rankings</h3>
-                        <button onClick={() => addArrayItem("keyword_rankings", {keyword: "new keyword", rank: 1, change: "+0", volume: "0", status: "active"})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Keyword</button>
+                        <h3 className="font-display text-lg font-semibold">Keyword Rankings</h3>
+                        <button onClick={() => addArrayItem("keyword_rankings", {keyword: "new keyword", rank: 1, change: "+0", volume: "0", status: "active"})} className="text-xs font-mono-pro text-[#2997ff] hover:text-white flex items-center gap-1 cursor-pointer"><PlusCircle className="w-3 h-3"/> Add Keyword</button>
                       </div>
                       {editForm.keyword_rankings.map((item, i) => (
-                        <div key={i} className="flex gap-2 items-start bg-white/[0.02] p-4 rounded-xl border border-white/5">
-                          <input type="text" value={item.keyword} onChange={e => updateArrayItem("keyword_rankings", i, "keyword", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Keyword" />
-                          <input type="number" value={item.rank} onChange={e => updateArrayItem("keyword_rankings", i, "rank", Number(e.target.value))} className="w-16 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-center text-[#00D67D]" placeholder="Rank" />
-                          <input type="text" value={item.change} onChange={e => updateArrayItem("keyword_rankings", i, "change", e.target.value)} className="w-16 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-center" placeholder="+0" />
-                          <input type="text" value={item.volume} onChange={e => updateArrayItem("keyword_rankings", i, "volume", e.target.value)} className="w-24 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-center" placeholder="Vol" />
-                          <select value={item.status} onChange={e => updateArrayItem("keyword_rankings", i, "status", e.target.value)} className="w-24 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white">
+                        <div key={i} className="flex gap-2 items-start bg-white/[0.01] p-4 rounded-xl border border-white/5">
+                          <input type="text" value={item.keyword} onChange={e => updateArrayItem("keyword_rankings", i, "keyword", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Keyword" />
+                          <input type="number" value={item.rank} onChange={e => updateArrayItem("keyword_rankings", i, "rank", Number(e.target.value))} className="w-16 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-center text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="Rank" />
+                          <input type="text" value={item.change} onChange={e => updateArrayItem("keyword_rankings", i, "change", e.target.value)} className="w-16 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-center focus:border-[#2997ff] outline-none" placeholder="+0" />
+                          <input type="text" value={item.volume} onChange={e => updateArrayItem("keyword_rankings", i, "volume", e.target.value)} className="w-24 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-center focus:border-[#2997ff] outline-none" placeholder="Vol" />
+                          <select value={item.status} onChange={e => updateArrayItem("keyword_rankings", i, "status", e.target.value)} className="w-24 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white focus:border-[#2997ff] outline-none">
                             <option value="active">Active</option>
                             <option value="dropped">Dropped</option>
                           </select>
-                          <button onClick={() => removeArrayItem("keyword_rankings", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
+                          <button onClick={() => removeArrayItem("keyword_rankings", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg cursor-pointer"><Trash2 className="w-4 h-4"/></button>
                         </div>
                       ))}
                     </div>
@@ -449,15 +449,15 @@ export default function AdminDashboard({ adminData }) {
                   {editTab === "competitors" && (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
-                        <h3 className="font-display text-lg font-bold">Competitors Comparison</h3>
-                        <button onClick={() => addArrayItem("competitors", {name: "Competitor", traffic: "0", da: "0"})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Competitor</button>
+                        <h3 className="font-display text-lg font-semibold">Competitors Comparison</h3>
+                        <button onClick={() => addArrayItem("competitors", {name: "Competitor", traffic: "0", da: "0"})} className="text-xs font-mono-pro text-[#2997ff] hover:text-white flex items-center gap-1 cursor-pointer"><PlusCircle className="w-3 h-3"/> Add Competitor</button>
                       </div>
                       {editForm.competitors.map((item, i) => (
-                        <div key={i} className="flex gap-4 items-start bg-white/[0.02] p-4 rounded-xl border border-white/5">
-                          <input type="text" value={item.name} onChange={e => updateArrayItem("competitors", i, "name", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Competitor Name" />
-                          <input type="text" value={item.traffic} onChange={e => updateArrayItem("competitors", i, "traffic", e.target.value)} className="w-32 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Traffic" />
-                          <input type="text" value={item.da} onChange={e => updateArrayItem("competitors", i, "da", e.target.value)} className="w-24 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#00D67D]" placeholder="DA" />
-                          <button onClick={() => removeArrayItem("competitors", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
+                        <div key={i} className="flex gap-4 items-start bg-white/[0.01] p-4 rounded-xl border border-white/5">
+                          <input type="text" value={item.name} onChange={e => updateArrayItem("competitors", i, "name", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Competitor Name" />
+                          <input type="text" value={item.traffic} onChange={e => updateArrayItem("competitors", i, "traffic", e.target.value)} className="w-32 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Traffic" />
+                          <input type="text" value={item.da} onChange={e => updateArrayItem("competitors", i, "da", e.target.value)} className="w-24 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="DA" />
+                          <button onClick={() => removeArrayItem("competitors", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg cursor-pointer"><Trash2 className="w-4 h-4"/></button>
                         </div>
                       ))}
                     </div>
@@ -466,15 +466,15 @@ export default function AdminDashboard({ adminData }) {
                   {editTab === "goals" && (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
-                        <h3 className="font-display text-lg font-bold">Goal Progress</h3>
-                        <button onClick={() => addArrayItem("goals", {title: "New Goal", target: 100, current: 0})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Goal</button>
+                        <h3 className="font-display text-lg font-semibold">Goal Progress</h3>
+                        <button onClick={() => addArrayItem("goals", {title: "New Goal", target: 100, current: 0})} className="text-xs font-mono-pro text-[#2997ff] hover:text-white flex items-center gap-1 cursor-pointer"><PlusCircle className="w-3 h-3"/> Add Goal</button>
                       </div>
                       {editForm.goals.map((item, i) => (
-                        <div key={i} className="flex gap-4 items-start bg-white/[0.02] p-4 rounded-xl border border-white/5">
-                          <input type="text" value={item.title} onChange={e => updateArrayItem("goals", i, "title", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Goal Title (e.g. Leads)" />
-                          <input type="number" value={item.target} onChange={e => updateArrayItem("goals", i, "target", Number(e.target.value))} className="w-24 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Target" />
-                          <input type="number" value={item.current} onChange={e => updateArrayItem("goals", i, "current", Number(e.target.value))} className="w-24 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#00D67D]" placeholder="Current" />
-                          <button onClick={() => removeArrayItem("goals", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
+                        <div key={i} className="flex gap-4 items-start bg-white/[0.01] p-4 rounded-xl border border-white/5">
+                          <input type="text" value={item.title} onChange={e => updateArrayItem("goals", i, "title", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Goal Title (e.g. Leads)" />
+                          <input type="number" value={item.target} onChange={e => updateArrayItem("goals", i, "target", Number(e.target.value))} className="w-24 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Target" />
+                          <input type="number" value={item.current} onChange={e => updateArrayItem("goals", i, "current", Number(e.target.value))} className="w-24 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="Current" />
+                          <button onClick={() => removeArrayItem("goals", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg cursor-pointer"><Trash2 className="w-4 h-4"/></button>
                         </div>
                       ))}
                     </div>
@@ -483,24 +483,24 @@ export default function AdminDashboard({ adminData }) {
                   {editTab === "deliverables" && (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
-                        <h3 className="font-display text-lg font-bold">Deliverables Tracking</h3>
-                        <button onClick={() => addArrayItem("full_deliverables", {name: "New Task", type: "Content", status: "In Progress", due_date: "", url: "#"})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Deliverable</button>
+                        <h3 className="font-display text-lg font-semibold">Deliverables Tracking</h3>
+                        <button onClick={() => addArrayItem("full_deliverables", {name: "New Task", type: "Content", status: "In Progress", due_date: "", url: "#"})} className="text-xs font-mono-pro text-[#2997ff] hover:text-white flex items-center gap-1 cursor-pointer"><PlusCircle className="w-3 h-3"/> Add Deliverable</button>
                       </div>
                       {editForm.full_deliverables.map((item, i) => (
-                        <div key={i} className="flex flex-col gap-2 bg-white/[0.02] p-4 rounded-xl border border-white/5">
+                        <div key={i} className="flex flex-col gap-2 bg-white/[0.01] p-4 rounded-xl border border-white/5">
                           <div className="flex gap-2">
-                            <input type="text" value={item.name} onChange={e => updateArrayItem("full_deliverables", i, "name", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Name" />
-                            <input type="text" value={item.type} onChange={e => updateArrayItem("full_deliverables", i, "type", e.target.value)} className="w-32 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Type" />
-                            <select value={item.status} onChange={e => updateArrayItem("full_deliverables", i, "status", e.target.value)} className="w-40 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white">
+                            <input type="text" value={item.name} onChange={e => updateArrayItem("full_deliverables", i, "name", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Name" />
+                            <input type="text" value={item.type} onChange={e => updateArrayItem("full_deliverables", i, "type", e.target.value)} className="w-32 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Type" />
+                            <select value={item.status} onChange={e => updateArrayItem("full_deliverables", i, "status", e.target.value)} className="w-40 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white focus:border-[#2997ff] outline-none">
                               <option value="In Progress">In Progress</option>
                               <option value="Pending Approval">Pending Approval</option>
                               <option value="Delivered">Delivered</option>
                             </select>
-                            <button onClick={() => removeArrayItem("full_deliverables", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
+                            <button onClick={() => removeArrayItem("full_deliverables", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg cursor-pointer"><Trash2 className="w-4 h-4"/></button>
                           </div>
                           <div className="flex gap-2">
-                            <input type="text" value={item.due_date} onChange={e => updateArrayItem("full_deliverables", i, "due_date", e.target.value)} className="w-40 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#00D67D]" placeholder="Due Date (YYYY-MM-DD)" />
-                            <input type="text" value={item.url} onChange={e => updateArrayItem("full_deliverables", i, "url", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#00D67D]" placeholder="File/Folder URL" />
+                            <input type="text" value={item.due_date} onChange={e => updateArrayItem("full_deliverables", i, "due_date", e.target.value)} className="w-40 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="Due Date (YYYY-MM-DD)" />
+                            <input type="text" value={item.url} onChange={e => updateArrayItem("full_deliverables", i, "url", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="File/Folder URL" />
                           </div>
                         </div>
                       ))}
@@ -510,25 +510,25 @@ export default function AdminDashboard({ adminData }) {
                   {editTab === "content" && (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
-                        <h3 className="font-display text-lg font-bold">Content Calendar</h3>
-                        <button onClick={() => addArrayItem("content_calendar", {title: "New Post", keyword: "", publish_date: "", status: "Pending Approval"})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Content</button>
+                        <h3 className="font-display text-lg font-semibold">Content Calendar</h3>
+                        <button onClick={() => addArrayItem("content_calendar", {title: "New Post", keyword: "", publish_date: "", status: "Pending Approval"})} className="text-xs font-mono-pro text-[#2997ff] hover:text-white flex items-center gap-1 cursor-pointer"><PlusCircle className="w-3 h-3"/> Add Content</button>
                       </div>
                       {editForm.content_calendar.map((item, i) => (
-                        <div key={i} className="flex flex-col gap-2 bg-white/[0.02] p-4 rounded-xl border border-white/5">
+                        <div key={i} className="flex flex-col gap-2 bg-white/[0.01] p-4 rounded-xl border border-white/5">
                           <div className="flex gap-2">
-                            <input type="text" value={item.title} onChange={e => updateArrayItem("content_calendar", i, "title", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Title" />
-                            <input type="text" value={item.keyword} onChange={e => updateArrayItem("content_calendar", i, "keyword", e.target.value)} className="w-40 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Target Keyword" />
+                            <input type="text" value={item.title} onChange={e => updateArrayItem("content_calendar", i, "title", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Title" />
+                            <input type="text" value={item.keyword} onChange={e => updateArrayItem("content_calendar", i, "keyword", e.target.value)} className="w-40 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Target Keyword" />
                           </div>
                           <div className="flex gap-2">
-                            <input type="text" value={item.publish_date} onChange={e => updateArrayItem("content_calendar", i, "publish_date", e.target.value)} className="w-40 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#00D67D]" placeholder="Date (YYYY-MM-DD)" />
-                            <select value={item.status} onChange={e => updateArrayItem("content_calendar", i, "status", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white">
+                            <input type="text" value={item.publish_date} onChange={e => updateArrayItem("content_calendar", i, "publish_date", e.target.value)} className="w-40 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="Date (YYYY-MM-DD)" />
+                            <select value={item.status} onChange={e => updateArrayItem("content_calendar", i, "status", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white focus:border-[#2997ff] outline-none">
                               <option value="Drafting">Drafting</option>
                               <option value="Pending Approval">Pending Approval</option>
                               <option value="Approved">Approved</option>
                               <option value="Revision Requested">Revision Requested</option>
                               <option value="Published">Published</option>
                             </select>
-                            <button onClick={() => removeArrayItem("content_calendar", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
+                            <button onClick={() => removeArrayItem("content_calendar", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg cursor-pointer"><Trash2 className="w-4 h-4"/></button>
                           </div>
                         </div>
                       ))}
@@ -538,15 +538,15 @@ export default function AdminDashboard({ adminData }) {
                   {editTab === "reports" && (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
-                        <h3 className="font-display text-lg font-bold">Monthly Reports</h3>
-                        <button onClick={() => addArrayItem("monthly_reports", {title: "Monthly Report", month: "", url: "#"})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Report</button>
+                        <h3 className="font-display text-lg font-semibold">Monthly Reports</h3>
+                        <button onClick={() => addArrayItem("monthly_reports", {title: "Monthly Report", month: "", url: "#"})} className="text-xs font-mono-pro text-[#2997ff] hover:text-white flex items-center gap-1 cursor-pointer"><PlusCircle className="w-3 h-3"/> Add Report</button>
                       </div>
                       {editForm.monthly_reports.map((item, i) => (
-                        <div key={i} className="flex gap-2 items-start bg-white/[0.02] p-4 rounded-xl border border-white/5">
-                          <input type="text" value={item.title} onChange={e => updateArrayItem("monthly_reports", i, "title", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Title (e.g. Q1 Summary)" />
-                          <input type="text" value={item.month} onChange={e => updateArrayItem("monthly_reports", i, "month", e.target.value)} className="w-32 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Month" />
-                          <input type="text" value={item.url} onChange={e => updateArrayItem("monthly_reports", i, "url", e.target.value)} className="w-48 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#00D67D]" placeholder="PDF Link URL" />
-                          <button onClick={() => removeArrayItem("monthly_reports", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
+                        <div key={i} className="flex gap-2 items-start bg-white/[0.01] p-4 rounded-xl border border-white/5">
+                          <input type="text" value={item.title} onChange={e => updateArrayItem("monthly_reports", i, "title", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Title (e.g. Q1 Summary)" />
+                          <input type="text" value={item.month} onChange={e => updateArrayItem("monthly_reports", i, "month", e.target.value)} className="w-32 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Month" />
+                          <input type="text" value={item.url} onChange={e => updateArrayItem("monthly_reports", i, "url", e.target.value)} className="w-48 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="PDF Link URL" />
+                          <button onClick={() => removeArrayItem("monthly_reports", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg cursor-pointer"><Trash2 className="w-4 h-4"/></button>
                         </div>
                       ))}
                     </div>
@@ -555,15 +555,15 @@ export default function AdminDashboard({ adminData }) {
                   {editTab === "progress" && (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
-                        <h3 className="font-display text-lg font-bold">Progress Reports</h3>
-                        <button onClick={() => addArrayItem("progress_reports", {title: "Progress Update", date: "", url: "#"})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Progress Report</button>
+                        <h3 className="font-display text-lg font-semibold">Progress Reports</h3>
+                        <button onClick={() => addArrayItem("progress_reports", {title: "Progress Update", date: "", url: "#"})} className="text-xs font-mono-pro text-[#2997ff] hover:text-white flex items-center gap-1 cursor-pointer"><PlusCircle className="w-3 h-3"/> Add Progress Report</button>
                       </div>
                       {editForm.progress_reports.map((item, i) => (
-                        <div key={i} className="flex gap-2 items-start bg-white/[0.02] p-4 rounded-xl border border-white/5">
-                          <input type="text" value={item.title} onChange={e => updateArrayItem("progress_reports", i, "title", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Title (e.g. Week 2 Technical Audit)" />
-                          <input type="text" value={item.date} onChange={e => updateArrayItem("progress_reports", i, "date", e.target.value)} className="w-32 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Date" />
-                          <input type="text" value={item.url} onChange={e => updateArrayItem("progress_reports", i, "url", e.target.value)} className="w-48 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#00D67D]" placeholder="Report Link URL" />
-                          <button onClick={() => removeArrayItem("progress_reports", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
+                        <div key={i} className="flex gap-2 items-start bg-white/[0.01] p-4 rounded-xl border border-white/5">
+                          <input type="text" value={item.title} onChange={e => updateArrayItem("progress_reports", i, "title", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Title (e.g. Week 2 Technical Audit)" />
+                          <input type="text" value={item.date} onChange={e => updateArrayItem("progress_reports", i, "date", e.target.value)} className="w-32 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Date" />
+                          <input type="text" value={item.url} onChange={e => updateArrayItem("progress_reports", i, "url", e.target.value)} className="w-48 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="Report Link URL" />
+                          <button onClick={() => removeArrayItem("progress_reports", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg cursor-pointer"><Trash2 className="w-4 h-4"/></button>
                         </div>
                       ))}
                     </div>
@@ -572,19 +572,19 @@ export default function AdminDashboard({ adminData }) {
                   {editTab === "timeline" && (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
-                        <h3 className="font-display text-lg font-bold">Campaign Roadmap</h3>
-                        <button onClick={() => addArrayItem("timeline", {step: editForm.timeline.length + 1, title: "New Phase", status: "pending"})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Phase</button>
+                        <h3 className="font-display text-lg font-semibold">Campaign Roadmap</h3>
+                        <button onClick={() => addArrayItem("timeline", {step: editForm.timeline.length + 1, title: "New Phase", status: "pending"})} className="text-xs font-mono-pro text-[#2997ff] hover:text-white flex items-center gap-1 cursor-pointer"><PlusCircle className="w-3 h-3"/> Add Phase</button>
                       </div>
                       {editForm.timeline.map((item, i) => (
-                        <div key={i} className="flex gap-4 items-start bg-white/[0.02] p-4 rounded-xl border border-white/5">
-                          <input type="number" value={item.step} onChange={e => updateArrayItem("timeline", i, "step", e.target.value)} className="w-16 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-center" />
-                          <input type="text" value={item.title} onChange={e => updateArrayItem("timeline", i, "title", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" />
-                          <select value={item.status} onChange={e => updateArrayItem("timeline", i, "status", e.target.value)} className="bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white">
+                        <div key={i} className="flex gap-4 items-start bg-white/[0.01] p-4 rounded-xl border border-white/5">
+                          <input type="number" value={item.step} onChange={e => updateArrayItem("timeline", i, "step", e.target.value)} className="w-16 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-center focus:border-[#2997ff] outline-none" />
+                          <input type="text" value={item.title} onChange={e => updateArrayItem("timeline", i, "title", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" />
+                          <select value={item.status} onChange={e => updateArrayItem("timeline", i, "status", e.target.value)} className="bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white focus:border-[#2997ff] outline-none">
                             <option value="completed">Completed</option>
                             <option value="in_progress">In Progress</option>
                             <option value="pending">Pending</option>
                           </select>
-                          <button onClick={() => removeArrayItem("timeline", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
+                          <button onClick={() => removeArrayItem("timeline", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg cursor-pointer"><Trash2 className="w-4 h-4"/></button>
                         </div>
                       ))}
                     </div>
@@ -593,100 +593,100 @@ export default function AdminDashboard({ adminData }) {
                   {editTab === "activity" && (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
-                        <h3 className="font-display text-lg font-bold">Recent Deliverables</h3>
-                        <button onClick={() => addArrayItem("recent_activity", {date: new Date().toISOString(), title: "New Task"})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Task</button>
+                        <h3 className="font-display text-lg font-semibold">Recent Deliverables</h3>
+                        <button onClick={() => addArrayItem("recent_activity", {date: new Date().toISOString(), title: "New Task"})} className="text-xs font-mono-pro text-[#2997ff] hover:text-white flex items-center gap-1 cursor-pointer"><PlusCircle className="w-3 h-3"/> Add Task</button>
                       </div>
                       {editForm.recent_activity.map((item, i) => (
                         <div key={i} className="flex gap-4 items-start bg-white/[0.02] p-4 rounded-xl border border-white/5">
-                          <input type="text" value={item.date} onChange={e => updateArrayItem("recent_activity", i, "date", e.target.value)} className="w-48 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm font-mono text-[#00D67D]" placeholder="YYYY-MM-DD or ISO" />
-                          <input type="text" value={item.title} onChange={e => updateArrayItem("recent_activity", i, "title", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Task description" />
-                          <button onClick={() => removeArrayItem("recent_activity", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                           <input type="text" value={item.date} onChange={e => updateArrayItem("recent_activity", i, "date", e.target.value)} className="w-48 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm font-mono text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="YYYY-MM-DD or ISO" />
+                           <input type="text" value={item.title} onChange={e => updateArrayItem("recent_activity", i, "title", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Task description" />
+                           <button onClick={() => removeArrayItem("recent_activity", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg cursor-pointer"><Trash2 className="w-4 h-4"/></button>
+                         </div>
+                       ))}
+                     </div>
+                   )}
 
-                  {editTab === "documents" && (
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
-                        <h3 className="font-display text-lg font-bold">File Vault (Documents)</h3>
-                        <button onClick={() => addArrayItem("documents", {name: "New Document", category: "Contract", upload_date: "", url: "#"})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Document</button>
-                      </div>
-                      {editForm.documents.map((item, i) => (
-                        <div key={i} className="flex flex-col gap-2 bg-white/[0.02] p-4 rounded-xl border border-white/5">
-                          <div className="flex gap-2">
-                            <input type="text" value={item.name || item.title} onChange={e => updateArrayItem("documents", i, "name", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="File Name" />
-                            <select value={item.category} onChange={e => updateArrayItem("documents", i, "category", e.target.value)} className="w-40 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white">
-                              <option value="Contract">Contract</option>
-                              <option value="SOW">SOW</option>
-                              <option value="Brand Assets">Brand Assets</option>
-                              <option value="Credentials">Credentials</option>
-                            </select>
-                          </div>
-                          <div className="flex gap-2">
-                            <input type="text" value={item.upload_date} onChange={e => updateArrayItem("documents", i, "upload_date", e.target.value)} className="w-40 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#00D67D]" placeholder="Date (YYYY-MM-DD)" />
-                            <input type="text" value={item.url} onChange={e => updateArrayItem("documents", i, "url", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#00D67D]" placeholder="URL link" />
-                            <button onClick={() => removeArrayItem("documents", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                   {editTab === "documents" && (
+                     <div className="space-y-4">
+                       <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
+                         <h3 className="font-display text-lg font-semibold">File Vault (Documents)</h3>
+                         <button onClick={() => addArrayItem("documents", {name: "New Document", category: "Contract", upload_date: "", url: "#"})} className="text-xs font-mono-pro text-[#2997ff] hover:text-white flex items-center gap-1 cursor-pointer"><PlusCircle className="w-3 h-3"/> Add Document</button>
+                       </div>
+                       {editForm.documents.map((item, i) => (
+                         <div key={i} className="flex flex-col gap-2 bg-white/[0.01] p-4 rounded-xl border border-white/5">
+                           <div className="flex gap-2">
+                             <input type="text" value={item.name || item.title} onChange={e => updateArrayItem("documents", i, "name", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="File Name" />
+                             <select value={item.category} onChange={e => updateArrayItem("documents", i, "category", e.target.value)} className="w-40 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white focus:border-[#2997ff] outline-none">
+                               <option value="Contract">Contract</option>
+                               <option value="SOW">SOW</option>
+                               <option value="Brand Assets">Brand Assets</option>
+                               <option value="Credentials">Credentials</option>
+                             </select>
+                           </div>
+                           <div className="flex gap-2">
+                             <input type="text" value={item.upload_date} onChange={e => updateArrayItem("documents", i, "upload_date", e.target.value)} className="w-40 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="Date (YYYY-MM-DD)" />
+                             <input type="text" value={item.url} onChange={e => updateArrayItem("documents", i, "url", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="URL link" />
+                             <button onClick={() => removeArrayItem("documents", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg cursor-pointer"><Trash2 className="w-4 h-4"/></button>
+                           </div>
+                         </div>
+                       ))}
+                     </div>
+                   )}
 
-                  {editTab === "messages" && (
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
-                        <h3 className="font-display text-lg font-bold">Client Messages</h3>
-                        <button onClick={() => addArrayItem("messages", {sender: "Agency", text: "Hello!", date: new Date().toISOString(), tagged_item: ""})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Reply</button>
-                      </div>
-                      {editForm.messages.map((item, i) => (
-                        <div key={i} className="flex flex-col gap-2 bg-white/[0.02] p-4 rounded-xl border border-white/5">
-                          <div className="flex gap-2">
-                            <select value={item.sender} onChange={e => updateArrayItem("messages", i, "sender", e.target.value)} className="w-32 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white">
-                              <option value="Agency">Agency</option>
-                              <option value="Client">Client</option>
-                            </select>
-                            <input type="text" value={item.date} onChange={e => updateArrayItem("messages", i, "date", e.target.value)} className="w-48 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white/50" placeholder="Timestamp" />
-                          </div>
-                          <textarea value={item.text} onChange={e => updateArrayItem("messages", i, "text", e.target.value)} className="w-full bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm min-h-[80px]" placeholder="Message Body" />
-                          <div className="flex justify-between items-center mt-2">
-                            <input type="text" value={item.tagged_item} onChange={e => updateArrayItem("messages", i, "tagged_item", e.target.value)} className="w-1/2 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#00D67D]" placeholder="Tagged Item (Optional)" />
-                            <button onClick={() => removeArrayItem("messages", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                   {editTab === "messages" && (
+                     <div className="space-y-4">
+                       <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
+                         <h3 className="font-display text-lg font-semibold">Client Messages</h3>
+                         <button onClick={() => addArrayItem("messages", {sender: "Agency", text: "Hello!", date: new Date().toISOString(), tagged_item: ""})} className="text-xs font-mono-pro text-[#2997ff] hover:text-white flex items-center gap-1 cursor-pointer"><PlusCircle className="w-3 h-3"/> Add Reply</button>
+                       </div>
+                       {editForm.messages.map((item, i) => (
+                         <div key={i} className="flex flex-col gap-2 bg-white/[0.01] p-4 rounded-xl border border-white/5">
+                           <div className="flex gap-2">
+                             <select value={item.sender} onChange={e => updateArrayItem("messages", i, "sender", e.target.value)} className="w-32 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white focus:border-[#2997ff] outline-none">
+                               <option value="Agency">Agency</option>
+                               <option value="Client">Client</option>
+                             </select>
+                             <input type="text" value={item.date} onChange={e => updateArrayItem("messages", i, "date", e.target.value)} className="w-48 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white/50 focus:border-[#2997ff] outline-none" placeholder="Timestamp" />
+                           </div>
+                           <textarea value={item.text} onChange={e => updateArrayItem("messages", i, "text", e.target.value)} className="w-full bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm min-h-[80px] focus:border-[#2997ff] outline-none" placeholder="Message Body" />
+                           <div className="flex justify-between items-center mt-2">
+                             <input type="text" value={item.tagged_item} onChange={e => updateArrayItem("messages", i, "tagged_item", e.target.value)} className="w-1/2 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="Tagged Item (Optional)" />
+                             <button onClick={() => removeArrayItem("messages", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg cursor-pointer"><Trash2 className="w-4 h-4"/></button>
+                           </div>
+                         </div>
+                       ))}
+                     </div>
+                   )}
 
-                  {editTab === "invoices" && (
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
-                        <h3 className="font-display text-lg font-bold">Invoices Tracker</h3>
-                        <button onClick={() => addArrayItem("invoices", {number: "INV-", date: "", amount: 0, status: "Pending", url: "#"})} className="text-xs font-mono-pro text-[#00D67D] hover:text-white flex items-center gap-1"><PlusCircle className="w-3 h-3"/> Add Invoice</button>
-                      </div>
-                      {editForm.invoices.map((item, i) => (
-                        <div key={i} className="flex gap-2 items-center bg-white/[0.02] p-4 rounded-xl border border-white/5">
-                          <input type="text" value={item.number} onChange={e => updateArrayItem("invoices", i, "number", e.target.value)} className="w-24 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="Number" />
-                          <input type="text" value={item.date} onChange={e => updateArrayItem("invoices", i, "date", e.target.value)} className="w-32 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm" placeholder="YYYY-MM-DD" />
-                          <input type="number" value={item.amount} onChange={e => updateArrayItem("invoices", i, "amount", parseFloat(e.target.value))} className="w-24 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#00D67D]" placeholder="Amount" />
-                          <select value={item.status} onChange={e => updateArrayItem("invoices", i, "status", e.target.value)} className="w-28 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white">
-                            <option value="Pending">Pending</option>
-                            <option value="Paid">Paid</option>
-                          </select>
-                          <input type="text" value={item.url} onChange={e => updateArrayItem("invoices", i, "url", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#00D67D]" placeholder="URL" />
-                          <button onClick={() => removeArrayItem("invoices", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><Trash2 className="w-4 h-4"/></button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                   {editTab === "invoices" && (
+                     <div className="space-y-4">
+                       <div className="flex items-center justify-between mb-4 border-b border-white/[0.04] pb-2">
+                         <h3 className="font-display text-lg font-semibold">Invoices Tracker</h3>
+                         <button onClick={() => addArrayItem("invoices", {number: "INV-", date: "", amount: 0, status: "Pending", url: "#"})} className="text-xs font-mono-pro text-[#2997ff] hover:text-white flex items-center gap-1 cursor-pointer"><PlusCircle className="w-3 h-3"/> Add Invoice</button>
+                       </div>
+                       {editForm.invoices.map((item, i) => (
+                         <div key={i} className="flex gap-2 items-center bg-white/[0.01] p-4 rounded-xl border border-white/5">
+                           <input type="text" value={item.number} onChange={e => updateArrayItem("invoices", i, "number", e.target.value)} className="w-24 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="Number" />
+                           <input type="text" value={item.date} onChange={e => updateArrayItem("invoices", i, "date", e.target.value)} className="w-32 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm focus:border-[#2997ff] outline-none" placeholder="YYYY-MM-DD" />
+                           <input type="number" value={item.amount} onChange={e => updateArrayItem("invoices", i, "amount", parseFloat(e.target.value))} className="w-24 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="Amount" />
+                           <select value={item.status} onChange={e => updateArrayItem("invoices", i, "status", e.target.value)} className="w-28 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-white focus:border-[#2997ff] outline-none">
+                             <option value="Pending">Pending</option>
+                             <option value="Paid">Paid</option>
+                           </select>
+                           <input type="text" value={item.url} onChange={e => updateArrayItem("invoices", i, "url", e.target.value)} className="flex-1 bg-black/50 border border-white/[0.04] rounded-lg px-3 py-2 text-sm text-[#2997ff] focus:border-[#2997ff] outline-none" placeholder="URL" />
+                           <button onClick={() => removeArrayItem("invoices", i)} className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg cursor-pointer"><Trash2 className="w-4 h-4"/></button>
+                         </div>
+                       ))}
+                     </div>
+                   )}
 
                 </div>
               </div>
 
               {/* Modal Footer */}
               <div className="px-8 py-5 border-t border-white/5 bg-black/40 flex justify-end gap-4">
-                <button onClick={() => setEditingClient(null)} className="px-6 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-wider text-white/50 hover:text-white transition-colors">Cancel</button>
-                <button onClick={handleSave} className="flex items-center gap-2 px-8 py-3 rounded-xl bg-[#00D67D] text-black font-bold font-mono-pro text-xs uppercase tracking-wider hover:bg-white transition-colors">
+                <button onClick={() => setEditingClient(null)} className="px-6 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-wider text-white/50 hover:text-white transition-colors cursor-pointer">Cancel</button>
+                <button onClick={handleSave} className="flex items-center gap-2 px-8 py-3 rounded-xl bg-gradient-to-r from-[#2997ff] to-[#0071e3] text-white font-semibold font-mono-pro text-xs uppercase tracking-wider hover:brightness-110 shadow-[0_4px_12px_rgba(0,113,227,0.3)] border border-[#2997ff]/20 transition-all cursor-pointer">
                   <Save className="w-4 h-4" /> Push Live
                 </button>
               </div>

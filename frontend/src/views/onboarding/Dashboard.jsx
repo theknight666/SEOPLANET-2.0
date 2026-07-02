@@ -19,55 +19,58 @@ function CinematicLoader({ companyName, onComplete }) {
     const t2 = setTimeout(() => setPhase(2), 2400);
     const t3 = setTimeout(() => onComplete(), 4000);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
-  }, []); // Empty dependency array prevents resetting the loader on re-renders
+  }, []);
 
   return (
     <motion.div 
-      exit={{ opacity: 0, scale: 1.05 }} 
-      transition={{ duration: 0.8, ease: "easeInOut" }}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black text-white grain"
+      exit={{ opacity: 0, scale: 1.02 }} 
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#050508] text-white selection:bg-[#2997ff]/30 selection:text-white"
     >
-      <div className="absolute inset-0 grid-bg opacity-20" />
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[20%] left-[20%] fluid-glow-1 animate-pulse" />
+        <div className="absolute bottom-[20%] right-[20%] fluid-glow-2" />
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[40px]" />
+        <div className="absolute inset-0 grid-bg opacity-[0.03]" />
+      </div>
       
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="relative z-10 flex flex-col items-center"
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 flex flex-col items-center text-center px-6"
       >
-        <Lock className="w-12 h-12 text-[#00FF94] mb-8 opacity-80" />
+        <div className="relative mb-10 w-16 h-16 flex items-center justify-center">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-0 rounded-full border-2 border-white/5 border-t-white/60"
+          />
+          <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center backdrop-blur-md border border-white/10">
+            <div className="w-2.5 h-2.5 rounded-full bg-[#2997ff] animate-pulse" />
+          </div>
+        </div>
         
-        <div className="h-12 flex items-center justify-center">
+        <div className="h-16 flex flex-col items-center justify-center">
           <AnimatePresence mode="wait">
             {phase === 0 && (
-              <motion.p key="p0" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="font-mono-pro text-sm uppercase tracking-[0.3em] text-white/50">
-                Decrypting Secure Channel...
+              <motion.p key="p0" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="font-mono-pro text-[10px] uppercase tracking-[0.25em] text-white/40">
+                Establishing Secure Link...
               </motion.p>
             )}
             {phase === 1 && (
-              <motion.p key="p1" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="font-mono-pro text-sm uppercase tracking-[0.3em] text-white/50">
-                Synchronizing Strategy Vault...
+              <motion.p key="p1" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="font-mono-pro text-[10px] uppercase tracking-[0.25em] text-white/40">
+                Syncing Strategy Workspace...
               </motion.p>
             )}
             {phase === 2 && (
-              <motion.div key="p2" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center">
-                <p className="font-display text-3xl font-bold text-[#00FF94] mb-2 drop-shadow-[0_0_15px_rgba(0,255,148,0.5)]">ACCESS GRANTED</p>
-                <p className="font-mono-pro text-xs uppercase tracking-[0.4em] text-white">Welcome, {companyName}</p>
+              <motion.div key="p2" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center">
+                <p className="font-display text-2xl font-semibold tracking-tight text-white mb-1.5">Welcome Back</p>
+                <p className="font-mono-pro text-[10px] uppercase tracking-[0.2em] text-white/50">{companyName}</p>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-        
-        {phase < 2 && (
-          <div className="w-64 h-1 bg-white/10 rounded-full mt-8 overflow-hidden">
-            <motion.div 
-              initial={{ width: "0%" }} 
-              animate={{ width: "100%" }} 
-              transition={{ duration: 2.4, ease: "linear" }}
-              className="h-full bg-[#00FF94] shadow-[0_0_10px_#00FF94]"
-            />
-          </div>
-        )}
       </motion.div>
     </motion.div>
   );
@@ -110,8 +113,8 @@ const HoverButton = ({ children, className = "", ...props }) => {
   return (
     <motion.button 
       whileHover="hover"
-      whileTap={{ scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+      whileTap={{ scale: 0.96 }}
+      transition={{ type: "spring", stiffness: 400, damping: 18 }}
       className={`relative overflow-hidden group ${className}`}
       {...props}
     >
@@ -122,10 +125,10 @@ const HoverButton = ({ children, className = "", ...props }) => {
         }}
         initial="initial"
         transition={{ duration: 0.3, ease: "easeOut" }}
-        className="absolute inset-0 bg-[#00FF94] z-0"
+        className="absolute inset-0 bg-[#0071e3] z-0"
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
-      <span className="relative z-10 group-hover:text-black transition-colors duration-300 flex items-center justify-center gap-2">
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:animate-shimmer" />
+      <span className="relative z-10 group-hover:text-white transition-colors duration-300 flex items-center justify-center gap-2">
         {children}
       </span>
     </motion.button>
@@ -400,7 +403,7 @@ export default function Dashboard() {
             animate={{ width: "100%", opacity: [1, 1, 0] }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: "circOut" }}
-            className="fixed top-0 left-0 h-[3px] bg-[#00FF94] z-[100] shadow-[0_0_15px_#00FF94]"
+            className="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-[#2997ff] to-[#0071e3] z-[100] shadow-[0_0_10px_rgba(0,113,227,0.4)]"
           />
         )}
       </AnimatePresence>
@@ -408,15 +411,18 @@ export default function Dashboard() {
       {showDashboard && (
         <motion.div 
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}
-          className="flex h-[100dvh] w-full bg-black text-white overflow-hidden grain selection:bg-[#00FF94] selection:text-black"
+          className="liquidglass-theme flex h-[100dvh] w-full bg-[#06060a] text-white overflow-hidden selection:bg-[#2997ff]/30 selection:text-white relative"
         >
-          {/* Subtle static grid dot pattern */}
-          <div className="fixed inset-0 pointer-events-none z-0" style={{ backgroundImage: 'radial-gradient(circle at center, rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+          {/* Siri-style dynamic ambient glows */}
+          <div className="absolute top-[-10%] left-[-10%] fluid-glow-1 pointer-events-none" />
+          <div className="absolute bottom-[-10%] right-[-10%] fluid-glow-2 pointer-events-none" />
+          <div className="absolute inset-0 bg-[#06060a]/40 backdrop-blur-[30px] pointer-events-none z-0" />
+          <div className="fixed inset-0 pointer-events-none z-0" style={{ backgroundImage: 'radial-gradient(circle at center, rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
 
           {/* Desktop Sidebar */}
           <motion.aside 
             initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.4 }}
-            className="hidden md:flex flex-col w-64 border-r border-white/5 bg-[#050505]/80 backdrop-blur-xl shrink-0 z-20"
+            className="hidden md:flex flex-col w-64 border-r border-white/5 bg-white/[0.02] backdrop-blur-3xl shrink-0 z-20"
           >
             <div className="h-20 flex items-center px-8 border-b border-white/5 shrink-0">
               <Logo hideVersion={true} />
@@ -439,12 +445,12 @@ export default function Dashboard() {
                   <button 
                     key={item.id}
                     onClick={() => setActiveTab(item.id)}
-                    className={`relative w-full flex items-center gap-3 px-4 py-3 rounded-xl font-mono-pro text-xs uppercase tracking-widest transition-colors duration-300 group ${isActive ? 'text-[#00FF94]' : 'text-white/40 hover:text-white'}`}
+                    className={`relative w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-mono-pro text-[10px] uppercase tracking-wider transition-colors duration-300 group ${isActive ? 'text-white font-medium' : 'text-white/40 hover:text-white/85'}`}
                   >
                     {isActive && (
                       <motion.div
                         layoutId="activePill"
-                        className="absolute inset-0 bg-[#00FF94]/10 border border-[#00FF94]/20 rounded-xl shadow-[0_0_20px_rgba(0,255,148,0.1)] z-0"
+                        className="absolute inset-0 bg-white/[0.05] border border-white/10 rounded-2xl shadow-[0_4px_20px_rgba(255,255,255,0.02)] z-0"
                         transition={{ type: "spring", stiffness: 350, damping: 30 }}
                       />
                     )}
@@ -453,7 +459,7 @@ export default function Dashboard() {
                       whileHover={!isActive ? { x: 4 } : {}}
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
-                      <Icon className="w-4 h-4 transition-all duration-300 group-hover:brightness-125" /> 
+                      <Icon className={`w-4 h-4 transition-all duration-300 ${isActive ? 'text-[#2997ff]' : 'group-hover:brightness-125'}`} /> 
                       {item.label}
                     </motion.div>
                   </button>
@@ -462,8 +468,8 @@ export default function Dashboard() {
             </nav>
 
             <div className="p-6 border-t border-white/5 shrink-0">
-              <button onClick={logout} className="group flex items-center gap-3 text-xs font-mono-pro text-white/50 hover:text-white transition-colors w-full p-3 rounded-xl hover:bg-white/[0.02]">
-                <LogOut className="w-4 h-4 group-hover:text-[#00FF94] transition-colors" /> Disconnect
+              <button onClick={logout} className="group flex items-center gap-3 text-xs font-mono-pro text-white/45 hover:text-white transition-colors w-full p-3 rounded-xl hover:bg-white/[0.02] cursor-pointer">
+                <LogOut className="w-4 h-4 group-hover:text-red-400 transition-colors" /> Disconnect
               </button>
             </div>
           </motion.aside>
@@ -495,36 +501,31 @@ export default function Dashboard() {
                 <motion.div variants={itemVariants}>
                   <div className="flex flex-wrap items-center gap-3 mb-6">
                     <motion.div 
-                      initial={{ opacity: 0, scale: 0.8 }}
+                      initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
-                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#00FF94]/10 border border-[#00FF94]/20 relative group"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10 relative z-10"
                     >
-                      <motion.div 
-                        animate={{ boxShadow: ["0 0 0px #00FF94", "0 0 15px #00FF94", "0 0 0px #00FF94"] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className="absolute inset-0 rounded-full opacity-50"
-                      />
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#00FF94] shadow-[0_0_8px_#00FF94]" />
-                      <span className="font-mono-pro text-[10px] text-[#00FF94] uppercase tracking-widest relative z-10">Exclusive Portal Activated</span>
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#2997ff]" />
+                      <span className="font-mono-pro text-[9px] text-white/60 uppercase tracking-wider">Secure Workspace</span>
                     </motion.div>
 
                     <motion.div 
-                      initial={{ opacity: 0, scale: 0.8 }}
+                      initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
-                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border font-mono-pro text-[10px] uppercase tracking-widest relative ${
-                        data.status === 'paused' ? 'bg-amber-500/10 border-amber-500/20 text-amber-500' :
-                        data.status === 'completed' ? 'bg-blue-500/10 border-blue-500/20 text-blue-500' :
-                        data.status === 'onboarding' ? 'bg-purple-500/10 border-purple-500/20 text-purple-500' :
-                        'bg-[#00FF94]/10 border-[#00FF94]/20 text-[#00FF94]'
+                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border font-mono-pro text-[9px] uppercase tracking-wider relative ${
+                        data.status === 'paused' ? 'bg-amber-500/10 border-amber-500/15 text-amber-400' :
+                        data.status === 'completed' ? 'bg-[#2997ff]/10 border-[#2997ff]/15 text-[#2997ff]' :
+                        data.status === 'onboarding' ? 'bg-purple-500/10 border-purple-500/15 text-purple-400' :
+                        'bg-emerald-500/10 border-emerald-500/15 text-emerald-400'
                       }`}
                     >
                       <div className={`w-1.5 h-1.5 rounded-full ${
-                        data.status === 'paused' ? 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]' :
-                        data.status === 'completed' ? 'bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]' :
-                        data.status === 'onboarding' ? 'bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.5)]' :
-                        'bg-[#00FF94] shadow-[0_0_8px_#00FF94]'
+                        data.status === 'paused' ? 'bg-amber-400' :
+                        data.status === 'completed' ? 'bg-[#2997ff]' :
+                        data.status === 'onboarding' ? 'bg-purple-400' :
+                        'bg-emerald-400'
                       }`} />
                       <span>{data.status || 'Active'}</span>
                     </motion.div>
@@ -564,48 +565,46 @@ export default function Dashboard() {
                         ].map((m, i) => (
                           <motion.div 
                             key={i} 
-                            whileHover={{ y: -4, scale: 1.03 }}
-                            whileTap={{ scale: 0.97 }}
+                            whileHover={{ y: -4, scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
                             transition={{ type: "spring", stiffness: 300, damping: 20 }}
                             style={{ 
                               rotateX: cardRotateX,
                               rotateY: cardRotateY,
                               transformStyle: "preserve-3d"
                             }}
-                            className="group relative glass rounded-2xl p-6 border border-white/[0.04] hover:border-[#00FF94]/40 hover:shadow-[0_0_30px_rgba(0,255,148,0.1)] flex flex-col"
+                            className="group relative glass-premium rounded-2xl p-6 flex flex-col"
                           >
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#00FF94]/0 to-[#00FF94]/[0.02] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
                             <div className="flex justify-between items-start mb-4">
-                              <m.icon className="w-6 h-6 text-[#00FF94] opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
-                              <span className="font-mono-pro text-[10px] text-[#00FF94] bg-[#00FF94]/10 px-2 py-1 rounded-full">{m.change}</span>
+                              <m.icon className="w-5 h-5 text-[#2997ff] opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300" />
+                              <span className="font-mono-pro text-[9px] font-semibold text-emerald-455 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">{m.change}</span>
                             </div>
-                            <p className="font-display font-black text-3xl mb-1 tracking-tight">
+                            <p className="font-display font-semibold text-2xl mb-1 tracking-tight text-white">
                               <AnimatedNumber value={m.value} />
                             </p>
-                            <p className="font-mono-pro text-[10px] uppercase tracking-widest text-white/40">{m.label}</p>
+                            <p className="font-mono-pro text-[9px] uppercase tracking-wider text-white/40">{m.label}</p>
                           </motion.div>
                         ))}
                       </motion.div>
 
                       {/* Traffic Trend Chart */}
-                      <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04] relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#00FF94]/5 to-transparent pointer-events-none" />
-                        <h3 className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mb-6">Traffic Trend (6 Months)</h3>
+                      <motion.div variants={itemVariants} className="glass-premium rounded-2xl p-6 relative overflow-hidden">
+                        <h3 className="font-mono-pro text-[10px] text-white/40 uppercase tracking-wider mb-6">Traffic Trend (6 Months)</h3>
                         <div className="h-48 w-full">
                           <ResponsiveContainer width="100%" height="100%">
                             <AreaChart data={data.traffic_trend || []}>
                               <defs>
                                 <linearGradient id="colorTraffic" x1="0" y1="0" x2="0" y2="1">
-                                  <stop offset="5%" stopColor="#00FF94" stopOpacity={0.3}/>
-                                  <stop offset="95%" stopColor="#00FF94" stopOpacity={0}/>
+                                  <stop offset="5%" stopColor="#2997ff" stopOpacity={0.25}/>
+                                  <stop offset="95%" stopColor="#2997ff" stopOpacity={0}/>
                                 </linearGradient>
                               </defs>
                               <Tooltip 
-                                contentStyle={{ backgroundColor: '#05050A', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }} 
-                                itemStyle={{ color: '#00FF94' }}
-                                labelStyle={{ color: 'rgba(255,255,255,0.6)' }}
+                                contentStyle={{ backgroundColor: '#0c0c12', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', backdropFilter: 'blur(10px)' }} 
+                                itemStyle={{ color: '#2997ff' }}
+                                labelStyle={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontFamily: 'monospace' }}
                               />
-                              <Area type="monotone" dataKey="traffic" stroke="#00FF94" strokeWidth={2} fillOpacity={1} fill="url(#colorTraffic)" />
+                              <Area type="monotone" dataKey="traffic" stroke="#2997ff" strokeWidth={2} fillOpacity={1} fill="url(#colorTraffic)" />
                             </AreaChart>
                           </ResponsiveContainer>
                         </div>
@@ -615,18 +614,18 @@ export default function Dashboard() {
 
                   {/* Keyword Rankings */}
                   {data.keyword_rankings && data.keyword_rankings.length > 0 && (
-                    <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04] overflow-hidden">
-                      <h3 className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mb-6">Keyword Positions</h3>
+                    <motion.div variants={itemVariants} className="glass-premium rounded-2xl p-6 overflow-hidden">
+                      <h3 className="font-mono-pro text-[10px] text-white/40 uppercase tracking-wider mb-6">Keyword Positions</h3>
                       {/* Desktop Table View */}
                       <div className="hidden md:block overflow-x-auto">
                         <table className="w-full text-left">
                           <thead>
                             <tr className="border-b border-white/5">
-                              <th className="pb-3 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal whitespace-nowrap">Keyword</th>
-                              <th className="pb-3 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Rank</th>
-                              <th className="pb-3 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Change</th>
-                              <th className="pb-3 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Volume</th>
-                              <th className="pb-3 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal text-right">Status</th>
+                              <th className="pb-3 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal whitespace-nowrap">Keyword</th>
+                              <th className="pb-3 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal">Rank</th>
+                              <th className="pb-3 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal">Change</th>
+                              <th className="pb-3 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal">Volume</th>
+                              <th className="pb-3 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal text-right">Status</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-white/5">
@@ -637,10 +636,10 @@ export default function Dashboard() {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true, margin: "-20px" }}
                                 transition={{ delay: i * 0.04 }}
-                                className="group relative hover:bg-white/[0.02] transition-colors"
+                                className="group relative hover:bg-white/[0.015] transition-colors"
                               >
                                 <td className="py-4 pr-4 pl-4 font-display font-medium text-white/90 whitespace-nowrap relative overflow-hidden">
-                                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00FF94] -translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[0.16,1,0.3,1]" />
+                                  <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#2997ff] -translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[0.16,1,0.3,1]" />
                                   {kw.keyword}
                                 </td>
                                 <td className="py-4 font-display text-xl text-white relative overflow-hidden h-full">
@@ -649,15 +648,15 @@ export default function Dashboard() {
                                     whileInView={{ y: 0, opacity: 1 }}
                                     viewport={{ once: true }}
                                     transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 + i * 0.04 }}
-                                    className={kw.change !== '0' && kw.change !== '0%' ? (String(kw.change).startsWith('-') ? 'text-red-400' : 'text-[#00FF94]') : 'text-white'}
+                                    className={kw.change !== '0' && kw.change !== '0%' ? (String(kw.change).startsWith('-') ? 'text-red-400' : 'text-[#2997ff]') : 'text-white'}
                                   >
                                     {kw.rank}
                                   </motion.div>
                                 </td>
-                                <td className={`py-4 font-mono-pro text-xs ${String(kw.change).startsWith('-') ? 'text-red-400' : 'text-[#00FF94]'}`}>{kw.change}</td>
+                                <td className={`py-4 font-mono-pro text-xs ${String(kw.change).startsWith('-') ? 'text-red-400' : 'text-emerald-400'}`}>{kw.change}</td>
                                 <td className="py-4 font-mono-pro text-xs text-white/50">{kw.volume}</td>
                                 <td className="py-4 text-right pr-4">
-                                  <span className={`inline-flex px-2 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-wider ${kw.status === 'active' ? 'bg-[#00FF94]/10 text-[#00FF94]' : 'bg-white/[0.02] text-white/40'}`}>
+                                  <span className={`inline-flex px-2 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-wider ${kw.status === 'active' ? 'bg-[#2997ff]/8 text-[#2997ff] border border-[#2997ff]/15' : 'bg-white/[0.02] text-white/40'}`}>
                                     {kw.status}
                                   </span>
                                 </td>
@@ -676,12 +675,12 @@ export default function Dashboard() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.04 }}
-                            className="bg-white/[0.02] border border-white/5 rounded-xl p-4 hover:border-[#00FF94]/20 transition-colors relative overflow-hidden group"
+                            className="bg-white/[0.02] border border-white/5 rounded-xl p-4 hover:border-[#2997ff]/20 transition-colors relative overflow-hidden group"
                           >
-                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00FF94] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#2997ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             <div className="flex justify-between items-start mb-3">
                               <span className="font-display font-medium text-white/90 truncate mr-2">{kw.keyword}</span>
-                              <span className={`shrink-0 inline-flex px-2 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-wider ${kw.status === 'active' ? 'bg-[#00FF94]/10 text-[#00FF94]' : 'bg-white/[0.02] text-white/40'}`}>
+                              <span className={`shrink-0 inline-flex px-2 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-wider ${kw.status === 'active' ? 'bg-[#2997ff]/8 text-[#2997ff] border border-[#2997ff]/15' : 'bg-white/[0.02] text-white/40'}`}>
                                 {kw.status}
                               </span>
                             </div>
@@ -689,10 +688,10 @@ export default function Dashboard() {
                               <div>
                                 <p className="font-mono-pro text-[9px] text-white/40 uppercase mb-1">Rank</p>
                                 <div className="flex items-baseline gap-2">
-                                  <span className={`font-display text-xl ${kw.change !== '0' && kw.change !== '0%' ? (String(kw.change).startsWith('-') ? 'text-red-400' : 'text-[#00FF94]') : 'text-white'}`}>
+                                  <span className={`font-display text-xl ${kw.change !== '0' && kw.change !== '0%' ? (String(kw.change).startsWith('-') ? 'text-red-400' : 'text-[#2997ff]') : 'text-white'}`}>
                                     {kw.rank}
                                   </span>
-                                  <span className={`font-mono-pro text-[10px] ${String(kw.change).startsWith('-') ? 'text-red-400' : 'text-[#00FF94]'}`}>
+                                  <span className={`font-mono-pro text-[10px] ${String(kw.change).startsWith('-') ? 'text-red-400' : 'text-emerald-400'}`}>
                                     {kw.change}
                                   </span>
                                 </div>
@@ -710,12 +709,12 @@ export default function Dashboard() {
 
                   {/* Competitor Comparison */}
                   {data.competitors && data.competitors.length > 0 && (
-                    <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04]">
-                      <h3 className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mb-6">Competitive Landscape</h3>
+                    <motion.div variants={itemVariants} className="glass-premium rounded-2xl p-6">
+                      <h3 className="font-mono-pro text-[10px] text-white/40 uppercase tracking-wider mb-6">Competitive Landscape</h3>
                       <div className="space-y-4">
                         {/* Client's own row for comparison */}
-                        <div className="flex items-center justify-between p-4 rounded-xl bg-[#00FF94]/5 border border-[#00FF94]/20">
-                          <span className="font-display font-bold text-[#00FF94] truncate mr-4">{data.company_name} (You)</span>
+                        <div className="flex items-center justify-between p-4 rounded-xl bg-[#2997ff]/5 border border-[#2997ff]/20">
+                          <span className="font-display font-semibold text-[#2997ff] truncate mr-4">{data.company_name} (You)</span>
                           <div className="flex gap-4 sm:gap-8 text-right shrink-0">
                             <div>
                               <p className="font-mono-pro text-[9px] text-white/40 uppercase mb-1">Traffic</p>
@@ -747,8 +746,8 @@ export default function Dashboard() {
 
                   {/* Goal Progress */}
                   {data.goals && data.goals.length > 0 && (
-                    <motion.div variants={itemVariants} className="glass rounded-2xl p-6 border border-white/[0.04]">
-                      <h3 className="font-mono-pro text-xs text-white/40 uppercase tracking-widest mb-6">Target Progression</h3>
+                    <motion.div variants={itemVariants} className="glass-premium rounded-2xl p-6">
+                      <h3 className="font-mono-pro text-[10px] text-white/40 uppercase tracking-wider mb-6">Target Progression</h3>
                       <div className="space-y-6">
                         {data.goals.map((goal, i) => {
                           const percent = Math.min(100, Math.max(0, (goal.current / goal.target) * 100));
@@ -756,14 +755,14 @@ export default function Dashboard() {
                             <div key={i}>
                               <div className="flex justify-between items-end mb-2">
                                 <span className="font-display font-bold text-white/90 truncate mr-4">{goal.title}</span>
-                                <span className="font-mono-pro text-[10px] text-white/50 uppercase shrink-0">Current: {goal.current} / Target: {goal.target}</span>
+                                <span className="font-mono-pro text-[9px] text-white/50 uppercase shrink-0">Current: {goal.current} / Target: {goal.target}</span>
                               </div>
                               <div className="h-2 w-full bg-white/[0.02] rounded-full overflow-hidden">
                                 <motion.div 
                                   initial={{ width: 0 }}
                                   animate={{ width: `${percent}%` }}
                                   transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
-                                  className="h-full bg-gradient-to-r from-[#00FF94]/50 to-[#00FF94] shadow-[0_0_10px_#00FF94]"
+                                  className="h-full bg-gradient-to-r from-[#2997ff] to-[#0071e3] shadow-[0_2px_8px_rgba(41,151,255,0.4)]"
                                 />
                               </div>
                             </div>
@@ -785,25 +784,25 @@ export default function Dashboard() {
                           initial={{ height: 0 }} 
                           animate={{ height: "100%" }} 
                           transition={{ duration: 3, ease: "easeOut", delay: 1 }}
-                          className="w-full bg-gradient-to-b from-[#00FF94] to-transparent shadow-[0_0_10px_#00FF94]" 
+                          className="w-full bg-gradient-to-b from-[#2997ff] to-transparent shadow-[0_0_8px_rgba(41,151,255,0.4)]" 
                         />
                       </div>
 
                       {data.timeline?.map((item, i) => (
                         <motion.div key={i} whileHover={{ x: 4 }} className="relative pl-10 group transition-transform">
                           <div className={`absolute -left-[5px] top-1.5 w-3 h-3 rounded-full border-2 border-[#05050A] transition-colors duration-500 ${
-                            item.status === 'completed' ? 'bg-[#00FF94] shadow-[0_0_12px_#00FF94]' :
+                            item.status === 'completed' ? 'bg-[#2997ff] shadow-[0_0_12px_rgba(41,151,255,0.5)]' :
                             item.status === 'in_progress' ? 'bg-white shadow-[0_0_12px_white] animate-pulse' :
                             'bg-[#050505] border-white/20'
                           }`} />
                           
                           <div className={`flex items-start justify-between gap-4 ${item.status === 'pending' ? 'opacity-40' : ''}`}>
                             <div>
-                              <h4 className="font-display text-xl font-bold mb-1.5 group-hover:text-[#00FF94] transition-colors">{item.title}</h4>
+                              <h4 className="font-display text-xl font-bold mb-1.5 group-hover:text-[#2997ff] transition-colors">{item.title}</h4>
                               <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">Phase {item.step}</p>
                             </div>
                             <div>
-                              {item.status === 'completed' && <CheckCircle2 className="w-6 h-6 text-[#00FF94]" />}
+                              {item.status === 'completed' && <CheckCircle2 className="w-6 h-6 text-[#2997ff]" />}
                               {item.status === 'in_progress' && <PlayCircle className="w-6 h-6 text-white" />}
                               {item.status === 'pending' && <Clock className="w-6 h-6 text-white/20" />}
                             </div>
@@ -821,10 +820,10 @@ export default function Dashboard() {
                       </h3>
                       <div className="space-y-4">
                         {data.recent_activity.slice(0, 3).map((act, i) => (
-                          <motion.div key={i} whileHover={{ scale: 1.01 }} className="flex gap-3 sm:gap-5 p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-[#00FF94]/20 transition-colors">
-                            <div className="w-2 h-2 rounded-full bg-[#00FF94] mt-2 shadow-[0_0_10px_#00FF94] shrink-0" />
+                          <motion.div key={i} whileHover={{ scale: 1.01 }} className="flex gap-3 sm:gap-5 p-4 sm:p-5 rounded-2xl bg-white/[0.015] border border-white/5 hover:border-[#2997ff]/20 transition-colors">
+                            <div className="w-2 h-2 rounded-full bg-[#2997ff] mt-2 shadow-[0_0_8px_rgba(41,151,255,0.4)] shrink-0" />
                             <div>
-                              <p className="font-mono-pro text-[10px] text-[#00FF94] mb-1.5 uppercase tracking-wider">
+                              <p className="font-mono-pro text-[10px] text-[#2997ff] mb-1.5 uppercase tracking-wider">
                                 {new Date(act.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                               </p>
                               <p className="font-display text-base font-medium text-white/90">{act.title}</p>
@@ -848,60 +847,60 @@ export default function Dashboard() {
                   <motion.div 
                     animate={{ backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"] }}
                     transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 bg-[length:200%_200%] bg-gradient-to-br from-[#00FF94]/40 via-transparent to-[#00FF94]/10 opacity-60 group-hover:opacity-100 transition-opacity duration-700" 
+                    className="absolute inset-0 bg-[length:200%_200%] bg-gradient-to-br from-[#2997ff]/25 via-transparent to-purple-500/10 opacity-60 group-hover:opacity-100 transition-opacity duration-700" 
                   />
-                  <div className="relative rounded-3xl bg-[#050505] p-8 sm:p-10 h-full backdrop-blur-xl">
+                  <div className="relative rounded-3xl bg-[#0b0c12]/80 p-8 sm:p-10 h-full backdrop-blur-xl border border-white/5">
                     {/* Desktop Gaussian Blur */}
-                    <div className="hidden md:block absolute top-0 right-0 w-32 h-32 bg-[#00FF94]/10 blur-[50px] pointer-events-none" />
+                    <div className="hidden md:block absolute top-0 right-0 w-32 h-32 bg-[#2997ff]/10 blur-[50px] pointer-events-none" />
                     {/* Mobile Safe Gradient */}
-                    <div className="block md:hidden absolute top-0 right-0 w-[400px] h-[400px] -translate-y-1/2 translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(0,255,148,0.1)_0%,transparent_50%)] pointer-events-none" />
-                    <h3 className="overline text-[#00FF94] mb-6 flex items-center gap-2"><Target className="w-4 h-4"/> Current Sprint Focus</h3>
-                    <p className="font-display text-2xl sm:text-3xl font-bold leading-tight tracking-tight drop-shadow-lg">
+                    <div className="block md:hidden absolute top-0 right-0 w-[400px] h-[400px] -translate-y-1/2 translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(41,151,255,0.06)_0%,transparent_50%)] pointer-events-none" />
+                    <h3 className="overline text-[#2997ff] mb-6 flex items-center gap-2"><Target className="w-4 h-4"/> Current Sprint Focus</h3>
+                    <p className="font-display text-xl sm:text-2xl font-semibold leading-tight tracking-tight text-white drop-shadow-md">
                       {data.current_focus || "Phase 1: Technical Foundation & Site Architecture"}
                     </p>
                   </div>
                 </motion.div>
 
                 {/* Vault */}
-                <motion.div variants={rightItemVariants} className="rounded-3xl glass p-8 sm:p-10 border border-white/[0.04]">
+                <motion.div variants={rightItemVariants} className="rounded-3xl glass-premium p-8 sm:p-10">
                   <h3 className="overline text-white/40 mb-8 flex items-center gap-3">
                     <div className="w-6 h-[1px] bg-white/20" /> Strategy Vault
                   </h3>
                   <div className="space-y-3">
                     {data.documents?.length > 0 ? (
                       data.documents.map((doc, i) => (
-                        <a key={i} href={doc.url} target="_blank" rel="noreferrer" className="group flex items-center justify-between p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-[#00FF94]/5 hover:border-[#00FF94]/30 transition-all duration-300">
+                        <a key={i} href={doc.url} target="_blank" rel="noreferrer" className="group flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-[#2997ff]/5 hover:border-[#2997ff]/25 transition-all duration-300">
                           <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-xl bg-black/40 flex items-center justify-center text-white/50 group-hover:text-[#00FF94] group-hover:scale-110 transition-all duration-300">
+                            <div className="w-12 h-12 rounded-xl bg-black/40 flex items-center justify-center text-white/40 group-hover:text-[#2997ff] group-hover:scale-105 transition-all duration-300">
                               <FileText className="w-5 h-5" />
                             </div>
                             <div>
-                              <p className="font-display font-bold text-sm mb-1 group-hover:text-[#00FF94] transition-colors">{doc.title}</p>
-                              <p className="font-mono-pro text-[10px] text-white/40 uppercase tracking-wider">Secure Document</p>
+                              <p className="font-display font-semibold text-sm mb-1 group-hover:text-[#2997ff] transition-colors">{doc.title}</p>
+                              <p className="font-mono-pro text-[9px] text-white/40 uppercase tracking-wider">Secure Document</p>
                             </div>
                           </div>
                         </a>
                       ))
                     ) : (
-                      <p className="text-sm text-white/40 font-mono-pro italic">No documents uploaded yet.</p>
+                      <p className="text-xs text-white/40 font-mono-pro italic">No documents uploaded yet.</p>
                     )}
                   </div>
                 </motion.div>
 
                 {/* Support */}
-                <motion.div variants={rightItemVariants} className="relative rounded-3xl p-8 sm:p-10 border border-[#00FF94]/20 bg-[#00FF94]/5 overflow-hidden">
-                  <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-[#00FF94]/10 to-transparent opacity-50" />
+                <motion.div variants={rightItemVariants} className="relative rounded-3xl p-8 sm:p-10 border border-[#2997ff]/20 bg-[#2997ff]/5 overflow-hidden">
+                  <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-[#2997ff]/10 to-transparent opacity-50" />
                   <div className="relative z-10">
                     <div className="flex items-start justify-between mb-6">
-                      <h3 className="overline text-[#00FF94] mb-2">Dedicated Support</h3>
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#00FF94] shadow-[0_0_10px_#00FF94] animate-pulse" />
+                      <h3 className="overline text-[#2997ff] mb-2">Dedicated Support</h3>
+                      <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
                     </div>
-                    <p className="font-mono-pro text-sm text-white/70 leading-relaxed mb-8">
+                    <p className="font-mono-pro text-sm text-white/60 leading-relaxed mb-8">
                       Need assistance or want to request a strategy pivot? Open a direct comms channel with your account manager.
                     </p>
                     <HoverButton 
                       onClick={() => window.location.href = "mailto:founder@seoplanet.in"}
-                      className="w-full rounded-full bg-white text-black px-8 py-4 font-mono-pro text-xs uppercase tracking-[0.2em] font-bold"
+                      className="w-full rounded-full bg-gradient-to-r from-[#2997ff] to-[#0071e3] text-white px-8 py-4 font-mono-pro text-xs uppercase tracking-widest font-semibold hover:brightness-110 shadow-[0_4px_12px_rgba(0,113,227,0.3)] border border-[#2997ff]/20 cursor-pointer"
                     >
                       Contact Team
                     </HoverButton>
@@ -914,42 +913,42 @@ export default function Dashboard() {
             <motion.div key="deliverables" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="space-y-8">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="font-display text-3xl font-bold text-white mb-2">Deliverables Tracker</h2>
-                  <p className="font-mono-pro text-sm text-white/50">Track, review, and download all project deliverables in real-time.</p>
+                  <h2 className="font-display text-2xl font-semibold text-white mb-1.5">Deliverables Tracker</h2>
+                  <p className="font-mono-pro text-xs text-white/50">Track, review, and download all project deliverables in real-time.</p>
                 </div>
-                <div className="flex bg-black/40 border border-white/[0.04] rounded-xl p-1">
-                  <button onClick={() => setViewMode("table")} className={`p-2 rounded-lg transition-colors ${viewMode === "table" ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white/80'}`}>
-                    <List className="w-5 h-5" />
+                <div className="flex bg-white/[0.02] border border-white/10 rounded-xl p-1">
+                  <button onClick={() => setViewMode("table")} className={`p-2 rounded-lg transition-all cursor-pointer ${viewMode === "table" ? 'bg-white/[0.05] text-white border border-white/5' : 'text-white/40 hover:text-white/80'}`}>
+                    <List className="w-4 h-4" />
                   </button>
-                  <button onClick={() => setViewMode("kanban")} className={`p-2 rounded-lg transition-colors ${viewMode === "kanban" ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white/80'}`}>
-                    <LayoutGrid className="w-5 h-5" />
+                  <button onClick={() => setViewMode("kanban")} className={`p-2 rounded-lg transition-all cursor-pointer ${viewMode === "kanban" ? 'bg-white/[0.05] text-white border border-white/5' : 'text-white/40 hover:text-white/80'}`}>
+                    <LayoutGrid className="w-4 h-4" />
                   </button>
                 </div>
               </div>
 
               {viewMode === "table" ? (
-                <div className="glass rounded-2xl border border-white/[0.04] overflow-hidden">
+                <div className="glass-premium rounded-2xl overflow-hidden">
                   <div className="overflow-x-auto">
                     <table className="w-full text-left">
                       <thead>
-                        <tr className="border-b border-white/5 bg-black/20">
-                          <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Deliverable Name</th>
-                          <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Type</th>
-                          <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Status</th>
-                          <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Due Date</th>
-                          <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal text-right">Action</th>
+                        <tr className="border-b border-white/5 bg-white/[0.01]">
+                          <th className="py-4 px-6 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal">Deliverable Name</th>
+                          <th className="py-4 px-6 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal">Type</th>
+                          <th className="py-4 px-6 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal">Status</th>
+                          <th className="py-4 px-6 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal">Due Date</th>
+                          <th className="py-4 px-6 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal text-right">Action</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-white/5">
                         {data.full_deliverables && data.full_deliverables.length > 0 ? data.full_deliverables.map((item, i) => (
-                          <tr key={i} className="group hover:bg-white/[0.02] transition-colors">
-                            <td className="py-4 px-6 font-display font-medium text-white/90">{item.name}</td>
-                            <td className="py-4 px-6 font-mono-pro text-xs text-white/60 uppercase tracking-wider">{item.type}</td>
+                          <tr key={i} className="group hover:bg-white/[0.015] transition-colors">
+                            <td className="py-4 px-6 font-display font-medium text-white/95">{item.name}</td>
+                            <td className="py-4 px-6 font-mono-pro text-xs text-white/50 uppercase tracking-wider">{item.type}</td>
                             <td className="py-4 px-6">
                               <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-widest ${
-                                item.status === 'Delivered' ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20' : 
-                                item.status === 'Pending Approval' ? 'bg-[#FF9F0A]/10 text-[#FF9F0A] border border-[#FF9F0A]/20' : 
-                                'bg-white/[0.02] text-white/40 border border-white/[0.04]'
+                                item.status === 'Delivered' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/15' : 
+                                item.status === 'Pending Approval' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/15' : 
+                                'bg-[#2997ff]/10 text-[#2997ff] border border-[#2997ff]/15'
                               }`}>
                                 {item.status === 'Delivered' && <CheckCircle className="w-3 h-3" />}
                                 {item.status === 'Pending Approval' && <Clock className="w-3 h-3" />}
@@ -957,9 +956,9 @@ export default function Dashboard() {
                                 {item.status}
                               </span>
                             </td>
-                            <td className="py-4 px-6 font-mono-pro text-xs text-[#00FF94]">{item.due_date || "TBD"}</td>
+                            <td className="py-4 px-6 font-mono-pro text-xs text-[#2997ff]">{item.due_date || "TBD"}</td>
                             <td className="py-4 px-6 text-right">
-                              <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center p-2 rounded-lg bg-white/[0.02] hover:bg-[#00FF94] hover:text-black text-white/60 transition-all duration-300">
+                              <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center p-2 rounded-lg bg-white/[0.02] hover:bg-[#2997ff] hover:text-white text-white/60 hover:shadow-[0_4px_12px_rgba(0,113,227,0.3)] transition-all duration-300">
                                 <Download className="w-4 h-4" />
                               </a>
                             </td>
@@ -976,34 +975,34 @@ export default function Dashboard() {
                   {['In Progress', 'Pending Approval', 'Delivered'].map((colStatus) => {
                     const colItems = (data.full_deliverables || []).filter(item => item.status === colStatus);
                     return (
-                      <div key={colStatus} className="glass rounded-2xl border border-white/[0.04] p-6 flex flex-col gap-4">
+                      <div key={colStatus} className="glass-premium rounded-2xl p-6 flex flex-col gap-4">
                         <div className="flex items-center justify-between mb-2">
-                          <h3 className="font-mono-pro text-xs uppercase tracking-widest text-white/60 flex items-center gap-2">
-                            {colStatus === 'Delivered' && <div className="w-2 h-2 rounded-full bg-[#00FF94]" />}
-                            {colStatus === 'Pending Approval' && <div className="w-2 h-2 rounded-full bg-[#FF9F0A]" />}
-                            {colStatus === 'In Progress' && <div className="w-2 h-2 rounded-full bg-white/40" />}
+                          <h3 className="font-mono-pro text-[10px] uppercase tracking-wider text-white/65 flex items-center gap-2">
+                            {colStatus === 'Delivered' && <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />}
+                            {colStatus === 'Pending Approval' && <div className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.4)]" />}
+                            {colStatus === 'In Progress' && <div className="w-2 h-2 rounded-full bg-[#2997ff] shadow-[0_0_8px_rgba(41,151,255,0.4)]" />}
                             {colStatus}
                           </h3>
-                          <span className="font-mono-pro text-[10px] text-white/40 bg-black/40 px-2 py-0.5 rounded-full">{colItems.length}</span>
+                          <span className="font-mono-pro text-[9px] text-white/50 bg-white/[0.03] border border-white/10 px-2 py-0.5 rounded-full">{colItems.length}</span>
                         </div>
                         {colItems.map((item, i) => (
-                          <div key={i} className="bg-black/40 border border-white/5 rounded-xl p-5 hover:border-white/20 transition-all">
+                          <div key={i} className="bg-white/[0.01] border border-white/5 rounded-xl p-5 hover:border-[#2997ff]/30 hover:bg-white/[0.03] transition-all duration-300">
                             <div className="flex justify-between items-start mb-3">
-                              <span className="font-mono-pro text-[9px] text-[#00FF94] uppercase tracking-widest px-2 py-1 bg-[#00FF94]/10 rounded-lg">{item.type}</span>
-                              <a href={item.url} target="_blank" rel="noreferrer" className="text-white/40 hover:text-[#00FF94] transition-colors">
+                              <span className="font-mono-pro text-[9px] text-[#2997ff] uppercase tracking-wider px-2 py-1 bg-[#2997ff]/8 border border-[#2997ff]/15 rounded-lg">{item.type}</span>
+                              <a href={item.url} target="_blank" rel="noreferrer" className="text-white/40 hover:text-[#2997ff] transition-colors">
                                 <Download className="w-4 h-4" />
                               </a>
                             </div>
-                            <h4 className="font-display font-bold text-white/90 mb-4">{item.name}</h4>
+                            <h4 className="font-display font-medium text-white/95 mb-4">{item.name}</h4>
                             <div className="flex items-center gap-2 text-white/40">
                               <Clock className="w-3.5 h-3.5" />
-                              <span className="font-mono-pro text-[10px] uppercase">{item.due_date || "TBD"}</span>
+                              <span className="font-mono-pro text-[9px] uppercase tracking-wider">{item.due_date || "TBD"}</span>
                             </div>
                           </div>
                         ))}
                         {colItems.length === 0 && (
-                          <div className="py-8 text-center border border-dashed border-white/[0.04] rounded-xl">
-                            <span className="font-mono-pro text-[10px] text-white/30 uppercase tracking-widest">Empty</span>
+                          <div className="py-8 text-center border border-dashed border-white/5 rounded-xl">
+                            <span className="font-mono-pro text-[9px] text-white/30 uppercase tracking-widest">Empty</span>
                           </div>
                         )}
                       </div>
@@ -1015,53 +1014,53 @@ export default function Dashboard() {
             ) : activeTab === "content" ? (
             <motion.div key="content" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="space-y-8">
               <div>
-                <h2 className="font-display text-3xl font-bold text-white mb-2">Content Calendar</h2>
-                <p className="font-mono-pro text-sm text-white/50">Review and approve upcoming content pieces before publication.</p>
+                <h2 className="font-display text-2xl font-semibold text-white mb-1.5">Content Calendar</h2>
+                <p className="font-mono-pro text-xs text-white/50">Review and approve upcoming content pieces before publication.</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {data.content_calendar && data.content_calendar.length > 0 ? data.content_calendar.map((item, i) => (
-                  <div key={i} className="glass rounded-2xl border border-white/[0.04] overflow-hidden flex flex-col group hover:border-white/20 transition-colors">
+                  <div key={i} className="glass-premium rounded-2xl flex flex-col group overflow-hidden">
                     <div className="p-6 flex-1 border-b border-white/5">
                       <div className="flex justify-between items-start mb-4">
-                        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-widest ${
-                          item.status === 'Approved' ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20' : 
-                          item.status === 'Revision Requested' ? 'bg-red-400/10 text-red-400 border border-red-400/20' :
-                          'bg-[#FF9F0A]/10 text-[#FF9F0A] border border-[#FF9F0A]/20'
+                        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-wider ${
+                          item.status === 'Approved' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/15' : 
+                          item.status === 'Revision Requested' ? 'bg-red-400/10 text-red-400 border border-red-400/15' :
+                          'bg-amber-500/10 text-amber-400 border border-amber-500/15'
                         }`}>
                           {item.status}
                         </span>
                         <div className="flex items-center gap-2 text-white/40">
                           <Clock className="w-3.5 h-3.5" />
-                          <span className="font-mono-pro text-[10px] uppercase">{item.publish_date || "TBD"}</span>
+                          <span className="font-mono-pro text-[9px] uppercase tracking-wider">{item.publish_date || "TBD"}</span>
                         </div>
                       </div>
-                      <h3 className="font-display font-bold text-xl text-white mb-2">{item.title}</h3>
-                      <div className="inline-flex items-center gap-2 bg-black/40 px-3 py-1.5 rounded-lg border border-white/5">
+                      <h3 className="font-display font-medium text-lg text-white mb-3">{item.title}</h3>
+                      <div className="inline-flex items-center gap-2 bg-white/[0.02] px-3 py-1.5 rounded-lg border border-white/5">
                         <Search className="w-3.5 h-3.5 text-white/40" />
-                        <span className="font-mono-pro text-xs text-white/60">{item.keyword}</span>
+                        <span className="font-mono-pro text-xs text-white/50">{item.keyword}</span>
                       </div>
                     </div>
                     {item.status === "Pending Approval" && (
-                      <div className="grid grid-cols-2 bg-black/20">
-                        <button onClick={() => handleContentStatus(i, "Approved")} className="py-4 font-mono-pro text-xs uppercase tracking-widest text-[#00FF94] hover:bg-[#00FF94]/10 transition-colors border-r border-white/5">
+                      <div className="grid grid-cols-2 bg-white/[0.01] border-t border-white/5">
+                        <button onClick={() => handleContentStatus(i, "Approved")} className="py-3.5 font-mono-pro text-[10px] uppercase tracking-wider text-emerald-400 hover:bg-emerald-500/10 transition-colors border-r border-white/5 cursor-pointer">
                           Approve
                         </button>
-                        <button onClick={() => handleContentStatus(i, "Revision Requested")} className="py-4 font-mono-pro text-xs uppercase tracking-widest text-red-400 hover:bg-red-400/10 transition-colors">
+                        <button onClick={() => handleContentStatus(i, "Revision Requested")} className="py-3.5 font-mono-pro text-[10px] uppercase tracking-wider text-red-400 hover:bg-red-400/10 transition-colors cursor-pointer">
                           Revise
                         </button>
                       </div>
                     )}
                     {item.status === "Approved" && (
-                      <div className="py-4 text-center bg-[#00FF94]/5 border-t border-[#00FF94]/10">
-                        <span className="font-mono-pro text-xs uppercase tracking-widest text-[#00FF94] flex items-center justify-center gap-2">
-                          <CheckCircle className="w-4 h-4" /> Ready for Publication
+                      <div className="py-3 text-center bg-emerald-500/5 border-t border-emerald-500/10">
+                        <span className="font-mono-pro text-[10px] uppercase tracking-wider text-emerald-400 flex items-center justify-center gap-2">
+                          <CheckCircle className="w-3.5 h-3.5" /> Ready for Publication
                         </span>
                       </div>
                     )}
                   </div>
                 )) : (
-                  <div className="col-span-full py-12 text-center glass rounded-2xl border border-white/[0.04]">
+                  <div className="col-span-full py-12 text-center glass-premium rounded-2xl">
                     <Calendar className="w-8 h-8 text-white/20 mx-auto mb-4" />
                     <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">No content scheduled.</p>
                   </div>
@@ -1073,28 +1072,28 @@ export default function Dashboard() {
               
               <div className="lg:col-span-8 space-y-8">
                 <div>
-                  <h2 className="font-display text-3xl font-bold text-white mb-2">Monthly Intelligence</h2>
-                  <p className="font-mono-pro text-sm text-white/50">Comprehensive performance reports and strategic insights.</p>
+                  <h2 className="font-display text-2xl font-semibold text-white mb-1.5">Monthly Intelligence</h2>
+                  <p className="font-mono-pro text-xs text-white/50">Comprehensive performance reports and strategic insights.</p>
                 </div>
                 
                 <div className="space-y-4">
                   {data.monthly_reports && data.monthly_reports.length > 0 ? data.monthly_reports.map((item, i) => (
-                    <div key={i} className="glass rounded-2xl p-6 border border-white/[0.04] flex items-center justify-between group hover:border-[#00FF94]/40 transition-all duration-300">
+                    <div key={i} className="glass-premium rounded-2xl p-6 flex items-center justify-between group hover:border-[#2997ff]/30 transition-all duration-300">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-black/40 border border-white/5 flex items-center justify-center">
-                          <FileText className="w-6 h-6 text-[#00FF94]" />
+                          <FileText className="w-5 h-5 text-[#2997ff]" />
                         </div>
                         <div>
-                          <h3 className="font-display font-bold text-lg text-white mb-1">{item.title}</h3>
-                          <p className="font-mono-pro text-xs uppercase tracking-widest text-white/40">{item.month}</p>
+                          <h3 className="font-display font-medium text-base text-white mb-1">{item.title}</h3>
+                          <p className="font-mono-pro text-[10px] uppercase tracking-wider text-white/40">{item.month}</p>
                         </div>
                       </div>
-                      <a href={item.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-xl bg-white/[0.02] text-white hover:bg-[#00FF94] hover:text-black font-mono-pro text-xs uppercase tracking-widest font-bold transition-all duration-300">
+                      <a href={item.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/[0.02] text-white hover:bg-[#2997ff] hover:text-white hover:shadow-[0_4px_12px_rgba(0,113,227,0.3)] font-mono-pro text-[10px] uppercase tracking-wider font-semibold transition-all duration-300">
                         <Download className="w-4 h-4" /> Download PDF
                       </a>
                     </div>
                   )) : (
-                    <div className="py-12 text-center glass rounded-2xl border border-white/[0.04]">
+                    <div className="py-12 text-center glass-premium rounded-2xl">
                       <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">No reports available yet.</p>
                     </div>
                   )}
@@ -1102,54 +1101,54 @@ export default function Dashboard() {
               </div>
 
               <div className="lg:col-span-4">
-                <div className="glass rounded-3xl p-8 border border-[#00FF94]/20 relative overflow-hidden sticky top-8">
+                <div className="glass-premium rounded-3xl p-8 border border-[#2997ff]/20 relative overflow-hidden sticky top-8">
                   {/* Desktop Gaussian Blur */}
-                  <div className="hidden md:block absolute top-0 right-0 w-64 h-64 bg-[#00FF94]/10 blur-[80px] rounded-full pointer-events-none" />
+                  <div className="hidden md:block absolute top-0 right-0 w-64 h-64 bg-[#2997ff]/6 blur-[80px] rounded-full pointer-events-none" />
                   {/* Mobile Safe Gradient */}
-                  <div className="block md:hidden absolute top-0 right-0 w-[500px] h-[500px] -translate-y-1/2 translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(0,255,148,0.1)_0%,transparent_50%)] pointer-events-none" />
+                  <div className="block md:hidden absolute top-0 right-0 w-[500px] h-[500px] -translate-y-1/2 translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(41,151,255,0.04)_0%,transparent_50%)] pointer-events-none" />
                   
                   <div className="flex items-center gap-3 mb-8">
-                    <div className="w-10 h-10 rounded-xl bg-[#00FF94]/10 flex items-center justify-center">
-                      <Calculator className="w-5 h-5 text-[#00FF94]" />
+                    <div className="w-10 h-10 rounded-xl bg-[#2997ff]/8 flex items-center justify-center">
+                      <Calculator className="w-4 h-4 text-[#2997ff]" />
                     </div>
-                    <h3 className="font-display font-bold text-xl text-white">ROI Calculator</h3>
+                    <h3 className="font-display font-medium text-lg text-white">ROI Calculator</h3>
                   </div>
 
                   <div className="space-y-6">
                     <div>
                       <div className="flex justify-between mb-2">
-                        <label className="font-mono-pro text-xs uppercase tracking-widest text-white/60">Avg Order Value</label>
-                        <span className="font-mono-pro text-xs text-[#00FF94]">${aov}</span>
+                        <label className="font-mono-pro text-xs uppercase tracking-wider text-white/50">Avg Order Value</label>
+                        <span className="font-mono-pro text-xs text-[#2997ff]">${aov}</span>
                       </div>
                       <input 
                         type="range" 
                         min="10" max="5000" step="10"
                         value={aov} 
                         onChange={e => setAov(Number(e.target.value))}
-                        className="w-full accent-[#00FF94]"
+                        className="w-full accent-[#2997ff] cursor-pointer"
                       />
                     </div>
 
                     <div>
                       <div className="flex justify-between mb-2">
-                        <label className="font-mono-pro text-xs uppercase tracking-widest text-white/60">Conversion Rate</label>
-                        <span className="font-mono-pro text-xs text-[#00FF94]">{conversionRate}%</span>
+                        <label className="font-mono-pro text-xs uppercase tracking-wider text-white/50">Conversion Rate</label>
+                        <span className="font-mono-pro text-xs text-[#2997ff]">{conversionRate}%</span>
                       </div>
                       <input 
                         type="range" 
                         min="0.1" max="10" step="0.1"
                         value={conversionRate} 
                         onChange={e => setConversionRate(Number(e.target.value))}
-                        className="w-full accent-[#00FF94]"
+                        className="w-full accent-[#2997ff] cursor-pointer"
                       />
                     </div>
 
                     <div className="pt-6 border-t border-white/[0.04]">
-                      <p className="font-mono-pro text-xs uppercase tracking-widest text-white/40 mb-2">Est. Organic Revenue/Mo</p>
-                      <p className="font-display font-black text-4xl text-[#00FF94]">
+                      <p className="font-mono-pro text-[9px] uppercase tracking-wider text-white/40 mb-2">Est. Organic Revenue/Mo</p>
+                      <p className="font-display font-semibold text-3xl text-[#2997ff]">
                         ${(parseInt((data.metrics?.traffic || "0").toString().replace(/,/g, '')) * (conversionRate / 100) * aov).toLocaleString(undefined, {maximumFractionDigits: 0})}
                       </p>
-                      <p className="font-mono-pro text-[10px] text-white/30 mt-2">Based on current traffic: {data.metrics?.traffic || "0"}</p>
+                      <p className="font-mono-pro text-[9px] text-white/35 mt-2">Based on organic traffic: {data.metrics?.traffic || "0"}</p>
                     </div>
                   </div>
                 </div>
@@ -1159,28 +1158,28 @@ export default function Dashboard() {
             ) : activeTab === "progress" ? (
             <motion.div key="progress" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="space-y-8">
               <div>
-                <h2 className="font-display text-3xl font-bold text-white mb-2">Progress Updates</h2>
-                <p className="font-mono-pro text-sm text-white/50">Track the latest milestones and week-over-week campaign progress.</p>
+                <h2 className="font-display text-2xl font-semibold text-white mb-1.5">Progress Updates</h2>
+                <p className="font-mono-pro text-xs text-white/50">Track the latest milestones and week-over-week campaign progress.</p>
               </div>
               
               <div className="space-y-4">
                 {data.progress_reports && data.progress_reports.length > 0 ? data.progress_reports.map((item, i) => (
-                  <div key={i} className="glass rounded-2xl p-6 border border-white/[0.04] flex items-center justify-between group hover:border-[#00FF94]/40 transition-all duration-300">
+                  <div key={i} className="glass-premium rounded-2xl p-6 flex items-center justify-between group hover:border-[#2997ff]/30 transition-all duration-300">
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-xl bg-black/40 border border-white/5 flex items-center justify-center">
-                        <TrendingUp className="w-6 h-6 text-[#00FF94]" />
+                        <TrendingUp className="w-5 h-5 text-[#2997ff]" />
                       </div>
                       <div>
-                        <h3 className="font-display font-bold text-lg text-white mb-1">{item.title}</h3>
-                        <p className="font-mono-pro text-xs uppercase tracking-widest text-white/40">{item.date}</p>
+                        <h3 className="font-display font-medium text-base text-white mb-1">{item.title}</h3>
+                        <p className="font-mono-pro text-[10px] uppercase tracking-wider text-white/40">{item.date}</p>
                       </div>
                     </div>
-                    <a href={item.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-xl bg-white/[0.02] text-white hover:bg-[#00FF94] hover:text-black font-mono-pro text-xs uppercase tracking-widest font-bold transition-all duration-300">
+                    <a href={item.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/[0.02] text-white hover:bg-[#2997ff] hover:text-white hover:shadow-[0_4px_12px_rgba(0,113,227,0.3)] font-mono-pro text-[10px] uppercase tracking-wider font-semibold transition-all duration-300">
                       <Link className="w-4 h-4" /> View Report
                     </a>
                   </div>
                 )) : (
-                  <div className="py-12 text-center glass rounded-2xl border border-white/[0.04]">
+                  <div className="py-12 text-center glass-premium rounded-2xl">
                     <TrendingUp className="w-8 h-8 text-white/20 mx-auto mb-4" />
                     <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">No progress reports available yet.</p>
                   </div>
@@ -1190,8 +1189,8 @@ export default function Dashboard() {
             ) : activeTab === "documents" ? (
             <motion.div key="documents" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="space-y-8">
               <div>
-                <h2 className="font-display text-3xl font-bold text-white mb-2">File Vault</h2>
-                <p className="font-mono-pro text-sm text-white/50">Secure repository for all project documents and assets.</p>
+                <h2 className="font-display text-2xl font-semibold text-white mb-1.5">File Vault</h2>
+                <p className="font-mono-pro text-xs text-white/50">Secure repository for all project documents and assets.</p>
               </div>
 
               {['Contract', 'SOW', 'Brand Assets', 'Credentials'].map(category => {
@@ -1199,22 +1198,22 @@ export default function Dashboard() {
                 if (categoryDocs.length === 0) return null;
                 return (
                   <div key={category} className="space-y-4 mb-8">
-                    <h3 className="font-mono-pro text-xs uppercase tracking-widest text-white/40 flex items-center gap-2">
+                    <h3 className="font-mono-pro text-[10px] uppercase tracking-wider text-white/40 flex items-center gap-2">
                       <FolderClosed className="w-4 h-4" /> {category}
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {categoryDocs.map((doc, i) => (
-                        <div key={i} className="glass rounded-xl p-5 border border-white/[0.04] flex items-start gap-4 group hover:border-white/30 transition-colors">
+                        <div key={i} className="glass-premium rounded-xl p-5 flex items-start gap-4 group transition-colors">
                           <div className="w-10 h-10 rounded-lg bg-black/40 border border-white/5 flex items-center justify-center shrink-0">
                             {(doc.url || "").includes('.pdf') ? <FileText className="w-5 h-5 text-red-400" /> :
-                             (doc.url || "").match(/\.(png|jpg|jpeg|svg)$/i) ? <ImageIcon className="w-5 h-5 text-[#00FF94]" /> :
+                             (doc.url || "").match(/\.(png|jpg|jpeg|svg)$/i) ? <ImageIcon className="w-5 h-5 text-[#2997ff]" /> :
                              <FileCode className="w-5 h-5 text-blue-400" />}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h4 className="font-display font-bold text-white truncate">{doc.name || doc.title}</h4>
-                            <p className="font-mono-pro text-[10px] text-white/40 uppercase mt-1">{doc.upload_date || "Unknown Date"}</p>
+                            <h4 className="font-display font-medium text-white truncate">{doc.name || doc.title}</h4>
+                            <p className="font-mono-pro text-[9px] text-white/40 uppercase mt-1">{doc.upload_date || "Unknown Date"}</p>
                           </div>
-                          <a href={doc.url} target="_blank" rel="noreferrer" className="p-2 bg-white/[0.02] hover:bg-[#00FF94]/10 hover:text-[#00FF94] text-white/40 rounded-lg transition-colors shrink-0">
+                          <a href={doc.url} target="_blank" rel="noreferrer" className="p-2 bg-white/[0.02] hover:bg-[#2997ff]/10 hover:text-[#2997ff] text-white/40 rounded-lg transition-colors shrink-0">
                             <Download className="w-4 h-4" />
                           </a>
                         </div>
@@ -1225,21 +1224,21 @@ export default function Dashboard() {
               })}
               
               {(!data.documents || data.documents.length === 0) && (
-                <div className="py-16 text-center glass rounded-2xl border border-white/[0.04]">
+                <div className="py-16 text-center glass-premium rounded-2xl">
                   <FolderClosed className="w-8 h-8 text-white/20 mx-auto mb-4" />
                   <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">No documents available.</p>
                 </div>
               )}
             </motion.div>
             ) : activeTab === "messages" ? (
-            <motion.div key="messages" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="h-[calc(100vh-280px)] min-h-[500px] glass rounded-3xl border border-white/[0.04] flex flex-col overflow-hidden">
+            <motion.div key="messages" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="h-[calc(100vh-280px)] min-h-[500px] glass-premium rounded-3xl flex flex-col overflow-hidden">
               {/* Header */}
-              <div className="p-6 border-b border-white/5 flex items-center justify-between bg-black/20">
+              <div className="p-6 border-b border-white/5 flex items-center justify-between bg-white/[0.01]">
                 <div>
-                  <h2 className="font-display text-xl font-bold text-white flex items-center gap-2">
-                    <MessageSquare className="w-5 h-5 text-[#00FF94]" /> Secure Comms
+                  <h2 className="font-display text-lg font-semibold text-white flex items-center gap-2">
+                    <MessageSquare className="w-5 h-5 text-[#2997ff]" /> Secure Comms
                   </h2>
-                  <p className="font-mono-pro text-[10px] text-white/40 uppercase mt-1">Encrypted direct channel to your account team</p>
+                  <p className="font-mono-pro text-[9px] text-white/40 uppercase mt-1">Encrypted direct channel to your account team</p>
                 </div>
               </div>
 
@@ -1250,13 +1249,13 @@ export default function Dashboard() {
                   return (
                     <div key={i} className={`flex flex-col max-w-[80%] ${isClient ? 'self-end items-end' : 'self-start items-start'}`}>
                       <div className="flex items-baseline gap-2 mb-1">
-                        <span className="font-display font-bold text-sm text-white/80">{msg.sender}</span>
+                        <span className="font-display font-medium text-xs text-white/80">{msg.sender}</span>
                         <span className="font-mono-pro text-[9px] text-white/30 uppercase">{new Date(msg.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                       </div>
-                      <div className={`p-4 rounded-2xl ${isClient ? 'bg-[#00FF94]/10 border border-[#00FF94]/20 text-white rounded-tr-sm' : 'bg-white/[0.02] border border-white/[0.04] text-white/90 rounded-tl-sm'}`}>
+                      <div className={`p-4 rounded-2xl ${isClient ? 'chat-bubble-client rounded-tr-sm text-white' : 'chat-bubble-agent rounded-tl-sm text-white/90'}`}>
                         <p className="text-sm whitespace-pre-wrap leading-relaxed">{msg.text}</p>
                         {msg.tagged_item && (
-                          <div className={`mt-3 px-3 py-1.5 rounded-lg text-xs font-mono-pro uppercase tracking-widest inline-flex items-center gap-2 ${isClient ? 'bg-[#00FF94]/20 text-[#00FF94]' : 'bg-black/40 text-white/60'}`}>
+                          <div className={`mt-3 px-3 py-1.5 rounded-lg text-[10px] font-mono-pro uppercase tracking-wider inline-flex items-center gap-2 ${isClient ? 'bg-white/10 text-white' : 'bg-black/30 text-white/60'}`}>
                             <Link className="w-3 h-3" /> {msg.tagged_item}
                           </div>
                         )}
@@ -1274,13 +1273,13 @@ export default function Dashboard() {
               {/* Input Area */}
               <div className="p-4 bg-black/40 border-t border-white/5">
                 {taggedItem && (
-                  <div className="mb-2 inline-flex items-center gap-2 bg-[#00FF94]/10 text-[#00FF94] px-3 py-1 rounded-full text-[10px] font-mono-pro uppercase">
+                  <div className="mb-2 inline-flex items-center gap-2 bg-[#2997ff]/10 text-[#2997ff] border border-[#2997ff]/15 px-3 py-1 rounded-full text-[9px] font-mono-pro uppercase">
                     <Link className="w-3 h-3" /> Tagged: {taggedItem}
-                    <button onClick={() => setTaggedItem("")} className="ml-1 hover:text-white"><LogOut className="w-3 h-3 rotate-45" /></button>
+                    <button onClick={() => setTaggedItem("")} className="ml-1 hover:text-white cursor-pointer"><LogOut className="w-3 h-3 rotate-45" /></button>
                   </div>
                 )}
                 <div className="flex items-end gap-2">
-                  <div className="flex-1 bg-white/[0.02] border border-white/[0.04] rounded-2xl p-2 flex flex-col focus-within:border-[#00FF94]/50 transition-colors">
+                  <div className="flex-1 bg-white/[0.01] border border-white/10 rounded-2xl p-2 flex flex-col focus-within:border-[#2997ff]/40 transition-colors">
                     <textarea 
                       value={messageInput}
                       onChange={e => setMessageInput(e.target.value)}
@@ -1295,16 +1294,16 @@ export default function Dashboard() {
                       <select 
                         value={taggedItem} 
                         onChange={e => setTaggedItem(e.target.value)}
-                        className="bg-[#0A0A0F] text-white/50 text-[10px] font-mono-pro outline-none uppercase cursor-pointer hover:text-white/80 border border-white/10 rounded px-2 py-1"
+                        className="bg-[#0c0c12] text-white/50 text-[9px] font-mono-pro outline-none uppercase cursor-pointer hover:text-white/80 border border-white/5 rounded px-2 py-1"
                       >
-                        <option value="" className="bg-[#0A0A0F] text-white/70">+ Tag Item</option>
+                        <option value="" className="bg-[#0c0c12] text-white/60">+ Tag Item</option>
                         {data.full_deliverables?.map(d => (
-                          <option key={d.name} value={d.name} className="bg-[#0A0A0F] text-white">
+                          <option key={d.name} value={d.name} className="bg-[#0c0c12] text-white">
                             {d.name}
                           </option>
                         ))}
                         {data.monthly_reports?.map(r => (
-                          <option key={r.title} value={r.title} className="bg-[#0A0A0F] text-white">
+                          <option key={r.title} value={r.title} className="bg-[#0c0c12] text-white">
                             {r.title}
                           </option>
                         ))}
@@ -1314,9 +1313,9 @@ export default function Dashboard() {
                   <button 
                     onClick={handleSendMessage}
                     disabled={!messageInput.trim()}
-                    className="h-[84px] w-[84px] shrink-0 rounded-2xl bg-[#00FF94] text-black flex items-center justify-center hover:bg-white transition-colors disabled:opacity-50 disabled:hover:bg-[#00FF94]"
+                    className="h-[84px] w-[84px] shrink-0 rounded-2xl bg-gradient-to-r from-[#2997ff] to-[#0071e3] text-white flex items-center justify-center hover:brightness-110 transition-all disabled:opacity-40 disabled:hover:brightness-100 shadow-[0_4px_12px_rgba(0,113,227,0.3)] border border-[#2997ff]/20 cursor-pointer"
                   >
-                    <Send className="w-6 h-6 ml-1" />
+                    <Send className="w-5 h-5 ml-0.5" />
                   </button>
                 </div>
               </div>
@@ -1325,28 +1324,28 @@ export default function Dashboard() {
             <motion.div key="invoices" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="space-y-8">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="font-display text-3xl font-bold text-white mb-2">Invoices Tracker</h2>
-                  <p className="font-mono-pro text-sm text-white/50">View and download your billing history.</p>
+                  <h2 className="font-display text-2xl font-semibold text-white mb-1.5">Invoices Tracker</h2>
+                  <p className="font-mono-pro text-xs text-white/50">View and download your billing history.</p>
                 </div>
               </div>
 
               {/* YTD Summary */}
-              <div className="glass rounded-3xl p-8 border border-[#00FF94]/20 relative overflow-hidden">
+              <div className="glass-premium rounded-3xl p-8 border border-[#2997ff]/15 relative overflow-hidden">
                 {/* Desktop Gaussian Blur */}
-                <div className="hidden md:block absolute top-0 right-0 w-64 h-64 bg-[#00FF94]/10 blur-[80px] rounded-full pointer-events-none" />
+                <div className="hidden md:block absolute top-0 right-0 w-64 h-64 bg-[#2997ff]/6 blur-[80px] rounded-full pointer-events-none" />
                 {/* Mobile Safe Gradient */}
-                <div className="block md:hidden absolute top-0 right-0 w-[500px] h-[500px] -translate-y-1/2 translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(0,255,148,0.1)_0%,transparent_50%)] pointer-events-none" />
+                <div className="block md:hidden absolute top-0 right-0 w-[500px] h-[500px] -translate-y-1/2 translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(41,151,255,0.04)_0%,transparent_50%)] pointer-events-none" />
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6 justify-between">
                   <div>
-                    <h3 className="font-mono-pro text-xs uppercase tracking-widest text-white/60 mb-2">Total Paid (YTD)</h3>
-                    <p className="font-display font-black text-5xl text-[#00FF94]">
+                    <h3 className="font-mono-pro text-[10px] uppercase tracking-wider text-white/60 mb-2">Total Paid (YTD)</h3>
+                    <p className="font-display font-semibold text-4xl text-emerald-450">
                       ${(data.invoices || []).filter(inv => inv.status === 'Paid').reduce((sum, inv) => sum + Number(inv.amount), 0).toLocaleString()}
                     </p>
                   </div>
                   <div className="flex gap-4">
-                    <div className="bg-black/40 px-6 py-4 rounded-2xl border border-white/5 text-center">
-                      <p className="font-mono-pro text-[10px] text-white/40 uppercase tracking-widest mb-1">Pending</p>
-                      <p className="font-display font-bold text-xl text-white">
+                    <div className="bg-white/[0.02] border border-white/5 px-6 py-4 rounded-2xl text-center">
+                      <p className="font-mono-pro text-[9px] text-white/40 uppercase tracking-wider mb-1">Pending</p>
+                      <p className="font-display font-semibold text-lg text-white">
                         ${(data.invoices || []).filter(inv => inv.status === 'Pending').reduce((sum, inv) => sum + Number(inv.amount), 0).toLocaleString()}
                       </p>
                     </div>
@@ -1355,23 +1354,23 @@ export default function Dashboard() {
               </div>
 
               {/* Table */}
-              <div className="glass rounded-2xl border border-white/[0.04] overflow-hidden">
+              <div className="glass-premium rounded-2xl overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left">
                     <thead>
-                      <tr className="border-b border-white/5 bg-black/20">
-                        <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Invoice #</th>
-                        <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Date</th>
-                        <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Amount</th>
-                        <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal">Status</th>
-                        <th className="py-4 px-6 font-mono-pro text-[10px] text-white/40 uppercase tracking-widest font-normal text-right">Download</th>
+                      <tr className="border-b border-white/5 bg-white/[0.01]">
+                        <th className="py-4 px-6 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal">Invoice #</th>
+                        <th className="py-4 px-6 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal">Date</th>
+                        <th className="py-4 px-6 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal">Amount</th>
+                        <th className="py-4 px-6 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal">Status</th>
+                        <th className="py-4 px-6 font-mono-pro text-[9px] text-white/40 uppercase tracking-wider font-normal text-right">Download</th>
                       </tr>
                     </thead>
                     <tbody>
                       {(data.invoices || []).length > 0 ? (data.invoices || []).map((inv, i) => (
-                        <tr key={i} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors group">
+                        <tr key={i} className="border-b border-white/5 hover:bg-white/[0.015] transition-colors group">
                           <td className="py-4 px-6">
-                            <span className="font-display font-bold text-white">{inv.number}</span>
+                            <span className="font-display font-medium text-white">{inv.number}</span>
                           </td>
                           <td className="py-4 px-6">
                             <span className="font-mono-pro text-xs text-white/60">{inv.date}</span>
@@ -1380,15 +1379,15 @@ export default function Dashboard() {
                             <span className="font-mono-pro text-sm text-white">${Number(inv.amount).toLocaleString()}</span>
                           </td>
                           <td className="py-4 px-6">
-                            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-widest ${
-                              inv.status === 'Paid' ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20' : 
-                              'bg-[#FF9F0A]/10 text-[#FF9F0A] border border-[#FF9F0A]/20'
+                            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-wider ${
+                              inv.status === 'Paid' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/15' : 
+                              'bg-amber-500/10 text-amber-400 border border-amber-500/15'
                             }`}>
                               {inv.status}
                             </span>
                           </td>
                           <td className="py-4 px-6 text-right">
-                            <a href={inv.url} target="_blank" rel="noreferrer" className="inline-flex p-2 text-white/40 hover:text-[#00FF94] hover:bg-[#00FF94]/10 rounded-lg transition-colors">
+                            <a href={inv.url} target="_blank" rel="noreferrer" className="inline-flex p-2 text-white/40 hover:text-[#2997ff] hover:bg-[#2997ff]/10 rounded-lg transition-colors">
                               <Download className="w-4 h-4" />
                             </a>
                           </td>
@@ -1396,7 +1395,7 @@ export default function Dashboard() {
                       )) : (
                         <tr>
                           <td colSpan="5" className="py-12 text-center">
-                            <span className="font-mono-pro text-[10px] text-white/30 uppercase tracking-widest">No invoices found</span>
+                            <span className="font-mono-pro text-xs text-white/30 uppercase tracking-widest">No invoices found</span>
                           </td>
                         </tr>
                       )}
@@ -1411,7 +1410,7 @@ export default function Dashboard() {
         </main>
 
         {/* Mobile Bottom Nav */}
-        <nav className="md:hidden absolute bottom-0 left-0 right-0 bg-[#050505]/90 backdrop-blur-xl border-t border-white/5 z-50">
+        <nav className="md:hidden absolute bottom-0 left-0 right-0 bg-[#050508]/90 backdrop-blur-xl border-t border-white/5 z-50">
            <div className="flex items-center overflow-x-auto custom-scrollbar px-2 py-3 gap-2">
              {[
               { id: "overview", label: "Hub", icon: LayoutDashboard },
@@ -1423,18 +1422,18 @@ export default function Dashboard() {
               { id: "messages", label: "Comms", icon: MessageSquare },
               { id: "invoices", label: "Billing", icon: Receipt },
              ].map(item => {
-               const Icon = item.icon;
-               const isActive = activeTab === item.id;
-               return (
-                 <button
-                   key={item.id}
-                   onClick={() => setActiveTab(item.id)}
-                   className={`flex flex-col items-center justify-center gap-1 min-w-[64px] px-2 py-2 rounded-xl transition-colors ${isActive ? 'text-[#00FF94]' : 'text-white/40 hover:text-white'}`}
-                 >
-                   <Icon className="w-5 h-5" />
-                   <span className="font-mono-pro text-[9px] uppercase tracking-wider">{item.label}</span>
-                 </button>
-               );
+                const Icon = item.icon;
+                const isActive = activeTab === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => setActiveTab(item.id)}
+                    className={`flex flex-col items-center justify-center gap-1 min-w-[64px] px-2 py-2 rounded-xl transition-all ${isActive ? 'text-[#2997ff]' : 'text-white/40 hover:text-white'}`}
+                  >
+                    <Icon className="w-5 h-5" />
+                    <span className="font-mono-pro text-[9px] uppercase tracking-wider">{item.label}</span>
+                  </button>
+                );
              })}
            </div>
         </nav>
