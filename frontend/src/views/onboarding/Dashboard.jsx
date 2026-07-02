@@ -52,7 +52,7 @@ function CinematicLoader({ companyName, onComplete }) {
 
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
 
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#050508] text-white selection:bg-[#2997ff]/30 selection:text-white"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#050508] text-white selection:bg-[#00FF94]/30 selection:text-white"
 
     >
 
@@ -96,7 +96,7 @@ function CinematicLoader({ companyName, onComplete }) {
 
           <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center backdrop-blur-md border border-white/10">
 
-            <div className="w-2.5 h-2.5 rounded-full bg-[#2997ff] animate-pulse" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[#00FF94] animate-pulse" />
 
           </div>
 
@@ -252,7 +252,7 @@ const HoverButton = ({ children, className = "", ...props }) => {
 
         transition={{ duration: 0.3, ease: "easeOut" }}
 
-        className="absolute inset-0 bg-[#0071e3] z-0"
+        className="absolute inset-0 bg-[#00D67D] z-0"
 
       />
 
@@ -808,7 +808,7 @@ export default function Dashboard() {
 
             transition={{ duration: 0.8, ease: "circOut" }}
 
-            className="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-[#2997ff] to-[#0071e3] z-[100] shadow-[0_0_10px_rgba(0,113,227,0.4)]"
+            className="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-[#00FF94] to-[#00D67D] z-[100] shadow-[0_0_10px_rgba(0,214,125,0.4)]"
 
           />
 
@@ -824,7 +824,7 @@ export default function Dashboard() {
 
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}
 
-                    className="liquidglass-theme flex flex-col h-[100dvh] w-full bg-[#06060a] text-white overflow-hidden selection:bg-[#2997ff]/30 selection:text-white relative"
+                    className="liquidglass-theme flex flex-col h-[100dvh] w-full bg-[#06060a] text-white overflow-hidden selection:bg-[#00FF94]/30 selection:text-white relative"
         >
           {/* Siri-style dynamic ambient glows */}
           <div className="absolute top-[-10%] left-[-10%] fluid-glow-1 pointer-events-none" />
@@ -842,7 +842,7 @@ export default function Dashboard() {
             <div className="flex items-center gap-4">
               <Logo hideVersion={true} />
               <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#2997ff] animate-pulse" />
+                <div className="w-1.5 h-1.5 rounded-full bg-[#00FF94] animate-pulse" />
                 <span className="font-mono-pro text-[9px] text-white/50 uppercase tracking-widest">{data.tier || "Active Campaign"}</span>
               </div>
             </div>
@@ -898,7 +898,7 @@ export default function Dashboard() {
 
                     >
 
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#2997ff]" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#00FF94]" />
 
                       <span className="font-mono-pro text-[9px] text-white/60 uppercase tracking-wider">Secure Workspace</span>
 
@@ -918,7 +918,7 @@ export default function Dashboard() {
 
                         data.status === 'paused' ? 'bg-amber-500/10 border-amber-500/15 text-amber-400' :
 
-                        data.status === 'completed' ? 'bg-[#2997ff]/10 border-[#2997ff]/15 text-[#2997ff]' :
+                        data.status === 'completed' ? 'bg-[#00FF94]/10 border-[#00FF94]/15 text-[#00FF94]' :
 
                         data.status === 'onboarding' ? 'bg-purple-500/10 border-purple-500/15 text-purple-400' :
 
@@ -932,7 +932,7 @@ export default function Dashboard() {
 
                         data.status === 'paused' ? 'bg-amber-400' :
 
-                        data.status === 'completed' ? 'bg-[#2997ff]' :
+                        data.status === 'completed' ? 'bg-[#00FF94]' :
 
                         data.status === 'onboarding' ? 'bg-purple-400' :
 
@@ -950,13 +950,13 @@ export default function Dashboard() {
 
                   <motion.h1 
 
-                    className="font-display text-4xl sm:text-6xl font-black tracking-tighter leading-none mb-6"
+                    className="font-display text-4xl sm:text-6xl  leading-none mb-6"
 
                     style={{ x: titleX }}
 
                   >
 
-                    <StaggeredText text="Command Center" /><br/>
+                    <span style={{ fontFamily: "var(--font-unbounded), system-ui, sans-serif", fontWeight: 300, letterSpacing: "-0.03em" }}><StaggeredText text="Command Center" /></span><br/>
 
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50">
 
@@ -1038,7 +1038,7 @@ export default function Dashboard() {
 
                             <div className="flex justify-between items-start mb-4">
 
-                              <m.icon className="w-5 h-5 text-[#2997ff] opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300" />
+                              <m.icon className="w-5 h-5 text-[#00FF94] opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300" />
 
                               <span className="font-mono-pro text-[9px] font-semibold text-emerald-455 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">{m.change}</span>
 
@@ -1076,9 +1076,9 @@ export default function Dashboard() {
 
                                 <linearGradient id="colorTraffic" x1="0" y1="0" x2="0" y2="1">
 
-                                  <stop offset="5%" stopColor="#2997ff" stopOpacity={0.25}/>
+                                  <stop offset="5%" stopColor="#00FF94" stopOpacity={0.25}/>
 
-                                  <stop offset="95%" stopColor="#2997ff" stopOpacity={0}/>
+                                  <stop offset="95%" stopColor="#00FF94" stopOpacity={0}/>
 
                                 </linearGradient>
 
@@ -1088,13 +1088,13 @@ export default function Dashboard() {
 
                                 contentStyle={{ backgroundColor: '#0c0c12', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', backdropFilter: 'blur(10px)' }} 
 
-                                itemStyle={{ color: '#2997ff' }}
+                                itemStyle={{ color: '#00FF94' }}
 
                                 labelStyle={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontFamily: 'monospace' }}
 
                               />
 
-                              <Area type="monotone" dataKey="traffic" stroke="#2997ff" strokeWidth={2} fillOpacity={1} fill="url(#colorTraffic)" />
+                              <Area type="monotone" dataKey="traffic" stroke="#00FF94" strokeWidth={2} fillOpacity={1} fill="url(#colorTraffic)" />
 
                             </AreaChart>
 
@@ -1164,7 +1164,7 @@ export default function Dashboard() {
 
                                 <td className="py-4 pr-4 pl-4 font-display font-medium text-white/90 whitespace-nowrap relative overflow-hidden">
 
-                                  <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#2997ff] -translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[0.16,1,0.3,1]" />
+                                  <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#00FF94] -translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[0.16,1,0.3,1]" />
 
                                   {kw.keyword}
 
@@ -1182,7 +1182,7 @@ export default function Dashboard() {
 
                                     transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 + i * 0.04 }}
 
-                                    className={kw.change !== '0' && kw.change !== '0%' ? (String(kw.change).startsWith('-') ? 'text-red-400' : 'text-[#2997ff]') : 'text-white'}
+                                    className={kw.change !== '0' && kw.change !== '0%' ? (String(kw.change).startsWith('-') ? 'text-red-400' : 'text-[#00FF94]') : 'text-white'}
 
                                   >
 
@@ -1198,7 +1198,7 @@ export default function Dashboard() {
 
                                 <td className="py-4 text-right pr-4">
 
-                                  <span className={`inline-flex px-2 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-wider ${kw.status === 'active' ? 'bg-[#2997ff]/8 text-[#2997ff] border border-[#2997ff]/15' : 'bg-white/[0.02] text-white/40'}`}>
+                                  <span className={`inline-flex px-2 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-wider ${kw.status === 'active' ? 'bg-[#00FF94]/8 text-[#00FF94] border border-[#00FF94]/15' : 'bg-white/[0.02] text-white/40'}`}>
 
                                     {kw.status}
 
@@ -1236,17 +1236,17 @@ export default function Dashboard() {
 
                             transition={{ delay: i * 0.04 }}
 
-                            className="bg-white/[0.02] border border-white/5 rounded-xl p-4 hover:border-[#2997ff]/20 transition-colors relative overflow-hidden group"
+                            className="bg-white/[0.02] border border-white/5 rounded-xl p-4 hover:border-[#00FF94]/20 transition-colors relative overflow-hidden group"
 
                           >
 
-                            <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#2997ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#00FF94] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                             <div className="flex justify-between items-start mb-3">
 
                               <span className="font-display font-medium text-white/90 truncate mr-2">{kw.keyword}</span>
 
-                              <span className={`shrink-0 inline-flex px-2 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-wider ${kw.status === 'active' ? 'bg-[#2997ff]/8 text-[#2997ff] border border-[#2997ff]/15' : 'bg-white/[0.02] text-white/40'}`}>
+                              <span className={`shrink-0 inline-flex px-2 py-1 rounded-full font-mono-pro text-[9px] uppercase tracking-wider ${kw.status === 'active' ? 'bg-[#00FF94]/8 text-[#00FF94] border border-[#00FF94]/15' : 'bg-white/[0.02] text-white/40'}`}>
 
                                 {kw.status}
 
@@ -1262,7 +1262,7 @@ export default function Dashboard() {
 
                                 <div className="flex items-baseline gap-2">
 
-                                  <span className={`font-display text-xl ${kw.change !== '0' && kw.change !== '0%' ? (String(kw.change).startsWith('-') ? 'text-red-400' : 'text-[#2997ff]') : 'text-white'}`}>
+                                  <span className={`font-display text-xl ${kw.change !== '0' && kw.change !== '0%' ? (String(kw.change).startsWith('-') ? 'text-red-400' : 'text-[#00FF94]') : 'text-white'}`}>
 
                                     {kw.rank}
 
@@ -1312,9 +1312,9 @@ export default function Dashboard() {
 
                         {/* Client's own row for comparison */}
 
-                        <div className="flex items-center justify-between p-4 rounded-xl bg-[#2997ff]/5 border border-[#2997ff]/20">
+                        <div className="flex items-center justify-between p-4 rounded-xl bg-[#00FF94]/5 border border-[#00FF94]/20">
 
-                          <span className="font-display font-semibold text-[#2997ff] truncate mr-4">{data.company_name} (You)</span>
+                          <span className="font-display font-semibold text-[#00FF94] truncate mr-4">{data.company_name} (You)</span>
 
                           <div className="flex gap-4 sm:gap-8 text-right shrink-0">
 
@@ -1410,7 +1410,7 @@ export default function Dashboard() {
 
                                   transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
 
-                                  className="h-full bg-gradient-to-r from-[#2997ff] to-[#0071e3] shadow-[0_2px_8px_rgba(41,151,255,0.4)]"
+                                  className="h-full bg-gradient-to-r from-[#00FF94] to-[#00D67D] shadow-[0_2px_8px_rgba(0,255,148,0.4)]"
 
                                 />
 
@@ -1454,7 +1454,7 @@ export default function Dashboard() {
 
                           transition={{ duration: 3, ease: "easeOut", delay: 1 }}
 
-                          className="w-full bg-gradient-to-b from-[#2997ff] to-transparent shadow-[0_0_8px_rgba(41,151,255,0.4)]" 
+                          className="w-full bg-gradient-to-b from-[#00FF94] to-transparent shadow-[0_0_8px_rgba(0,255,148,0.4)]" 
 
                         />
 
@@ -1468,7 +1468,7 @@ export default function Dashboard() {
 
                           <div className={`absolute -left-[5px] top-1.5 w-3 h-3 rounded-full border-2 border-[#05050A] transition-colors duration-500 ${
 
-                            item.status === 'completed' ? 'bg-[#2997ff] shadow-[0_0_12px_rgba(41,151,255,0.5)]' :
+                            item.status === 'completed' ? 'bg-[#00FF94] shadow-[0_0_12px_rgba(0,255,148,0.5)]' :
 
                             item.status === 'in_progress' ? 'bg-white shadow-[0_0_12px_white] animate-pulse' :
 
@@ -1482,7 +1482,7 @@ export default function Dashboard() {
 
                             <div>
 
-                              <h4 className="font-display text-xl font-bold mb-1.5 group-hover:text-[#2997ff] transition-colors">{item.title}</h4>
+                              <h4 className="font-display text-xl font-bold mb-1.5 group-hover:text-[#00FF94] transition-colors">{item.title}</h4>
 
                               <p className="font-mono-pro text-xs text-white/40 uppercase tracking-widest">Phase {item.step}</p>
 
@@ -1490,7 +1490,7 @@ export default function Dashboard() {
 
                             <div>
 
-                              {item.status === 'completed' && <CheckCircle2 className="w-6 h-6 text-[#2997ff]" />}
+                              {item.status === 'completed' && <CheckCircle2 className="w-6 h-6 text-[#00FF94]" />}
 
                               {item.status === 'in_progress' && <PlayCircle className="w-6 h-6 text-white" />}
 
@@ -1526,13 +1526,13 @@ export default function Dashboard() {
 
                         {data.recent_activity.slice(0, 3).map((act, i) => (
 
-                          <motion.div key={i} whileHover={{ scale: 1.01 }} className="flex gap-3 sm:gap-5 p-4 sm:p-5 rounded-2xl bg-white/[0.015] border border-white/5 hover:border-[#2997ff]/20 transition-colors">
+                          <motion.div key={i} whileHover={{ scale: 1.01 }} className="flex gap-3 sm:gap-5 p-4 sm:p-5 rounded-2xl bg-white/[0.015] border border-white/5 hover:border-[#00FF94]/20 transition-colors">
 
-                            <div className="w-2 h-2 rounded-full bg-[#2997ff] mt-2 shadow-[0_0_8px_rgba(41,151,255,0.4)] shrink-0" />
+                            <div className="w-2 h-2 rounded-full bg-[#00FF94] mt-2 shadow-[0_0_8px_rgba(0,255,148,0.4)] shrink-0" />
 
                             <div>
 
-                              <p className="font-mono-pro text-[10px] text-[#2997ff] mb-1.5 uppercase tracking-wider">
+                              <p className="font-mono-pro text-[10px] text-[#00FF94] mb-1.5 uppercase tracking-wider">
 
                                 {new Date(act.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
 
@@ -1580,7 +1580,7 @@ export default function Dashboard() {
 
                     transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
 
-                    className="absolute inset-0 bg-[length:200%_200%] bg-gradient-to-br from-[#2997ff]/25 via-transparent to-purple-500/10 opacity-60 group-hover:opacity-100 transition-opacity duration-700" 
+                    className="absolute inset-0 bg-[length:200%_200%] bg-gradient-to-br from-[#00FF94]/25 via-transparent to-purple-500/10 opacity-60 group-hover:opacity-100 transition-opacity duration-700" 
 
                   />
 
@@ -1588,13 +1588,13 @@ export default function Dashboard() {
 
                     {/* Desktop Gaussian Blur */}
 
-                    <div className="hidden md:block absolute top-0 right-0 w-32 h-32 bg-[#2997ff]/10 blur-[50px] pointer-events-none" />
+                    <div className="hidden md:block absolute top-0 right-0 w-32 h-32 bg-[#00FF94]/10 blur-[50px] pointer-events-none" />
 
                     {/* Mobile Safe Gradient */}
 
-                    <div className="block md:hidden absolute top-0 right-0 w-[400px] h-[400px] -translate-y-1/2 translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(41,151,255,0.06)_0%,transparent_50%)] pointer-events-none" />
+                    <div className="block md:hidden absolute top-0 right-0 w-[400px] h-[400px] -translate-y-1/2 translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(0,255,148,0.06)_0%,transparent_50%)] pointer-events-none" />
 
-                    <h3 className="overline text-[#2997ff] mb-6 flex items-center gap-2"><Target className="w-4 h-4"/> Current Sprint Focus</h3>
+                    <h3 className="overline text-[#00FF94] mb-6 flex items-center gap-2"><Target className="w-4 h-4"/> Current Sprint Focus</h3>
 
                     <p className="font-display text-xl sm:text-2xl font-semibold leading-tight tracking-tight text-white drop-shadow-md">
 
@@ -1624,11 +1624,11 @@ export default function Dashboard() {
 
                       data.documents.map((doc, i) => (
 
-                        <a key={i} href={doc.url} target="_blank" rel="noreferrer" className="group flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-[#2997ff]/5 hover:border-[#2997ff]/25 transition-all duration-300">
+                        <a key={i} href={doc.url} target="_blank" rel="noreferrer" className="group flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-[#00FF94]/5 hover:border-[#00FF94]/25 transition-all duration-300">
 
                           <div className="flex items-center gap-4">
 
-                            <div className="w-12 h-12 rounded-xl bg-black/40 flex items-center justify-center text-white/40 group-hover:text-[#2997ff] group-hover:scale-105 transition-all duration-300">
+                            <div className="w-12 h-12 rounded-xl bg-black/40 flex items-center justify-center text-white/40 group-hover:text-[#00FF94] group-hover:scale-105 transition-all duration-300">
 
                               <FileText className="w-5 h-5" />
 
@@ -1636,7 +1636,7 @@ export default function Dashboard() {
 
                             <div>
 
-                              <p className="font-display font-semibold text-sm mb-1 group-hover:text-[#2997ff] transition-colors">{doc.title}</p>
+                              <p className="font-display font-semibold text-sm mb-1 group-hover:text-[#00FF94] transition-colors">{doc.title}</p>
 
                               <p className="font-mono-pro text-[9px] text-white/40 uppercase tracking-wider">Secure Document</p>
 
@@ -1662,15 +1662,15 @@ export default function Dashboard() {
 
                 {/* Support */}
 
-                <motion.div variants={rightItemVariants} className="relative rounded-3xl p-8 sm:p-10 border border-[#2997ff]/20 bg-[#2997ff]/5 overflow-hidden">
+                <motion.div variants={rightItemVariants} className="relative rounded-3xl p-8 sm:p-10 border border-[#00FF94]/20 bg-[#00FF94]/5 overflow-hidden">
 
-                  <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-[#2997ff]/10 to-transparent opacity-50" />
+                  <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-[#00FF94]/10 to-transparent opacity-50" />
 
                   <div className="relative z-10">
 
                     <div className="flex items-start justify-between mb-6">
 
-                      <h3 className="overline text-[#2997ff] mb-2">Dedicated Support</h3>
+                      <h3 className="overline text-[#00FF94] mb-2">Dedicated Support</h3>
 
                       <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
 
@@ -1686,7 +1686,7 @@ export default function Dashboard() {
 
                       onClick={() => window.location.href = "mailto:founder@seoplanet.in"}
 
-                      className="w-full rounded-full bg-gradient-to-r from-[#2997ff] to-[#0071e3] text-white px-8 py-4 font-mono-pro text-xs uppercase tracking-widest font-semibold hover:brightness-110 shadow-[0_4px_12px_rgba(0,113,227,0.3)] border border-[#2997ff]/20 cursor-pointer"
+                      className="w-full rounded-full bg-gradient-to-r from-[#00FF94] to-[#00D67D] text-white px-8 py-4 font-mono-pro text-xs uppercase tracking-widest font-semibold hover:brightness-110 shadow-[0_4px_12px_rgba(0,214,125,0.3)] border border-[#00FF94]/20 cursor-pointer"
 
                     >
 
@@ -1782,7 +1782,7 @@ export default function Dashboard() {
 
                                 item.status === 'Pending Approval' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/15' : 
 
-                                'bg-[#2997ff]/10 text-[#2997ff] border border-[#2997ff]/15'
+                                'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/15'
 
                               }`}>
 
@@ -1798,11 +1798,11 @@ export default function Dashboard() {
 
                             </td>
 
-                            <td className="py-4 px-6 font-mono-pro text-xs text-[#2997ff]">{item.due_date || "TBD"}</td>
+                            <td className="py-4 px-6 font-mono-pro text-xs text-[#00FF94]">{item.due_date || "TBD"}</td>
 
                             <td className="py-4 px-6 text-right">
 
-                              <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center p-2 rounded-lg bg-white/[0.02] hover:bg-[#2997ff] hover:text-white text-white/60 hover:shadow-[0_4px_12px_rgba(0,113,227,0.3)] transition-all duration-300">
+                              <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center p-2 rounded-lg bg-white/[0.02] hover:bg-[#00FF94] hover:text-white text-white/60 hover:shadow-[0_4px_12px_rgba(0,214,125,0.3)] transition-all duration-300">
 
                                 <Download className="w-4 h-4" />
 
@@ -1846,7 +1846,7 @@ export default function Dashboard() {
 
                             {colStatus === 'Pending Approval' && <div className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.4)]" />}
 
-                            {colStatus === 'In Progress' && <div className="w-2 h-2 rounded-full bg-[#2997ff] shadow-[0_0_8px_rgba(41,151,255,0.4)]" />}
+                            {colStatus === 'In Progress' && <div className="w-2 h-2 rounded-full bg-[#00FF94] shadow-[0_0_8px_rgba(0,255,148,0.4)]" />}
 
                             {colStatus}
 
@@ -1858,13 +1858,13 @@ export default function Dashboard() {
 
                         {colItems.map((item, i) => (
 
-                          <div key={i} className="bg-white/[0.01] border border-white/5 rounded-xl p-5 hover:border-[#2997ff]/30 hover:bg-white/[0.03] transition-all duration-300">
+                          <div key={i} className="bg-white/[0.01] border border-white/5 rounded-xl p-5 hover:border-[#00FF94]/30 hover:bg-white/[0.03] transition-all duration-300">
 
                             <div className="flex justify-between items-start mb-3">
 
-                              <span className="font-mono-pro text-[9px] text-[#2997ff] uppercase tracking-wider px-2 py-1 bg-[#2997ff]/8 border border-[#2997ff]/15 rounded-lg">{item.type}</span>
+                              <span className="font-mono-pro text-[9px] text-[#00FF94] uppercase tracking-wider px-2 py-1 bg-[#00FF94]/8 border border-[#00FF94]/15 rounded-lg">{item.type}</span>
 
-                              <a href={item.url} target="_blank" rel="noreferrer" className="text-white/40 hover:text-[#2997ff] transition-colors">
+                              <a href={item.url} target="_blank" rel="noreferrer" className="text-white/40 hover:text-[#00FF94] transition-colors">
 
                                 <Download className="w-4 h-4" />
 
@@ -2042,13 +2042,13 @@ export default function Dashboard() {
 
                   {data.monthly_reports && data.monthly_reports.length > 0 ? data.monthly_reports.map((item, i) => (
 
-                    <div key={i} className="glass-premium rounded-2xl p-6 flex items-center justify-between group hover:border-[#2997ff]/30 transition-all duration-300">
+                    <div key={i} className="glass-premium rounded-2xl p-6 flex items-center justify-between group hover:border-[#00FF94]/30 transition-all duration-300">
 
                       <div className="flex items-center gap-4">
 
                         <div className="w-12 h-12 rounded-xl bg-black/40 border border-white/5 flex items-center justify-center">
 
-                          <FileText className="w-5 h-5 text-[#2997ff]" />
+                          <FileText className="w-5 h-5 text-[#00FF94]" />
 
                         </div>
 
@@ -2062,7 +2062,7 @@ export default function Dashboard() {
 
                       </div>
 
-                      <a href={item.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/[0.02] text-white hover:bg-[#2997ff] hover:text-white hover:shadow-[0_4px_12px_rgba(0,113,227,0.3)] font-mono-pro text-[10px] uppercase tracking-wider font-semibold transition-all duration-300">
+                      <a href={item.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/[0.02] text-white hover:bg-[#00FF94] hover:text-white hover:shadow-[0_4px_12px_rgba(0,214,125,0.3)] font-mono-pro text-[10px] uppercase tracking-wider font-semibold transition-all duration-300">
 
                         <Download className="w-4 h-4" /> Download PDF
 
@@ -2088,23 +2088,23 @@ export default function Dashboard() {
 
               <div className="lg:col-span-4">
 
-                <div className="glass-premium rounded-3xl p-8 border border-[#2997ff]/20 relative overflow-hidden sticky top-8">
+                <div className="glass-premium rounded-3xl p-8 border border-[#00FF94]/20 relative overflow-hidden sticky top-8">
 
                   {/* Desktop Gaussian Blur */}
 
-                  <div className="hidden md:block absolute top-0 right-0 w-64 h-64 bg-[#2997ff]/6 blur-[80px] rounded-full pointer-events-none" />
+                  <div className="hidden md:block absolute top-0 right-0 w-64 h-64 bg-[#00FF94]/6 blur-[80px] rounded-full pointer-events-none" />
 
                   {/* Mobile Safe Gradient */}
 
-                  <div className="block md:hidden absolute top-0 right-0 w-[500px] h-[500px] -translate-y-1/2 translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(41,151,255,0.04)_0%,transparent_50%)] pointer-events-none" />
+                  <div className="block md:hidden absolute top-0 right-0 w-[500px] h-[500px] -translate-y-1/2 translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(0,255,148,0.04)_0%,transparent_50%)] pointer-events-none" />
 
                   
 
                   <div className="flex items-center gap-3 mb-8">
 
-                    <div className="w-10 h-10 rounded-xl bg-[#2997ff]/8 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-xl bg-[#00FF94]/8 flex items-center justify-center">
 
-                      <Calculator className="w-4 h-4 text-[#2997ff]" />
+                      <Calculator className="w-4 h-4 text-[#00FF94]" />
 
                     </div>
 
@@ -2122,7 +2122,7 @@ export default function Dashboard() {
 
                         <label className="font-mono-pro text-xs uppercase tracking-wider text-white/50">Avg Order Value</label>
 
-                        <span className="font-mono-pro text-xs text-[#2997ff]">${aov}</span>
+                        <span className="font-mono-pro text-xs text-[#00FF94]">${aov}</span>
 
                       </div>
 
@@ -2136,7 +2136,7 @@ export default function Dashboard() {
 
                         onChange={e => setAov(Number(e.target.value))}
 
-                        className="w-full accent-[#2997ff] cursor-pointer"
+                        className="w-full accent-[#00FF94] cursor-pointer"
 
                       />
 
@@ -2150,7 +2150,7 @@ export default function Dashboard() {
 
                         <label className="font-mono-pro text-xs uppercase tracking-wider text-white/50">Conversion Rate</label>
 
-                        <span className="font-mono-pro text-xs text-[#2997ff]">{conversionRate}%</span>
+                        <span className="font-mono-pro text-xs text-[#00FF94]">{conversionRate}%</span>
 
                       </div>
 
@@ -2164,7 +2164,7 @@ export default function Dashboard() {
 
                         onChange={e => setConversionRate(Number(e.target.value))}
 
-                        className="w-full accent-[#2997ff] cursor-pointer"
+                        className="w-full accent-[#00FF94] cursor-pointer"
 
                       />
 
@@ -2176,7 +2176,7 @@ export default function Dashboard() {
 
                       <p className="font-mono-pro text-[9px] uppercase tracking-wider text-white/40 mb-2">Est. Organic Revenue/Mo</p>
 
-                      <p className="font-display font-semibold text-3xl text-[#2997ff]">
+                      <p className="font-display font-semibold text-3xl text-[#00FF94]">
 
                         ${(parseInt((data.metrics?.traffic || "0").toString().replace(/,/g, '')) * (conversionRate / 100) * aov).toLocaleString(undefined, {maximumFractionDigits: 0})}
 
@@ -2214,13 +2214,13 @@ export default function Dashboard() {
 
                 {data.progress_reports && data.progress_reports.length > 0 ? data.progress_reports.map((item, i) => (
 
-                  <div key={i} className="glass-premium rounded-2xl p-6 flex items-center justify-between group hover:border-[#2997ff]/30 transition-all duration-300">
+                  <div key={i} className="glass-premium rounded-2xl p-6 flex items-center justify-between group hover:border-[#00FF94]/30 transition-all duration-300">
 
                     <div className="flex items-center gap-4">
 
                       <div className="w-12 h-12 rounded-xl bg-black/40 border border-white/5 flex items-center justify-center">
 
-                        <TrendingUp className="w-5 h-5 text-[#2997ff]" />
+                        <TrendingUp className="w-5 h-5 text-[#00FF94]" />
 
                       </div>
 
@@ -2234,7 +2234,7 @@ export default function Dashboard() {
 
                     </div>
 
-                    <a href={item.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/[0.02] text-white hover:bg-[#2997ff] hover:text-white hover:shadow-[0_4px_12px_rgba(0,113,227,0.3)] font-mono-pro text-[10px] uppercase tracking-wider font-semibold transition-all duration-300">
+                    <a href={item.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/[0.02] text-white hover:bg-[#00FF94] hover:text-white hover:shadow-[0_4px_12px_rgba(0,214,125,0.3)] font-mono-pro text-[10px] uppercase tracking-wider font-semibold transition-all duration-300">
 
                       <Link className="w-4 h-4" /> View Report
 
@@ -2298,7 +2298,7 @@ export default function Dashboard() {
 
                             {(doc.url || "").includes('.pdf') ? <FileText className="w-5 h-5 text-red-400" /> :
 
-                             (doc.url || "").match(/\.(png|jpg|jpeg|svg)$/i) ? <ImageIcon className="w-5 h-5 text-[#2997ff]" /> :
+                             (doc.url || "").match(/\.(png|jpg|jpeg|svg)$/i) ? <ImageIcon className="w-5 h-5 text-[#00FF94]" /> :
 
                              <FileCode className="w-5 h-5 text-blue-400" />}
 
@@ -2312,7 +2312,7 @@ export default function Dashboard() {
 
                           </div>
 
-                          <a href={doc.url} target="_blank" rel="noreferrer" className="p-2 bg-white/[0.02] hover:bg-[#2997ff]/10 hover:text-[#2997ff] text-white/40 rounded-lg transition-colors shrink-0">
+                          <a href={doc.url} target="_blank" rel="noreferrer" className="p-2 bg-white/[0.02] hover:bg-[#00FF94]/10 hover:text-[#00FF94] text-white/40 rounded-lg transition-colors shrink-0">
 
                             <Download className="w-4 h-4" />
 
@@ -2358,7 +2358,7 @@ export default function Dashboard() {
 
                   <h2 className="font-display text-lg font-semibold text-white flex items-center gap-2">
 
-                    <MessageSquare className="w-5 h-5 text-[#2997ff]" /> Secure Comms
+                    <MessageSquare className="w-5 h-5 text-[#00FF94]" /> Secure Comms
 
                   </h2>
 
@@ -2432,7 +2432,7 @@ export default function Dashboard() {
 
                 {taggedItem && (
 
-                  <div className="mb-2 inline-flex items-center gap-2 bg-[#2997ff]/10 text-[#2997ff] border border-[#2997ff]/15 px-3 py-1 rounded-full text-[9px] font-mono-pro uppercase">
+                  <div className="mb-2 inline-flex items-center gap-2 bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/15 px-3 py-1 rounded-full text-[9px] font-mono-pro uppercase">
 
                     <Link className="w-3 h-3" /> Tagged: {taggedItem}
 
@@ -2444,7 +2444,7 @@ export default function Dashboard() {
 
                 <div className="flex items-end gap-2">
 
-                  <div className="flex-1 bg-white/[0.01] border border-white/10 rounded-2xl p-2 flex flex-col focus-within:border-[#2997ff]/40 transition-colors">
+                  <div className="flex-1 bg-white/[0.01] border border-white/10 rounded-2xl p-2 flex flex-col focus-within:border-[#00FF94]/40 transition-colors">
 
                     <textarea 
 
@@ -2512,7 +2512,7 @@ export default function Dashboard() {
 
                     disabled={!messageInput.trim()}
 
-                    className="h-[84px] w-[84px] shrink-0 rounded-2xl bg-gradient-to-r from-[#2997ff] to-[#0071e3] text-white flex items-center justify-center hover:brightness-110 transition-all disabled:opacity-40 disabled:hover:brightness-100 shadow-[0_4px_12px_rgba(0,113,227,0.3)] border border-[#2997ff]/20 cursor-pointer"
+                    className="h-[84px] w-[84px] shrink-0 rounded-2xl bg-gradient-to-r from-[#00FF94] to-[#00D67D] text-white flex items-center justify-center hover:brightness-110 transition-all disabled:opacity-40 disabled:hover:brightness-100 shadow-[0_4px_12px_rgba(0,214,125,0.3)] border border-[#00FF94]/20 cursor-pointer"
 
                   >
 
@@ -2546,15 +2546,15 @@ export default function Dashboard() {
 
               {/* YTD Summary */}
 
-              <div className="glass-premium rounded-3xl p-8 border border-[#2997ff]/15 relative overflow-hidden">
+              <div className="glass-premium rounded-3xl p-8 border border-[#00FF94]/15 relative overflow-hidden">
 
                 {/* Desktop Gaussian Blur */}
 
-                <div className="hidden md:block absolute top-0 right-0 w-64 h-64 bg-[#2997ff]/6 blur-[80px] rounded-full pointer-events-none" />
+                <div className="hidden md:block absolute top-0 right-0 w-64 h-64 bg-[#00FF94]/6 blur-[80px] rounded-full pointer-events-none" />
 
                 {/* Mobile Safe Gradient */}
 
-                <div className="block md:hidden absolute top-0 right-0 w-[500px] h-[500px] -translate-y-1/2 translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(41,151,255,0.04)_0%,transparent_50%)] pointer-events-none" />
+                <div className="block md:hidden absolute top-0 right-0 w-[500px] h-[500px] -translate-y-1/2 translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(0,255,148,0.04)_0%,transparent_50%)] pointer-events-none" />
 
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6 justify-between">
 
@@ -2660,7 +2660,7 @@ export default function Dashboard() {
 
                           <td className="py-4 px-6 text-right">
 
-                            <a href={inv.url} target="_blank" rel="noreferrer" className="inline-flex p-2 text-white/40 hover:text-[#2997ff] hover:bg-[#2997ff]/10 rounded-lg transition-colors">
+                            <a href={inv.url} target="_blank" rel="noreferrer" className="inline-flex p-2 text-white/40 hover:text-[#00FF94] hover:bg-[#00FF94]/10 rounded-lg transition-colors">
 
                               <Download className="w-4 h-4" />
 
@@ -2734,11 +2734,11 @@ export default function Dashboard() {
 
                   <button 
                     onClick={() => setActiveTab(item.id)}
-                    className={`relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl transition-all duration-300 transform hover:scale-115 hover:-translate-y-1.5 cursor-pointer active:scale-95 ${isActive ? 'bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-white/15 text-[#2997ff] shadow-lg' : 'text-white/45 hover:text-white'}`}
+                    className={`relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl transition-all duration-300 transform hover:scale-115 hover:-translate-y-1.5 cursor-pointer active:scale-95 ${isActive ? 'bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-white/15 text-[#00FF94] shadow-lg' : 'text-white/45 hover:text-white'}`}
                   >
                     <Icon className="w-5 h-5" />
                     {isActive && (
-                      <span className="absolute bottom-1.5 w-1 h-1 rounded-full bg-[#2997ff] shadow-[0_0_8px_rgba(41,151,255,0.8)]" />
+                      <span className="absolute bottom-1.5 w-1 h-1 rounded-full bg-[#00FF94] shadow-[0_0_8px_rgba(0,255,148,0.8)]" />
                     )}
                   </button>
                 </div>

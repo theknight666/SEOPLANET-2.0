@@ -260,8 +260,8 @@ body {
     --bg: #06060a;
     --surface: rgba(18, 18, 24, 0.45);
     --border: rgba(255, 255, 255, 0.08);
-    --neon: #2997ff; /* Apple clean blue */
-    --neon-cyan: #0071e3; /* Apple royal blue */
+    --neon: #00FF94; /* Site's clean green */
+    --neon-cyan: #00D67D; /* Darker green */
     
     font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 }
@@ -278,7 +278,7 @@ body {
 }
 
 .liquidglass-theme ::selection {
-    background: rgba(41, 151, 255, 0.3);
+    background: rgba(0, 255, 148, 0.3);
     color: #fff;
 }
 
@@ -314,9 +314,9 @@ body {
 
 /* Apple Messages Chat Bubble Overrides */
 .liquidglass-theme .chat-bubble-client {
-    background: linear-gradient(135deg, #0071e3 0%, #005bb5 100%);
+    background: linear-gradient(135deg, #00D67D 0%, #00ab64 100%);
     color: #ffffff;
-    box-shadow: 0 4px 15px rgba(0, 113, 227, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 214, 125, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .liquidglass-theme .chat-bubble-agent {
@@ -344,7 +344,7 @@ body {
     width: 600px;
     height: 600px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 113, 227, 0.14) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 255, 148, 0.08) 0%, transparent 70%);
     filter: blur(90px);
     pointer-events: none;
     z-index: 0;
