@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LogOut, LayoutDashboard, Users, PlusCircle, Loader2, Edit2, Save, X, Search, Trash2, CheckCircle2, Clock, PlayCircle } from "lucide-react";
 import axios from "axios";
-import { toast } from "sonner";
+import { Toaster, toast } from "sonner";
 import { useAuth } from "../../context/AuthContext";
 import Logo from "../../components/Logo";
 
