@@ -79,11 +79,11 @@ body {
     background: #05050A;
 }
 ::-webkit-scrollbar-thumb {
-    background: rgba(0, 255, 148, 0.25);
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 255, 148, 0.55);
+    background: rgba(255, 255, 255, 0.22);
 }
 
 /* Hide scrollbars on mobile for polished app feel */
