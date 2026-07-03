@@ -27,7 +27,8 @@ def deploy_to_hf(token, space_name):
         repo_id=space_name,
         repo_type="space",
         token=token,
-        commit_message="Deploy backend to Hugging Face Spaces"
+        commit_message="Deploy backend to Hugging Face Spaces",
+        ignore_patterns=[".env", "__pycache__", "*.pyc"]
     )
     
     print("Deployment completed successfully!")
