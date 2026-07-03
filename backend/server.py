@@ -91,7 +91,7 @@ async def get_current_client(token: str = Depends(oauth2_scheme)):
         raise credentials_exception
         
     onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'onboardingadmin')
-    portal_user = os.environ.get('PORTAL_ADMIN_USER', 'portaladmin')
+    portal_user = os.environ.get('PORTAL_ADMIN_USER', 'oportal')
 
     if username == onboarding_user:
         return {"username": username, "company_name": "Onboarding Command", "role": "admin"}
@@ -337,8 +337,8 @@ async def login(req: LoginRequest):
     try:
         onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'onboardingadmin')
         onboarding_pass = os.environ.get('ONBOARDING_ADMIN_PASS', 'onboardingpass2026')
-        portal_user = os.environ.get('PORTAL_ADMIN_USER', 'portaladmin')
-        portal_pass = os.environ.get('PORTAL_ADMIN_PASS', 'portalpass2026')
+        portal_user = os.environ.get('PORTAL_ADMIN_USER', 'oportal')
+        portal_pass = os.environ.get('PORTAL_ADMIN_PASS', 'oportal')
         
         is_admin = False
         valid_admin = False
@@ -457,7 +457,7 @@ async def get_all_clients(current_client: dict = Depends(get_current_client)):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
         
     onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'onboardingadmin')
-    portal_user = os.environ.get('PORTAL_ADMIN_USER', 'portaladmin')
+    portal_user = os.environ.get('PORTAL_ADMIN_USER', 'oportal')
     
     clients = await db.clients.find({
         "username": {"$nin": ["admin", onboarding_user, portal_user]}
@@ -518,11 +518,13 @@ async def update_client(username: str, payload: ClientUpdate, current_client: di
 async def delete_client(username: str, password: str = None, current_client: dict = Depends(get_current_client)):
     if current_client.get("role") != "admin":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
-    if username in ["admin", "onboardingadmin", "portaladmin"]:
+    onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'onboardingadmin')
+    portal_user = os.environ.get('PORTAL_ADMIN_USER', 'oportal')
+    if username in ["admin", onboarding_user, portal_user]:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Cannot delete admin accounts")
     
     onboarding_pass = os.environ.get('ONBOARDING_ADMIN_PASS', 'onboardingpass2026')
-    portal_pass = os.environ.get('PORTAL_ADMIN_PASS', 'portalpass2026')
+    portal_pass = os.environ.get('PORTAL_ADMIN_PASS', 'oportal')
     
     if password not in [onboarding_pass, portal_pass]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid admin password. Deletion cancelled.")
