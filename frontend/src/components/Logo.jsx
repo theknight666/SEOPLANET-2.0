@@ -7,7 +7,7 @@ export default function Logo({ className = "", hideVersion = false }) {
         <span className="absolute inset-0 rounded-full bg-[#00FF94]" />
         <span className="absolute inset-0 rounded-full bg-[#00FF94] animate-ping opacity-60" />
       </span>
-      <span className="font-display font-black tracking-tight text-white text-lg" style={{ fontFamily: "var(--font-unbounded), system-ui, sans-serif" }}>
+      <span className="tracking-tight text-white text-lg" style={{ fontFamily: "var(--font-unbounded), system-ui, sans-serif", fontWeight: 800 }}>
         SEO PLANET
       </span>
       {!hideVersion && (
