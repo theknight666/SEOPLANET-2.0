@@ -33,11 +33,22 @@ def deploy_to_hf(token, space_name):
     print("Deployment completed successfully!")
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
+    from dotenv import load_dotenv
+    load_dotenv(os.path.join(os.path.dirname(__file__), 'backend', '.env'))
+    load_dotenv()
+    
+    hf_token = os.environ.get('HF_TOKEN')
+    hf_space_name = os.environ.get('HF_SPACE_NAME', 'seoplanet/seoplanet-backend')
+    
+    if len(sys.argv) == 3:
+        hf_token = sys.argv[1]
+        hf_space_name = sys.argv[2]
+    elif len(sys.argv) == 2:
+        hf_space_name = sys.argv[1]
+        
+    if not hf_token:
+        print("Error: HF_TOKEN not found in environment or .env file.")
         print("Usage: python deploy_hf.py <HF_TOKEN> <SPACE_NAME>")
         sys.exit(1)
-    
-    hf_token = sys.argv[1]
-    hf_space_name = sys.argv[2]
-    
+        
     deploy_to_hf(hf_token, hf_space_name)
