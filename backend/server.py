@@ -90,8 +90,8 @@ async def get_current_client(token: str = Depends(oauth2_scheme)):
     except JWTError:
         raise credentials_exception
         
-    onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'onboardingadmin')
-    portal_user = os.environ.get('PORTAL_ADMIN_USER', 'oportal')
+    onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'oadmin')
+    portal_user = os.environ.get('PORTAL_ADMIN_USER', 'padmin')
 
     if username == onboarding_user:
         return {"username": username, "company_name": "Onboarding Command", "role": "admin"}
@@ -335,10 +335,10 @@ class LoginRequest(BaseModel):
 @api_router.post("/auth/login")
 async def login(req: LoginRequest):
     try:
-        onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'onboardingadmin')
-        onboarding_pass = os.environ.get('ONBOARDING_ADMIN_PASS', 'onboardingpass2026')
-        portal_user = os.environ.get('PORTAL_ADMIN_USER', 'oportal')
-        portal_pass = os.environ.get('PORTAL_ADMIN_PASS', 'oportal')
+        onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'oadmin')
+        onboarding_pass = os.environ.get('ONBOARDING_ADMIN_PASS', 'oadmin')
+        portal_user = os.environ.get('PORTAL_ADMIN_USER', 'padmin')
+        portal_pass = os.environ.get('PORTAL_ADMIN_PASS', 'padmin')
         
         is_admin = False
         valid_admin = False
@@ -456,8 +456,8 @@ async def get_all_clients(current_client: dict = Depends(get_current_client)):
     if current_client.get("role") != "admin":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
         
-    onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'onboardingadmin')
-    portal_user = os.environ.get('PORTAL_ADMIN_USER', 'oportal')
+    onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'oadmin')
+    portal_user = os.environ.get('PORTAL_ADMIN_USER', 'padmin')
     
     clients = await db.clients.find({
         "username": {"$nin": ["admin", onboarding_user, portal_user]}
@@ -518,13 +518,13 @@ async def update_client(username: str, payload: ClientUpdate, current_client: di
 async def delete_client(username: str, password: str = None, current_client: dict = Depends(get_current_client)):
     if current_client.get("role") != "admin":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
-    onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'onboardingadmin')
-    portal_user = os.environ.get('PORTAL_ADMIN_USER', 'oportal')
+    onboarding_user = os.environ.get('ONBOARDING_ADMIN_USER', 'oadmin')
+    portal_user = os.environ.get('PORTAL_ADMIN_USER', 'padmin')
     if username in ["admin", onboarding_user, portal_user]:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Cannot delete admin accounts")
     
-    onboarding_pass = os.environ.get('ONBOARDING_ADMIN_PASS', 'onboardingpass2026')
-    portal_pass = os.environ.get('PORTAL_ADMIN_PASS', 'oportal')
+    onboarding_pass = os.environ.get('ONBOARDING_ADMIN_PASS', 'oadmin')
+    portal_pass = os.environ.get('PORTAL_ADMIN_PASS', 'padmin')
     
     if password not in [onboarding_pass, portal_pass]:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid admin password. Deletion cancelled.")
