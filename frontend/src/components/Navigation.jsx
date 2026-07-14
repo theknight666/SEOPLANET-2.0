@@ -124,7 +124,7 @@ export default function Navigation() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden mx-4 sm:mx-6 mt-2 rounded-2xl glass p-6 pb-8 flex flex-col gap-4"
+            className="md:hidden mx-4 sm:mx-6 mt-2 rounded-2xl bg-[#05050A]/95 backdrop-blur-3xl border border-white/10 shadow-2xl p-6 pb-8 flex flex-col gap-4"
             data-testid="nav-mobile-menu"
           >
             {links.map((l) => (
