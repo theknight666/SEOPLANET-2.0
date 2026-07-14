@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, animate, useTransform } from "framer-motion";
 
 export default function Preloader({ loadingText = "Systems Loading" }) {
-  const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
+  const progress = useMotionValue(0);
+  const progressText = useTransform(progress, (v) => `${String(Math.round(v)).padStart(3, "0")}%`);
+  const progressWidth = useTransform(progress, (v) => `${v}%`);
 
   // Skip preloader entirely for PageSpeed/Lighthouse to get perfect LCP score
   const isBot = typeof window !== "undefined" && (window.IS_BOT || navigator.webdriver || /bot|googlebot|crawler|spider|robot|crawling|lighthouse|chrome-lighthouse|ptst/i.test(navigator.userAgent));
@@ -19,20 +21,13 @@ export default function Preloader({ loadingText = "Systems Loading" }) {
   }, []);
 
   useEffect(() => {
-    const start = performance.now();
-    const duration = 2000;
-    let raf;
-    const easeOut = (t) => 1 - Math.pow(1 - t, 4);
-    const tick = () => {
-      const now = performance.now();
-      const t = Math.min(1, (now - start) / duration);
-      setProgress(Math.round(easeOut(t) * 100));
-      if (t < 1) raf = requestAnimationFrame(tick);
-      else setTimeout(() => setDone(true), 400);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, []);
+    const controls = animate(progress, 100, {
+      duration: 2,
+      ease: [0.25, 1, 0.5, 1],
+      onComplete: () => setTimeout(() => setDone(true), 400),
+    });
+    return () => controls.stop();
+  }, [progress]);
 
   const handleExitComplete = () => {
     document.body.style.overflow = "";
@@ -139,15 +134,15 @@ export default function Preloader({ loadingText = "Systems Loading" }) {
               <span className="font-mono-pro text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-white/40">
                 {loadingText}
               </span>
-              <span className="font-mono-pro text-[9px] sm:text-[10px] tabular-nums text-white/40">
-                {String(progress).padStart(3, "0")}%
-              </span>
+              <motion.span className="font-mono-pro text-[9px] sm:text-[10px] tabular-nums text-white/40">
+                {progressText}
+              </motion.span>
             </div>
             {/* Neon Tube Container */}
             <div className="w-full h-[2px] bg-white/5 rounded-full relative overflow-visible">
               <motion.div
                 className="absolute inset-y-0 left-0 bg-[#00FF94] rounded-full shadow-[0_0_12px_#00FF94,0_0_24px_rgba(0,255,148,0.6)]"
-                style={{ width: `${progress}%` }}
+                style={{ width: progressWidth }}
               />
             </div>
           </motion.div>
