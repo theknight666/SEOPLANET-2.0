@@ -208,7 +208,6 @@ const PROJECTS = [
     quoteAuthor: "Founder, House Of The Knight",
     video: "https://cdn.pixabay.com/video/2019/04/10/22744-330560410_tiny.mp4",
     image: "/houseoftheknight.png",
-    iframeBlocked: true,
   },
 ];
 
@@ -377,7 +376,7 @@ function ExpandPanel({ p, open, isEven }) {
               </div>
             </div>
 
-            {/* Visual Content (Live Iframe Scaled, or Screenshot when framing is blocked) */}
+            {/* Visual Content (Live Iframe Scaled) */}
             <div 
               ref={containerRef}
               style={{
@@ -387,39 +386,17 @@ function ExpandPanel({ p, open, isEven }) {
             }}>
               
               {open && (
-                p.iframeBlocked && p.image ? (
-                  <a
-                    href={p.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`${p.title} preview`}
-                    style={{
-                      display: "block", width: "100%", height: "100%",
-                      borderRadius: "0 0 8px 8px", overflow: "hidden",
-                    }}
-                  >
-                    <img
-                      src={p.image}
-                      alt={`${p.title} preview`}
-                      style={{
-                        width: "100%", height: "100%", objectFit: "cover",
-                        display: "block", borderRadius: "0 0 8px 8px",
-                      }}
-                    />
-                  </a>
-                ) : (
-                  <iframe
-                    src={p.url}
-                    title={`${p.title} live preview`}
-                    loading="lazy"
-                    style={{
-                      position: "absolute", top: 0, left: 0,
-                      width: "1440px", height: "900px", border: "none",
-                      borderRadius: "0 0 8px 8px", background: "#fff",
-                      transform: `scale(${scale})`, transformOrigin: "top left"
-                    }}
-                  />
-                )
+                <iframe
+                  src={p.url}
+                  title={`${p.title} live preview`}
+                  loading="lazy"
+                  style={{
+                    position: "absolute", top: 0, left: 0,
+                    width: "1440px", height: "900px", border: "none",
+                    borderRadius: "0 0 8px 8px", background: "#fff",
+                    transform: `scale(${scale})`, transformOrigin: "top left"
+                  }}
+                />
               )}
 
               {/* Visit overlay */}
