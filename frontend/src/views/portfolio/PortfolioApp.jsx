@@ -190,6 +190,25 @@ const PROJECTS = [
     video: "https://cdn.pixabay.com/video/2020/05/21/40008-424750244_tiny.mp4",
     image: "/travel.png",
   },
+  {
+    index: "011",
+    title: "House Of The Knight",
+    subtitle: "Luxury Artisanal Fragrance E-Commerce",
+    category: "E-Commerce · Brand · Web",
+    year: "2026",
+    result: "Live",
+    resultLabel: "Production",
+    color: "#F2A900",
+    url: "https://houseoftheknight.com",
+    description:
+      "Bespoke luxury e-commerce storefront for House Of The Knight - an artisanal perfumery crafting small-batch, cold-macerated Eau de Parfum. Built with editorial serif typography, an interactive discovery set builder, smooth Lenis scrolling, and dual-gateway checkout via Razorpay and Stripe.",
+    tags: ["Next.js", "TailwindCSS", "Razorpay"],
+    scope: ["Brand Identity", "E-Commerce Dev", "Conversion Flow"],
+    quote: "The storefront captures the dark, bespoke character of our fragrances while making discovery set curation and checkout effortless.",
+    quoteAuthor: "Founder, House Of The Knight",
+    video: "https://cdn.pixabay.com/video/2019/04/10/22744-330560410_tiny.mp4",
+    image: "/houseoftheknight.png",
+  },
 ];
 
 /* ─────────────────────────────────────────────
